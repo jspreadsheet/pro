@@ -16,20 +16,21 @@ Impress your clients with a better user experience and a great dynamic interacti
 *   Thousands of successful user cases
 
 
-<h2>Technical Support</h2>
+<br>
 
-If you have any technical question you can raise a question here.
+<h2>Technical Support</h2>
+For technical support or questiosn you can use the following option:
 https://github.com/jexcel/jexcel-pro/issues
 
+<br>
 
 <h2>License & Pricing</h2>
 Jexcel Pro requires a license, for more information:
 https://jexcel.net/me/pricing
 
-
+<br>
 
 <h2>Start your free trial now</h2>
-
 After you create a free account, you will receive specific instructions on how to download and start using jExcel. There is no time limit for your evaluation period; you will need a valid license only when you are ready to deploy your applications.
 
 https://jexcel.net/me/register
