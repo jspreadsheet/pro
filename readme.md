@@ -19,14 +19,11 @@ Impress your clients with a better user experience and a great dynamic interacti
 <h2>Technical Support</h2>
 
 If you have any technical question you can raise a question here.
+https://github.com/jexcel/jexcel-pro/issues
 
 
-<h2>License</h2>
-
-Jexcel Pro requires a license
-
-<h2>Pricing</h2>
-
+<h2>License & Pricing</h2>
+Jexcel Pro requires a license, for more information:
 https://jexcel.net/me/pricing
 
 
