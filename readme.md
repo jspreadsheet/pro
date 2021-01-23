@@ -33,4 +33,4 @@ https://jexcel.net/me/pricing
 <h2>Start your free trial now</h2>
 After you create a free account, you will receive specific instructions on how to download and start using jExcel. There is no time limit for your evaluation period; you will need a valid license only when you are ready to deploy your applications.
 
-https://jexcel.net/me/register
+https://jexcel.net/me/register 
