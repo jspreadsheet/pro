@@ -1,4 +1,4 @@
-# Jexcel Pro v7: The JavaScript spreadsheet
+# Jspreasheet Pro v7: The JavaScript spreadsheet
 
 <img src='https://jexcel.net/templates/default/img/jexcel-spreadsheet.png' align="right" width="40%">
 
