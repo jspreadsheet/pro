@@ -27,7 +27,7 @@ https://github.com/jexcel/jexcel-pro/issues
 <br>
 
 <h2>License & Pricing</h2>
-Jexcel Pro requires a license, for more information:
+Jspreadsheet Pro requires a license, for more information:
 https://jexcel.net/me/pricing
 
 <br>
