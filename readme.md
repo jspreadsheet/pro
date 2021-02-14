@@ -1,8 +1,10 @@
 # Jspreasheet Pro v7: The JavaScript spreadsheet
 
+<b>Jexcel</b> has been renamed to <b>Jspreadsheet</b>
+
 <img src='https://jexcel.net/templates/default/img/jexcel-spreadsheet.png' align="right" width="40%">
 
-jExcel, a lightweight Vanilla JavaScript plugin, can help you create exceptional web-based interactive tables and spreadsheets. Compatible with most widely-used spreadsheet software, such as Excel or Google Spreadsheet, it offers users an unrivalled Excel-like user experience. It also works well with prominent modern frameworks and flexibly utilizes a large collection of events, extensions and configurations to meet different application requirements. Impress your clients with a better user experience and a great dynamic interactive data management tool.
+Jspreadsheet, a lightweight Vanilla JavaScript plugin, can help you create exceptional web-based interactive tables and spreadsheets. Compatible with most widely-used spreadsheet software, such as Excel or Google Spreadsheet, it offers users an unrivalled Excel-like user experience. It also works well with prominent modern frameworks and flexibly utilizes a large collection of events, extensions and configurations to meet different application requirements. Impress your clients with a better user experience and a great dynamic interactive data management tool.
 
 Impress your clients with a better user experience and a great dynamic interactive data management tool.
 
