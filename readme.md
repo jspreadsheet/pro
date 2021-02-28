@@ -22,7 +22,7 @@ Impress your clients with a better user experience and a great dynamic interacti
 
 <h2>Technical Support</h2>
 For technical support or questiosn you can use the following option:
-https://github.com/jexcel/jexcel-pro/issues
+https://github.com/jspreadsheet/pro/issues
 
 <br>
 
