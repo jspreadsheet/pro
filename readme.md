@@ -1,4 +1,4 @@
-# Jspreasheet Pro v7: The JavaScript spreadsheet
+# Jspreasheet Pro v8: The JavaScript spreadsheet
 
 <b>Jexcel</b> has been renamed to <b>Jspreadsheet</b>
 
