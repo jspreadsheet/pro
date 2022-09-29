@@ -36,3 +36,8 @@ https://jspreadsheet.com/me/pricing
 After you create a free account, you will receive specific instructions on how to download and start using Jspreadsheet. There is no time limit for your evaluation period; you will need a valid license only when you are ready to deploy your applications.
 
 https://jspreadsheet.com/me/register 
+
+
+## Tools
+- [jSuites - JavaScript plugins & Webcomponents](https://jsuites.net)
+- [LemonadeJS Reactive Library](https://lemonadejs.net)
