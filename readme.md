@@ -1,12 +1,12 @@
-# Jspreasheet Pro v8: The JavaScript spreadsheet
+# Jspreasheet Pro v9: The JavaScript spreadsheet
 
 <b>Jexcel</b> has been renamed to <b>Jspreadsheet</b>
 
 <img src='https://jspreadsheet.com/templates/v8/img/the-spreadsheet.png' align="right" width="40%">
 
-Jspreadsheet, a lightweight Vanilla JavaScript plugin, can help you create exceptional web-based interactive tables and spreadsheets. Compatible with most widely-used spreadsheet software, such as Excel or Google Spreadsheet, it offers users an unrivalled Excel-like user experience. It also works well with prominent modern frameworks and flexibly utilizes a large collection of events, extensions and configurations to meet different application requirements. Impress your clients with a better user experience and a great dynamic interactive data management tool.
+Jspreadsheet, a lightweight Vanilla JavaScript data grid plugin, can help you create exceptional web-based interactive tables and spreadsheets. Compatible with most widely-used spreadsheet software, such as Excel or Google Spreadsheet, it offers users an unrivalled Excel-like user experience. It also works well with prominent modern frameworks and flexibly utilizes a large collection of events, extensions and configurations to meet different application requirements. Impress your clients with a better user experience and a great dynamic interactive data management tool.
 
-Impress your clients with a better user experience and a great dynamic interactive data management tool.
+Impress your clients with a better user experience and a great dynamic interactive data grid management tool.
 
 *   Make rich and user-friendly web interfaces and applications
 *   Handle complicated data inputs with ease and convenience
@@ -16,6 +16,7 @@ Impress your clients with a better user experience and a great dynamic interacti
 *   Highly flexible and customizable
 *   Lightweight and simple to use
 *   Thousands of successful user cases
+*   Interactive JavaScript data grid
 
 
 <br>
@@ -35,7 +36,7 @@ https://jspreadsheet.com/me/pricing
 <h2>Start your free trial now</h2>
 After you create a free account, you will receive specific instructions on how to download and start using Jspreadsheet. There is no time limit for your evaluation period; you will need a valid license only when you are ready to deploy your applications.
 
-https://jspreadsheet.com/me/register 
+https://jspreadsheet.com/me/login?create
 
 
 ## Tools
