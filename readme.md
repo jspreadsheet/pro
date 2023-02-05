@@ -4,14 +4,14 @@
 
 <img src='https://jspreadsheet.com/templates/v8/img/the-spreadsheet.png' align="right" width="40%">
 
-Jspreadsheet, a lightweight Vanilla JavaScript data grid plugin, can help you create exceptional web-based interactive tables and spreadsheets. Compatible with most widely-used spreadsheet software, such as Excel or Google Spreadsheet, it offers users an unrivalled Excel-like user experience. It also works well with prominent modern frameworks and flexibly utilizes a large collection of events, extensions and configurations to meet different application requirements. Impress your clients with a better user experience and a great dynamic interactive data management tool.
+Jspreadsheet, a lightweight Vanilla JavaScript data grid plugin, can help you create exceptional web-based interactive tables and spreadsheets. Compatible with the most widely-used spreadsheet software, such as Excel or Google Spreadsheet, it offers users an unrivaled Excel-like user experience. It also works well with prominent modern frameworks and flexibly utilizes a large collection of events, extensions, and configurations to meet different application requirements. Impress your clients with a better user experience and dynamic interactive data management tool.
 
-Impress your clients with a better user experience and a great dynamic interactive data grid management tool.
+Impress your users with a better user experience and dynamic interactive data grid management tool.
 
 *   Make rich and user-friendly web interfaces and applications
 *   Handle complicated data inputs with ease and convenience
 *   Common shortcuts to move data from/to any other spreadsheet software
-*   Improve software user experience
+*   Improve the software user experience
 *   Create rich CRUDS and beautiful UI
 *   Highly flexible and customizable
 *   Lightweight and simple to use
@@ -22,7 +22,7 @@ Impress your clients with a better user experience and a great dynamic interacti
 <br>
 
 <h2>Technical Support</h2>
-For technical support or questiosn you can use the following option:
+For technical support or question you can use the following option:
 https://github.com/jspreadsheet/pro/issues
 
 <br>
