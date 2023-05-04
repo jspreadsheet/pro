@@ -40,7 +40,9 @@ https://jspreadsheet.com/me/login?create
 
 
 ## Tools
-- [LemonadeJS Reactive Library](https://lemonadejs.net/v3/)
+- [LemonadeJS v1 Reactive Library](https://lemonadejs.net/v1/)
+- [LemonadeJS v2 Reactive Library](https://lemonadejs.net/v2/)
+- [LemonadeJS v3 Reactive Library](https://lemonadejs.net/v3/)
 
 ## jSuites
 
