@@ -2,7 +2,7 @@
 
 <b>Jexcel</b> has been renamed to <b>Jspreadsheet</b>
 
-<img src='https://jspreadsheet.com/templates/v8/img/the-spreadsheet.png' align="right" width="40%">
+<img src='https://jspreadsheet.com/templates/default/img/the-spreadsheet.png' align="right" width="40%">
 
 Jspreadsheet, a lightweight Vanilla JavaScript data grid plugin, can help you create exceptional web-based interactive tables and spreadsheets. Compatible with the most widely-used spreadsheet software, such as Excel or Google Spreadsheet, it offers users an unrivaled Excel-like user experience. It also works well with prominent modern frameworks and flexibly utilizes a large collection of events, extensions, and configurations to meet different application requirements. Impress your clients with a better user experience and dynamic interactive data management tool.
 
