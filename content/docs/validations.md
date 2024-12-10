@@ -50,7 +50,7 @@ All available properties to define a validation
 | --------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | range: string       | A cell or a range of cells affect by the validation rules. Example: Sheet1!A1:A8 or a whole column as Sheet1!E:E                                                                       |
 | type: string        | number \| text \| date \| list \| textLength \| empty \| notEmpty                                                                                                                      |
-| Action: string      | warning \| reject \| format                                                                                                                                                            |
+| action: string      | warning \| reject \| format                                                                                                                                                            |
 | criteria: string    | '=' \| '!=' \| '>=' \| '>' \| '<=' \| '<' \| 'between' \| 'not between' \| 'valid date' \| 'valid email' \| 'valid url' \| 'contains' \| 'not contains' \| 'begins with' \| 'ends with' |
 | text: string        | Define the warning or reject message.                                                                                                                                                  |
 | allowBlank: boolean | Allow blank values. Only valid for warning messages                                                                                                                                    |
