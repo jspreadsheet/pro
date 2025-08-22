@@ -1,4 +1,5 @@
 # Use Case: Real-Time Collaboration Using Socket.io
+
 Jspreadsheet is a JavaScript plugin that helps developers integrate Excel-like controls on any web application. However, one significant challenge is the risk of data being overwritten when multiple users are working on the same section simultaneously.
 
 To combat this, we have developed a solution using socket.io to enable seamless, real-time updates across all users. This extension allows multiple participants to interact with the same dataset without any overlap or data loss, significantly reducing the risk of errors and enhancing collaborative efforts.
