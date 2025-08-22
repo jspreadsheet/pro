@@ -130,9 +130,10 @@ document.getElementById("showfirstbtn").onclick = () => spreadsheet[0].showRow(0
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -141,25 +142,25 @@ export default function App() {
     const spreadsheet = useRef();
     // Data
     const data = [
-        ['US', 'Cheese', 1000 ],
-        ['CA', 'Apples', 1200 ],
-        ['CA', 'Carrots', 2000 ],
-        ['BR', 'Oranges', 3800 ],
+        ['US', 'Cheese', 1000],
+        ['CA', 'Apples', 1200],
+        ['CA', 'Carrots', 2000],
+        ['BR', 'Oranges', 3800],
     ];
     // Render component
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet minDimensions={[6,6]} worksheetName="Row management" />
+                <Worksheet minDimensions={[6, 6]} worksheetName="Row management"/>
             </Spreadsheet>
-            <ol class='example' style={{ cursor: 'pointer' }}>
+            <ol class='example' style={{cursor: 'pointer'}}>
                 <li><a onClick={() => spreadsheet.current[0].insertRow()}>
                     Click to insert a new blank row at the end of the spreadsheet
                 </a></li>
                 <li><a onClick={() => spreadsheet.current[0].insertRow(2, 0, 1)}>
                     Click to insert two new blank rows at the beginning of the spreadsheet
                 </a></li>
-                <li><a onClick={() => spreadsheet.current[0].insertRow([{ data: [ '0.99', '1.22', '3.11', '2.21' ]}])}>
+                <li><a onClick={() => spreadsheet.current[0].insertRow([{data: ['0.99', '1.22', '3.11', '2.21']}])}>
                     Click to insert a new row with pre-populated values at the end of the spreadsheet
                 </a></li>
                 <li><a onClick={() => spreadsheet.current[0].deleteRow()}>
@@ -237,7 +238,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -268,14 +272,14 @@ jspreadsheet.setLicense('###license###');
             <li><a (click)="this.worksheets[0].showRow(0)">
                 Show the first row
             </a></li>
-        </ol>`;
+        </ol>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             data: [
@@ -388,7 +392,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -396,14 +403,14 @@ jspreadsheet.setLicense('###license###');
 // Create component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

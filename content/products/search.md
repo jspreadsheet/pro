@@ -49,7 +49,7 @@ $ npm install @jspreadsheet/search
 
 ## Examples
 
-### Enable the search and replace extension
+### Data Grid Search Extension
 
 Click in the search icon in the toolbar to open the search and replace features. 
 
@@ -61,8 +61,10 @@ Click in the search icon in the toolbar to open the search and replace features.
 <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@lemonadejs/studio/dist/style.min.css" type="text/css" />
 
 <script src="https://cdn.jsdelivr.net/npm/lemonadejs/dist/lemonade.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@lemonadejs/studio/dist/index.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/search/dist/index.min.js"></script>
 
 <div id="spreadsheet"></div>
@@ -99,8 +101,14 @@ document.getElementById("btn1").onclick = () => search(worksheets[0])
 ```
 ```jsx
 import React, { useRef } from "react";
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import studio from '@lemonadejs/studio';
 import search from "@jspreadsheet/search";
+
+import '@lemonadejs/studio/dist/style.css';
+import "jspreadsheet/dist/jspreadsheet.css";
+import "jsuites/dist/jsuites.css";
+import "@jsuites/css/dist/style.css";
 
 // Set the license
 const license = '###license###';
@@ -109,18 +117,17 @@ const license = '###license###';
 const extensions = { search };
 
 export default function App() {
-    // Worksheets
-    let worksheets: jspreadsheet.worksheetInstance = [];
     // Spreadsheet array of worksheets
-    const spreadsheet = useRef(worksheets);
+    const spreadsheet = useRef();
     // Render component
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license} extensions={extensions}>
                 <Worksheet
-                    csv="demo.csv"
-                    tableWidth="700px"
-                    tableHeight="400px"
+                    minDimensions={[5, 5]}
+                    csv={"/tests/demo.csv"}
+                    tableWidth={"700px"}
+                    tableHeight={"400px"}
                     tableOverflow
                 />
             </Spreadsheet>
@@ -139,6 +146,12 @@ export default function App() {
 <script>
 import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
 import search from "@jspreadsheet/search";
+import studio from '@lemonadejs/studio';
+
+import '@lemonadejs/studio/dist/style.css';
+import "jspreadsheet/dist/jspreadsheet.css";
+import "jsuites/dist/jsuites.css";
+import "@jsuites/css/dist/style.css";
 
 // Set the license
 const license = '###license###';
@@ -159,7 +172,7 @@ export default {
     data() {
         const worksheets = [{
             csv: "/tests/demo.csv",
-            tableOverflow: "true",
+            tableOverflow: true,
             tableWidth: "700px",
             tableHeight: "400px",
         }]
@@ -175,19 +188,17 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as search from "@jspreadsheet/search";
-
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import jspreadsheet from "jspreadsheet";
+import search from "@jspreadsheet/search";
 
 // Set your JSS license key (The following key only works for one day)
-jspreasdheet.setLicense('###license###');
+jspreadsheet.setLicense('###license###');
 
 // Extensions
 jspreadsheet.setExtensions({ search });
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
     <input type="button" value="Open search modal" onclick="search(this.worksheets[0])" />`
@@ -202,12 +213,10 @@ export class AppComponent {
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
                 minDimensions: [10, 10],
-                worksheets: [{
-                    csv: "/tests/demo.csv",
-                    tableOverflow: "true",
-                    tableWidth: "700px",
-                    tableHeight: "400px",
-                }]
+                csv: "https://jspreadsheet.com/tests/demo.csv",
+                tableOverflow: true,
+                tableWidth: "700px",
+                tableHeight: "400px",
             }]
         });
     }

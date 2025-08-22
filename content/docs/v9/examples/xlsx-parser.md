@@ -2,7 +2,7 @@ title: XLSX to JSON Jspreadsheet Parser
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, xlsx, xlsx parser, xlsx to jss converter
 description: This example shows how to convert a local XLSX file to Jspreadsheet using the XLSX parser extension.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # XLSX to JSON
 

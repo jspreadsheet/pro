@@ -8,6 +8,7 @@ Below are some simple tests using different technologies.
 
 ### Folder structure
 
+{.ignore-execution}
 ```jsx
 - src
   - components
@@ -31,32 +32,33 @@ Below are some simple tests using different technologies.
 
 ### Main file
 
+{.ignore-execution}
 ```jsx
-import { useEffect, useRef } from "react";
+import {useEffect, useRef} from "content/docs/react";
 import jspreadsheet from "jspreadsheet";
 
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
 jspreadsheet.setLicense(
-  "###license###"
+    "###license###"
 );
 
 function Jspreadsheet() {
-  const jssDiv = useRef(null);
-  const jssInstance = useRef(null);
+    const jssDiv = useRef(null);
+    const jssInstance = useRef(null);
 
-  useEffect(() => {
-    jssInstance.current = jspreadsheet(jssDiv.current, {
-      worksheets: [
-        {
-          data: [["teste 1", "teste 2", "teste 3"]],
-        },
-      ],
-    });
-  }, []);
+    useEffect(() => {
+        jssInstance.current = jspreadsheet(jssDiv.current, {
+            worksheets: [
+                {
+                    data: [["teste 1", "teste 2", "teste 3"]],
+                },
+            ],
+        });
+    }, []);
 
-  return <div ref={jssDiv}></div>;
+    return <div ref={jssDiv}></div>;
 }
 
 export default Jspreadsheet;
@@ -149,6 +151,7 @@ export class AppComponent {
 
 ### Test file
 
+{.ignore-execution}
 ```jsx
 import { render, screen } from "@testing-library/react";
 import Jspreadsheet from "./Jspreadsheet";
@@ -197,7 +200,7 @@ describe('AppComponent', () => {
 
 ### Test script
 
-
+{.ignore-execution}
 ```jsx
 "test": "react-scripts test"
 ```

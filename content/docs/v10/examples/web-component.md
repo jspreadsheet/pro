@@ -4,8 +4,6 @@ description: The example shows how to implement Jspreadsheet as a web-component.
 
 # Examples
 
-[Back to Examples](/docs/v10/examples "Back to the examples section")
-
 ## Spreadsheet webcomponent
 
 Create a web-based spreadsheet as a web component. 

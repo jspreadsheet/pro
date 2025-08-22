@@ -681,7 +681,7 @@ We are glad to bring you the latest jquery plugin version, with the following im
 
 ### Jexcel 1.5.1
 
-  * Spreadsheet data overflow and fixed headers. See an [example](/jexcel/examples/table-with-fixed-headers)
+  * Spreadsheet data overflow and fixed headers. 
   * Navigation improvements
 
 

@@ -134,8 +134,11 @@ export Grid {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as parser from "@jspreadsheet/parser";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+import parser from "@jspreadsheet/parser";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -143,7 +146,10 @@ jspreadsheet.setLicense('###license###');
 // Set the extensions
 jspreadsheet.setExtensions({ parser });
 
+
+
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
         <input #file type="file" name="file" style="display:none" />

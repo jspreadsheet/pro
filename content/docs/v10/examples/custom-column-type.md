@@ -12,6 +12,7 @@ A basic integration with a third party component.
 
 A custom column based on the [clockpicker plugin](https://weareoutman.github.io/clockpicker/) by weareoutman.
 
+{.ignore-execution}
 ```html
 <html>
 <script src="https://jspreadsheet.com/v10/jspreadsheet.js"></script>
@@ -21,9 +22,9 @@ A custom column based on the [clockpicker plugin](https://weareoutman.github.io/
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
 
-<link rel="stylesheet" type="text/css" href="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/clockpicker@0.0.7/dist/jquery-clockpicker.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clockpicker@0.0.7/dist/jquery-clockpicker.min.js"></script>
 
 <div id="custom"></div>
 

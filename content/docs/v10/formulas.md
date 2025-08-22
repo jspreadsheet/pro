@@ -212,9 +212,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -227,23 +228,23 @@ export default function App() {
 
     // Worksheet data
     const data = [
-        [ 'Crayons Crayola only (No Rose Art)', 2, 5.01, 0.01, '=B1*C1*(1-D1)' ],
-        [ 'Colored Pencils Crayola only', 2, 4.41, 0.02, '=B2*C2*(1-D2)' ],
-        [ 'Expo Dry-erase Markers Wide', 4, 3.00, 0.1, '=B3*C3*(1-D3)' ],
-        [ 'Index Cards Unlined', 3, 6.00, 0.03, '=B4*C4*(1-D4)' ],
-        [ 'Tissues', 10, 1.90, 0.01, '=B5*C5*(1-D5)' ],
-        [ 'Ziploc Sandwich-size Bags', 5, 1.00, 0.01, '=B6*C6*(1-D6)' ],
-        [ 'Thin Markers Crayola only', 2, 3.00, 0.02, '=B7*C7*(1-D7)' ],
-        [ 'Highlighter', 4, 1.20, 0.01, '=B8*C8*(1-D8)' ],
-        [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '', '=SUM(E1:E8)' ],
+        ['Crayons Crayola only (No Rose Art)', 2, 5.01, 0.01, '=B1*C1*(1-D1)'],
+        ['Colored Pencils Crayola only', 2, 4.41, 0.02, '=B2*C2*(1-D2)'],
+        ['Expo Dry-erase Markers Wide', 4, 3.00, 0.1, '=B3*C3*(1-D3)'],
+        ['Index Cards Unlined', 3, 6.00, 0.03, '=B4*C4*(1-D4)'],
+        ['Tissues', 10, 1.90, 0.01, '=B5*C5*(1-D5)'],
+        ['Ziploc Sandwich-size Bags', 5, 1.00, 0.01, '=B6*C6*(1-D6)'],
+        ['Thin Markers Crayola only', 2, 3.00, 0.02, '=B7*C7*(1-D7)'],
+        ['Highlighter', 4, 1.20, 0.01, '=B8*C8*(1-D8)'],
+        ['Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '', '=SUM(E1:E8)'],
     ]
 
     // Column definitions
     const columns = [
-        { type: 'text', title:'Product', width:'300' },
-        { type: 'text', title:'Qtd', width:'80', mask:'#.##0' },
-        { type: 'text', title:'Price', width:'100px', mask:'$ #.##0,00'  },
-        { type: 'text', title:'Discount', mask:'0.00%' },
+        {type: 'text', title: 'Product', width: '300'},
+        {type: 'text', title: 'Qtd', width: '80', mask: '#.##0'},
+        {type: 'text', title: 'Price', width: '100px', mask: '$ #.##0,00'},
+        {type: 'text', title: 'Discount', mask: '0.00%'},
         {
             type: 'number',
             title: 'Total',
@@ -259,15 +260,15 @@ export default function App() {
 
     // Render component
     return (
-        <Spreadsheet ref={spreadsheet} license={license} style={styles} toolbar>
-            <Worksheet data={data} columns={columns} style={style} worksheetName="Calculations" columnSorting />
+        <Spreadsheet ref={spreadsheet} license={license} style={styles} toolbar={true}>
+            <Worksheet data={data} columns={columns} style={style} worksheetName="Calculations" columnSorting/>
         </Spreadsheet>
     );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :style="styles">
+    <Spreadsheet ref="spreadsheet" :license="license" :styles="styles">
         <Worksheet :data="data" :columns="columns" :style="style" columnSorting worksheetName="Calculations" />
     </Spreadsheet>
 </template>
@@ -331,7 +332,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -345,7 +349,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             toolbar: true,
@@ -552,7 +556,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -566,7 +573,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -732,7 +739,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -746,7 +756,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -923,8 +933,11 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as formula from "@jspreadsheet/formula-pro";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -943,14 +956,14 @@ formula.setFormula({ COLORIZE })
 // Create the data grid component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -1098,8 +1111,11 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as formula from "@jspreadsheet/formula-pro";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -1110,14 +1126,14 @@ jspreadsheet.setExtensions({ formula });
 // Create the data grid component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

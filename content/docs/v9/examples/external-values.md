@@ -2,7 +2,7 @@ title: Using external values on the spreadsheet calculations
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, custom formulas, javascript formulas, excel-like formulas, spreadsheet-like formulas, external values
 description: How to use external values in the spreadsheet calculations.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # External values
 

@@ -2,7 +2,7 @@ title: Jspreadsheet Theme Editor
 keywords: Jspreadsheet, data grid, javascript, build excel-like applications, spreadsheet, theme editor, data grid customization, visual styling, color customization, dynamic themes
 description: Customize the styling of your Jspreadsheet data grid with the online theme editor. Create visually appealing designs to suit your needs.
 
-[Back to Documentation](/docs/v5)
+
 
 # Spreadsheet theme editor
 

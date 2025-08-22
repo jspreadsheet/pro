@@ -94,15 +94,20 @@ let grid = jspreadsheet(document.getElementById('spreadsheet'), {
 ```
 ```jsx
 import React, { useRef, useState } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
-import importer from "@jspreadsheet/bar";
+import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import bar from "@jspreadsheet/bar";
 
 // CSS dependencies
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
 import "@jspreadsheet/bar/dist/style.css";
+
 // Set the global license
 jspreadsheet.setLicense('###license###');
+
 // Set the extensions
 jspreadsheet.setExtensions({ bar });
+
 // Allow suggestions
 jspreadsheet.bar({ suggestions: true });
 
@@ -119,16 +124,29 @@ export default function App() {
 }
 ```
 ```vue
+<template>
+  <Spreadsheet ref="spreadsheet" :bar="true" :tabs="true" :toolbar="true">
+    <Worksheet :minDimensions="[10, 10]" />
+    <Worksheet :minDimensions="[10, 10]" />
+  </Spreadsheet>
+</template>
+
 <script>
 import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
 import bar from "@jspreadsheet/bar";
 
+
 // CSS dependencies
 import "@jspreadsheet/bar/dist/style.css";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+
 // Set the global license
 jspreadsheet.setLicense('###license###');
+
 // Set the extensions
 jspreadsheet.setExtensions({ bar });
+
 // Allow suggestions
 jspreadsheet.bar({ suggestions: true });
 
@@ -137,32 +155,24 @@ export default {
         Spreadsheet,
         Worksheet,
     },
-    template: `<Spreadsheet ref="spreadsheet" :bar="true" :tabs="true" :toolbar="true">
-        <Worksheet :minDimensions="[10,10]" />
-        <Worksheet :minDimensions="[10,10]" />
-    </Spreadsheet>`,
 }
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as importer from "@jspreadsheet/bar";
-
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
-import "@jspreadsheet/bar/dist/style.css";
+import jspreadsheet from "jspreadsheet";
+import bar from "@jspreadsheet/bar";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
+
 // Extensions
 jspreadsheet.setExtensions({ bar });
-// Allow suggestions
-jspreadsheet.bar({ suggestions: true });
 
 @Component({
-  selector: "app-root",
-  template: `<div #spreadsheet></div>`
+    standalone: true,
+    selector: "app-root",
+    template: `<div #spreadsheet></div>`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -172,15 +182,14 @@ export class AppComponent {
     ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-          bar: true,
-          tabs: true,
-          toolbar: true,
-          worksheets: [
-            {
-              minDimensions: [10, 10],
-              minDimensions: [10, 10],
-            }
-          ]
+            bar: true,
+            tabs: true,
+            toolbar: true,
+            worksheets: [
+                {
+                    minDimensions: [10, 10],
+                }
+            ]
         });
     }
 }

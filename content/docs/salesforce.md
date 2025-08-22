@@ -31,7 +31,7 @@ Before you begin integration, consider the following:
 
 ### Upload the Static Files
 
-1. Download the [Jspreadsheet Package](/v11/jspreasdheet.zip).
+1. Download the [Jspreadsheet Package](/v11/jspreadsheet.zip){target="_blank"}.
 2. Log into your Salesforce development account.
 3. Search for Static Resources.
 4. Create a new resource.
@@ -45,7 +45,7 @@ Before you begin integration, consider the following:
 
 ### Lightning Web Component
 
-To create a new web component we will use the [Lightning Studio Chrome Extension](https://chromewebstore.google.com/detail/lightning-studio/ehkpneicmpbdejpoancidgkejlkahjgo), following the steps:
+To create a new web component we will use the [Lightning Studio Chrome Extension](https://chromewebstore.google.com/detail/lightning-studio/ehkpneicmpbdejpoancidgkejlkahjgo){target="_blank"}, following the steps:
 
 1. Login to your salesforce developer account them click on the extension.
 
@@ -112,7 +112,9 @@ export default class Spreadsheet extends LightningElement {
                 loadStyle(this, jss + '/jsuites.css'),
                 loadStyle(this, jss + '/jspreadsheet.css'),
                 loadScript(this, jss + '/jsuites.js'),
-                loadScript(this, jss + '/jspreadsheet.js')
+                loadScript(this, jss + '/jspreadsheet.js'),
+                loadScript(this, jss + '/jszip.js'),
+                loadScript(this, jss + '/render.js')
             ]).then(() => {
                 this.create();
             })
@@ -123,7 +125,12 @@ export default class Spreadsheet extends LightningElement {
 
     create() {
         // Declare the license
-        jspreadsheet.setLicense(licenseKey);
+        jspreadsheet.setLicense({
+            clientId: 'your-client-id',
+            licenseKey: licenseKey,
+        });
+        // Declare the render extension
+        jspreadsheet.setExtensions({ render });
 
         // Create the spreadsheet
         this.spreadsheet = jspreadsheet(this.template.firstChild, {

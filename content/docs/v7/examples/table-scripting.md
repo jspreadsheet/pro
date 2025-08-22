@@ -2,7 +2,6 @@ title: Customize the spreadsheet via javascript
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, table scripting
 description: Learn how to tackle conditional actions in your spreadsheet based on the available data within it.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Data Grid scripting and customizations
 

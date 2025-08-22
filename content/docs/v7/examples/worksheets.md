@@ -2,7 +2,6 @@ title: Grouping multiple spreadsheets in worksheets tabs
 keywords: Jspreadsheet, Jexcel, javascript, multiple spreadsheets, tabs, worksheets
 description: How to enable new worksheets to be added on the fly on the online spreadsheets.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Spreadsheet worksheets
 

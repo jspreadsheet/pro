@@ -2,8 +2,6 @@ title: Spreadsheet Programmatically Changes
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, grid, programmatically changes on your table
 description: How to interact with your Jspreadsheet and tables via its native methods.
 
-[Back to Documentation](/docs/v7 "Back to the documentation section")
-
 # Programmatically changes
 
 Jspreadsheet has a comprehensive number of native methods to programmatically interact with your javascript spreadsheet and its data.
@@ -11,7 +9,6 @@ Jspreadsheet has a comprehensive number of native methods to programmatically in
 [Go to a working example](/docs/v7/examples/programmatically-updates)
 
  
-
 ## General Methods
 
 | Method                                                                                                                                                                                                                                                                   | Example                                                                        |

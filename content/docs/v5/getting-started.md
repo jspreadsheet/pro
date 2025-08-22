@@ -2,7 +2,7 @@ title: Getting started with Jspreadsheet Pro Version 5
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet, table, grid
 description: Getting started with Jspreadsheet Spreadsheet version 5. Learning the basics, create instances, and more about the general spreadsheet configuration.
 
-[Back to Documentation](/docs/v5)
+
 
 # Getting started
 
@@ -53,7 +53,7 @@ Create a dynamic Jspreadsheet table from a javascript array:
 <script>
 data = [
     ['Mazda', 2001, 2000],
-    ['Pegeout', 2010, 5000],
+    ['Peugeot', 2010, 5000],
     ['Honda Fit', 2009, 3000],
     ['Honda CRV', 2010, 6000],
 ];
@@ -508,7 +508,7 @@ The follow example will create a data table with a minimum number of ten columns
 <script>
 let data3 = [
     ['Mazda', 2001, 2000],
-    ['Pegeout', 2010, 5000],
+    ['Peugeot', 2010, 5000],
     ['Honda Fit', 2009, 3000],
     ['Honda CRV', 2010, 6000],
 ];

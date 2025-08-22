@@ -35,16 +35,17 @@ The following methods interact with the rows programmatically.
 
 There are several events related to the row in your spreadsheet. There are a few <b>onbefore</b> events to intercept, validate or cancel a user action.
 
-| Event                 | Description                                                                                                                                                     |
-| ----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| oncreaterow           | After a new row is inserted.<br/>`oncreaterow(worksheet: Object, rowNumber: Number, tr: HTMLElement)`                                                           |
-| onbeforeinsertrow     | Before a new row is inserted. Return false to cancel the user action.<br/>`onbeforeinsertrow(worksheet: Object, rows: Object[]) => Boolean \| Object[] \| void` |
-| oninsertrow           | After a new row is inserted.<br/>`oninsertrow(worksheet: Object, rows: Object[]) => void`                                                                       |
-| onbeforedeleterow     | Before a row is deleted. Return false to cancel the user action.<br/>`onbeforedeleterow(worksheet: Object, rows: Number[]) => Number[] \| Boolean \| void`      |
-| ondeleterow           | After a row is deleted.<br/>`ondeleterow(worksheet: Object, rows: Number[]) => void`                                                                            |
-| onmoverow             | After a row is moved to a new position.<br/>`onmoverow(worksheet: Object, origin: Number, destination: Number) => void`                                         |
-| onresizerow           | After the height changes for one or more rows.<br/>`onresizerow(worksheet: Object, row: Mixed, height: Mixed, oldHeight: Mixed) => void`                        |
-| onchangerowvisibility | When the visibility of rows changes.<br/>`onchangerowvisibility(worksheet: Object, state: boolean: affected: []]) => void`                                      |
+| Event                 | Description                                                                                                                                                                       |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| oncreaterow           | After a new row is inserted.<br/>`oncreaterow(worksheet: Object, rowNumber: Number, tr: HTMLElement)`                                                                             |
+| onbeforeinsertrow     | Before a new row is inserted. Return false to cancel the user action.<br/>`onbeforeinsertrow(worksheet: Object, rows: Object[]) => Boolean \| Object[] \| void`                   |
+| oninsertrow           | After a new row is inserted.<br/>`oninsertrow(worksheet: Object, rows: Object[]) => void`                                                                                         |
+| onbeforedeleterow     | Before a row is deleted. Return false to cancel the user action.<br/>`onbeforedeleterow(worksheet: Object, rows: Number[]) => Number[] \| Boolean \| void`                        |
+| ondeleterow           | After a row is deleted.<br/>`ondeleterow(worksheet: Object, rows: Number[]) => void`                                                                                              |
+| onbeforemoverow       | Before a row is moved to a new position. Return false to cancel the user action.<br/>`onbeforemoverow(worksheet: Object, origin: Number, destination: Number) => void \| boolean` |
+| onmoverow             | After a row is moved to a new position.<br/>`onmoverow(worksheet: Object, origin: Number, destination: Number) => void`                                                           |
+| onresizerow           | After the height changes for one or more rows.<br/>`onresizerow(worksheet: Object, row: Mixed, height: Mixed, oldHeight: Mixed) => void`                                          |
+| onchangerowvisibility | When the visibility of rows changes.<br/>`onchangerowvisibility(worksheet: Object, state: boolean: affected: []]) => void`                                                        |
 
  
 
@@ -132,8 +133,8 @@ document.getElementById("btn7").onclick = () => spreadsheet[0].showRow(0);
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -144,72 +145,111 @@ export default function App() {
     const spreadsheet = useRef();
     // Data
     const data = [
-        ['US', 'Cheese', 1000 ],
-        ['CA', 'Apples', 1200 ],
-        ['CA', 'Carrots', 2000 ],
-        ['BR', 'Oranges', 3800 ],
+        ['US', 'Cheese', 1000],
+        ['CA', 'Apples', 1200],
+        ['CA', 'Carrots', 2000],
+        ['BR', 'Oranges', 3800],
     ];
     // Render component
     return (
         <>
-            <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet minDimensions={[6,6]} worksheetName="Row management" />
-            </Spreadsheet>
-            <ol class='example' style={{ cursor: 'pointer' }}>
-                <li><a onClick={() => spreadsheet.current[0].insertRow()}>
-                    Click to insert a new blank row at the end of the spreadsheet
-                </a></li>
-                <li><a onClick={() => spreadsheet.current[0].insertRow(2, 0, 1)}>
-                    Click to insert two new blank rows at the beginning of the spreadsheet
-                </a></li>
-                <li><a onClick={() => spreadsheet.current[0].insertRow([{ data: [ '0.99', '1.22', '3.11', '2.21' ]}])}>
-                    Click to insert a new row with pre-populated values at the end of the spreadsheet
-                </a></li>
-                <li><a onClick={() => spreadsheet.current[0].deleteRow()}>
-                    Click to delete the last row
-                </a></li>
-                <li><a onClick={() => spreadsheet.current[0].moveRow(0, 2)}>
-                    Click to move the first row to the third position
-                </a></li>
-                <li><a onClick={() => spreadsheet.current[0].hideRow(0)}>
-                    Hide the first row
-                </a></li>
-                <li><a onClick={() => spreadsheet.current[0].showRow(0)}>
-                    Show the first row
-                </a></li>
-            </ol>
+          <Spreadsheet ref={spreadsheet} license={license}>
+            <Worksheet minDimensions={[6, 6]} data={data} worksheetName="Row management" />
+          </Spreadsheet>
+    
+          <div style={{ marginTop: "15px" }}>
+            <button
+              onClick={() => spreadsheet.current[0].insertRow()}
+              style={{ marginRight: "5px" }}
+            >
+              Click to insert a new blank row at the end of the spreadsheet
+            </button>
+    
+            <button
+              onClick={() => spreadsheet.current[0].insertRow(2, 0, 1)}
+              style={{ marginRight: "5px" }}
+            >
+              Click to insert two new blank rows at the beginning of the spreadsheet
+            </button>
+    
+            <button
+              onClick={() =>
+                spreadsheet.current[0].insertRow([
+                  { data: ["0.99", "1.22", "3.11", "2.21"] },
+                ])
+              }
+              style={{ marginRight: "5px" }}
+            >
+              Click to insert a new row with pre-populated values at the end of the spreadsheet
+            </button>
+    
+            <button
+              onClick={() => spreadsheet.current[0].deleteRow()}
+              style={{ marginRight: "5px" }}
+            >
+              Click to delete the last row
+            </button>
+    
+            <button
+              onClick={() => spreadsheet.current[0].moveRow(0, 2)}
+              style={{ marginRight: "5px" }}
+            >
+              Click to move the first row to the third position
+            </button>
+    
+            <button
+              onClick={() => spreadsheet.current[0].hideRow(0)}
+              style={{ marginRight: "5px" }}
+            >
+              Hide the first row
+            </button>
+    
+            <button onClick={() => spreadsheet.current[0].showRow(0)}>
+              Show the first row
+            </button>
+          </div>
         </>
-    );
-}
+      );
+    }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license">
-        <Worksheet :data="data" />
-    </Spreadsheet>
-    <ol class='example' style='cursor:pointer;'>
-        <li><a @click="this.$refs.spreadsheet.current[0].insertRow()">
-            Click to insert a new blank row at the end of the spreadsheet
-        </a></li>
-        <li><a @click="this.$refs.spreadsheet.current[0].insertRow(2, 0, 1)">
-            Click to insert two new blank rows at the beginning of the spreadsheet
-        </a></li>
-        <li><a @click="this.$refs.spreadsheet.current[0].insertRow([{ data: [ '0.99', '1.22', '3.11', '2.21' ]}])">
-            Click to insert a new row with pre-populated values at the end of the spreadsheet
-        </a></li>
-        <li><a @click="this.$refs.spreadsheet.current[0].deleteRow()">
-            Click to delete the last row
-        </a></li>
-        <li><a @click="this.$refs.spreadsheet.current[0].moveRow(0, 2)">
-            Click to move the first row to the third position
-        </a></li>
-        <li><a @click="this.$refs.spreadsheet.current[0].hideRow(0)">
-            Hide the first row
-        </a></li>
-        <li><a @click="this.$refs.spreadsheet.current[0].showRow(0)">
-            Show the first row
-        </a></li>
-    </ol>
+  <Spreadsheet ref="spreadsheet" :license="license">
+    <Worksheet :data="data" />
+  </Spreadsheet>
+
+  <div style="margin-top: 15px;">
+    <button @click="$refs.spreadsheet.current[0].insertRow()" style="margin: 5px;">
+      Click to insert a new blank row at the end of the spreadsheet
+    </button>
+
+    <button @click="$refs.spreadsheet.current[0].insertRow(2, 0, 1)" style="margin: 5px;">
+      Click to insert two new blank rows at the beginning of the spreadsheet
+    </button>
+
+    <button
+      @click="$refs.spreadsheet.current[0].insertRow([{ data: ['0.99', '1.22', '3.11', '2.21'] }])"
+      style="margin: 5px;"
+    >
+      Click to insert a new row with pre-populated values at the end of the spreadsheet
+    </button>
+
+    <button @click="$refs.spreadsheet.current[0].deleteRow()" style="margin: 5px;">
+      Click to delete the last row
+    </button>
+
+    <button @click="$refs.spreadsheet.current[0].moveRow(0, 2)" style="margin: 5px;">
+      Click to move the first row to the third position
+    </button>
+
+    <button @click="$refs.spreadsheet.current[0].hideRow(0)" style="margin: 5px;">
+      Hide the first row
+    </button>
+
+    <button @click="$refs.spreadsheet.current[0].showRow(0)" style="margin: 5px;">
+      Show the first row
+    </button>
+  </div>
 </template>
 
 <script>
@@ -242,26 +282,27 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
         <ol class='example' style='cursor:pointer;'>
             <li><a (click)="this.worksheets[0].insertRow()">
                 Click to insert a new blank row at the end of the spreadsheet
             </a></li>
-            <li><a (click)="this.worksheets[0].insertRow(2, 0, 1)">
+            <li><a (click)="this.worksheets[0].insertRow(2, 0, true)">
                 Click to insert two new blank rows at the beginning of the spreadsheet
             </a></li>
-            <li><a (click)="this.worksheets[0].insertRow([{ data: [ '0.99', '1.22', '3.11', '2.21' ]}])">
-                Click to insert a new row with pre-populated values at the end of the spreadsheet
+            <li><a (click)=" this.worksheets[0].insertRow([{ data: ['0.99', '1.22', '3.11', '2.21'], options: {}}])">
+                 Click to insert a new row with pre-populated values at the end of the spreadsheet
             </a></li>
-            <li><a (click)="this.worksheets[0].deleteRow()">
+            <li><a (click)="this.worksheets[0].deleteRow(-1)">
                 Click to delete the last row
             </a></li>
             <li><a (click)="this.worksheets[0].moveRow(0, 2)">
@@ -273,26 +314,28 @@ jspreadsheet.setLicense('###license###');
             <li><a (click)="this.worksheets[0].showRow(0)">
                 Show the first row
             </a></li>
-        </ol>`;
+        </ol>`,
 })
 export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    // Worksheets
-    worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngOnInit() {
-        // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+    @ViewChild("spreadsheet") spreadsheet!: ElementRef;
+    worksheets!: jspreadsheet.worksheetInstance[];
+  
+    ngAfterViewInit() {
+      this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+        worksheets: [
+          {
             data: [
-                ['US', 'Cheese', 1000 ],
-                ['CA', 'Apples', 1200 ],
-                ['CA', 'Carrots', 2000 ],
-                ['BR', 'Oranges', 3800 ],
+              ["US", "Cheese", 1000],
+              ["CA", "Apples", 1200],
+              ["CA", "Carrots", 2000],
+              ["BR", "Oranges", 3800],
             ],
-            worksheetName: 'Row management',
-        });
+            worksheetName: "Row management",
+          },
+        ],
+      });
     }
-}
+  }
 ```
  
 
@@ -345,27 +388,61 @@ import "jspreadsheet/dist/jspreadsheet.css";
 const license = '###license###';
 
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Adding a new column event
-    const onbeforeinsertrow = (worksheet, rows) => {
-        return rows.map(function(v) {
-            return { ...v, data:[1,2,3] }
-        });
-    };
-    // Render component
-    return (
-        <Spreadsheet ref={spreadsheet} license={license} onbeforeinsertrow={onbeforeinsertrow}>
-            <Worksheet minDimensions={[4,4]} />
-        </Spreadsheet>
-    );
+  const spreadsheet = useRef();
+
+  // Intercepta a inserção de linha e adiciona dados nela
+  const onbeforeinsertrow = (worksheet, rows) => {
+    console.log("Intercepting row insertion and adding some data in it...");
+    return rows.map((v) => {
+      return { ...v, data: [1, 2, 3] };
+    });
+  };
+
+  // Botão para inserir nova linha
+  const insertRow = () => {
+    if (spreadsheet.current) {
+      spreadsheet.current[0].insertRow();
+    }
+  };
+
+  return (
+    <>
+      <Spreadsheet
+        ref={spreadsheet}
+        license={license}
+        onbeforeinsertrow={onbeforeinsertrow}
+      >
+        <Worksheet minDimensions={[4, 4]} />
+      </Spreadsheet>
+
+      <p>
+        <input
+          type="button"
+          value="Click to insert a new blank row at the end of the spreadsheet"
+          onClick={insertRow}
+        />
+      </p>
+    </>
+  );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :onbeforeinsertrow="onbeforeinsertrow">
+    <Spreadsheet
+        ref="spreadsheet"
+        :license="license"
+        :onbeforeinsertrow="onbeforeinsertrow"
+    >
         <Worksheet :minDimensions="[4,4]" />
     </Spreadsheet>
+
+    <p>
+        <input
+            type="button"
+            value="Click to insert a new blank row at the end of the spreadsheet"
+            @click="insertRow"
+        />
+    </p>
 </template>
 
 <script>
@@ -380,40 +457,49 @@ export default {
         Spreadsheet,
         Worksheet,
     },
-    methods: {
-        // Adding a new column event
-        onbeforeinsertrow(worksheet, rows) {
-            return rows.map(function(v) {
-                return { ...v, data:[1,2,3] }
-            });
-        };
-    },
     data() {
         return {
             license,
         };
-    }
-}
+    },
+    methods: {
+        // Interceptando inserção de linha
+        onbeforeinsertrow(worksheet, rows) {
+            console.log("Intercepting row insertion and adding some data in it...");
+            return rows.map((v) => {
+                return { ...v, data: [1, 2, 3] };
+            });
+        },
+        // Inserindo uma linha no final
+        insertRow() {
+            this.$refs.spreadsheet.current[0].insertRow();
+        },
+    },
+};
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `
+    <div #spreadsheet></div>
+    <p><input type="button" value="Click to insert a new blank row at the end of the spreadsheet" (click)="handleClick()"></p>
+`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -421,10 +507,14 @@ export class AppComponent {
             }],
             onbeforeinsertrow: function(worksheet, rows) {
                 return rows.map(function(v) {
-                    return { ...v, data:[1,2,3] }
+                    return { ...v, data:[1,2,3],options: {} }
                 });
             }
         });
+    }
+
+    handleClick() {
+        this.worksheets[0].insertRow()
     }
 }
 ```

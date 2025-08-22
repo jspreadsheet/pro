@@ -133,15 +133,17 @@ export default function App() {
 
     // Create spreadsheets
     return (
-        <Spreadsheet ref={summaryRef} worksheets={summary.worksheets} />
-        <Spreadsheet ref={productsRef} worksheets={products.worksheets} />
+        <> 
+            <Spreadsheet ref={productsRef} worksheets={products.worksheets} />
+            <Spreadsheet ref={summaryRef} worksheets={summary.worksheets} />
+        </>
     );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet :worksheets="summary" />
     <Spreadsheet :worksheets="products" />
+    <Spreadsheet :worksheets="summary" />
 </template>
 
 <script>
@@ -241,72 +243,79 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as formula from "@jspreadsheet/formula-pro";
+import jspreadsheet from "jspreadsheet";
+
+jspreadsheet.setLicense('###license###')
 
 // Create the data grid component
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #summary></div>
         <div #products></div>
-    `;
+    `,
 })
 export class AppComponent {
-    @ViewChild("summary") summary: ElementRef;
-    @ViewChild("products") products: ElementRef;
-    // Worksheets
-    worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngOnInit() {
-        // Stop calculations to make sure all data grid are ready and loaded
-        jspreadsheet.calculations(false);
+  @ViewChild('summary') summary: ElementRef;
+  @ViewChild('products') products: ElementRef;
+  // Worksheets
+  worksheets: jspreadsheet.worksheetInstance[];
+  // Create a new data grid
+  ngAfterViewInit() {
+    // Stop calculations to make sure all data grid are ready and loaded
+    jspreadsheet.calculations(false);
 
-        // Create summary spreadsheet
-        jspreadsheet(this.summary.nativeElement, {
-            worksheets: [{
-                data: [
-                    [ 'Crayons Crayola only (No Rose Art)', 2, 5.13, '=B1*C1' ],
-                    [ 'Colored Pencils Crayola only', 2, 4.41, '=B2*C2' ],
-                    [ 'Expo Dry-erase Markers Wide', 4, 3.00, '=B3*C3' ],
-                    [ 'Index Cards Unlined', 3, 6.00, '=B4*C4' ],
-                    [ 'Tissues', 10, 1.90, '=B5*C5' ],
-                    [ 'Ziploc Sandwich-size Bags', 5, 1.00, '=B6*C6' ],
-                    [ 'Thin Markers Crayola only', 2, 3.00, '=B7*C7' ],
-                    [ 'Highlighter', 4, 1.20, '=B8*C8' ],
-                    [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '=SUM(D1:D8)' ],
-                ],
-                columns: [
-                    { type: 'text', title:'Product', width:'300' },
-                    { type: 'number', title:'Qtd', width:'80' },
-                    { type: 'number', title:'Price', width:'100' },
-                    { type: 'number', title:'Total', width:'100' },
-                ],
-                worksheetName: 'Products',
-                columnSorting: false,
-            }],
-        });
+    // Create summary spreadsheet
+    jspreadsheet(this.summary.nativeElement, {
+      worksheets: [
+        {
+          data: [
+            ['Crayons Crayola only (No Rose Art)', 2, 5.13, '=B1*C1'],
+            ['Colored Pencils Crayola only', 2, 4.41, '=B2*C2'],
+            ['Expo Dry-erase Markers Wide', 4, 3.0, '=B3*C3'],
+            ['Index Cards Unlined', 3, 6.0, '=B4*C4'],
+            ['Tissues', 10, 1.9, '=B5*C5'],
+            ['Ziploc Sandwich-size Bags', 5, 1.0, '=B6*C6'],
+            ['Thin Markers Crayola only', 2, 3.0, '=B7*C7'],
+            ['Highlighter', 4, 1.2, '=B8*C8'],
+            ['Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '=SUM(D1:D8)'],
+          ],
+          columns: [
+            { type: 'text', title: 'Product' },
+            { type: 'number', title: 'Qtd' },
+            { type: 'number', title: 'Price' },
+            { type: 'number', title: 'Total' },
+          ],
+          worksheetName: 'Products',
+          columnSorting: false,
+        },
+      ],
+    });
 
-        // Create products spreadsheet
-        jspreadsheet(this.products.nativeElement, {
-            worksheets: [{
-                data: [
-                    [ 'Price', '=SUM(Products!D1:D8)'],
-                    [ 'Discount', 0.1],
-                    [ 'Total', '=B1*(1-B2)'],
-                ],
-                columns: [
-                    { type: 'text', title:'Summary', width:'300' },
-                    { type: 'number', title:'Total', width:'200' },
-                ],
-                cells: { B2: { type:'percent' } },
-                columnSorting: false,
-            }],
-        });
+    // Create products spreadsheet
+    jspreadsheet(this.products.nativeElement, {
+      worksheets: [
+        {
+          data: [
+            ['Price', '=SUM(Products!D1:D8)'],
+            ['Discount', 0.1],
+            ['Total', '=B1*(1-B2)'],
+          ],
+          columns: [
+            { type: 'text', title: 'Summary' },
+            { type: 'number', title: 'Total' },
+          ],
+          cells: { B2: { type: 'percent' } },
+          columnSorting: false,
+        },
+      ],
+    });
 
-        // Release the data grid calculations
-        jspreadsheet.calculations(true);
-    }
+    // Release the data grid calculations
+    jspreadsheet.calculations(true);
+  }
 }
+
 ```
  

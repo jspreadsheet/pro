@@ -25,10 +25,10 @@ $ npm install jspreadsheet@11
 // Alternatively, you can use one of our dedicated wrappers as below. 
 
 // Install the react wrapper
-$ npm install jspreadsheet/react
+$ npm install @jspreadsheet/react@11
 
 // Install the vue wrapper
-$ npm install jspreadsheet/vue
+$ npm install @jspreadsheet/vue@11
 ```
 
 ### CDN
@@ -61,15 +61,15 @@ This software requires a license. You can generate a certificate from your profi
 
 ### Global methods and properties
 
-| Method                                  | Description                                                                                                                               |
-|-----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
-| jspreadsheet                            | Create a new spreadsheet.<br/>`jspreadsheet(el: HTMLElement\|null, options: Object)`                                                      |
-| jspreadsheet.destroy                    | Destroy a given spreadsheet.<br/>`jspreadsheet.destroy(ident: HTMLElement\|object, events: Boolean)`                                      |
-| jspreadsheet.destroyAll                 | Destroy all spreadsheets in all namespaces.<br/>`jspreadsheet.destroyAll()`                                                               |
-| jspreadsheet.setExtensions              | Bind extensions to Jspreadsheet, null to remove all extensions.<br/>`jspreasheet.setExtensions(extensions: object\| null)`                |
-| jspreadsheet.setLicense                 | Set the license string to your jspreadsheet application.<br/>`jspreadsheet.setLicnese(license: string)`                                   |
-| jspreadsheet.setDictionary              | Translate Jspreadsheet components and extensions.<br/>`jspreadsheet.setDictionary(translations: object)`                                  |
-| jspreadsheet.getWorksheetInstanceByName | Get a worksheet instance by name and namespace.<br/>`jspreadsheet.getWorksheetInstanceByName(worksheetName: string, namespace?: string)`  |
+| Method Description                                                                                                                       |
+|------------------------------------------------------------------------------------------------------------------------------------------|
+| Create a new spreadsheet.<br/>`jspreadsheet(el: HTMLElement\|null, options: Object)`                                                     |
+| Destroy a given spreadsheet.<br/>`jspreadsheet.destroy(ident: HTMLElement\|object, events: Boolean)`                                     |
+| Destroy all spreadsheets in all namespaces.<br/>`jspreadsheet.destroyAll()`                                                              |
+| Bind extensions to Jspreadsheet, null to remove all extensions.<br/>`jspreasheet.setExtensions(extensions: object\| null)`               |
+| Set the license string to your jspreadsheet application.<br/>`jspreadsheet.setLicnese(license: string)`                                  |
+| Translate Jspreadsheet components and extensions.<br/>`jspreadsheet.setDictionary(translations: object)`                                 |
+| Get a worksheet instance by name and namespace.<br/>`jspreadsheet.getWorksheetInstanceByName(worksheetName: string, namespace?: string)` |
 
 
 ## Examples
@@ -112,9 +112,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -132,15 +133,15 @@ export default function App() {
         ['Honda CRV', 2010, 6000],
     ];
     const columns = [
-        { title:'Model', width:'300px' },
-        { title:'Year', width:'80px' },
-        { title:'Price', width:'100px' },
+        {title: 'Model', width: '300px'},
+        {title: 'Year', width: '80px'},
+        {title: 'Price', width: '100px'},
     ];
 
     // Render data grid component
     return (
         <Spreadsheet ref={spreadsheet} license={license}>
-            <Worksheet data={data} columns={columns} />
+            <Worksheet data={data} columns={columns}/>
         </Spreadsheet>
     );
 }
@@ -193,32 +194,33 @@ import jspreadsheet from "jspreadsheet";
 jspreadsheet.setLicense('###license###');
 
 @Component({
-    selector: "app-root",
-    template: `<div #spreadsheet></div>`
+  selector: 'app-root',
+  standalone: true,
+  template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    // Worksheets
-    worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngOnInit() {
-        // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [{
-                data: [
-                    ['Mazda', 2001, 2000],
-                    ['Peugeot', 2010, 5000],
-                    ['Honda Fit', 2009, 3000],
-                    ['Honda CRV', 2010, 6000],
-                ],
-                columns: [
-                    { title:'Model', width:'300px' },
-                    { title:'Year', width:'80px' },
-                    { title:'Price', width:'100px' },
-                ]
-            }]
-        });
-    }
+  @ViewChild('spreadsheet') spreadsheet!: ElementRef;
+  // Worksheets
+  worksheets: jspreadsheet.worksheetInstance[] = [];
+  // Create a new JavaScript data grid
+  ngAfterViewInit() {
+    // Create spreadsheet
+    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+        worksheets: [{
+            data: [
+                ['Mazda', 2001, 2000],
+                ['Peugeot', 2010, 5000],
+                ['Honda Fit', 2009, 3000],
+                ['Honda CRV', 2010, 6000],
+            ],
+            columns: [
+                { title:'Model', width: 300 },
+                { title:'Year', width: 80 },
+                { title:'Price', width: 100 },
+            ]
+        }]
+    });
+  }
 }
 ```
 
@@ -377,7 +379,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -387,11 +389,11 @@ export class AppComponent {
     }
 
     destroy() {
-        jspreadsheet.destroy(this.worksheets[0].parent);
+        jspreadsheet.destroy(this.spreadsheet.nativeElement);
     }
 
     create() {
-        jspreadsheet(document.getElementById('spreadsheet'), {
+        jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [ { minDimensions:[5,5] } ]
         });
     }

@@ -61,34 +61,35 @@ document.getElementById("btn1").onclick = function() {
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
 const license = '###license###';
-
-const toggle = function() {
-    if (document.getElementById('spreadsheet').classList.contains('jss_modern')) {
-        document.getElementById('spreadsheet').classList.remove('jss_modern');
-    } else {
-        document.getElementById('spreadsheet').classList.add('jss_modern');
-    }
-}
-
 export default function App() {
-    // Spreadsheet array of worksheets
     const spreadsheet = useRef();
-    // Render component
+  
+    const toggle = () => {
+      const element = spreadsheet.current[0].element;
+      if (element.classList.contains("jss_modern")) {
+        element.classList.remove("jss_modern");
+      } else {
+        element.classList.add("jss_modern");
+      }
+    };
+  
     return (
-        <>
-            <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet />
-            </Spreadsheet>
-            <button type="button" onClick={() => toggle()}>Toggle</button>
-        </>
+      <>
+        <Spreadsheet ref={spreadsheet} license={license}>
+          <Worksheet />
+        </Spreadsheet>
+        <button type="button" onClick={toggle}>
+          Toggle
+        </button>
+      </>
     );
-}
+  }
 ```
 ```vue
 <template>
@@ -129,7 +130,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -138,14 +139,14 @@ jspreadsheet.setLicense('###license###');
 @Component({
     selector: "app-root",
     template: `<div #spreadsheet></div>
-        <button type="button" (click)="toogle">Toggle</button>`;
+        <button type="button" (click)="toggle()">Toggle</button>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{ minDimensions: [10,10] }],
@@ -167,6 +168,7 @@ export class AppComponent {
 The example below shows how to add or remove the worksheet `grid line`.
 
 ```html
+<html>
 <script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
 <script src="https://jsuites.net/v5/jsuites.js"></script>
 <link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
@@ -250,7 +252,7 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" toolbar>
+    <Spreadsheet ref="spreadsheet" :license="license" :toolbar="true">
         <Worksheet :data="data" />
     </Spreadsheet>
     <input type="button" value="toggle()" @click="toggle" />
@@ -297,22 +299,23 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
-        <input type="button" value="toggle()" (click)="toggle" />`;
+        <input type="button" value="toggle()" (click)="toggle()" />`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             toolbar: true,
@@ -328,12 +331,11 @@ export class AppComponent {
         });
     }
     toggle() {
-        if (this.worksheet[0].table.classList.contains('jss_nogridline')) {
-            this.worksheet[0].table.classList.remove('jss_nogridline');
+        if (this.worksheets[0].table.classList.contains('jss_nogridline')) {
+            this.worksheets[0].table.classList.remove('jss_nogridline');
         } else {
-            this.worksheet[0].table.classList.add('jss_nogridline');
+            this.worksheets[0].table.classList.add('jss_nogridline');
         }
     }
 }
 ```
- 

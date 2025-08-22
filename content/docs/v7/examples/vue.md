@@ -2,7 +2,6 @@ title: Vue Data Grid with Spreadsheet Controls
 keywords: Jspreadsheet, Jexcel, javascript, using Jspreadsheet and Vue
 description: An example of how to create vue data grid with spreadsheet controls.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Vue Spreadsheet
 

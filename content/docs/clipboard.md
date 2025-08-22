@@ -22,11 +22,12 @@ These methods are designed to assist with clipboard operations within the data g
 
 These events are triggered during clipboard interactions involving spreadsheet data.
 
-| Event                    | Description                                                                                                                                                                                                           |
-|--------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| oncopy                   | `oncopy(worksheet: Object, highlighted: Boolean, str: String, cut: boolean)`<br/>The data copied to the clipboard.                                                                                                    |
-| onbeforepaste            | `onbeforepaste(worksheet: Object, data: Array, x: Number, y: Number, properties: Object[])`<br/>It occurs before pasting data into the spreadsheet, allowing interception or modification.                            |
-| onpaste                  | `onpaste(worksheet: Object, records: [])`<br/>After the paste action.                                                                                                                                                 |
+| Event                    | Description                                                                                                                                                                                |
+|--------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| oncopy                   | `oncopy(worksheet: Object, highlighted: Number[], str: String, cut: Boolean)`<br/>The data copied to the clipboard.                                                                        |
+| onbeforepaste            | `onbeforepaste(worksheet: Object, data: Array, x: Number, y: Number, properties: Object[])`<br/>It occurs before pasting data into the spreadsheet, allowing interception or modification. |
+| onpaste                  | `onpaste(worksheet: Object, records: [])`<br/>After the paste action.                                                                                                                      |
+
 
 > **Upgrades on Version 11**
 > 
@@ -34,14 +35,30 @@ These events are triggered during clipboard interactions involving spreadsheet d
 
 ## Examples
 
+### Overwrite Copied Data
+
+Developers can use this method to overwrite what has been copied.
+
 ### Intercept Pasted Data
 
-Intercept and cancel the paste event.
+#### Cancel the Paste Action
+
+The example below cancels the user's paste action.
 
 ```html
+<html>
+<script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
+<link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
+<script src="https://jsuites.net/v5/jsuites.js"></script>
+<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+
 <div id="spreadsheet"></div>
 
 <script>
+jspreadsheet.setLicense('###license###');
+
 jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         data: [
@@ -57,10 +74,11 @@ jspreadsheet(document.getElementById('spreadsheet'), {
     }
 });
 </script>
+</html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -76,8 +94,8 @@ export default function App() {
         ['Honda Fit', 2009, 3000],
         ['Honda CRV', 2010, 6000],
     ];
-    
-    const onbeforepaste = function() {
+
+    const onbeforepaste = function () {
         alert('Not allowed to paste');
         return false;
     }
@@ -85,7 +103,7 @@ export default function App() {
     // Render data grid component
     return (
         <Spreadsheet ref={spreadsheet} license={license} onbeforepaste={onbeforepaste}>
-            <Worksheet data={data} />
+            <Worksheet data={data}/>
         </Spreadsheet>
     );
 }
@@ -134,22 +152,23 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -166,5 +185,189 @@ export class AppComponent {
             }
         });
     }
+}
+```
+
+#### Copy Data Only
+
+The example below removes styles and editor configurations from the pasted content, pasting only values into the cells.
+
+```html
+<html>
+<script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
+<link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
+<script src="https://jsuites.net/v5/jsuites.js"></script>
+<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+
+<div id="spreadsheet"></div>
+
+<script>
+jspreadsheet(document.getElementById('spreadsheet'), {
+    worksheets: [{
+        minDimensions: [5,5],
+        data: [['A']],
+        cells: {
+            A1: { type: 'dropdown', source: ['A','B'] }
+        },
+        style: {
+            A1: 'background-color: red',
+        }
+    }],
+    onbeforepaste: function(worksheet, data) {
+        for (let j = 0; j < data.length; j++) {
+            for (let i = 0; i < data[j].length; i++) {
+                if (typeof data[j][i].options !== 'undefined') {
+                    // Do not paste information about the editors
+                    delete data[j][i].options;
+                }
+                if (typeof data[j][i].style !== 'undefined') {
+                    // Do not paste style
+                    delete data[j][i].style;
+                }
+            }
+        }
+    }
+});
+</script>
+</html>
+```
+```jsx
+import React, {useRef} from "content/docs/react";
+import {Spreadsheet, Worksheet, jspreadsheet} from "@jspreadsheet/react";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+
+jspreadsheet.setLicense('###license###');
+
+export default function App() {
+    // Spreadsheet array of worksheets
+    const spreadsheet = useRef();
+    // Data
+    const data = [['A']];
+    const cells = {
+        A1: { type: 'dropdown', source: ['A','B'] }
+    }
+    const style = {
+        A1: 'background-color: red',
+    }
+
+    const onbeforepaste = (worksheet, data) => {
+        for (let j = 0; j < data.length; j++) {
+            for (let i = 0; i < data[j].length; i++) {
+                if (typeof data[j][i].options !== 'undefined') {
+                    // Do not paste information about the editors
+                    delete data[j][i].options;
+                }
+                if (typeof data[j][i].style !== 'undefined') {
+                    // Do not paste style
+                    delete data[j][i].style;
+                }
+            }
+        }
+    }
+
+    // Render data grid component
+    return (
+        <Spreadsheet ref={spreadsheet} onbeforepaste={onbeforepaste}>
+            <Worksheet data={data} cells={cells} style={style} />
+        </Spreadsheet>
+    );
+}
+```
+```vue
+<template>
+    <Spreadsheet ref="spreadsheet" :onbeforepaste="onbeforepaste">
+        <Worksheet :data="data" :cells="cells" :style="style" />
+    </Spreadsheet>
+</template>
+
+<script>
+import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+
+jspreadsheet.setLicense('###license###');
+
+export default {
+    components: {
+        Spreadsheet,
+        Worksheet,
+    },
+    data() {
+        const data = [['A']];
+        const cells = {
+            A1: { type: 'dropdown', source: ['A','B'] }
+        }
+        const style = {
+            A1: 'background-color: red',
+        }
+
+        const onbeforepaste = function() {
+            alert('Not allowed to paste');
+            return false;
+        }
+    
+        return {
+            data,
+            style,
+            cells,
+            onbeforepaste
+        }
+    }
+}
+</script>
+```
+```angularjs
+import { Component, ViewChild, ElementRef } from "@angular/core";
+import jspreadsheet from "jspreadsheet";
+
+// Set your JSS license key (The following key only works for one day)
+jspreadsheet.setLicense('###license###');
+
+// Create component
+@Component({
+  standalone: true,
+  selector: 'app-root',
+  template: `<div #spreadsheet></div>`,
+})
+export class AppComponent {
+  @ViewChild('spreadsheet') spreadsheet: ElementRef;
+  // Worksheets
+  worksheets: jspreadsheet.worksheetInstance[];
+  // Create a new data grid
+  ngAfterViewInit() {
+    // Create spreadsheet
+    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+      worksheets: [
+        {
+          minDimensions: [5, 5],
+          data: [['A']],
+          cells: {
+            A1: { type: 'dropdown', source: ['A', 'B'] },
+          },
+          style: {
+            A1: 'background-color: red',
+          },
+        },
+      ],
+      onbeforepaste: function (worksheet: any, data: any) {
+        for (let j = 0; j < data.length; j++) {
+          for (let i = 0; i < data[j].length; i++) {
+            if (typeof data[j][i].options !== 'undefined') {
+              // Do not paste information about the editors
+              delete data[j][i].options;
+            }
+            if (typeof data[j][i].style !== 'undefined') {
+              // Do not paste style
+              delete data[j][i].style;
+            }
+          }
+        }
+        return data;
+      },
+    });
+  }
 }
 ```

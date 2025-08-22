@@ -30,7 +30,7 @@ To customize the headers, you can use the title and tooltip attributes in the co
 ```html
 <script>
 jspreadsheet(document.getElementById('spreadsheet'), {
-    workshets: [{
+    worksheets: [{
         columns: [
             {
                 type: 'text',
@@ -132,9 +132,10 @@ document.getElementById("getbtn").onclick = () => alert(table[0].getHeader(docum
 
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet, jspreadsheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -163,7 +164,7 @@ export default function App() {
             title: 'Food',
             tooltip: 'Category of food',
             width: '100px',
-            source: [ 'Apples','Bananas','Carrots','Oranges','Cheese' ]
+            source: ['Apples', 'Bananas', 'Carrots', 'Oranges', 'Cheese']
         },
         {
             type: 'checkbox',
@@ -183,18 +184,18 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet data={data} columns={columns} />
+                <Worksheet data={data} columns={columns}/>
             </Spreadsheet>
             <select ref={select}>
-            <option value="0">Column 0</option>
-            <option value="1">Column 1</option>
-            <option value="2">Column 2</option>
-            <option value="3">Column 3</option>
+                <option value="0">Column 0</option>
+                <option value="1">Column 1</option>
+                <option value="2">Column 2</option>
+                <option value="3">Column 3</option>
             </select>
             <input type='button' value='Set'
-                onClick={() => spreadsheet.current[0].setHeader(select.current.value)} />
+                   onClick={() => spreadsheet.current[0].setHeader(select.current.value)}/>
             <input type='button' value='Get'
-                onClick={() => spreadsheet.current[0].getHeader(select.current.value)} />
+                   onClick={() => spreadsheet.current[0].getHeader(select.current.value)}/>
         </>
     );
 }
@@ -284,7 +285,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -316,7 +320,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

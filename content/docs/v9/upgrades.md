@@ -2,7 +2,7 @@ title: Upgrade to version 9
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, performance, what is new, upgrade to version 9
 description: Discover what is new with version 8. Find more about how to migrate from previous versions to Jspreadshee version 8.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Upgrade to version 9
 

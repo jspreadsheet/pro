@@ -2,7 +2,6 @@ title: Data Grid Column Filters
 keywords: Jspreadsheet, Jexcel, javascript, multiple spreadsheets, column filters, filters
 description: How to enable column filters on your data grid using Jspreadsheet Pro v7.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Column filters
 

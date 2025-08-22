@@ -2,7 +2,7 @@ title: Data Grid Context Menu
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, cells comments
 description: How to customize or disabled the web-based spreadsheet context menu.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Data Grid Context Menu
 

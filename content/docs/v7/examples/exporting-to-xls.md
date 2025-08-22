@@ -4,7 +4,6 @@ description: How to export the spreadsheet data to a XLS file.
 
 Examples
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Export to XLS
 

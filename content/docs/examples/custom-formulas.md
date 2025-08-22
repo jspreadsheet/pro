@@ -6,7 +6,7 @@ description: Explore this example to learn how to create custom JavaScript formu
 
 Harness the full potential of Jspreadsheet by creating custom formulas that replicate the behavior of traditional spreadsheets. With JSS, you can leverage the power of this feature to return not only strings and numbers but also complex DOM elements that can be used to build rich user interfaces. The methods called by the formulas receive as parameters the coordinates of the cells involved and the worksheet instance, providing a wide range of possibilities for conditional operations and advanced data manipulation. 
 
-> **Requirements**  This feature available with the [Formula Pro](/products/formulas) extension. 
+> **Requirements**  This feature is available with the [Formula Pro](/products/formulas) extension. 
 
 ## Special properties
 
@@ -14,7 +14,7 @@ When defining a custom Excel-like formula in Jspreadsheet, the `this` object pro
 
 ### Example
 
-How to use of cell coordinates and worksheet instances for conditional operations inside excel-like custom methods. 
+How to use of the cell coordinates and the worksheet instance for conditional operations inside excel-like custom methods. 
 
 ```html
 <html>
@@ -76,7 +76,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
-import formula from "@jspreadsheet/formula";
+import formula from "@jspreadsheet/formula-pro";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -131,7 +131,7 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license">
+    <Spreadsheet ref="spreadsheet" :license="license" :extensions="extensions">
         <Worksheet :data="data" />
     </Spreadsheet>
 </template>
@@ -188,6 +188,7 @@ export default {
         return {
             data,
             license,
+            extensions,
         }
     }
 }
@@ -195,8 +196,8 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as formula from "@jspreadsheet/formula-pro";
+import jspreadsheet from "jspreadsheet";
+import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -205,51 +206,55 @@ jspreadsheet.setLicense('###license###');
 jspreadsheet.setExtensions({ formula });
 
 // Create a custom javascript method (capital case)
-const SUMCOL = function () {
-    // Total
-    let total = 0;
-    // Sum all values in the column up to where the formula was called.
-    for (let j = 0; j < this.y; j++) {
-        total += parseInt(this.instance.options.data[j][this.x]) || 0;
-        // Formula chain
-        if (typeof(this.instance.records[j][this.x].chain) === 'undefined') {
-            this.instance.records[j][this.x].chain = new Map;
-        }
-        // Keep reference in the formula
-        this.instance.records[j][this.x].chain.set(this.instance.records[this.y][this.x], this.instance);
+const SUMCOL = function (this: any) {
+  // Total
+  let total = 0;
+  // Sum all values in the column up to where the formula was called.
+  for (let j = 0; j < this.y; j++) {
+    total += parseInt(this.instance.options.data[j][this.x]) || 0;
+    // Formula chain
+    if (typeof this.instance.records[j][this.x].chain === 'undefined') {
+      this.instance.records[j][this.x].chain = new Map();
     }
+    // Keep reference in the formula
+    this.instance.records[j][this.x].chain.set(
+      this.instance.records[this.y][this.x],
+      this.instance
+    );
+  }
 
-    return total;
-}
+  return total;
+};
 
 // Send custom formula to the correct scope
-formula.setFormula({ SUMCOL })
+formula.setFormula({ SUMCOL });
 
 @Component({
-    selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+  standalone: true,
+  selector: 'app-root',
+  template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    // Worksheets
-    worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngOnInit() {
-        // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [
-                {
-                    data: [
-                        [ 'Apple', 931 ],
-                        [ 'Google', 431 ],
-                        [ 'Amazon', 534 ],
-                        [ 'Total', '=SUMCOL()' ],
-                    ],
-                    minDimensions: [8,4],
-                }
-            ]
-        });
-    }
+  @ViewChild('spreadsheet') spreadsheet: ElementRef;
+  // Worksheets
+  worksheets: jspreadsheet.worksheetInstance[];
+  // Create a new data grid
+  ngAfterViewInit() {
+    // Create spreadsheet
+    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+      worksheets: [
+        {
+          data: [
+            ['Apple', 931],
+            ['Google', 431],
+            ['Amazon', 534],
+            ['Total', '=SUMCOL()'],
+          ],
+          minDimensions: [8, 4],
+        },
+      ],
+    });
+  }
 }
 ```
 
@@ -408,8 +413,8 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as formula from "@jspreadsheet/formula-pro";
+import jspreadsheet from "jspreadsheet";
+import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -428,14 +433,14 @@ formula.setFormula({ COLORIZE })
 // Create the data grid component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

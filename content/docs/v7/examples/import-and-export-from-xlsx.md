@@ -55,40 +55,41 @@ let download = function() {
 ## Using NPM
 
 {.ignore}
+
 ```javascript
-import React, { useRef, useEffect } from "react";
+import React, {useRef, useEffect} from "content/docs/v7/examples/react";
 import jspreadsheet from "jspreadsheet-pro";
 import parser from "@jspreadsheet/parser";
 import "jspreadsheet-pro/dist/jspreadsheet.css";
 import "jsuites/dist/jsuites.css";
 
 export default function App() {
-  const spreadsheetRef = useRef(null);
-  const license = "###license###";
+    const spreadsheetRef = useRef(null);
+    const license = "###license###";
 
-  jspreadsheet.license = license;
-  jspreadsheet.setExtensions({ parser });
+    jspreadsheet.license = license;
+    jspreadsheet.setExtensions({parser});
 
-  //Create the spreadsheet from a local file
-  let load = function (e) {
-    // Destroy any existing JSS
-    jspreadsheet.destroy(spreadsheetRef.current);
+    //Create the spreadsheet from a local file
+    let load = function (e) {
+        // Destroy any existing JSS
+        jspreadsheet.destroy(spreadsheetRef.current);
 
-    // Parse XLSX file and create a new spreadsheet
-    jspreadsheet.parser({
-      file: e.target.files[0],
-      onload: function (config) {
-        jspreadsheet(spreadsheetRef.current, config.worksheets);
-      }
-    });
-  };
+        // Parse XLSX file and create a new spreadsheet
+        jspreadsheet.parser({
+            file: e.target.files[0],
+            onload: function (config) {
+                jspreadsheet(spreadsheetRef.current, config.worksheets);
+            }
+        });
+    };
 
-  return (
-    <div>
-      <div ref={spreadsheetRef} />
-      <input type="file" name="file" id="file" onChange={(e) => load(e)} />
-    </div>
-  );
+    return (
+        <div>
+            <div ref={spreadsheetRef}/>
+            <input type="file" name="file" id="file" onChange={(e) => load(e)}/>
+        </div>
+    );
 }
 ```
 

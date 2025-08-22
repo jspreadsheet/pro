@@ -120,26 +120,27 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = "###license###";
 
 export default function App() {
-  // Spreadsheet array of worksheets
-  const spreadsheet = useRef();
+    // Spreadsheet array of worksheets
+    const spreadsheet = useRef();
 
-  // Disable the context menu
-  const contextMenu = () => {
-    return false;
-  };
+    // Disable the context menu
+    const contextMenu = () => {
+        return false;
+    };
 
-  return (
-      <Spreadsheet ref={spreadsheet} license={license} contextMenu={contextMenu}>
-        <Worksheet minDimensions={[10,10]} />
-      </Spreadsheet>
-  );
+    return (
+        <Spreadsheet ref={spreadsheet} license={license} contextMenu={contextMenu}>
+            <Worksheet minDimensions={[10, 10]}/>
+        </Spreadsheet>
+    );
 }
 ```
 ```vue
@@ -175,7 +176,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -183,14 +187,14 @@ jspreadsheet.setLicense('###license###');
 // Create component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -446,7 +450,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -454,14 +461,14 @@ jspreadsheet.setLicense('###license###');
 // Create component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

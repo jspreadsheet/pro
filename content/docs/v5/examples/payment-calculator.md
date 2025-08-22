@@ -2,7 +2,7 @@ title: Data Grid Payment Calculator Example
 keywords: Jspreadsheet, javascript, payment calculator spreadsheet
 description: Real world examples using Jspreadsheet.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Payment Calculator
 

@@ -191,8 +191,11 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as formula from "@jspreadsheet/formula-pro";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -230,7 +233,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -258,6 +261,7 @@ The cells accept a DOM element returned from a formula, as below:
 <html>
 <script src="https://jspreadsheet.com/v10/jspreadsheet.js"></script>
 <script src="https://jsuites.net/v5/jsuites.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/formula-pro/dist/index.min.js"></script>
 <link rel="stylesheet" href="https://jspreadsheet.com/v10/jspreadsheet.css" type="text/css" />
 <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
 
@@ -279,6 +283,9 @@ const COLORIZE = function(v) {
 
 // Send custom formula to the correct scope
 formula.setFormula({ COLORIZE })
+
+// Set extensions
+jspreadsheet.setExtensions({ formula });
 
 // Create spreadsheet
 jspreadsheet(document.getElementById('spreadsheet'), {
@@ -400,8 +407,11 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as formula from "@jspreadsheet/formula-pro";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -417,6 +427,9 @@ const COLORIZE = (v) => {
 // Send custom formula to the correct scope
 formula.setFormula({ COLORIZE })
 
+// Set extensions
+jspreadsheet.setExtensions({ formula });
+
 // Create the data grid component
 @Component({
     selector: "app-root",
@@ -427,7 +440,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

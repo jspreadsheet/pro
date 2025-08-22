@@ -2,7 +2,7 @@ title: React Spreadsheet
 keywords: Jspreadsheet, Jexcel, javascript, using Jspreadsheet and react
 description: An example of how to integrate Jspreadsheet with React.
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # React Spreadsheet
 
@@ -19,32 +19,33 @@ Create an online XLSX reader with NextJS [See this example working online](https
 ### Source code
 
 {.ignore}
+
 ```jsx
-import React, { useRef, useEffect } from "react";
+import React, {useRef, useEffect} from "content/docs/v8/react";
 import jspreadsheet from "jspreadsheet";
 
 import "jspreadsheet/dist/jspreadsheet.css";
 import "jsuites/dist/jsuites.css";
 
 export default function App() {
-  const jssRef = useRef(null);
-  const license = "###license###";
+    const jssRef = useRef(null);
+    const license = "###license###";
 
-  useEffect(() => {
-    // Create only once
-    if (!jssRef.current.jspreadsheet) {
-      jspreadsheet(jssRef.current, {
-        worksheets: [ { minDimensions: [6, 6] } ], 
-        license: license
-      });
-    }
-  }, null);
+    useEffect(() => {
+        // Create only once
+        if (!jssRef.current.jspreadsheet) {
+            jspreadsheet(jssRef.current, {
+                worksheets: [{minDimensions: [6, 6]}],
+                license: license
+            });
+        }
+    }, null);
 
-  return (
-    <div>
-      <div ref={jssRef} />
-    </div>
-  );
+    return (
+        <div>
+            <div ref={jssRef}/>
+        </div>
+    );
 }
 ```
   

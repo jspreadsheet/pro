@@ -111,9 +111,10 @@ document.getElementById("updatebtn").onclick = update
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import jSuites from "jsuites";
 import formula from "@jspreadsheet/formula";
 
@@ -121,7 +122,7 @@ import formula from "@jspreadsheet/formula";
 jspreadsheet.setLicense('###license###');
 
 // Load the formula pro extension
-jspreadsheet.setExtensions({ formula });
+jspreadsheet.setExtensions({formula});
 
 // Create a new data grid
 export default function App() {
@@ -136,7 +137,7 @@ export default function App() {
     ];
     // Columns
     const columns = [
-        { width:'400px' }
+        {width: '400px'}
     ];
     // Data grid cell definitions
     const footers = [
@@ -150,21 +151,21 @@ export default function App() {
     const onrenderfootercell = (worksheet, x, y, value, td) => {
         if (value && x > 0) {
             // Applying a mask to the footer value
-            td.innerText = jSuites.mask.render(value, { mask: '$ #,##0.00'}, true);
+            td.innerText = jSuites.mask.render(value, {mask: '$ #,##0.00'}, true);
         }
     }
     // Update
     const update = () => {
-        spreadsheet.current[0].setFooterValue(0,0,'Avarage');
-        spreadsheet.current[0].setFooterValue(1,0,'=AVERAGE(B:B)');
-        spreadsheet.current[0].setFooterValue(2,0,'=AVERAGE(C:C)');
+        spreadsheet.current[0].setFooterValue(0, 0, 'Avarage');
+        spreadsheet.current[0].setFooterValue(1, 0, '=AVERAGE(B:B)');
+        spreadsheet.current[0].setFooterValue(2, 0, '=AVERAGE(C:C)');
     }
     // Render data grid component
     return (
         <Spreadsheet ref={spreadsheet} onrenderfootercell={onrenderfootercell}>
-            <Worksheet data={data} columns={columns} footers={footers}  />
+            <Worksheet data={data} columns={columns} footers={footers}/>
         </Spreadsheet>
-        <input type='button' value='Change to AVERAGE' onClick={()=>update()}'>
+    <input type='button' value='Change to AVERAGE' onClick={() => update()}'>
     );
 }
 ```
@@ -233,7 +234,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -242,14 +246,14 @@ jspreadsheet.setLicense('###license###');
 @Component({
     selector: "app-root",
     template: `<div #spreadsheet></div>
-        <button type="button" (click)="toogle">Update</button>`;
+        <button type="button" (click)="update()">Update</button>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
         worksheets: [{
@@ -498,7 +502,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -510,18 +517,18 @@ jspreadsheet.setLicense('###license###');
         <div #spreadsheet1></div>
         <div #spreadsheet2></div>
         <div #spreadsheet3></div>
-    `;
+    `,
 })
 export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet1: ElementRef;
-    @ViewChild("spreadsheet") spreadsheet2: ElementRef;
-    @ViewChild("spreadsheet") spreadsheet3: ElementRef;
+    @ViewChild("spreadsheet1") spreadsheet1: ElementRef;
+    @ViewChild("spreadsheet1") spreadsheet2: ElementRef;
+    @ViewChild("spreadsheet3") spreadsheet3: ElementRef;
     // Worksheets
     s1: jspreadsheet.worksheetInstance[];
     s2: jspreadsheet.worksheetInstance[];
     s3: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create the spreadsheet
         this.s1 = jspreadsheet(this.spreadsheet1.nativeElement, {
             worksheets: [{

@@ -25,6 +25,7 @@ The initial definition for a `text rotation` is using the property cells.
 How to rotate the cell text between -90 to 90 degrees. 
 
 ```html
+<html>
 <script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
 <script src="https://jsuites.net/v5/jsuites.js"></script>
 <link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
@@ -87,7 +88,7 @@ export default function App() {
     // Columns
     const columns = [{},{},{},{ type:'checkbox' }];
     // Cells
-    const cells: {
+    const cells = {
         A1: { rotate: 90 }
     }
 
@@ -97,7 +98,7 @@ export default function App() {
             <Spreadsheet ref={spreadsheet} license={license}>
                 <Worksheet data={data} columns={columns} cells={cells} />
             </Spreadsheet>
-            <input type={"button"} value={"Fullscren"} onClick={() => spreadsheet.current[0].rotate('A1', -90)} />
+            <input type={"button"} value={"Rotate A1 (-90deg)"} onClick={() => spreadsheet.current[0].rotate('A1', -90)} />
         </>
     );
 }
@@ -107,7 +108,7 @@ export default function App() {
     <Spreadsheet ref="spreadsheet" :license="license">
         <Worksheet :data="data" :columns="columns" :cells="cells" />
     </Spreadsheet>
-    <p><input type="button" value="Rotate A1 (-90deg)" @click="this.$refs.spreadsheet.current[0].rotate('A1', -90);"></p>
+    <p><input type="button" value="Rotate A1 (-90deg)" @click="useRotate"></p>
 </template>
 
 <script>
@@ -133,7 +134,7 @@ export default {
         // Columns
         const columns = [{},{},{},{ type:'checkbox' }];
         // Cells
-        const cells: {
+        const cells = {
             A1: { rotate: 90 }
         }
         return {
@@ -142,24 +143,25 @@ export default {
             cells,
             license
         }
-    }
+    },
+    methods: {
+        useRotate() {
+            console.log( this.$refs.spreadsheet)
+          this.$refs.spreadsheet.current[0].rotate("A1", -90);
+        },
+    },
 }
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
-// Data
-const data = [
-    ['Spyro Trilogy Reignited (PS4)', '29.99', 'Spyro Reignited Trilogy is a remaster of the original Spyro trilogy developed by Insomniac Games for the PlayStation: Spyro the Dragon, Spyro 2: Ripto\'s Rage!, and Spyro: Year of the Dragon'],
-    ['Call of Duty: Black Ops 4 (PS4)', '49.99', 'Call of Duty is a first-person shooter video game franchise published by Activision. Starting out in 2003, it first focused on games set in World War II. Over time, the series has seen games set in the midst of the Cold War, futuristic worlds, and outer space.'],
-];
-
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
@@ -171,19 +173,21 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            data: [
-                ['Mazda', 2001, 2000, 1],
-                ['Peugeot', 2010, 5000, 1],
-                ['Honda Fit', 2009, 3000, 1],
-                ['Honda CRV', 2010, 6000, 0],
-            ],
-            columns: [{},{},{},{ type:'checkbox' }],
-            cells: {
-                A1: { rotate: 90, }
-            },
+            worksheets: [{
+                data: [
+                    ['Mazda', 2001, 2000, 1],
+                    ['Peugeot', 2010, 5000, 1],
+                    ['Honda Fit', 2009, 3000, 1],
+                    ['Honda CRV', 2010, 6000, 0],
+                ],
+                columns: [{},{},{},{ type:'checkbox' }],
+                cells: {
+                    A1: { rotate: 90, }
+                },
+            }]
         });
     }
 }

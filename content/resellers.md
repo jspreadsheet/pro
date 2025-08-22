@@ -1,177 +1,247 @@
 title: Jspreadsheet Resellers
-keywords: Jspreadsheet, JavaScript plugin, online spreadsheet, excel-like tables, Google Sheets, resellers
+keywords: Jspreadsheet, JavaScript plugin, online spreadsheet, excel-like tables, Google Sheets
 description: If you're interested in purchasing Jspreadsheet in your country, we've compiled a list of the top resellers to help you find the best option for your needs.
 
-<div class="center">
+<div class="home">
 
-# Jspreadsheet resellers
+{data-text="Resellers" .center}
+# Jspreadsheet Resellers
 
+{.center}
 Find a reseller that helps you in the purchase process.
 
-## Americas
+{.center .p30}
+### Worldwide Resellers
 
-</div>
-
-<div class="resellers">
+<div class="box shadow" data-number="4">
 <div>
 
-[![SHI](img/logo/shi.png)](https://www.shi.com)
+![SHI](img/logo/shi.png)
+
+**SHI International Corp.**
+
+[Visit Website](https://www.shi.com){.arrow}
+
+</div><div>
+
+![Component Source](img/logo/component-source.png)
+
+**ComponentSource**
+
+[Visit Website](https://www.componentsource.com/product/jspreadsheet-pro){.arrow}
+
+</div><div>
+
+![SoftwareONE](img/logo/softwareone.png)
+
+**SoftwareOne, Inc.**
+
+[Visit Website](https://www.softwareone.com){.arrow}
+
+</div><div>
+
+![Insight](img/logo/insight.png)
+
+**Insight**
+
+[Visit Website](https://www.insight.com){.arrow}
+
+</div>
+</div>
+
+<div class="space200 line"></div>
+
+{.center}
+### Americas
+
+<br>
+
+<div class="box shadow resellers" data-number="3">
+<div>
+
+![SHI](img/logo/shi.png)
 
 **SHI International Corp.**
 
 290 Davidson Ave.\
-Somerset,\
-NJ 08873\
+Somerset, NJ 08873\
 **United States**\
-Phone: +1 (888) 764-8888
++1 888 764 8888
+
+[Visit Website](https://www.shi.com){.arrow}
 
 </div><div>
 
-[![Component Source](img/logo/component-source.png)](https://www.componentsource.com/product/jspreadsheet-pro)
+![Component Source](img/logo/component-source.png)
 
 **ComponentSource - US**
 
-650 Claremore Professional Way,\
-Suite 100 Woodstock,\
-GA 30188-5188\
+650 Claremore Professional Way, Suite 100\
+Woodstock, GA 30188-5188\
 **United States**\
-Phone: +1 770 250 6100
++1 770 250 6100
+
+[Visit Website](https://www.componentsource.com/product/jspreadsheet-pro){.arrow}
 
 </div><div>
 
-[![SoftwareONE](img/logo/softwareone.png)](https://software.com.br)
+![SoftwareONE](img/logo/softwareone.png)
 
 **SoftwareONE**
 
-320 E Buffalo St,\
-Suite 200 53202\
-Milwaukee, WI\
+US Headquarters, 320 E Buffalo St, Suite 200 \
+Milwaukee, WI 53202\
 **United States**\
 +1 800 444 9890
 
+[Visit Website](https://www.softwareone.com/en-us){.arrow}
+
 </div><div>
 
-[![Insight](img/logo/insight.png)](https://www.insight.com/en_US/home.html)
+![Insight](img/logo/insight.png)
 
 **Insight**
 
-Chandler, Arizona 2701\
-E. Insight Way\
+2701 E. Insight Way\
 Chandler, AZ 85286\
 **United States**\
-Phone: +1 800.467.4448
++1 800 467 4448
+
+[Visit Website](https://www.insight.com/en_US/home.html){.arrow}
 
 </div><div>
 
-[![Cogito](img/logo/cogito.png)](https://www.insight.com/en_US/home.html)
+![Cogito](img/logo/cogito.png)
 
 **Cogito Software Co Ltd**
 
-1301\
-6th Ave\
+1301 6th Ave\
 SEATTLE WA 98101\
 **United States**\
-Phone: +1 2134 3179 31
++1 213 431 7931
+
+[sales@cogitosoft.com](mailto:sales@cogitosoft.com){.arrow}
 
 </div><div>
 
-[![Targetware](img/logo/software.png)](https://software.com.br)
+![Targetware](img/logo/software.png)
 
 **Targetware**
 
-Av. Francisco Matarazzo 404,\
-Conjunto 302, Água Branca\
-São Paulo 0501-000\
+Av. Francisco Matarazzo 404, Conj. 302, Água Branca\
+São Paulo, 0501-000\
 **Brazil**\
-Phone: +55 (11) 3665-8550
++55 11 36658550
+
+[Visit Website](https://software.com.br){.arrow}
 
 </div>
 </div>
 
-<br><br>
+<br>
 
-<div class="center">
+{.center .p30}
+### Asia-Pacific
 
-## Asia-Pacific
-
-</div>
-
-<div class="resellers">
+<div class="box shadow resellers" data-number="3">
 <div>
 
-[![Tegara](img/logo/tegara.png)](https://www.tegara.com)
+![World Soft](img/logo/world-soft.png)
+
+**World Soft**
+
+Mitaka Business Park Plaza A1102\
+1-12-17 Kamirenjaku, Mitaka, Tokyo 181-0012\
+**Japan**\
+Phone: 81-422-77-6484
+
+[Visit Website](https://www.altech-ads.com/){.arrow}
+
+</div><div>
+
+![Tegara](img/logo/tegara.png)
 
 **Tegara Corporation**
 
-8-3 Hosojima-cho,\
-Naka-ku,\
+8-3 Hosojima-cho, Naka-ku\
 Hamamatsu-shi Shizuoka 435-0045\
 **Japan**\
-Phone: +81 53 468 2655
++81 53 468 2655
+
+[Visit Website](https://www.tegara.com/){.arrow}
 
 </div><div>
 
-[![SoftwareONE](img/logo/softwareone.png)](https://software.com.br)
+![SoftwareONE](img/logo/softwareone.png)
 
-**SoftwareONE**
+**SoftwareONE Japan株式会社**
 
-東京都新宿区富久町16-6\
-西倉LKビル9階 162-0067\
-東京 日本\
-**Japan** 株式会社\
-Phone: +81 3 5369 0140
+東京都新宿区富久町16-6 西倉LKビル9階\
+Tokyo, 162-0067
+**Japan**\
++81 3 5005 2801
+
+[Visit Website](https://www.softwareone.com/ja-jp){.arrow}
 
 </div><div>
 
-[![Component Source](img/logo/component-source.png)](https://www.componentsource.com/product/jspreadsheet-pro)
+![Component Source](img/logo/component-source.png)
 
-**ComponentSource - Asia**
+**ComponentSource**
 
 7F Kojimachi Ichihara Bldg,\
-1-1-8 Hirakawa-cho,\
-Chiyoda-ku Tokyo, 102-0093\
+1-1-8 Hirakawa-cho, Chiyoda-ku\
+Tokyo, 102-0093\
 **Japan**\
-Phone: +81 3 3237 0281
++81 3 3237 0281
+
+[Visit Website](https://www.componentsource.com/product/jspreadsheet-pro){.arrow}
 
 </div><div>
 
-[![Cogito](img/logo/cogito.png)](https://www.insight.com/en_US/home.html)
+![Cogito](img/logo/cogito.png)
 
 **Cogito Software Pty Ltd**
 
-Room 1105, C2, Hao Bai Da Sha,\
-No.50 Xisanhuan North Road,
-Haidian District, Beijing 100048\
+Room 1105, C2, Hao Bai Da Sha, No.50\
+Xisanhuan North Road, Haidian District\
+Beijing 100048\
 **China**\
-Phone: +86 13601217579
++86 10 6842 1378
+
+[rich.yu@cogitosoft.com](mailto:rich.yu@cogitosoft.com){.arrow}
 
 </div><div>
 
-[![Chinasoft](img/logo/chinasoft.png)](https://www.insight.com/en_US/home.html)
+![Chinasoft](img/logo/chinasoft.png)
 
 **Beijing TL-Chinasoft**
 
 Room 12068, Longhui Building,\
-No.1 Nongguang Nanli,\
-Chaoyang District, Beijing 100022\
+No.1 Nongguang Nanli, Chaoyang District\
+Beijing, 100022\
 **China**\
-Phone: 86-10-62115400 13910793525
++86 10 62115400
+
+[Ida.Wang@pcsofttech.com](mailto:Ida.Wang@pcsofttech.com){.arrow}
 
 </div><div>
 
-[![Evget](img/logo/evget.png)](https://www.evget.com/product/4369)
+![Evget](img/logo/evget.png)
 
 **EVGET**
 
-No. 6 Building,\
-TusPark, No.69 Torch Avenue,\
-Jiulongpo Zone, Chongqing\
+No. 6 Building, TusPark\
+No.69 Torch Avenue, Jiulongpo Zone\
+Chongqing, 400039\
 **China**\
-Phone: +86 (23) 68661681
++86 400 700 1020
+
+[Visit Website](https://www.evget.com/){.arrow}
 
 </div><div>
 
-[![Linksoft](img/logo/linksoft.png)](https://www.linksoft.com.tw)
+![Linksoft](img/logo/linksoft.png)
 
 **Linksoft Inc.**
 
@@ -179,11 +249,13 @@ Phone: +86 (23) 68661681
 Zhonghe Dist.\
 New Taipei City 23504\
 **Taiwan**\
-Phone: +886-2-22212155
++886 2 22212155
+
+[Visit Website](https://www.linksoft.com.tw){.arrow}
 
 </div><div>
 
-[![Omniwaresoft](img/logo/omniwaresoft.svg)](https://www.omniwaresoft.com.tw)
+![Omniwaresoft](img/logo/omniwaresoft.svg)
 
 **Omniwaresoft Technology Inc.**
 
@@ -191,11 +263,13 @@ Phone: +886-2-22212155
 Datong Dist.,\
 Taipei City 10349\
 **Taiwan(R.O.C.)**\
-Phone: 02-2558-2656
++02 2558 2656
+
+[Visit Website](https://www.omniwaresoft.com.tw/){.arrow}
 
 </div><div>
 
-[![Ahasoft](img/logo/aha.png)](https://www.ahasoft.com.tw)
+![Ahasoft](img/logo/aha.png)
 
 **AHA Computer Co., Ltd.**
 
@@ -203,59 +277,53 @@ Phone: 02-2558-2656
 Taipei,\
 Taiwan 105, R.O.C.\
 **Taiwan**\
-Phone: 886-2-2749-1909
++886 2 2749 1909
+
+[Visit Website](https://www.ahasoft.com.tw/){.arrow}
 
 </div><div>
 
-[![Accesssoft](img/logo/accesssoft.jpg)](https://www.accesssoft.com.tw)
+![Accesssoft](img/logo/accesssoft.jpg)
 
 **Access Soft**
 
-10050, Section 1, Zhongxiao E Rd,\
-Taipei City,\
-Zhongzheng District, 86號3號樓之5,\
+Section 1, Zhongxiao E Rd, 86-3-5\
+Zhongzheng District\
+Taipei City, 10050\
 **Taiwan**\
-Phone: 886-2-2356-0269
++886 2 2356 0269
+
+[Visit Website](https://accesssoft.com.tw){.arrow}
 
 </div><div>
 
-[![Cogito](img/logo/cogito.png)](https://www.insight.com/en_US/home.html)
+![Cogito](img/logo/cogito.png)
 
 **Cogito Software Co.,Ltd**
 
-8F-1 #112\
-Li-Gong Street\
-Taipei,\
+8F-1, #112 Li-Gong Street\
+Taipei City, 111\
 **Taiwan**\
-Tele: +886-2-28983828
++886 2 2898 3828
+
+[sales@cogitosoft.com](mailto:sales@cogitosoft.com){.arrow}
 
 </div><div>
 
-[![KoreanSoft](img/logo/koreansoft.png)](https://www.insight.com/en_US/home.html)
+![KoreanSoft](img/logo/koreansoft.png)
 
 **KoreanSoft Inc.**
 
-Seongwoo B/D 1003,\
-#51-1 Seoul\
-121-715\
+Seongwoo B/D 1003, #51-1\
+Seoul 121-715\
 **South Korea**\
-Phone: +82 2-3272-8565
++82 2 3272 8565
+
+[Visit Website](https://www.koreansoft.com){.arrow}
 
 </div><div>
 
-[![Orangean International Corp](img/logo/orangean.png)](https://www.orangean.com.tw/)
-
-**Orangean International Corp**
-
-No. 166, Yongzhen Rd.\
-Yonghe Dist.\
-New Taipei City 234\
-**Taiwan (R.O.C.)**\
-886-2-77515130 - info@orangean.com.tw
-
-</div><div>
-
-[![Omniwaresoft](img/logo/abdindia.png)](https://www.abdindia.co.in)
+![Omniwaresoft](img/logo/abdindia.png)
 
 **AB&D Software India P Ltd**
 
@@ -263,83 +331,118 @@ New Taipei City 234\
 Sahakarnagar Kodegehalli\
 Bangalore 560092\
 **India**\
-Phone: +91 9632227977
++91 96322 27977
 
-</div><div></div><div></div>
+[Visit Website](http://www.abdindia.co.in/){.arrow}
+
+</div><div>
+
+![Cogito](img/logo/cogito.png)
+
+**Cogito Software Pty Ltd**
+
+PO Box 183\
+Edwardstown, Adelaide, SA 5039\
+**Australia**\
++61 405 900 819
+
+[sales@cogitosoft.com](mailto:sales@cogitosoft.com){.arrow}
+
+</div><div>
+
+![Omniwaresoft](img/logo/rabitasoft.png)
+
+**Rabita**
+
+SLN Arcade, 3rd Floor, No. 585,\
+2nd Main, 7th Block, 2nd Phase, BSK 3rd Stage\
+Bangalore, 560085\
+**India**\
++91 080 2672 2917
+
+[Visit Website](https://rabitasoftware.com){.arrow}
+
+</div>
 </div>
 
-<br><br>
+<br>
 
-<div class="p30 center">
+{.center .p30}
+### Europe
 
-## Europe
-
-</div>
-
-<div class="resellers">
+<div class="box shadow" data-number="3">
 <div>
 
-[![QBS Software](img/logo/qbs-software.png)](https://qbssoftware.com)
+![QBS Software](img/logo/qbs-software.png)
 
 **QBS Software Ltd**
 
-7 Wharfside,\
-Rosemont Road,\
-Wembley, HA0 4QB,\
+Queens Court, Wilmslow Road\
+Alderley Edge, Cheshire, SK9 7RR\
 **United Kingdom**\
-Phone: +44 (0)20 8733 7101
++44 020 8733 7100
+
+[Visit Website](https://www.qbssoftware.com/){.arrow}
 
 </div><div>
 
-[![Component Source](img/logo/component-source.png)](https://www.componentsource.com/product/jspreadsheet-pro)
+![Component Source](img/logo/component-source.png)
 
 **ComponentSource - UK**
 
-The White Building,\
-33 King’s Road Reading,\
-Berkshire, RG1 3AR\
+The White Building, 33 King’s Road\
+Reading, Berkshire, RG1 3AR\
 **United Kingdom**\
-Phone: +44 118 958 1111
++44 118 958 1111
+
+[Visit Website](https://www.componentsource.com/product/jspreadsheet-pro){.arrow}
 
 </div><div>
 
-[![SoftwareONE](img/logo/softwareone.png)](https://software.com.br)
+![SoftwareONE](img/logo/softwareone.png)
 
-**SoftwareONE**
+**SoftwareONE, Corporate**
 
 Riedenmatt 4\
-6370\
-Stans\
+Stans, 6370\
 **Switzerland**\
-Phone: +41(0)844 44 55 44
++41 44 832 41 69
+
+[Visit Website](https://www.softwareone.com/en-ch){.arrow}
 
 </div><div>
 
-[![SoftwareONE](img/logo/softwareone.png)](https://software.com.br)
+![SoftwareONE](img/logo/softwareone.png)
 
-**SoftwareONE**
+**SoftwareOne, Deutschland**
 
 Blochstraße 1\
-04329\
-Leipzig\
+Leipzig, 04329\
 **Germany**\
-Phone: +49 341 2568 000
++49 341 2568 000
+
+[Visit Website](https://www.softwareone.com/de-de){.arrow}
 
 </div>
-<div></div><div></div>
 </div>
 
 
-<br>
-<br>
+<div class="space100"></div>
 
-{.center}
+<div class="box shadow center stretch">
+<div>
+
 ## Become our partner
 
-{.center}
-Join our network of resellers
+Join our network of resellers {style="margin: 0px"}
 
-<br>
+\
+[Contact Us](/content/contact.md){ .button .secondary}
 
-{.center}
-[Contact Us](/contact){ .button .secondary style="width: 110px"}
+
+</div>
+<div class="space100 line"></div>
+</div>
+
+
+</div>

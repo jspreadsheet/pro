@@ -2,8 +2,6 @@ title: Jspreadsheet Data Persistence
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, persistence, data persistence
 description: All the important points about the persistence of the data and the properties of the spreadsheet.
 
-[Back to the docs](/docs/v9 "Back to the documentation")
-
 # Data Persistence
 
 Jspreadsheet is a frontend tool but has methods, events, and other features to help with the backend data persistence. This section will cover the following points: 
@@ -200,7 +198,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         data: [
             { id:1, data:['Google', '5', ''] },
-            { id:2, data:['Bind', '4', ''] },
+            { id:2, data:['Bing', '4', ''] },
             { id:3, data:['Yahoo', '1', ''] },
             { id:4, data:['Duckduckgo', '5', ''] },
         ],

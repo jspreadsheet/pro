@@ -101,9 +101,10 @@ document.getElementById("gotosecond").onclick = () => spreadsheet[0].page(1);
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -112,11 +113,11 @@ export default function App() {
     const spreadsheet = useRef();
     // Columns
     const columns = [
-        { type:'text', width:80 },
-        { type:'text', width:200 },
-        { type:'text', width:100 },
-        { type:'text', width:200 },
-        { type:'text', width:100 },
+        {type: 'text', width: 80},
+        {type: 'text', width: 200},
+        {type: 'text', width: 100},
+        {type: 'text', width: 200},
+        {type: 'text', width: 100},
     ];
     // Event
     const onchangepage = (el, pageNumber, oldPage) => {
@@ -127,11 +128,11 @@ export default function App() {
     return (
         <Spreadsheet ref={spreadsheet} license={license} onchangepage={onchangepage}>
             <Worksheet columns={columns}
-                csv="/tests/demo.csv"
-                csvHeaders
-                search
-                pagination="10"
-                paginationOptions={[10,25,50,100]}
+                       csv="/tests/demo.csv"
+                       csvHeaders
+                       search
+                       pagination="10"
+                       paginationOptions={[10, 25, 50, 100]}
             />
         </Spreadsheet>
     );
@@ -189,7 +190,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -205,7 +209,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

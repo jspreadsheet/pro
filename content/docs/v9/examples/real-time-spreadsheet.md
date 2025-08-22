@@ -2,7 +2,7 @@ title: Real-time Spreadsheet Example
 keywords: Jspreadsheet, Jexcel, javascript, read-time spreadsheet
 description: Real-time spreadsheet sharing and collaboration with Jspreadsheet Cloud.
 
-[Back to Examples](/docs/v9/examples)
+
 
 # Real-time Spreadsheet
 

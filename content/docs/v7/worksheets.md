@@ -4,7 +4,7 @@ description: How to handle worksheets programatically using methods events and p
 
 Documentation
 
-[Back to Documentation](/docs/v7)
+
 
 # Worksheets
 

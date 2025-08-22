@@ -2,8 +2,6 @@ title: ChartJS
 keywords: Jspreadsheet, Jexcel, javascript, charts
 description: This section shows how to embed charts in your data grids cells when using Jspreadsheet Pro.
 
-[Back to Cases](/docs/v8/examples "Back to the cases section")
-
 # ChartJS
 
 Integrating charts in your online spreadsheets. See this example: [React Data Grid with Charts](https://codesandbox.io/s/spreadsheet-with-charts-using-react-and-jss-002px)  on codesandbox. 

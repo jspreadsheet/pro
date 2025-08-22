@@ -2,7 +2,7 @@ title: Data Grid Cell Meta Information
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, cell meta information
 description: Meta information is the easier way to store hidden information about the spreadsheet cells.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Data Grid Cell Meta Information
 

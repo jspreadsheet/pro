@@ -2,7 +2,7 @@ title: Sorting the Spreadsheet Columns
 keywords: Jspreadsheet, spreadsheet, javascript, javascript table, spreadsheet, documentation, sorting, custom sorting
 description: All information about the spreadsheet sorting, events, programmatically sorting, sorting customization methods, and initial spreadsheet settings.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Sorting
 
@@ -97,7 +97,7 @@ Change the spreadsheet column order programmatically
 <script>
 let data = [
     ['Mazda', 2001, 2000, '2006-01-01', '453.00', '2', '=E1*F1'],
-    ['Pegeout', 2010, 5000, '2005-01-01', '23.00', '5', '=E2*F2'],
+    ['Peugeot', 2010, 5000, '2005-01-01', '23.00', '5', '=E2*F2'],
     ['Honda Fit', 2009, 3000, '2004-01-01', '214.00', '3', '=E3*F3'],
     ['Honda CRV', 2010, 6000, '2003-01-01', '56.11', '2', '=E4*F4'],
 ];

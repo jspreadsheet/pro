@@ -2,7 +2,7 @@ title: Most common questions
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, most common questions and answers
 description: The most common technical questions about JSS - the online spreadsheet.
 
-[Back to Documentation](/docs/v9)
+
 
 # Most frequently asked questions and answers
 

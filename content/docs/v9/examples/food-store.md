@@ -2,7 +2,7 @@ title: Grocery Store Spreadsheet Example
 keywords: Jspreadsheet, Jexcel, javascript, cases, food store
 description: A grocery store inventory spreadsheet with search, image upload using Jspreadsheet.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # Grocery Store
 

@@ -2,7 +2,7 @@ title: Spreadsheet Data
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, spreadsheet data
 description: Learn all the different ways to load and manipulate the worksheet data of your online spreadsheets, including methods for programmatically updates and all related events to help integrate the spreadsheet with various applications.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Spreadsheet Data
 
@@ -180,7 +180,7 @@ jspreadsheet.setLicense('###license###');
 
 data = [
     ['Mazda', 2001, 2000],
-    ['Pegeout', 2010, 5000],
+    ['Peugeot', 2010, 5000],
     ['Honda Fit', 2009, 3000],
     ['Honda CRV', 2010, 6000],
 ];

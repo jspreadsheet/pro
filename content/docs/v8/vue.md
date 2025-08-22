@@ -2,7 +2,7 @@ title: Vue Spreadsheet
 keywords: Jspreadsheet, Jexcel, javascript, using Jspreadsheet and Vue
 description: How to create a Vue Spreadsheet with Jspreadsheet Pro version 8.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Vue Spreadsheet
 
@@ -49,32 +49,35 @@ export default {
 ```
   
 {.ignore}
+
 ```vue
+
 <template>
-  <div ref="sheetEl" />
+  <div ref="sheetEl"/>
 </template>
 <script>
-import { ref, onMounted } from "vue";
-import jspreadsheet from "jspreadsheet";
-import "jspreadsheet/dist/jspreadsheet.css";
-import "jsuites/dist/jsuites.css";
-export default {
-  name: "Jspreadsheet",
-  props: {
-    options: {
-      type: Object,
-      require: true,
+  import {ref, onMounted} from "content/docs/v8/vue";
+  import jspreadsheet from "jspreadsheet";
+  import "jspreadsheet/dist/jspreadsheet.css";
+  import "jsuites/dist/jsuites.css";
+
+  export default {
+    name: "Jspreadsheet",
+    props: {
+      options: {
+        type: Object,
+        require: true,
+      },
     },
-  },
-  setup(props) {
-    const options = props.options ? { ...props.options } : {};
-    const sheetEl = ref(null);
-    onMounted(() => {
-      jspreadsheet(sheetEl.value, options);
-    });
-    return { sheetEl };
-  },
-};
+    setup(props) {
+      const options = props.options ? {...props.options} : {};
+      const sheetEl = ref(null);
+      onMounted(() => {
+        jspreadsheet(sheetEl.value, options);
+      });
+      return {sheetEl};
+    },
+  };
 </script>
 ```
   

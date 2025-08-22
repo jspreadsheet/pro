@@ -2,7 +2,7 @@ title: Data Grid Persistence
 keywords: Jspreadsheet, javascript, cases, data persistence, database synchronization
 description: Learn how data persistence can help you to easily handle data on your backend and create amazing online spreadsheets.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Data persistance
 

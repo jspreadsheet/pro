@@ -2,7 +2,7 @@ title: International settings
 keywords: Jspreadsheet, data grid, javascript, excel-like, spreadsheet, documentation, international settings, translations
 description: Jspreadsheet Pro translations and international settings.
 
-[Back to Documentation](/docs/v8)
+
 
 # International settings
 

@@ -2,7 +2,7 @@ title: Spreadsheet Rows
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, insert, delete, update rows.
 description: Learn how to insert, delete or move rows, all the methods, and events related to the rows management.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Spreadsheet Rows
 

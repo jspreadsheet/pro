@@ -2,7 +2,7 @@ title: Spreadsheet Grid Line
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, rotate text, grid line, grid lines.
 description: How to disable the spreadsheet grid line. Dealing with the grid lines.
 
-[Back to Examples](/docs/v9/examples)
+
 
 # Spreadsheet Grid Line
 

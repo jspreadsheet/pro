@@ -2,7 +2,7 @@ title: Using formulas on your spreadsheets
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, formulas
 description: How to use formulas on your online spreadsheets.
 
-[Back to Documentation](/docs/v7)
+
 
 # Spreadsheet Formulas
 

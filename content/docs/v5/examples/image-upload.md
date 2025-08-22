@@ -2,7 +2,7 @@ title: Embed images to your spreadsheet using base64
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet, image upload, base64, embed images
 description: An example of how to embed and upload base64 images to your spreadsheets.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Embed images into your spreadsheet
 

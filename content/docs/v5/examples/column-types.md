@@ -2,7 +2,7 @@ title: Data Grid Column types
 keywords: Jspreadsheet, javascript, javascript vanilla, javascript plugin, plugin, excel-like, spreadsheet, table, tables, grid, datatables, data
 description: Discover more about the native column types and learn to create your own custom data grid cell editors.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Column types
 

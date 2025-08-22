@@ -89,9 +89,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet, jspreadsheet} from "@jspreadsheet/react";
 import formula from "@jspreadsheet/formula-pro";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
@@ -100,7 +101,7 @@ import "jspreadsheet/dist/jspreadsheet.css";
 const license = '###license###';
 
 // Create a custom javascript method (capital case)
-const COLORIZE = function(v) {
+const COLORIZE = function (v) {
     let d = document.createElement('span');
     d.style.color = v;
     d.innerText = v.toUpperCase();
@@ -108,10 +109,10 @@ const COLORIZE = function(v) {
 }
 
 // Send custom formula to the correct scope
-formula.setFormula({ COLORIZE })
+formula.setFormula({COLORIZE})
 
 // Extensions
-const extensions = { formula };
+const extensions = {formula};
 
 // Create the component
 export default function App() {
@@ -119,19 +120,19 @@ export default function App() {
     const spreadsheet = useRef();
     // Data
     const data = [
-        [ 'red', '=COLORIZE(A1)' ],
-        [ 'green', '=COLORIZE(A2)' ],
-        [ 'blue', '=COLORIZE(A3)' ],
+        ['red', '=COLORIZE(A1)'],
+        ['green', '=COLORIZE(A2)'],
+        ['blue', '=COLORIZE(A3)'],
     ]
     const columns = [
-        { type: 'text', width:'300px' },
-        { type: 'text', width:'200px' },
+        {type: 'text', width: '300px'},
+        {type: 'text', width: '200px'},
     ]
 
     // Render data grid component
     return (
         <Spreadsheet ref={spreadsheet} license={license} extensions={extensions}>
-            <Worksheet data={data} columns={columns} />
+            <Worksheet data={data} columns={columns}/>
         </Spreadsheet>
     );
 }
@@ -196,14 +197,16 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as formula from "@jspreadsheet/formula-pro";
+import jspreadsheet from "jspreadsheet";
+import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
+jspreadsheet.setExtensions({ formula })
+
 // Create a custom javascript method (capital case)
-const COLORIZE = (v) => {
+const COLORIZE = (v: string) => {
     let d = document.createElement('span');
     d.style.color = v;
     d.innerText = v.toUpperCase();
@@ -215,15 +218,16 @@ formula.setFormula({ COLORIZE })
 
 // Create the data grid component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -233,8 +237,8 @@ export class AppComponent {
                     [ 'blue', '=COLORIZE(A3)' ],
                 ],
                 columns: [
-                    { type: 'text', width:'300' },
-                    { type: 'text', width:'200' },
+                    { type: 'text', width: 300  },
+                    { type: 'text', width: 200  },
                 ]
             }]
         });
@@ -311,16 +315,16 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 ```
 ```jsx
 import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
-import formula from "@jspreadsheet/formula";
+import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import formula from "@jspreadsheet/formula-pro";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
 // Set your JSS license key (The following key only works for one day)
-const license = '###license###';
+jspreadsheet.setLicense('###license###');
 
 // Extensions
-const extensions = { formula };
+jspreadsheet.setExtensions({ formula });
 
 // Create a custom javascript method (capital case)
 const SUMCOL = function () {
@@ -364,30 +368,30 @@ export default function App() {
 
     // Render data grid component
     return (
-        <Spreadsheet ref={spreadsheet} license={license} extensions={extensions}>
-            <Worksheet data={data} minDimensions={[6,4]} />
+        <Spreadsheet ref={spreadsheet}>
+            <Worksheet data={data} />
         </Spreadsheet>
     );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license">
-        <Worksheet :data="data" />
-    </Spreadsheet>
+  <Spreadsheet ref="spreadsheet">
+    <Worksheet :data="data" />
+  </Spreadsheet>
 </template>
 
 <script>
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
-import formula from "@jspreadsheet/formula-pro";
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import { Spreadsheet, Worksheet, jspreadsheet } from '@jspreadsheet/vue';
+import formula from '@jspreadsheet/formula-pro';
+import 'jsuites/dist/jsuites.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
 
 // Add here your data grid license
-const license = '###license###';
+jspreadsheet.setLicense('###license###');
 
 // Extensions
-const extensions = { formula };
+jspreadsheet.setExtensions({ formula });
 
 // Create a custom javascript method (capital case)
 const SUMCOL = function () {
@@ -404,45 +408,44 @@ const SUMCOL = function () {
     // Total
     total += parseInt(data[y]);
     // Formula chain
-    if (typeof(cell.chain) === 'undefined') {
-      cell.chain = new Map;
+    if (typeof cell.chain === 'undefined') {
+      cell.chain = new Map();
     }
     // Keep reference in the formula
     cell.chain.set(this.instance.records[this.y][this.x], this.instance);
   }
 
   return total;
-}
+};
 
 // Send custom formula to the correct scope
-formula.setFormula({ SUMCOL })
+formula.setFormula({ SUMCOL });
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
-    },
-    data() {
-        // Data
-        const data = [
-            [ 'Apple', 931 ],
-            [ 'Google', 431 ],
-            [ 'Amazon', 534 ],
-            [ 'Total', '=SUMCOL()' ],
-        ];
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+  data() {
+    // Data
+    const data = [
+      ['Apple', 931],
+      ['Google', 431],
+      ['Amazon', 534],
+      ['Total', '=SUMCOL()'],
+    ];
 
-        return {
-            data,
-            license,
-        }
-    }
-}
+    return {
+      data,
+    };
+  },
+};
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as formula from "@jspreadsheet/formula-pro";
+import jspreadsheet from "jspreadsheet";
+import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -451,7 +454,7 @@ jspreadsheet.setLicense('###license###');
 jspreadsheet.setExtensions({ formula });
 
 // Create a custom javascript method (capital case)
-const SUMCOL = function () {
+const SUMCOL = function (this: any) {
     // Update formula chain when a new row is added
     this.instance.setTracking.call(this, true);
     // Get the column data
@@ -479,15 +482,16 @@ const SUMCOL = function () {
 formula.setFormula({ SUMCOL })
 
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [

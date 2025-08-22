@@ -6,7 +6,7 @@ description: Import from Google Sheets to create amazing JSS data grids.
 
 # Google Sheets Importer
 
-The Google Sheets Importer extension for Jspreadsheet is a JavaScript plugin designed to simplify the import of data, styles, validations, and formatting from Google Sheets into a JSON object. This object can then populate a Jspreadsheet data grid, effectively bridging data between Google Sheets and local spreadsheet applications.
+The Google Sheets Importer extension for Jspreadsheet is a JavaScript plugin that simplifies importing Google Sheets into your applications. It extracts data, styles, validations, and formatting into a JSON object, which can then populate a Jspreadsheet data grid and replicate the content and appearance of the original sheet.
 
 > **Google Sheets to JSON**  You can convert any public or private Google Sheets directly from its link to a local JSON with the appropriate permissions. It is required a Google API key.
 
@@ -18,8 +18,8 @@ Import public or private Google Sheets using the Sheet's URL or Sheet ID. It req
 
 | Method                  | Description                                                                                                           |
 | ------------------------|-----------------------------------------------------------------------------------------------------------------------|
-| sheets(object?)         | Set the configuration for your google sheets extension.<br/>`sheets(config?: Object) => void`                         |
-| sheets(string, object?) | Import a new Google Sheets spreadsheet into the JSS json format.<br/>`sheets(ident: String, config?: Object) => void` |
+| sheets(object?)         | Set the configuration for your Google Sheets extension.<br/>`sheets(config?: Object) => void`                         |
+| sheets(string, object?) | Import a new Google Sheets spreadsheet into the JSS JSON format.<br/>`sheets(ident: String, config?: Object) => void` |
 
  
 
@@ -27,46 +27,38 @@ Import public or private Google Sheets using the Sheet's URL or Sheet ID. It req
 
 | Method           | Description                                                                                                                                                                                  |
 | -----------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| onload: Function | Method to be call after the import is finalized. You can use that to send the config to create a new Jspreadsheet Data Grid instance.<br/> `onload: (title: string, config: object) => void` |
+| onload: Function | Method to be called after the import is finalized. You can use this to send the config to create a new Jspreadsheet Data Grid instance.<br/> `onload: (title: string, config: object) => void` |
 
  
 
 #### Importing private sheets
 
-| Method               | Description                                                |
-| ---------------------|------------------------------------------------------------|
-| clientId: string     | yourclientapihashidentification.apps.googleusercontent.com |
-| apiKey: string       | Google API Key                                             |
-| clientSecret: string | Google API Secret Client Key                               |
-| redirectUri: string  | Google Sheets success URL return.                          |
-| errorUri: string     | Google Sheets import error URL return.                     |
-
+| Method              | Description                            |
+|---------------------|----------------------------------------|
+| clientId: string    | Your Google Client ID, e.g., yourapi.apps.googleusercontent.com |
+| apiKey: string      | The Google API Key for authentication and access. |
+| redirectUri: string | The URL where users will be redirected after successful authorization. |
+| errorUri: string    | The URL to redirect users to in case of an authorization or import error. |
  
 
-### Security notice
+### Securing Your API Credentials
 
-The Google Sheets API credentials can be restricted by domain, meaning they can only be used from a specific domain or set of domains. This provides some level of security. However, it is still advisable to take precautions to protect these credentials, even if they are domain-restricted. Please note that the following are just some possible additional measures to protect your keys, and it's your responsibility to make sure you implement a safe application: 
+it is essential to implement restrictions on your API credentials to ensure the security and proper usage of your API,
 
-  * **Minimize exposure** : While domain restrictions help limit the usage of credentials to specific domains, it's still good practice to minimize the exposure of sensitive information as much as possible. Avoid storing them directly in your JavaScript source code or any publicly accessible files. 
-  * **Secure server-side storage** : Store the credentials securely on your server-side code or in environment variables. Ensure that access to these credentials is restricted and follow best practices for secure storage. 
-  * **Use HTTPS** : Make sure your website or application is served over HTTPS. This ensures that communication between the client and server is encrypted, reducing the risk of interception and unauthorized access to the credentials. 
-  * **Password protection** : Implement limited access for authorized users. 
+- **Restrict API Key Usage**: Limit the usage of your API key to specific IP addresses, HTTP referrers, or applications;
+- **Enforce Scopes**: Apply the minimal scope of permissions necessary for your application to function;
+- **Monitor API Traffic**: Regularly review the usage logs to identify any suspicious activity or unauthorized access attempts.
+- **Rotate Keys Periodically**: Change API keys periodically and update your application accordingly to minimize risk in case of key exposure.
 
- 
-> **Important**  It's important to understand that the information above is not exhaustive, and as a developer, you hold the sole responsibility for ensuring the security of your application. We highly recommend further research on best security practices. 
-
- 
+> **Important**  It's important to understand that the information above is not exhaustive, and as a developer, you are solely responsible for ensuring your application's security. We highly recommend further research on best security practices.
 
 ### Sample configuration
 
 {.ignore}
 ```javascript
 sheets({
-    // Required for public or private sheets
     clientId: 'xyz.apps.googleusercontent.com',
-    // Only necessary when dealing with private Google Sheets
     apiKey: 'xyzxyzxyz-q1',
-    clientSecret: 'xyz-xyzxyz_xyz',
     redirectUri: 'http://localhost:8000/sheets',
     errorUri: 'http://localhost:8000/sheets/error',
 });
@@ -78,7 +70,6 @@ sheets('https://docs.google.com/spreadsheets/d/16Es5bj0dSfPXDUsbDfdUc7Y5mHkIL8Sk
     }
 });
 ```
- 
 
 ## Examples
 
@@ -104,7 +95,7 @@ Create a new JSS data grid from a remote public Google Sheets document. This exa
 
 <script>
 // Defined your Google API configuration (You need more arguments to download private spreadsheets)
-sheets({ apiKey: 'AIzaSyBFwiAJ2Ae50q2xPLdtaHlW4VM4UkFv-Q4' });
+sheets({ apiKey: 'your-api-key' });
     // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 // Add-on for Spreadsheet
@@ -131,21 +122,25 @@ import React, { useRef } from "react";
 import jspreadsheet from "jspreadsheet";
 import sheets from "@jspreadsheet/sheets";
 
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 // Add-on for your JSS data grid
 jspreadsheet.setExtensions({ sheets });
 // Defined your Google API configuration (You need more arguments to download private spreadsheets)
-sheets({ apiKey: 'yourGoogleApiHere' });
+sheets({ apiKey: 'your-api-key' });
 
 export default function App() {
     const input = useRef();
     const spreadsheet = useRef();
 
     const download = () => {
-        jspreadsheet.sheets(document.getElementById('spreadsheet'), {
+        console.log(input.current.value)
+        jspreadsheet.sheets(input.current.value, {
             onload: function(title, config) {
-                jspreadsheet.sheets(spreadsheet.current, config);
+                jspreadsheet(spreadsheet.current, config);
             }
         });
     }
@@ -154,8 +149,8 @@ export default function App() {
         <>
             <div ref={spreadsheet}></div>
             <input ref={input} type="text"
-                value="https://docs.google.com/spreadsheets/d/16Es5bj0dSfPXDUsbDfdUc7Y5mHkIL8Skux5YJLOenV0" />
-            <input type="button" value="Import from Google Sheets" onClick={() => convert(input.current.value)} />
+                defaultValue="https://docs.google.com/spreadsheets/d/16Es5bj0dSfPXDUsbDfdUc7Y5mHkIL8Skux5YJLOenV0" />
+            <input type="button" value="Import from Google Sheets" onClick={download} />
         </>
     );
 }
@@ -171,18 +166,21 @@ export default function App() {
 import { jspreadsheet } from "@jspreadsheet/vue";
 import sheets from "@jspreadsheet/sheets";
 
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+
 // Define the data grid license
 jspreadsheet.setLicense('###license###');
 // Define the data grid extensions
 jspreadsheet.setLicense({ sheets });
 // Defined your Google API configuration (You need more arguments to download private spreadsheets)
-sheets({ apiKey: 'yourGoogleApiHere' });
+sheets({ apiKey: 'your-api-key' });
 
 export default {
     methods: {
         convert() {
             // Spreadsheet instance
-            jspreadsheet.sheets(this.$refs.input.current, {
+            jspreadsheet.sheets(this.$refs.input.current.value, {
                 onload: function(title, config) {
                     jspreadsheet(this.$refs.spreadsheet.current, options);
                 }
@@ -203,32 +201,38 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as render from "@jspreadsheet/sheets";
+import jspreadsheet from "jspreadsheet";
+import sheets from "@jspreadsheet/sheets";
 
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
+
 // Extensions
 jspreadsheet.setExtensions({ sheets });
+
 // Defined your Google API configuration (You need more arguments to download private spreadsheets)
-sheets({ apiKey: 'yourGoogleApiHere' });
+sheets({ apiKey: 'your-api-key' });
 
 @Component({
+    standalone: true,
   selector: "app-root",
   template: `<div #spreadsheet></div>
-    <input #input type="text" value="https://docs.google.com/spreadsheets/d/16Es5bj0dSfPXDUsbDfdUc7Y5mHkIL8Skux5YJLOenV0" />
-    <input type="button" value="Import from Google Sheets" (click)="this.convert()" />`
+    <input #input type="text" value="https://docs.google.com/spreadsheets/d/16Es5bj0dSfPXDUsbDfdUc7Y5mHkIL8Skux5YJLOenV0"/>
+    <input type="button" value="Import from Google Sheets" (click)="import()" />`
 })
 export class AppComponent {
     @ViewChild("input") input: ElementRef;
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    export() {
-        jspreadsheet.sheets(this.input.value, {
+    import() {
+        jspreadsheet.sheets(this.input.nativeElement.value, {
             onload: function(title, config) {
-                jspreadsheet(this.spreadsheet, options);
+                // Destroy any existing data grid
+                jspreadsheet.destroy(this.spreadsheet);
+                // Create a new data grid from the import process
+                jspreadsheet(this.spreadsheet, config);
             }
         });
     }

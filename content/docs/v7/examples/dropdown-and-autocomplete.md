@@ -2,7 +2,6 @@ title: JavaScript Data Grid Dropdown Column Type
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, jquery plugin, sorting, table, grid, order by
 description: Examples of how to handle simple, advanced, multiple, autocomplete, and conditional dropdowns. Learn how to add groups and images to your dropdown column type.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # JavaScript Dropdown and autocomplete column type
 

@@ -2,7 +2,7 @@ title: Custom Data Grid Column Types
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, custom editors, custom columns
 description: The following example shows how to integrate a third-party clock plugin as a custom column
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # Custom Spreadsheet Column Type
 
@@ -17,10 +17,9 @@ A custom column based on the [clockpicker plugin](https://weareoutman.github.io/
 <link rel="stylesheet" href="https://jspreadsheet.com/v8/jspreadsheet.css" type="text/css" />
 <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
 
-<link rel="stylesheet" type="text/css"
-    href="http://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.css" />
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/clockpicker@0.0.7/dist/jquery-clockpicker.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://weareoutman.github.io/clockpicker/dist/jquery-clockpicker.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clockpicker@0.0.7/dist/jquery-clockpicker.min.js"></script>
 
 <div id="custom"></div>
 

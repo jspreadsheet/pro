@@ -74,9 +74,10 @@ jspreadsheet.picker(document.getElementById('picker'), {
 
 </html>
 ```
+
 ```jsx
-import React, { useRef, useEffect } from "react";
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import React, {useRef, useEffect} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet, jspreadsheet} from "@jspreadsheet/react";
 
 
 // Set your JSS license key (The following key only works for one day)
@@ -90,7 +91,7 @@ export default function App() {
     useEffect(() => {
         jspreadsheet.picker(picker.current, {
             type: 'picker',
-            onchange: function() {
+            onchange: function () {
                 // Do something
             }
         });
@@ -100,9 +101,9 @@ export default function App() {
     // Render component
     return (
         <>
-            <div ref={picker} />
+            <div ref={picker}/>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet />
+                <Worksheet/>
             </Spreadsheet>
         </>
     );
@@ -110,7 +111,7 @@ export default function App() {
 ```
 ```vue
 <template>
-    <div ref="picker" />
+    <div ref="picker"></div>
     <Spreadsheet ref="spreadsheet" :license="license">
         <Worksheet />
     </Spreadsheet>
@@ -144,7 +145,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -160,7 +164,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create the spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

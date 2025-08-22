@@ -12,11 +12,11 @@ The validations extension in Jspreadsheet enhances data integrity by allowing us
 
 For more information on how to set up the data grid with validations or to change them programmatically, please refer to the [Validations Documentation](/docs/validations).  
 
-## Installation
+### Installation
 
 Please choose one of the following options 
 
-### Using NPM
+#### Using NPM
 
 
 
@@ -25,7 +25,7 @@ $ npm install @jspreadsheet/validations
 ```
  
 
-### Using a CDN
+#### Using a CDN
 
 
 {.ignore}
@@ -36,20 +36,21 @@ $ npm install @jspreadsheet/validations
 
 ## Examples
 
-### Basic data grid validations
+### Basic Data Grid Validations
 
 You can define the data grid or spreadsheet validations during initialization or through programmatic methods. 
 
 ```html
 <html>
-<script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
 <link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
-<script src="https://jsuites.net/v5/jsuites.js"></script>
 <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
-
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@lemonadejs/studio/dist/style.min.css" type="text/css" />
 
+<script src="https://jsuites.net/v5/jsuites.js"></script>
+<script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lemonadejs/dist/lemonade.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@lemonadejs/studio/dist/index.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/validations/dist/index.min.js"></script>
 
 <div id="spreadsheet"></div>
@@ -90,6 +91,10 @@ import React, { useRef } from "react";
 import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
 import validations from "@jspreadsheet/validations";
 
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+import "@lemonadejs/studio/dist/style.css";
+
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 // Extensions
@@ -118,7 +123,7 @@ export default function App() {
 
     // Render component
     return (
-      <Spreadsheet ref={spreadsheet} validations={rules} toolbar>
+      <Spreadsheet ref={spreadsheet} validations={rules} toolbar={true}>
           <Worksheet data={data} />
       </Spreadsheet>
     );
@@ -126,7 +131,7 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :validations="rules" :toolbars="true">
+    <Spreadsheet ref="spreadsheet" :validations="rules" :toolbar="true">
         <Worksheet :data="data" worksheetName="Sheet1" />
     </Spreadsheet>
 </template>
@@ -134,6 +139,10 @@ export default function App() {
 <script>
 import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
 import validations from "@jspreadsheet/validations";
+
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+import "@lemonadejs/studio/dist/style.css";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -177,11 +186,12 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as comments from "@jspreadsheet/comments";
+import jspreadsheet from "jspreadsheet";
+import validations from "@jspreadsheet/validations";
 
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
+import "@lemonadejs/studio/dist/style.css";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -189,6 +199,7 @@ jspreadsheet.setLicense('###license###');
 jspreadsheet.setExtensions({ validations });
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -216,6 +227,7 @@ export class AppComponent {
                 type: "number",
                 allowBlank: false,
                 value: [10, 30],
+                dropdown: true
             }]
         });
     }

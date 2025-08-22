@@ -124,12 +124,16 @@ A basic spreadsheet example using formulas, including currency, percentage and m
 <link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+<script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/formula-pro/dist/index.min.js"></script>
 
 <div id="spreadsheet"></div>
 
 <script>
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
+
+// Set the extensions
+jspreadsheet.setExtensions({ formula });
 
 // Create a new spreadsheet
 jspreadsheet(document.getElementById('spreadsheet'), {
@@ -170,12 +174,17 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import formula from "@jspreadsheet/formula-pro";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
-const license = '###license###';
+// Set license
+jspreadsheet.setLicense('###license###');
+
+// Set the extensions
+jspreadsheet.setExtensions({ formula });
 
 export default function App() {
     // Spreadsheet array of worksheets
@@ -186,23 +195,23 @@ export default function App() {
 
     // Worksheet data
     const data = [
-        [ 'Crayons Crayola only (No Rose Art)', 2, 5.01, 0.01, '=B1*C1*(1-D1)' ],
-        [ 'Colored Pencils Crayola only', 2, 4.41, 0.02, '=B2*C2*(1-D2)' ],
-        [ 'Expo Dry-erase Markers Wide', 4, 3.00, 0.1, '=B3*C3*(1-D3)' ],
-        [ 'Index Cards Unlined', 3, 6.00, 0.03, '=B4*C4*(1-D4)' ],
-        [ 'Tissues', 10, 1.90, 0.01, '=B5*C5*(1-D5)' ],
-        [ 'Ziploc Sandwich-size Bags', 5, 1.00, 0.01, '=B6*C6*(1-D6)' ],
-        [ 'Thin Markers Crayola only', 2, 3.00, 0.02, '=B7*C7*(1-D7)' ],
-        [ 'Highlighter', 4, 1.20, 0.01, '=B8*C8*(1-D8)' ],
-        [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '', '=SUM(E1:E8)' ],
+        ['Crayons Crayola only (No Rose Art)', 2, 5.01, 0.01, '=B1*C1*(1-D1)'],
+        ['Colored Pencils Crayola only', 2, 4.41, 0.02, '=B2*C2*(1-D2)'],
+        ['Expo Dry-erase Markers Wide', 4, 3.00, 0.1, '=B3*C3*(1-D3)'],
+        ['Index Cards Unlined', 3, 6.00, 0.03, '=B4*C4*(1-D4)'],
+        ['Tissues', 10, 1.90, 0.01, '=B5*C5*(1-D5)'],
+        ['Ziploc Sandwich-size Bags', 5, 1.00, 0.01, '=B6*C6*(1-D6)'],
+        ['Thin Markers Crayola only', 2, 3.00, 0.02, '=B7*C7*(1-D7)'],
+        ['Highlighter', 4, 1.20, 0.01, '=B8*C8*(1-D8)'],
+        ['Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '', '=SUM(E1:E8)'],
     ]
 
     // Column definitions
     const columns = [
-        { type: 'text', title:'Product', width:'300' },
-        { type: 'text', title:'Qtd', width:'80', mask:'#.##0' },
-        { type: 'text', title:'Price', width:'100px', mask:'$ #.##0,00'  },
-        { type: 'text', title:'Discount', mask:'0.00%' },
+        {type: 'text', title: 'Product', width: '300'},
+        {type: 'text', title: 'Qtd', width: '80', mask: '#.##0'},
+        {type: 'text', title: 'Price', width: '100px', mask: '$ #.##0,00'},
+        {type: 'text', title: 'Discount', mask: '0.00%'},
         {
             type: 'number',
             title: 'Total',
@@ -218,25 +227,31 @@ export default function App() {
 
     // Render component
     return (
-        <Spreadsheet ref={spreadsheet} license={license} style={styles} toolbar>
-            <Worksheet data={data} columns={columns} style={style} worksheetName="Calculations" columnSorting />
+        <Spreadsheet ref={spreadsheet} style={styles} toolbar={true}>
+            <Worksheet data={data} columns={columns} style={style} worksheetName="Calculations" columnSorting/>
         </Spreadsheet>
     );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :style="styles">
+    <Spreadsheet ref="spreadsheet" :styles="styles">
         <Worksheet :data="data" :columns="columns" :style="style" columnSorting worksheetName="Calculations" />
     </Spreadsheet>
 </template>
 
 <script>
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
+import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
+import formula from "@jspreadsheet/formula-pro";
 
-const license = '###license###';
+// Set license
+jspreadsheet.setLicense('###license###');
+
+// Set the extensions
+jspreadsheet.setExtensions({ formula });
+
 
 export default {
     components: {
@@ -284,7 +299,6 @@ export default {
             data,
             columns,
             style,
-            license,
         };
     }
 }
@@ -292,12 +306,17 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+import * as formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
+// Set the extensions
+jspreadsheet.setExtensions({ formula });
+
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -306,7 +325,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             toolbar: true,
@@ -324,14 +343,14 @@ export class AppComponent {
                     [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '', '=SUM(E1:E8)' ],
                 ],
                 columns: [
-                    { type: 'text', title:'Product', width:'300' },
-                    { type: 'text', title:'Qtd', width:'80', mask:'#.##0' },
-                    { type: 'text', title:'Price', width:'100px', mask:'$ #.##0,00'  },
+                    { type: 'text', title:'Product', width: 300 },
+                    { type: 'text', title:'Qtd', width: 80, mask:'#.##0' },
+                    { type: 'text', title:'Price', width: 100, mask:'$ #.##0,00'  },
                     { type: 'text', title:'Discount', mask:'0.00%' },
                     {
                         type: 'number',
                         title: 'Total',
-                        width: '100px',
+                        width: 100,
                         format: 'US #.##0,00;[Red](#.##0,00)',
                     },
                 ],
@@ -358,12 +377,16 @@ This example demonstrates formula calculations that span across different worksh
 <link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+<script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/formula-pro/dist/index.min.js"></script>
 
 <div id="spreadsheet"></div>
 
 <script>
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
+
+// Set the extensions
+jspreadsheet.setExtensions({ formula });
 
 // Create a new spreadsheet
 jspreadsheet(document.getElementById('spreadsheet'), {
@@ -397,6 +420,36 @@ jspreadsheet(document.getElementById('spreadsheet'), {
             worksheetName: 'Example2',
             minDimensions: [5,5],
         },
+        {
+            data: [
+                [ 'Crayons Crayola only (No Rose Art)', 2, 5.01, 0.01, '=B1*C1*(1-D1)' ],
+                [ 'Colored Pencils Crayola only', 2, 4.41, 0.02, '=B2*C2*(1-D2)' ],
+                [ 'Expo Dry-erase Markers Wide', 4, 3.00, 0.1, '=B3*C3*(1-D3)' ],
+                [ 'Index Cards Unlined', 3, 6.00, 0.03, '=B4*C4*(1-D4)' ],
+                [ 'Tissues', 10, 1.90, 0.01, '=B5*C5*(1-D5)' ],
+                [ 'Ziploc Sandwich-size Bags', 5, 1.00, 0.01, '=B6*C6*(1-D6)' ],
+                [ 'Thin Markers Crayola only', 2, 3.00, 0.02, '=B7*C7*(1-D7)' ],
+                [ 'Highlighter', 4, 1.20, 0.01, '=B8*C8*(1-D8)' ],
+                [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '', '=SUM(E1:E8)' ],
+            ],
+            columns: [
+                { type: 'text', title:'Product', width: 300 },
+                { type: 'text', title:'Qtd', width: 80, mask:'#.##0' },
+                { type: 'text', title:'Price', width: 100, mask:'$ #.##0,00'  },
+                { type: 'text', title:'Discount', mask:'0.00%' },
+                {
+                    type: 'number',
+                    title: 'Total',
+                    width: 100,
+                    format: 'US #.##0,00;[Red](#.##0,00)',
+                },
+            ],
+            style: {
+                'A9:E9': 0,
+            },
+            columnSorting:false,
+            worksheetName: 'Calculations',
+        }
     ]
 });
 </script>
@@ -407,8 +460,13 @@ import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
+import formula from "@jspreadsheet/formula-pro";
 
-const license = '###license###';
+// Set license
+jspreadsheet.setLicense('###license###');
+
+// Set the extensions
+jspreadsheet.setExtensions({ formula });
 
 export default function App() {
     // Spreadsheet array of worksheets
@@ -445,25 +503,61 @@ export default function App() {
             worksheetName: 'Example2',
             minDimensions: [5,5],
         },
+        {
+            data: [
+                [ 'Crayons Crayola only (No Rose Art)', 2, 5.01, 0.01, '=B1*C1*(1-D1)' ],
+                [ 'Colored Pencils Crayola only', 2, 4.41, 0.02, '=B2*C2*(1-D2)' ],
+                [ 'Expo Dry-erase Markers Wide', 4, 3.00, 0.1, '=B3*C3*(1-D3)' ],
+                [ 'Index Cards Unlined', 3, 6.00, 0.03, '=B4*C4*(1-D4)' ],
+                [ 'Tissues', 10, 1.90, 0.01, '=B5*C5*(1-D5)' ],
+                [ 'Ziploc Sandwich-size Bags', 5, 1.00, 0.01, '=B6*C6*(1-D6)' ],
+                [ 'Thin Markers Crayola only', 2, 3.00, 0.02, '=B7*C7*(1-D7)' ],
+                [ 'Highlighter', 4, 1.20, 0.01, '=B8*C8*(1-D8)' ],
+                [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '', '=SUM(E1:E8)' ],
+            ],
+            columns: [
+                { type: 'text', title:'Product', width: 300 },
+                { type: 'text', title:'Qtd', width: 80, mask:'#.##0' },
+                { type: 'text', title:'Price', width: 100, mask:'$ #.##0,00'  },
+                { type: 'text', title:'Discount', mask:'0.00%' },
+                {
+                    type: 'number',
+                    title: 'Total',
+                    width: 100,
+                    format: 'US #.##0,00;[Red](#.##0,00)',
+                },
+            ],
+            style: {
+                'A9:E9': 0,
+            },
+            columnSorting:false,
+            worksheetName: 'Calculations',
+        }
     ]
 
     // Render component
     return (
-        <Spreadsheet ref={spreadsheet} license={license} worksheets={worksheets} />
+        <Spreadsheet ref={spreadsheet} worksheets={worksheets} />
     );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :worksheets="worksheets" />
+    <Spreadsheet ref="spreadsheet" :worksheets="worksheets" />
 </template>
 
 <script>
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
+import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
+import formula from "@jspreadsheet/formula-pro";
 
-const license = '###license###';
+
+// Set license
+jspreadsheet.setLicense('###license###');
+
+// Set the extensions
+jspreadsheet.setExtensions({ formula });
 
 export default {
     components: {
@@ -502,11 +596,40 @@ export default {
                 worksheetName: 'Example2',
                 minDimensions: [5,5],
             },
+            {
+                data: [
+                    [ 'Crayons Crayola only (No Rose Art)', 2, 5.01, 0.01, '=B1*C1*(1-D1)' ],
+                    [ 'Colored Pencils Crayola only', 2, 4.41, 0.02, '=B2*C2*(1-D2)' ],
+                    [ 'Expo Dry-erase Markers Wide', 4, 3.00, 0.1, '=B3*C3*(1-D3)' ],
+                    [ 'Index Cards Unlined', 3, 6.00, 0.03, '=B4*C4*(1-D4)' ],
+                    [ 'Tissues', 10, 1.90, 0.01, '=B5*C5*(1-D5)' ],
+                    [ 'Ziploc Sandwich-size Bags', 5, 1.00, 0.01, '=B6*C6*(1-D6)' ],
+                    [ 'Thin Markers Crayola only', 2, 3.00, 0.02, '=B7*C7*(1-D7)' ],
+                    [ 'Highlighter', 4, 1.20, 0.01, '=B8*C8*(1-D8)' ],
+                    [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '', '=SUM(E1:E8)' ],
+                ],
+                columns: [
+                    { type: 'text', title:'Product', width: 300 },
+                    { type: 'text', title:'Qtd', width: 80, mask:'#.##0' },
+                    { type: 'text', title:'Price', width: 100, mask:'$ #.##0,00'  },
+                    { type: 'text', title:'Discount', mask:'0.00%' },
+                    {
+                        type: 'number',
+                        title: 'Total',
+                        width: 100,
+                        format: 'US #.##0,00;[Red](#.##0,00)',
+                    },
+                ],
+                style: {
+                    'A9:E9': 0,
+                },
+                columnSorting:false,
+                worksheetName: 'Calculations',
+            }
         ]
 
         return {
             worksheets,
-            license,
         };
     }
 }
@@ -514,10 +637,14 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+import * as formula from "@jspreadsheet/formula-pro";
 
-// Set your JSS license key (The following key only works for one day)
+// Set license
 jspreadsheet.setLicense('###license###');
+
+// Set the extensions
+jspreadsheet.setExtensions({ formula });
 
 @Component({
     selector: "app-root",
@@ -528,7 +655,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -544,7 +671,7 @@ export class AppComponent {
                     minDimensions: [5,5],
                     defaultColWidth: '50px',
                     columns: [{
-                        width: '300px'
+                        width: 300
                     }],
                     cells: {
                         B5: { mask:'#.##0' },
@@ -561,6 +688,36 @@ export class AppComponent {
                     worksheetName: 'Example2',
                     minDimensions: [5,5],
                 },
+                {
+                    data: [
+                        [ 'Crayons Crayola only (No Rose Art)', 2, 5.01, 0.01, '=B1*C1*(1-D1)' ],
+                        [ 'Colored Pencils Crayola only', 2, 4.41, 0.02, '=B2*C2*(1-D2)' ],
+                        [ 'Expo Dry-erase Markers Wide', 4, 3.00, 0.1, '=B3*C3*(1-D3)' ],
+                        [ 'Index Cards Unlined', 3, 6.00, 0.03, '=B4*C4*(1-D4)' ],
+                        [ 'Tissues', 10, 1.90, 0.01, '=B5*C5*(1-D5)' ],
+                        [ 'Ziploc Sandwich-size Bags', 5, 1.00, 0.01, '=B6*C6*(1-D6)' ],
+                        [ 'Thin Markers Crayola only', 2, 3.00, 0.02, '=B7*C7*(1-D7)' ],
+                        [ 'Highlighter', 4, 1.20, 0.01, '=B8*C8*(1-D8)' ],
+                        [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '', '=SUM(E1:E8)' ],
+                    ],
+                    columns: [
+                        { type: 'text', title:'Product', width: 300 },
+                        { type: 'text', title:'Qtd', width: 80, mask:'#.##0' },
+                        { type: 'text', title:'Price', width: 100, mask:'$ #.##0,00'  },
+                        { type: 'text', title:'Discount', mask:'0.00%' },
+                        {
+                            type: 'number',
+                            title: 'Total',
+                            width: 100,
+                            format: 'US #.##0,00;[Red](#.##0,00)',
+                        },
+                    ],
+                    style: {
+                        'A9:E9': 0,
+                    },
+                    columnSorting:false,
+                    worksheetName: 'Calculations',
+                }
             ]
         });
     }
@@ -580,12 +737,16 @@ This feature is only available in with the [Formula Pro](/products/formulas) ext
 <link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+<script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/formula-pro/dist/index.min.js"></script>
 
 <div id="spreadsheet"></div>
 
 <script>
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
+
+// Set the extensions
+jspreadsheet.setExtensions({ formula });
 
 // Create a new spreadsheet
 jspreadsheet(document.getElementById('spreadsheet'), {
@@ -612,10 +773,15 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import formula from "@jspreadsheet/formula-pro";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
-const license = '###license###';
+// Set license
+jspreadsheet.setLicense('###license###');
+
+// Set the extensions
+jspreadsheet.setExtensions({ formula });
 
 export default function App() {
     // Spreadsheet array of worksheets
@@ -642,21 +808,26 @@ export default function App() {
 
     // Render component
     return (
-        <Spreadsheet ref={spreadsheet} license={license} worksheets={worksheets} definedNames={definedNames} />
+        <Spreadsheet ref={spreadsheet} worksheets={worksheets} definedNames={definedNames} />
     );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :worksheets="worksheets" :definedNames="definedNames" />
+    <Spreadsheet ref="spreadsheet" :worksheets="worksheets" :definedNames="definedNames" />
 </template>
 
 <script>
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
+import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
+import formula from "@jspreadsheet/formula-pro";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
-const license = '###license###';
+// Set license
+jspreadsheet.setLicense('###license###');
+
+// Set the extensions
+jspreadsheet.setExtensions({ formula });
 
 export default {
     components: {
@@ -686,7 +857,6 @@ export default {
         return {
             worksheets,
             definedNames,
-            license,
         };
     }
 }
@@ -694,10 +864,14 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+import * as formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
+
+// Set the extensions
+jspreadsheet.setExtensions({ formula });
 
 @Component({
     selector: "app-root",
@@ -708,7 +882,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -814,7 +988,7 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :extensions="extensions" : columnNamesInFormulas="true">
+    <Spreadsheet ref="spreadsheet" :license="license" :extensions="extensions" :columnNamesInFormulas="true">
         <Worksheet :data="data" :columns="columns" />
     </Spreadsheet>
 </template>
@@ -852,7 +1026,6 @@ export default {
         ];
 
         return {
-            columnNamesInFormulas: true,
             extensions,
             data,
             columns,
@@ -864,7 +1037,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 import * as formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
@@ -876,14 +1049,14 @@ jspreadsheet.setExtensions({ formula });
 // Create the data grid component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -893,8 +1066,8 @@ export class AppComponent {
                     [ 30, '=@Quantity*10' ],
                 ],
                 columns: [
-                    { type: 'text', width:'300', title: 'Quantity' },
-                    { type: 'text', width:'200', title: 'Total' },
+                    { type: 'text', width: 300, title: 'Quantity' },
+                    { type: 'text', width: 200, title: 'Total' },
                 ]
             }],
             columnNamesInFormulas: true,

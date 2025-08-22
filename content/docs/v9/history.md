@@ -2,7 +2,7 @@ title: Spreadsheet Change History
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, history changes, spreadsheet updates
 description: Learn how to interact with the history tracker of your spreadsheet.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Spreadsheet Change History
 

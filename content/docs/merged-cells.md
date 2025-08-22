@@ -130,24 +130,27 @@ document.getElementById("btn4").onclick = () => table[0].destroyMerge();
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import React, { useRef } from 'react';
+import { Spreadsheet, Worksheet } from '@jspreadsheet/react';
+import 'jsuites/dist/jsuites.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
 
-const license = '###license###';
+const license =
+  '###license###';
 
-export default function App() {
+  export default function App() {
     const spreadsheet = useRef();
     const log = useRef();
-
-    const worksheets = [{
+  
+    const worksheets = [
+      {
         data: [
-            ['Mazda', 2001, 2000, '2006-01-01 12:00:00'],
-            ['Peugeot', 2010, 5000, '2005-01-01 13:00:00'],
-            ['Honda Fit', 2009, 3000, '2004-01-01 14:01:00'],
-            ['Honda CRV', 2010, 6000, '2003-01-01 23:30:00'],
+          ['Mazda', 2001, 2000, '2006-01-01 12:00:00'],
+          ['Peugeot', 2010, 5000, '2005-01-01 13:00:00'],
+          ['Honda Fit', 2009, 3000, '2004-01-01 14:01:00'],
+          ['Honda CRV', 2010, 6000, '2003-01-01 23:30:00'],
         ],
         columnDrag: true,
         worksheetName: 'Merged Cells',
@@ -156,129 +159,195 @@ export default function App() {
         tableWidth: '800px',
         tableHeight: '300px',
         columns: [
-            {
-                type: 'text',
-                width: '300px',
-                title: 'Model',
+          {
+            type: 'text',
+            width: '300px',
+            title: 'Model',
+          },
+          {
+            type: 'text',
+            width: '80px',
+            title: 'Year',
+          },
+          {
+            type: 'text',
+            width: '100px',
+            title: 'Price',
+          },
+          {
+            type: 'calendar',
+            width: '150px',
+            title: 'Date',
+            options: {
+              format: 'DD/MM/YYYY HH24:MI',
+              time: 1,
             },
-            {
-                type: 'text',
-                width: '80px',
-                title: 'Year',
-            },
-            {
-                type: 'text',
-                width: '100px',
-                title: 'Price',
-            },
-            {
-                type: 'calendar',
-                width: '150px',
-                title: 'Date',
-                options: {
-                    format: 'DD/MM/YYYY HH24:MI',
-                    time: 1,
-                }
-            },
+          },
         ],
         mergeCells: {
-            A1: [2,2]
-        }
-    }]
-
+          A1: [2, 2],
+        },
+      },
+    ];
+  
+    // Extracted functions
+    const handleSetMerge = () => {
+      spreadsheet.current[0].setMerge('A3', 2, 3);
+    };
+  
+    const handleRemoveMerge = () => {
+      spreadsheet.current[0].removeMerge('A3');
+    };
+  
+    const handleGetAllMergedCells = () => {
+      log.current.value = JSON.stringify(spreadsheet.current[0].getMerge());
+    };
+  
+    const handleDestroyAllMerged = () => {
+      spreadsheet.current[0].destroyMerge();
+    };
+  
     return (
-        <>
-            <Spreadsheet ref={spreadsheet} license={license} worksheets={worksheets} />
-            <div ref={log}></div>
-            <input type="text" value="setMerge('A3', 2, 3)" onclick="spreadsheet.current[0].setMerge('A3', 2, 3);" />
-            <input type="text" value="removeMerge('A3')" onclick="spreadsheet.current[0].removeMerge('A3');" />
-            <input type="text" value="Get all merged cells"
-                onclick="log.current.value = JSON.stringify(spreadsheet.current[0].getMerge());" />
-            <input type="text" value="Destroy all merged" onclick="spreadsheet.current[0].destroyMerge();" />
-        </>
-    )
+      <>
+        <Spreadsheet
+          ref={spreadsheet}
+          license={license}
+          worksheets={worksheets}
+        />
+        <div ref={log}></div>
+        <input
+          type="button"
+          value="setMerge('A3', 2, 3)"
+          onClick={handleSetMerge}
+        />
+        <input
+          type="button"
+          value="removeMerge('A3')"
+          onClick={handleRemoveMerge}
+        />
+        <input
+          type="button"
+          value="Get all merged cells"
+          onClick={handleGetAllMergedCells}
+        />
+        <input
+          type="button"
+          value="Destroy all merged"
+          onClick={handleDestroyAllMerged}
+        />
+      </>
+    );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :worksheets="worksheets"/>
-    <div ref="log"></div>
-    <input type="text" value="setMerge('A3', 2, 3)" onclick="this.$refs.spreadsheet.current[0].setMerge('A3', 2, 3);" />
-    <input type="text" value="removeMerge('A3')" onclick="this.$refs.spreadsheet.current[0].removeMerge('A3');" />
-    <input type="text" value="Get all merged cells"
-        onclick="this.$refs.log.value.value = JSON.stringify(this.$refs.spreadsheet.current[0].getMerge());" />
-    <input type="text" value="Destroy all merged" onclick="this.$refs.spreadsheet.current[0].destroyMerge();" />
+  <Spreadsheet ref="spreadsheet" :license="license" :worksheets="worksheets" />
+  <div ref="log"></div>
+  <input type="button" value="setMerge('A3', 2, 3)" @click="handleSetMerge" />
+  <input type="button" value="removeMerge('A3')" @click="handleRemoveMerge" />
+  <input
+    type="button"
+    value="Get all merged cells"
+    @click="handleGetAllMergedCells"
+  />
+  <input
+    type="button"
+    value="Destroy all merged"
+    @click="handleDestroyAllMerged"
+  />
 </template>
 
 <script>
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
-import formula from "@jspreadsheet/formula-pro";
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import { Spreadsheet, Worksheet } from '@jspreadsheet/vue';
+import formula from '@jspreadsheet/formula-pro';
+import 'jsuites/dist/jsuites.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
 
-const license = '###license###';
+const license =
+  '###license###';
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
-    },
-    data() {
-        const worksheets = [{
-            data: [
-                ['Mazda', 2001, 2000, '2006-01-01 12:00:00'],
-                ['Peugeot', 2010, 5000, '2005-01-01 13:00:00'],
-                ['Honda Fit', 2009, 3000, '2004-01-01 14:01:00'],
-                ['Honda CRV', 2010, 6000, '2003-01-01 23:30:00'],
-            ],
-            columnDrag: true,
-            worksheetName: 'Merged Cells',
-            minDimensions: [50, 5000],
-            tableOverflow: true,
-            tableWidth: '800px',
-            tableHeight: '300px',
-            columns: [
-                {
-                    type: 'text',
-                    width: '300px',
-                    title: 'Model',
-                },
-                {
-                    type: 'text',
-                    width: '80px',
-                    title: 'Year',
-                },
-                {
-                    type: 'text',
-                    width: '100px',
-                    title: 'Price',
-                },
-                {
-                    type: 'calendar',
-                    width: '150px',
-                    title: 'Date',
-                    options: {
-                        format: 'DD/MM/YYYY HH24:MI',
-                        time: 1,
-                    }
-                },
-            ],
-            mergeCells: {
-                A1: [2,2]
-            }
-        }]
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+  data() {
+    const worksheets = [
+      {
+        data: [
+          ['Mazda', 2001, 2000, '2006-01-01 12:00:00'],
+          ['Peugeot', 2010, 5000, '2005-01-01 13:00:00'],
+          ['Honda Fit', 2009, 3000, '2004-01-01 14:01:00'],
+          ['Honda CRV', 2010, 6000, '2003-01-01 23:30:00'],
+        ],
+        columnDrag: true,
+        worksheetName: 'Merged Cells',
+        minDimensions: [50, 5000],
+        tableOverflow: true,
+        tableWidth: '800px',
+        tableHeight: '300px',
+        columns: [
+          {
+            type: 'text',
+            width: '300px',
+            title: 'Model',
+          },
+          {
+            type: 'text',
+            width: '80px',
+            title: 'Year',
+          },
+          {
+            type: 'text',
+            width: '100px',
+            title: 'Price',
+          },
+          {
+            type: 'calendar',
+            width: '150px',
+            title: 'Date',
+            options: {
+              format: 'DD/MM/YYYY HH24:MI',
+              time: 1,
+            },
+          },
+        ],
+        mergeCells: {
+          A1: [2, 2],
+        },
+      },
+    ];
 
-        return {
-            worksheets,
-            license,
-        };
-    }
-}
+    return {
+      worksheets,
+      license,
+    };
+  },
+  methods: {
+    handleSetMerge() {
+      this.$refs.spreadsheet.current[0].setMerge('A3', 2, 3);
+    },
+
+    handleRemoveMerge() {
+      this.$refs.spreadsheet.current[0].removeMerge('A3');
+    },
+
+    handleGetAllMergedCells() {
+      this.$refs.log.value = JSON.stringify(
+        this.$refs.spreadsheet.current[0].getMerge()
+      );
+    },
+
+    handleDestroyAllMerged() {
+      this.$refs.spreadsheet.current[0].destroyMerge();
+    },
+  },
+};
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
@@ -289,14 +358,14 @@ jspreadsheet.setExtensions({ formula });
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
         <div #log></div>
-        <input type="text" value="setMerge('A3', 2, 3)" onclick="this.worksheets[0].setMerge('A3', 2, 3);" />
-        <input type="text" value="removeMerge('A3')" onclick="this.worksheets[0].removeMerge('A3');" />
-        <input type="text" value="Get all merged cells"
-            onclick="this.log.nativeElement.value = JSON.stringify(this.worksheets[0].getMerge());" />
-        <input type="text" value="Destroy all merged" onclick="this.worksheets[0].destroyMerge();" />`;
+        <input type="button" value="setMerge('A3', 2, 3)" (click)="this.worksheets[0].setMerge('A3', 2, 3);" />
+        <input type="button" value="removeMerge('A3')" (click)="this.worksheets[0].removeMerge('A3');" />
+        <input type="button" value="Get all merged cells" (click)="getMerge()" />
+        <input type="button" value="Destroy all merged" (click)="this.worksheets[0].destroyMerge();" />`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -304,7 +373,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             toolbar: true,
@@ -352,6 +421,10 @@ export class AppComponent {
                 }
             }]
         });
+    }
+
+    getMerge() {
+        this.log.nativeElement.innerHTML = JSON.stringify(this.worksheets[0].getMerge());
     }
 }
 ```

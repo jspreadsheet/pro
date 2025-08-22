@@ -2,7 +2,6 @@ title: Handling events on Jspreadsheet
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, table, grid, events
 description: Create rich and advanced spreadsheet behaviors using JavaScript events.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Handling events
 
@@ -24,7 +23,7 @@ NOTE: The event is shown on the browser console.
 <script>
 let data1 = [
     ['Mazda', 2001, 2000, '2006-01-01'],
-    ['Pegeout', 2010, 5000, '2005-01-01'],
+    ['Peugeot', 2010, 5000, '2005-01-01'],
     ['Honda Fit', 2009, 3000, '2004-01-01'],
     ['Honda CRV', 2010, 6000, '2003-01-01'],
 ];
@@ -127,7 +126,7 @@ let focus = function(instance) {
 
 let data2 = [
     ['Mazda', 2001, 2000, '2006-01-01'],
-    ['Pegeout', 2010, 5000, '2005-01-01'],
+    ['Peugeot', 2010, 5000, '2005-01-01'],
     ['Honda Fit', 2009, 3000, '2004-01-01'],
     ['Honda CRV', 2010, 6000, '2003-01-01'],
 ];

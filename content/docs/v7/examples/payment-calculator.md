@@ -2,8 +2,6 @@ title: Spreadsheet Payment calculator
 keywords: Jspreadsheet, Jexcel, javascript, payment calculator spreadsheet
 description: Real world examples using Jspreadsheet.
 
-[Back to Cases](/docs/v7/examples "Back to the examples section")
-
 # Spreadsheet Payment Calculator
 
 A quick example using various data grid cell types in the same column.

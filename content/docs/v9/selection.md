@@ -2,7 +2,7 @@ title: JavaScript Grid Selection
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, cell selection, cell reset
 description: This section brings more information about properties, events and methods to deal with the javascript grid selection.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Data Grid Selection
 

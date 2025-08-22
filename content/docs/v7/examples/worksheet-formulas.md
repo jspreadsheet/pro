@@ -2,7 +2,6 @@ title: Using formulas in multiple worksheets
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, formulas, currency, custom formulas, formulas in multiple worksheets
 description: How to use formulas across multiple worksheets.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Multiple worksheet formulas
 

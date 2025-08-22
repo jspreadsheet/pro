@@ -4,7 +4,7 @@ description: Advance charts in your spreadsheet cells using ChartJS.
 
 Advanced Examples
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # ChartJS
 

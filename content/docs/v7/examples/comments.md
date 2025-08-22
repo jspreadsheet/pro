@@ -2,7 +2,6 @@ title: Data Grid Cell Comments on Jspreadsheet Version 7
 keywords: Jspreadsheet, Jexcel, spreadsheet, javascript, cell comments, javascript table, javascript data grid
 description: Understanding data grid cell comments using JavaScript. Create comments on your online spreadsheets.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Comments on your JavaScript spreadsheet
 

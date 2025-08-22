@@ -131,9 +131,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -154,19 +155,19 @@ export default function App() {
     ];
     // Cells
     const cells = {
-        A1: { type:'html' },
-        B2: { type:'number', mask: '#.##0,00' },
-        B3: { type:'number', mask: '#.##0,00' },
-        B4: { type:'number', mask: '#.##0,00' },
-        B5: { type:'number', mask: '0.00%' },
-        B6: { type: 'dropdown', source: [12,24,36,48,60] },
-        B8: { type:'number', mask: '#.##0,00' },
-        B9: { type:'number', mask: '#.##0,00' },
+        A1: {type: 'html'},
+        B2: {type: 'number', mask: '#.##0,00'},
+        B3: {type: 'number', mask: '#.##0,00'},
+        B4: {type: 'number', mask: '#.##0,00'},
+        B5: {type: 'number', mask: '0.00%'},
+        B6: {type: 'dropdown', source: [12, 24, 36, 48, 60]},
+        B8: {type: 'number', mask: '#.##0,00'},
+        B9: {type: 'number', mask: '#.##0,00'},
     }
     // Columns
     const columns = [
-        { width:'300px' },
-        { width:'200px' },
+        {width: '300px'},
+        {width: '200px'},
     ];
     // Merge cells
     const mergeCells = {
@@ -174,13 +175,13 @@ export default function App() {
     }
     // Rows properties
     const rows = {
-        0: { height:'200px' }
+        0: {height: '200px'}
     }
 
     // Render component
     return (
         <Spreadsheet ref={spreadsheet} license={license} extensions={extensions}>
-            <Worksheet data={data} cells={cells} columns={columns} mergeCells={mergeCells} rows={rows} />
+            <Worksheet data={data} cells={cells} columns={columns} mergeCells={mergeCells} rows={rows}/>
         </Spreadsheet>
     );
 }
@@ -254,7 +255,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -268,7 +272,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -471,7 +475,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -491,14 +498,14 @@ const setType = (worksheet) => {
 @Component({
     selector: "app-root",
     template: `<div #spreadsheet></div>
-        <input type="button" (click)="setType(this.worksheets[0])" value="Change A1 to a dropdown" />`;
+        <input type="button" (click)="setType()" value="Change A1 to a dropdown" />`;
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -535,6 +542,20 @@ export class AppComponent {
                 },
             }]
         });
+    }
+
+    setType() {
+            // First worksheet
+            let worksheet = this.worksheets[0];
+
+            // Change the cell editor type
+            worksheet.setProperty(0,0,{
+                type: 'dropdown',
+                source: ['Male','Female'],
+            });
+
+            // Define the new value
+            worksheet.setValue('A1', 'Male');
     }
 }
 ```

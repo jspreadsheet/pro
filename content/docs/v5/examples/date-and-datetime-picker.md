@@ -2,7 +2,7 @@ title: JavaScript Calendar with Time Picker
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet, date, datetime, calendar
 description: An example of basic to advanced calendar usage, date and datetime picker, valid date ranges, and conditional rendering.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Advanced javascript calendar
 

@@ -2,7 +2,7 @@ title: Data Grid Headers
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, headers
 description: Learn to add custom headers to your spreadsheet and how to change those programmatically.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Data Grid Headers
 

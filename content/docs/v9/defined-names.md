@@ -2,7 +2,7 @@ title: Spreadsheet Defined Names
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, defined names
 description: Defined names are variables can be used in formulas to define a cell or a range of cells. Learn more about how JSS handlers defined names.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 {.enterprise}
 # Defined Names

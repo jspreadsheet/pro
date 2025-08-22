@@ -2,7 +2,7 @@ title: Spreadsheet Progressbar Column Type
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, editors, javascript progressbar
 description: This example implements a spreadsheet with the progressbar column type.
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # Progressbar Column Type
 

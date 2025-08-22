@@ -2,7 +2,7 @@ title: The basics of Jspreadsheet Pro
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, table, grid
 description: The basics of Jspreadsheet. How to change the column width, rows height, header titles, etc.
 
-[Back to Documentation](/docs/v7)
+
 
 # The basics of the Jspreadsheet
 
@@ -364,7 +364,7 @@ The follow example will create a data table with a minimum number of ten columns
 ```javascript
 let data3 = [
     ['Mazda', 2001, 2000],
-    ['Pegeout', 2010, 5000],
+    ['Peugeot', 2010, 5000],
     ['Honda Fit', 2009, 3000],
     ['Honda CRV', 2010, 6000],
 ];

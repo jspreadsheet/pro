@@ -2,7 +2,6 @@ title: Create a spreadsheet from an HTML table
 keywords: Jspreadsheet, Jexcel, javascript, javascript vanilla, javascript plugin, plugin, excel-like, spreadsheet, table, tables, grid, datatables, data
 description: Create a Jspreadsheet worksheet from a simple HTML table.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Create from an HTML table
 

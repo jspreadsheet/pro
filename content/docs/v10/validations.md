@@ -137,15 +137,16 @@ document.getElementById("removeValidation").onclick = remove
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import jspreadsheet from "jspreadsheet";
 
 const license = '###license###';
 
 // Example on how to create a new validation on React
-const create = function(worksheet) {
+const create = function (worksheet) {
     worksheet.setValidations([{
         index: 1,
         value: {
@@ -154,12 +155,12 @@ const create = function(worksheet) {
             criteria: "<",
             type: "number",
             value: [500],
-            format: { color: '#ff0000' },
+            format: {color: '#ff0000'},
         }
     }]);
 }
 
-const remove = function(worksheet) {
+const remove = function (worksheet) {
     // Remove the validation by the index of the array spreadsheet[0].parent.config.validations
     worksheet.resetValidations([1]);
 }
@@ -169,11 +170,11 @@ export default function App() {
     const spreadsheet = useRef();
     // Data
     const data = [
-        [10,"=A1*2"],
-        [20,"=A2*2"],
-        [30,"=A3*2"],
-        [40,"=A4*2"],
-        [50,"=A5*2"]
+        [10, "=A1*2"],
+        [20, "=A2*2"],
+        [30, "=A3*2"],
+        [40, "=A4*2"],
+        [50, "=A5*2"]
     ]
     // Validations
     const validations: [
@@ -191,10 +192,10 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license} validations={validations}>
-                <Worksheet data={data} minDimensions={[6,6]} />
+                <Worksheet data={data} minDimensions={[6, 6]}/>
             </Spreadsheet>
-            <input type="button" value="Add new validation" onClick={() => create(spreadsheet.current[0])} />
-            <input type="button" value="Remove validation" onClick={() => remove(spreadsheet.current[0])} />
+            <input type="button" value="Add new validation" onClick={() => create(spreadsheet.current[0])}/>
+            <input type="button" value="Remove validation" onClick={() => remove(spreadsheet.current[0])}/>
         </>
     );
 }
@@ -276,7 +277,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -293,7 +297,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

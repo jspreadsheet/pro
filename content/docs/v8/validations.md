@@ -2,7 +2,7 @@ title: Spreadsheet Validations in Jspreadsheet - Data Input Validations
 keywords: Jspreadsheet, spreadsheets, data validation, cell validation, input data rules, business data rules
 description: Explore more about the Jspreadsheet data grid cell validations.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Spreadsheet Validations
 

@@ -2,7 +2,7 @@ title: Project Management Spreadsheet
 keywords: Jspreadsheet, Jexcel, javascript, cases, food store
 description: Create a project management spreadsheet using Jspreadsheet Version 7.
 
-[Back to Use Cases](/docs/v7/examples "Back to the use examples section")
+
 
 # Project Management Spreadsheet
 

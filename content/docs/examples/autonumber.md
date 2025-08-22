@@ -25,16 +25,16 @@ jspreadsheet.setLicense('###license###');
 jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         data: [
-            ["1","DIVINELY UNINSPIRED TO A HELLISH EXTENT","LEWIS CAPALDI"],
-            ["2","NO 6 COLLABORATIONS PROJECT","ED SHEERAN"],
-            ["3","THE GREATEST SHOWMAN","MOTION PICTURE CAST RECORDING"],
-            ["4","WHEN WE ALL FALL ASLEEP WHERE DO WE GO","BILLIE EILISH"],
-            ["5","STAYING AT TAMARA'S","GEORGE EZRA"],
-            ["6","BOHEMIAN RHAPSODY - OST","QUEEN"],
-            ["7","THANK U NEXT","ARIANA GRANDE"],
-            ["8","WHAT A TIME TO BE ALIVE","TOM WALKER"],
-            ["9","A STAR IS BORN","MOTION PICTURE CAST RECORDING"],
-            ["10","YOU'RE IN MY HEART","ROD STEWART"]
+            ["","DIVINELY UNINSPIRED TO A HELLISH EXTENT","LEWIS CAPALDI"],
+            ["","NO 6 COLLABORATIONS PROJECT","ED SHEERAN"],
+            ["","THE GREATEST SHOWMAN","MOTION PICTURE CAST RECORDING"],
+            ["","WHEN WE ALL FALL ASLEEP WHERE DO WE GO","BILLIE EILISH"],
+            ["","STAYING AT TAMARA'S","GEORGE EZRA"],
+            ["","BOHEMIAN RHAPSODY - OST","QUEEN"],
+            ["","THANK U NEXT","ARIANA GRANDE"],
+            ["","WHAT A TIME TO BE ALIVE","TOM WALKER"],
+            ["","A STAR IS BORN","MOTION PICTURE CAST RECORDING"],
+            ["","YOU'RE IN MY HEART","ROD STEWART"]
         ],
         columns: [
             { type: 'autonumber', title: 'Id', readonly: true, primaryKey: true, },
@@ -61,16 +61,16 @@ export default function App() {
     const spreadsheet = useRef();
     // Data
     const data = [
-        ["1","DIVINELY UNINSPIRED TO A HELLISH EXTENT","LEWIS CAPALDI"],
-        ["2","NO 6 COLLABORATIONS PROJECT","ED SHEERAN"],
-        ["3","THE GREATEST SHOWMAN","MOTION PICTURE CAST RECORDING"],
-        ["4","WHEN WE ALL FALL ASLEEP WHERE DO WE GO","BILLIE EILISH"],
-        ["5","STAYING AT TAMARA'S","GEORGE EZRA"],
-        ["6","BOHEMIAN RHAPSODY - OST","QUEEN"],
-        ["7","THANK U NEXT","ARIANA GRANDE"],
-        ["8","WHAT A TIME TO BE ALIVE","TOM WALKER"],
-        ["9","A STAR IS BORN","MOTION PICTURE CAST RECORDING"],
-        ["10","YOU'RE IN MY HEART","ROD STEWART"]
+        ["","DIVINELY UNINSPIRED TO A HELLISH EXTENT","LEWIS CAPALDI"],
+        ["","NO 6 COLLABORATIONS PROJECT","ED SHEERAN"],
+        ["","THE GREATEST SHOWMAN","MOTION PICTURE CAST RECORDING"],
+        ["","WHEN WE ALL FALL ASLEEP WHERE DO WE GO","BILLIE EILISH"],
+        ["","STAYING AT TAMARA'S","GEORGE EZRA"],
+        ["","BOHEMIAN RHAPSODY - OST","QUEEN"],
+        ["","THANK U NEXT","ARIANA GRANDE"],
+        ["","WHAT A TIME TO BE ALIVE","TOM WALKER"],
+        ["","A STAR IS BORN","MOTION PICTURE CAST RECORDING"],
+        ["","YOU'RE IN MY HEART","ROD STEWART"]
     ]
     // Columns
     const columns = [
@@ -110,16 +110,16 @@ export default {
     data() {
         // Data
         const data = [
-            ["1","DIVINELY UNINSPIRED TO A HELLISH EXTENT","LEWIS CAPALDI"],
-            ["2","NO 6 COLLABORATIONS PROJECT","ED SHEERAN"],
-            ["3","THE GREATEST SHOWMAN","MOTION PICTURE CAST RECORDING"],
-            ["4","WHEN WE ALL FALL ASLEEP WHERE DO WE GO","BILLIE EILISH"],
-            ["5","STAYING AT TAMARA'S","GEORGE EZRA"],
-            ["6","BOHEMIAN RHAPSODY - OST","QUEEN"],
-            ["7","THANK U NEXT","ARIANA GRANDE"],
-            ["8","WHAT A TIME TO BE ALIVE","TOM WALKER"],
-            ["9","A STAR IS BORN","MOTION PICTURE CAST RECORDING"],
-            ["10","YOU'RE IN MY HEART","ROD STEWART"]
+            ["","DIVINELY UNINSPIRED TO A HELLISH EXTENT","LEWIS CAPALDI"],
+            ["","NO 6 COLLABORATIONS PROJECT","ED SHEERAN"],
+            ["","THE GREATEST SHOWMAN","MOTION PICTURE CAST RECORDING"],
+            ["","WHEN WE ALL FALL ASLEEP WHERE DO WE GO","BILLIE EILISH"],
+            ["","STAYING AT TAMARA'S","GEORGE EZRA"],
+            ["","BOHEMIAN RHAPSODY - OST","QUEEN"],
+            ["","THANK U NEXT","ARIANA GRANDE"],
+            ["","WHAT A TIME TO BE ALIVE","TOM WALKER"],
+            ["","A STAR IS BORN","MOTION PICTURE CAST RECORDING"],
+            ["","YOU'RE IN MY HEART","ROD STEWART"]
         ]
         // Columns
         const columns = [
@@ -139,40 +139,41 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
                 data: [
-                    ["1","DIVINELY UNINSPIRED TO A HELLISH EXTENT","LEWIS CAPALDI"],
-                    ["2","NO 6 COLLABORATIONS PROJECT","ED SHEERAN"],
-                    ["3","THE GREATEST SHOWMAN","MOTION PICTURE CAST RECORDING"],
-                    ["4","WHEN WE ALL FALL ASLEEP WHERE DO WE GO","BILLIE EILISH"],
-                    ["5","STAYING AT TAMARA'S","GEORGE EZRA"],
-                    ["6","BOHEMIAN RHAPSODY - OST","QUEEN"],
-                    ["7","THANK U NEXT","ARIANA GRANDE"],
-                    ["8","WHAT A TIME TO BE ALIVE","TOM WALKER"],
-                    ["9","A STAR IS BORN","MOTION PICTURE CAST RECORDING"],
-                    ["10","YOU'RE IN MY HEART","ROD STEWART"]
+                    ["","DIVINELY UNINSPIRED TO A HELLISH EXTENT","LEWIS CAPALDI"],
+                    ["","NO 6 COLLABORATIONS PROJECT","ED SHEERAN"],
+                    ["","THE GREATEST SHOWMAN","MOTION PICTURE CAST RECORDING"],
+                    ["","WHEN WE ALL FALL ASLEEP WHERE DO WE GO","BILLIE EILISH"],
+                    ["","STAYING AT TAMARA'S","GEORGE EZRA"],
+                    ["","BOHEMIAN RHAPSODY - OST","QUEEN"],
+                    ["","THANK U NEXT","ARIANA GRANDE"],
+                    ["","WHAT A TIME TO BE ALIVE","TOM WALKER"],
+                    ["","A STAR IS BORN","MOTION PICTURE CAST RECORDING"],
+                    ["","YOU'RE IN MY HEART","ROD STEWART"]
                 ],
                 columns: [
-                    { type: 'autonumber', title: 'Id', readonly: true, primaryKey: true, },
-                    { type: 'text', width: '350px', title: 'Title' },
-                    { type: 'text', width: '250px', title: 'Artist' }
+                    { type: 'autonumber', title: 'Id',primaryKey: true, },
+                    { type: 'text', title: 'Title' },
+                    { type: 'text', title: 'Artist' }
                 ]
             }]
         });

@@ -2,7 +2,7 @@ title: Highcharts Integration
 keywords: Jspreadsheet, Jexcel, javascript, highcharts, charts
 description: Integrating highcharts with Jspreadsheet.
 
-[Back to Examples](/docs/v9/examples)
+
 
 # Highcharts
 

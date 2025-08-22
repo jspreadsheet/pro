@@ -238,7 +238,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 import * as formula from "@jspreadsheet/formula-pro";
 
 // Create the data grid component
@@ -247,7 +250,7 @@ import * as formula from "@jspreadsheet/formula-pro";
     template: `
         <div #summary></div>
         <div #products></div>
-    `;
+    `,
 })
 export class AppComponent {
     @ViewChild("summary") summary: ElementRef;
@@ -255,7 +258,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Stop calculations to make sure all data grid are ready and loaded
         jspreadsheet.calculations(false);
 

@@ -2,7 +2,7 @@ title: Data Grid Progressbar Column Type
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet, progressbar column type
 description: Include a progress bar column type in your spreadsheet to create a better visual experience for your applications.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Progressbar
 

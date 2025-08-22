@@ -2,7 +2,7 @@ title: Spreadsheet Editors
 keywords: Jspreadsheet, data grid, javascript, excel-like, spreadsheet, documentation, editors
 description: Editors are a very flexible and powerful way to transform simple spreadsheets into amazing web-based applications. Learn more about the native editors and how to build your own editors.
 
-[Back to Documentation](/docs/v9)
+
 
 # Editors
 
@@ -285,7 +285,7 @@ jspreadsheet.setLicense('###license###');
 jspreadsheet(document.getElementById('spreadsheet'), {
     data: [
         { id:'1', data:['Google', '5', ''] },
-        { id:'2', data:['Bind', '4', ''] },
+        { id:'2', data:['Bing', '4', ''] },
         { id:'3', data:['Yahoo', '1', ''] },
         { id:'4', data:['Duckduckgo', '5', ''] },
     ],

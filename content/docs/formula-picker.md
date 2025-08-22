@@ -98,9 +98,10 @@ jspreadsheet.picker(document.getElementById('picker'), {
 
 </html>
 ```
+
 ```jsx
-import React, { useRef, useEffect } from "react";
-import { Spreadsheet, Worksheet, Picker, jspreadsheet } from "@jspreadsheet/react";
+import React, {useRef, useEffect} from "react";
+import {Spreadsheet, Worksheet, Picker, jspreadsheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -119,9 +120,9 @@ export default function App() {
     // Render component
     return (
         <>
-            <Picker type="picker" onchange={onchange} />
+            <Picker type="picker" onchange={onchange}/>
             <Spreadsheet ref={spreadsheet}>
-                <Worksheet />
+                <Worksheet/>
             </Spreadsheet>
         </>
     );
@@ -159,12 +160,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #picker></div>
         <div #spreadsheet></div>`
@@ -175,7 +177,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create the spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

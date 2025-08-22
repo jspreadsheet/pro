@@ -2,8 +2,6 @@ title: Data Grid HTML column type
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, html editor
 description: Learn how to allow users to include rich text to your spreadsheet using the new HTML editor column type.
 
-[Back to Examples](/v7/examples "Back to the examples section")
-
 # Richtext column type
 
 Adding a HTML Editor input in a spreadsheet using Jspreadsheet Pro version 7. 

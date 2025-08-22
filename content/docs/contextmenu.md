@@ -124,28 +124,29 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
 const license = "###license###";
 
 export default function App() {
-  // Spreadsheet array of worksheets
-  const spreadsheet = useRef();
+    // Spreadsheet array of worksheets
+    const spreadsheet = useRef();
 
-  // Disable the context menu
-  const contextMenu = () => {
-    return false;
-  };
+    // Disable the context menu
+    const contextMenu = () => {
+        return false;
+    };
 
-  return (
-      <Spreadsheet ref={spreadsheet} license={license} contextMenu={contextMenu}>
-        <Worksheet minDimensions={[10,10]} />
-      </Spreadsheet>
-  );
+    return (
+        <Spreadsheet ref={spreadsheet} license={license} contextMenu={contextMenu}>
+            <Worksheet minDimensions={[10, 10]}/>
+        </Spreadsheet>
+    );
 }
 ```
 ```vue
@@ -183,27 +184,29 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
                 minDimensions: [4,4],
             }],
+            // Disable the context menu
             contextMenu: function() {
                 return false;
             }
@@ -447,7 +450,7 @@ export default {
         ];
 
         return {
-            contextmenu,
+            contextMenu,
             data,
             columns,
             license,
@@ -458,80 +461,83 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
-    selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+  standalone: true,
+  selector: 'app-root',
+  template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    // Worksheets
-    worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngOnInit() {
-        // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [{
-                data: [
-                    ["Apples", "Produce", 1.5, 10, "=C1*(1-(D1/100))"],
-                    ["Bread", "Bakery", 3.0, 20, "=C2*(1-(D2/100))"],
-                    ["Cheese", "Dairy", 5.0, 15, "=C3*(1-(D3/100))"],
-                    ["Eggs", "Dairy", 2.5, 0, "=C4*(1-(D4/100))"],
-                ],
-                columns: [
-                    { title: 'Food', width: '140px' },
-                    { title: 'Category' },
-                    { title: 'Unit Price' },
-                    { title: 'Discount' },
-                    { title: 'Total ' },
-                 ],
-                 allowComments: true,
-            }],
-            contextMenu: function(o, x, y, e, items, section) {
-                 // Reset all items
-                 items = [];
+  @ViewChild('spreadsheet') spreadsheet: ElementRef;
+  // Worksheets
+  worksheets: jspreadsheet.worksheetInstance[];
+  // Create a new data grid
+  ngAfterViewInit() {
+    // Create spreadsheet
+    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+      worksheets: [
+        {
+          data: [
+            ['Apples', 'Produce', 1.5, 10, '=C1*(1-(D1/100))'],
+            ['Bread', 'Bakery', 3.0, 20, '=C2*(1-(D2/100))'],
+            ['Cheese', 'Dairy', 5.0, 15, '=C3*(1-(D3/100))'],
+            ['Eggs', 'Dairy', 2.5, 0, '=C4*(1-(D4/100))'],
+          ],
+          columns: [
+            { title: 'Food', width: 140 },
+            { title: 'Category' },
+            { title: 'Unit Price' },
+            { title: 'Discount' },
+            { title: 'Total ' },
+          ],
+          allowComments: true,
+        },
+      ],
+      contextMenu: function (o, x, y, e, items, section) {
+        // Reset all items
+        items = [];
 
-                 // If the click was in the headers
-                 if (section == 'header') {
-                    // Items to the header only
-                    items.push({
-                        title: jSuites.translate('Execute one action'),
-                        onclick: function() {
-                            alert('test')
-                        }
-                    });
+        // If the click was in the headers
+        if (section == 'header') {
+          // Items to the header only
+          items.push({
+            title: 'Execute one action',
+            onclick: function () {
+              alert('test');
+            },
+          });
 
-                    // Add a line
-                    items.push({ type: 'line' });
-                 }
+          // Add a line
+          items.push({ title: '', type: 'line' });
+        }
 
-                 // Save
-                 items.push({
-                     title: jSuites.translate('Save as'),
-                     shortcut: 'Ctrl + S',
-                     icon: 'save',
-                     onclick: function () {
-                         o.download();
-                     }
-                 });
-
-                 // About
-                 items.push({
-                     title: jSuites.translate('About'),
-                     onclick: function() {
-                         alert('https://jspreadsheet.com');
-                     }
-                 });
-
-                 return items;
-             }
+        // Save
+        items.push({
+          title: 'Save as',
+          shortcut: 'Ctrl + S',
+          icon: 'save',
+          onclick: function () {
+            o.download();
+          },
         });
-    }
+
+        // About
+        items.push({
+          title: 'About',
+          onclick: function () {
+            alert('https://jspreadsheet.com');
+          },
+        });
+
+        return items;
+      },
+    });
+  }
 }
 ```
  

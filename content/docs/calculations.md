@@ -23,6 +23,30 @@ jspreadsheet.calculations(state: boolean);
 
 The latest version of Jspreadsheet introduces namespaces, enabling you to organize spreadsheets into groups to prevent name conflicts. This feature allows using identical worksheet names, such as Sheet1!A1*10, across different namespaces. Consequently, Jspreadsheet can accurately determine the specific worksheet to reference when applying formulas.
 
+{.ignore}
+```javascript
+jspreadsheet(document.getElementById('spreadsheet'), {
+    worksheets: [{
+        minDimensions: [10,10]
+    }],
+    namespace: '3b0fe10b-e48d-4d47-9a4f-5ebf59d52c58',
+});
+```
+
+### Pre Calculations
+
+The `preCalculation?: boolean` flag allows developers to choose between performing calculations during initial loading or deferring them to an on-demand calculation triggered by scrolling. Using the on-demand mode might impact the scrolling experience for complex calculations, so it should be used with caution.
+
+{.ignore}
+```javascript
+jspreadsheet(document.getElementById('spreadsheet'), {
+    worksheets: [{
+        minDimensions: [10,10]
+    }],
+    preCalculation: false,
+});
+```
+
 ## Examples
 
 ### Cross spreadsheet calculations
@@ -94,9 +118,10 @@ jspreadsheet.calculations(true);
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef, useEffect } from "react";
-import { Spreadsheet, jspreadsheet } from "@jspreadsheet/react";
+import React, {useRef, useEffect} from "react";
+import {Spreadsheet, jspreadsheet} from "@jspreadsheet/react";
 import * as formula from "@jspreadsheet/formula-pro";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
@@ -105,7 +130,7 @@ import "jspreadsheet/dist/jspreadsheet.css";
 // Set the license
 jspreadsheet.setLicense('###license###');
 
-jspreadsheet.setExtensions({ formula })
+jspreadsheet.setExtensions({formula})
 
 // Stop calculations to make sure all data grid are ready and loaded
 jspreadsheet.calculations(false);
@@ -120,21 +145,21 @@ export default function App() {
     const products = {
         worksheets: [{
             data: [
-                [ 'Crayons Crayola only (No Rose Art)', 2, 5.13, '=B1*C1' ],
-                [ 'Colored Pencils Crayola only', 2, 4.41, '=B2*C2' ],
-                [ 'Expo Dry-erase Markers Wide', 4, 3.00, '=B3*C3' ],
-                [ 'Index Cards Unlined', 3, 6.00, '=B4*C4' ],
-                [ 'Tissues', 10, 1.90, '=B5*C5' ],
-                [ 'Ziploc Sandwich-size Bags', 5, 1.00, '=B6*C6' ],
-                [ 'Thin Markers Crayola only', 2, 3.00, '=B7*C7' ],
-                [ 'Highlighter', 4, 1.20, '=B8*C8' ],
-                [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '=SUM(D1:D8)' ],
+                ['Crayons Crayola only (No Rose Art)', 2, 5.13, '=B1*C1'],
+                ['Colored Pencils Crayola only', 2, 4.41, '=B2*C2'],
+                ['Expo Dry-erase Markers Wide', 4, 3.00, '=B3*C3'],
+                ['Index Cards Unlined', 3, 6.00, '=B4*C4'],
+                ['Tissues', 10, 1.90, '=B5*C5'],
+                ['Ziploc Sandwich-size Bags', 5, 1.00, '=B6*C6'],
+                ['Thin Markers Crayola only', 2, 3.00, '=B7*C7'],
+                ['Highlighter', 4, 1.20, '=B8*C8'],
+                ['Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '=SUM(D1:D8)'],
             ],
             columns: [
-                { type: 'text', title:'Product', width:'300' },
-                { type: 'number', title:'Qtd', width:'80' },
-                { type: 'number', title:'Price', width:'100' },
-                { type: 'number', title:'Total', width:'100' },
+                {type: 'text', title: 'Product', width: '300'},
+                {type: 'number', title: 'Qtd', width: '80'},
+                {type: 'number', title: 'Price', width: '100'},
+                {type: 'number', title: 'Total', width: '100'},
             ],
             worksheetName: 'Products',
             columnSorting: false,
@@ -144,15 +169,15 @@ export default function App() {
     const summary = {
         worksheets: [{
             data: [
-                [ 'Price', '=SUM(Products!D1:D8)'],
-                [ 'Discount', 0.1],
-                [ 'Total', '=B1*(1-B2)'],
+                ['Price', '=SUM(Products!D1:D8)'],
+                ['Discount', 0.1],
+                ['Total', '=B1*(1-B2)'],
             ],
             columns: [
-                { type: 'text', title:'Summary', width:'300' },
-                { type: 'number', title:'Total', width:'200' },
+                {type: 'text', title: 'Summary', width: '300'},
+                {type: 'number', title: 'Total', width: '200'},
             ],
-            cells: { B2: { type:'percent' } },
+            cells: {B2: {type: 'percent'}},
             columnSorting: false,
         }],
     }
@@ -165,10 +190,10 @@ export default function App() {
     }, [])
 
     // Create spreadsheets
-    return (
-        <Spreadsheet ref={summaryRef} worksheets={summary.worksheets} />
-        <Spreadsheet ref={productsRef} worksheets={products.worksheets} />
-    );
+    return (<>
+            <Spreadsheet ref={summaryRef} worksheets={summary.worksheets}/>
+            <Spreadsheet ref={productsRef} worksheets={products.worksheets}/>
+    </>);
 }
 ```
 ```vue
@@ -279,19 +304,22 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as formula from "@jspreadsheet/formula-pro";
+import jspreadsheet from "jspreadsheet";
+import formula from "@jspreadsheet/formula-pro";
 
+// Set your JSS license key (The following key only works for one day)
+jspreadsheet.setLicense('###license###');
 
 jspreadsheet.setExtensions({ formula })
 
 // Create the data grid component
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #summary></div>
         <div #products></div>
-    `;
+    `,
 })
 export class AppComponent {
     @ViewChild("summary") summary: ElementRef;
@@ -299,7 +327,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Stop calculations to make sure all data grid are ready and loaded
         jspreadsheet.calculations(false);
 
@@ -318,10 +346,10 @@ export class AppComponent {
                     [ 'Total', '=SUM(B1:B8)', '=ROUND(SUM(C1:C8), 2)', '=SUM(D1:D8)' ],
                 ],
                 columns: [
-                    { type: 'text', title:'Product', width:'300' },
-                    { type: 'number', title:'Qtd', width:'80' },
-                    { type: 'number', title:'Price', width:'100' },
-                    { type: 'number', title:'Total', width:'100' },
+                    { type: 'text', title:'Product', width: 300 },
+                    { type: 'number', title:'Qtd', width: 80 },
+                    { type: 'number', title:'Price', width: 100 },
+                    { type: 'number', title:'Total', width: 100 },
                 ],
                 worksheetName: 'Products',
                 columnSorting: false,
@@ -337,8 +365,8 @@ export class AppComponent {
                     [ 'Total', '=B1*(1-B2)'],
                 ],
                 columns: [
-                    { type: 'text', title:'Summary', width:'300' },
-                    { type: 'number', title:'Total', width:'200' },
+                    { type: 'text', title:'Summary', width: 300 },
+                    { type: 'number', title:'Total', width: 200 },
                 ],
                 cells: { B2: { type:'percent' } },
                 columnSorting: false,

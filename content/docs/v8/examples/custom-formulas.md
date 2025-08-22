@@ -2,7 +2,7 @@ title: Custom Spreadsheet-like Formulas
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, custom formulas, javascript formulas, excel-like formulas, spreadsheet-like formulas
 description: This example shows how to create custom Excel-like JavaScript formulas.
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # Custom formulas
 

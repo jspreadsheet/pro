@@ -2,7 +2,6 @@ title: Jspreadsheet Pro Version 7 with Angular
 keywords: Jspreadsheet, Jexcel, javascript, using Jspreadsheet and angular
 description: How to integrate Jspreadsheet Pro Version 5 with Angular.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Angular Spreadsheet
 

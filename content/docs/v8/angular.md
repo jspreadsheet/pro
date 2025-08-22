@@ -2,7 +2,7 @@ title: Angular Spreadsheet
 keywords: Jspreadsheet, Jexcel, javascript, using Jspreadsheet and angular
 description: An example of how to create a Angular Spreadsheet using Jspreadsheet Pro version 8.
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # Angular Spreadsheet
 
@@ -32,7 +32,10 @@ $ npm install jspreadsheet-pro
 {.ignore}
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 @Component({
   selector: "app-root",

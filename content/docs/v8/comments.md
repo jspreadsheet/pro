@@ -2,7 +2,7 @@ title: Spreadsheet Cells Comments
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, cells comments
 description: Learn more about the spreadsheet cell comments, their methods, events and settings.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Spreadsheet Comments
 

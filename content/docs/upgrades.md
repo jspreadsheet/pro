@@ -147,8 +147,8 @@ Starting with version 11, the use of window.worksheetName for accessing workshee
 
 To access a worksheet instance, use the following methods:
 
-- `worksheetInstance.getWorksheetByName(worksheetName)` to access within the same namespace or
-- `jspreadsheet.getWorksheetByName(worksheetName, namespace)` to specify a workspace namespace.
+- `worksheet.getWorksheetByName(wName)` to access within the same namespace or
+- `jspreadsheet.getWorksheetByName(wName, namespace)` to specify a workspace namespace.
 
 ## Worksheets
 

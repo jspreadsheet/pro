@@ -2,7 +2,7 @@ title: Real-time Spreadsheet with Jspreadsheet Version 5
 keywords: Jspreadsheet, javascript, read-time spreadsheet
 description: More about online spreadsheet collaboration using socket.io.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Real time spreasheet
 

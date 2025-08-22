@@ -2,7 +2,7 @@ title: Jspreadsheet Distributions Comparison Table
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, performance, spreadsheet differences, version comparison.
 description: Compare the main difference between the Jspreadsheet distributions.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Comparison table
 

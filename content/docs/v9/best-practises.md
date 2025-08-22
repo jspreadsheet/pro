@@ -1,6 +1,6 @@
 Documentation
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Best Practises
 

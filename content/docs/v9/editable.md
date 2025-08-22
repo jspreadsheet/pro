@@ -2,7 +2,7 @@ title: The Worksheet Editable State
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, editable state, readonly
 description: How to change the editable state of worksheets or cells in your Jspreadsheet data grid.
 
-[Back to Examples](/docs/v9/examples)
+
 
 # Worksheet Editable State
 

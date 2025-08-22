@@ -131,9 +131,10 @@ document.getElementById("setnested").onclick = () => table[0].setNestedCell(0, 0
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -159,7 +160,7 @@ export default function App() {
             type: 'dropdown',
             title: 'Food',
             width: '100px',
-            source: ['Apples','Bananas','Carrots','Oranges','Cheese']
+            source: ['Apples', 'Bananas', 'Carrots', 'Oranges', 'Cheese']
         },
         {
             type: 'checkbox',
@@ -199,10 +200,10 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet data={data} columns={columns} nestedHeaders={nestedHeaders} minDimensions={[8,4]} />
+                <Worksheet data={data} columns={columns} nestedHeaders={nestedHeaders} minDimensions={[8, 4]}/>
             </Spreadsheet>
             <input type='button' value='Update'
-                onClick={() => spreadsheet.current[0].setNestedCell(0, 0, { title: 'New', tooltip: 'Tooltip' })} />
+                   onClick={() => spreadsheet.current[0].setNestedCell(0, 0, {title: 'New', tooltip: 'Tooltip'})}/>
         </>
     );
 }
@@ -295,7 +296,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 import jSuites from "jSuites";
 
 // Set your JSS license key (The following key only works for one day)
@@ -306,14 +310,14 @@ jspreadsheet.setLicense('###license###');
     selector: "app-root",
     template: `<div #spreadsheet></div>
         <input type='button' value='Update'
-            (click)="this.worksheets[0].setNestedCell(0, 0, { title:'New title',tooltip:'New tooltip' })">`;
+            (click)="this.worksheets[0].setNestedCell(0, 0, { title:'New title',tooltip:'New tooltip' })">`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -516,7 +520,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 import jSuites from "jSuites";
 
 // Set your JSS license key (The following key only works for one day)
@@ -527,14 +534,14 @@ jspreadsheet.setLicense('###license###');
     selector: "app-root",
     template: `<div #spreadsheet></div>
         <input type='button' value='Update'
-            (click)="this.worksheets[0].setNestedCell(0, 0, { title:'New title',tooltip:'New tooltip' })">`;
+            (click)="this.worksheets[0].setNestedCell(0, 0, { title:'New title',tooltip:'New tooltip' })">`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

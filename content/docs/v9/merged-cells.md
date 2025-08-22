@@ -2,7 +2,7 @@ title: Spreadsheet Merged cells
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, merge cells
 description: How to create and manage merged cells on your online spreadsheets.
 
-[Back to the documentation](/docs/v9 "Back to the examples section")
+
 
 # Spreadsheet Merged Cells
 

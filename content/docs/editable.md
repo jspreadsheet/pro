@@ -23,11 +23,11 @@ The editable property can be set during the initial configuration or adjusted pr
 
 For enhanced compatibility with XLSX and other spreadsheet formats, the following attributes are provided:
 
-| Method                         | Description                                                   |
-|--------------------------------|---------------------------------------------------------------|
-| locked?: boolean               | Controls the lock state of the spreadsheet. Defaults to null. |
-| selectUnLockedCells?: boolean  | Enables selection of unlocked cells. Default: true.           |
-| selectLockedCells?: boolean    | Enables selection of locked cells. Default: true.             |
+| Method                         | Description                                                 |
+|--------------------------------|-------------------------------------------------------------|
+| locked?: boolean               | Controls the lock state of the worksheet. Defaults to null. |
+| selectUnLockedCells?: boolean  | Enables selection of unlocked cells. Default: true.         |
+| selectLockedCells?: boolean    | Enables selection of locked cells. Default: true.           |
 
 ### Example
 
@@ -90,9 +90,10 @@ document.getElementById("btn2").addEventListener('click', spreadsheet);
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -111,7 +112,7 @@ export default function App() {
     // Method to handle the editable state of the first worksheet
     const worksheet = (e) => {
         // Toggle the editable state
-        spreadsheet.current[0].options.editable = ! spreadsheet.current[0].options.editable;
+        spreadsheet.current[0].options.editable = !spreadsheet.current[0].options.editable;
         // Change button label
         e.value = spreadsheet.current[0].options.editable ? 'Disable First Worksheet' : 'Enable First Worksheet';
     }
@@ -119,7 +120,7 @@ export default function App() {
     // Method to handle the editable state of the whole spreadsheet
     const all = (e) => {
         // Toggle the editable state
-        spreadsheet.current[0].parent.config.editable = ! spreadsheet.current[0].parent.config.editable;
+        spreadsheet.current[0].parent.config.editable = !spreadsheet.current[0].parent.config.editable;
         // Change button label
         e.value = spreadsheet.current[0].parent.config.editable ? 'Disable Spreadsheet' : 'Enable Spreadsheet';
     }
@@ -128,10 +129,10 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license} tabs>
-                <Worksheet data={data} />
+                <Worksheet data={data}/>
             </Spreadsheet>
-            <input type="button" value="Disable First Worksheet" onClick={(e) => worksheet(e.target)} />
-            <input type="button" value="Disable Spreadsheet" onClick={(e) => all(e.target)} />
+            <input type="button" value="Disable First Worksheet" onClick={(e) => worksheet(e.target)}/>
+            <input type="button" value="Disable Spreadsheet" onClick={(e) => all(e.target)}/>
         </>
     );
 }
@@ -153,95 +154,111 @@ import "jspreadsheet/dist/jspreadsheet.css";
 const license = '###license###';
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
-    },
-    methods: {
-        // Method to handle the editable state of the first worksheet
-        worksheet(e) {
-            // Current state
-            let editable = this.$refs.spreadsheet.current[0].options.editable;
-            // Toggle the editable state
-            this.$refs.spreadsheet.current[0].options.editable = ! this.$refs.spreadsheet.current[0].options.editable;
-            // Change button label
-            e.value = this.$refs.current[0].options.editable ? 'Disable First Worksheet' : 'Enable First Worksheet';
-        },
+components: {
+  Spreadsheet,
+  Worksheet,
+},
+methods: {
+  // Method to handle the editable state of the first worksheet
+  worksheet(e) {
+    console.log(this.$refs.spreadsheet.current[0].options.editable);
+    // Current state - treat undefined as true (editable by default)
+    let editable = this.$refs.spreadsheet.current[0].options.editable !== false;
+    // Toggle the editable state
+    this.$refs.spreadsheet.current[0].options.editable = !editable;
+    // Change button label
+    e.target.value = this.$refs.spreadsheet.current[0].options.editable
+      ? 'Disable First Worksheet'
+      : 'Enable First Worksheet';
+  },
 
-        // Method to handle the editable state of the whole spreadsheet
-        all(e) {
-            // Toggle the editable state
-            this.$refs.spreadsheet.current[0].parent.config.editable = ! this.$refs.spreadsheet.current[0].parent.config.editable;
-            // Change button label
-            e.value = this.$refs.spreadsheet.current[0].parent.config.editable ? 'Disable Spreadsheet' : 'Enable Spreadsheet';
-        }
-    },
-    data() {
-        // Data
-        const data = [
-            ['Mazda', 2001, 2000, 1],
-            ['Peugeot', 2010, 5000, 1],
-            ['Honda Fit', 2009, 3000, 1],
-            ['Honda CRV', 2010, 6000, 0],
-        ]
+  // Method to handle the editable state of the whole spreadsheet
+  all(e) {
+    // Current state - treat undefined as true (editable by default)
+    let editable = this.$refs.spreadsheet.current[0].parent.config.editable !== false;
+    // Toggle the editable state
+    this.$refs.spreadsheet.current[0].parent.config.editable = !editable;
+    // Change button label
+    e.target.value = this.$refs.spreadsheet.current[0].parent.config.editable
+      ? 'Disable Spreadsheet'
+      : 'Enable Spreadsheet';
+  },
+},
+data() {
+  // Data
+  const data = [
+    ['Mazda', 2001, 2000, 1],
+    ['Peugeot', 2010, 5000, 1],
+    ['Honda Fit', 2009, 3000, 1],
+    ['Honda CRV', 2010, 6000, 0],
+  ];
 
-        return {
-            data,
-            columns,
-            license,
-        };
-    }
-}
+  return {
+    data,
+    license,
+  };
+},
+};
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
-    selector: "app-root",
-    template: `<div #spreadsheet></div>
-        <input type="button" value="Disable First Worksheet" (click)="worksheet" />
-        <input type="button" value="Disable Spreadsheet" (click)="all" />`
+  standalone: true,
+  selector: 'app-root',
+  template: `<div #spreadsheet></div>
+        <input type="button" value="Disable First Worksheet" #btn1 (click)="worksheet(btn1)" />
+        <input type="button" value="Disable Spreadsheet" #btn2 (click)="all(btn2)" />`,
 })
 export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    // Worksheets
-    worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngOnInit() {
-        // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            tabs: true,
-            worksheets: [{
-                data: [
-                    ['Mazda', 2001, 2000, 1],
-                    ['Peugeot', 2010, 5000, 1],
-                    ['Honda Fit', 2009, 3000, 1],
-                    ['Honda CRV', 2010, 6000, 0],
-                ],
-            }]
-        });
-    }
+  @ViewChild('spreadsheet') spreadsheet: ElementRef;
+  // Worksheets
+  worksheets: jspreadsheet.worksheetInstance[];
+  // Create a new data grid
+  ngAfterViewInit() {
+    // Create spreadsheet
+    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+      tabs: true,
+      worksheets: [
+        {
+          data: [
+            ['Mazda', 2001, 2000, 1],
+            ['Peugeot', 2010, 5000, 1],
+            ['Honda Fit', 2009, 3000, 1],
+            ['Honda CRV', 2010, 6000, 0],
+          ],
+        },
+      ],
+    });
+  }
 
-    // Method to handle the editable state of the first worksheet
-    worksheet(e) {
-        // Toggle the editable state
-        this.worksheets.current[0].options.editable = ! this.worksheets.current[0].options.editable;
-        // Change button label
-        e.value = this.worksheets[0].options.editable ? 'Disable First Worksheet' : 'Enable First Worksheet';
-    }
+  // Method to handle the editable state of the first worksheet
+  worksheet(e: HTMLInputElement) {
+    if (this.worksheets)
+      // Toggle the editable state
+      this.worksheets[0].options.editable =
+        !this.worksheets[0].options.editable;
+    // Change button label
+    e.value = this.worksheets[0].options.editable
+      ? 'Disable First Worksheet'
+      : 'Enable First Worksheet';
+  }
 
-    // Method to handle the editable state of the whole spreadsheet
-    all(e) {
-        // Toggle the editable state
-        this.worksheets.current[0].parent.config.editable = ! this.worksheets.current[0].parent.config.editable;
-        // Change button label
-        e.value = this.worksheets.current[0].parent.config.editable ? 'Disable Spreadsheet' : 'Enable Spreadsheet';
-    }
+  // Method to handle the editable state of the whole spreadsheet
+  all(e: HTMLInputElement) {
+    // Toggle the editable state
+    this.worksheets[0].parent.config.editable =
+      !this.worksheets[0].parent.config.editable;
+    // Change button label
+    e.value = this.worksheets[0].parent.config.editable
+      ? 'Disable Spreadsheet'
+      : 'Enable Spreadsheet';
+  }
 }
 ```
 

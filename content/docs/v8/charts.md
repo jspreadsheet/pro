@@ -2,7 +2,7 @@ title: Spreadsheets Charts
 keywords: Jspreadsheet, Jexcel, javascript, cases, data persistence, database, spreadsheet, charts
 description: Quick start on the ChartJS extension for the Jspreadsheet Pro
 
-[Back to Documentation](/docs/v8)
+
 
 # ChartJS extensions for JSS
 

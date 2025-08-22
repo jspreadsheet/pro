@@ -2,7 +2,7 @@ title: Freeze Rows
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, freeze rows
 description: Learn how to sticky an arbitrary number of rows on the top of the spreadsheet.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Freeze rows
 

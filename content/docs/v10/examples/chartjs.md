@@ -113,7 +113,7 @@ export default function App() {
 ```
 ```vue
 <template>
-  <Spreadsheet ref="spreadsheet" :license="license" :style="gridStyle">
+  <Spreadsheet ref="spreadsheet" :license="license" :styles="gridStyle">
     <Worksheet
       csv="./sales.csv"
       :columns="columns"
@@ -161,7 +161,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 import "@jspreadsheet/formula-charts";
 
@@ -171,14 +174,14 @@ jspreadsheet.setLicense('###license###');
 // Create the data grid component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create summary spreadsheet
         jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

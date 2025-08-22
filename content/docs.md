@@ -1,35 +1,19 @@
 title: Jspreadsheet - The JavaScript Data Grid with Spreadsheet Controls
 keywords: Jspreadsheet, JavaScript data grid, spreadsheet controls, interactive data grid, web-based applications, lightweight, responsive controls, agnostic platform, Angular, React, Vue, spreadsheet-like plugin, documentation, examples, license
 description: Explore the documentation for Jspreadsheet, a lightweight JavaScript plugin for creating interactive data grids with spreadsheet controls. Learn about its features, including spreadsheet-like controls, responsive design, and compatibility with Angular, React, and Vue. Copy and paste the provided JavaScript example to quick-start creating amazing online spreadsheets. Check out the comparison between the Pro and Community editions, along with release notes for the latest versions. Find information on formulas, validations, real-time collaboration, worksheet management, add-ons, and premium support.
-
-<div style="float: right; max-width: 480px;">
-    <lm-animation></lm-animation>
-    <div class="row middle" style="margin: 0 auto; max-width: 380px;">
-        <a href='/docs/getting-started'><img src='/templates/default/img/javascript.png' style="width: 24px" alt="javascript logo"/></a>
-        <a href='/docs/react'><img src='/templates/default/img/react.png' style="width: 24px" alt="react logo"/></a>
-        <a href='/docs/vue'><img src='/templates/default/img/vuejs.png' style="width: 24px" alt="vue logo"/></a>
-        <a href='/docs/angular'><img src='/templates/default/img/angular.png' style="width: 24px" alt="angular logo"/></a>
-        <a href='/docs/typescript'><img src='/templates/default/img/ts.svg' style="width: 24px" alt="typescript logo"/></a>
-    </div>
-</div>
+canonical: https://jspreadsheet.com/docs
 
 # JavaScript Data Grid with Spreadsheet Controls
 
-{style="max-width: 50%"}
 Jspreadsheet is a lightweight JavaScript plugin that help developers to create exceptional web-based interactive data grid with spreadsheet controls.
 
 ## JavaScript Data Grid
 
-{style="max-width: 50%"}
 Create applications with spreadsheet-like controls. Manage thousands of database records in an instant.
-
-<br>
 
 [Free Trial](/me/login?create){.button .secondary target="_top"}
 
-<br><br>
-
-![mobile jexcel representation](img/jexcel-spreadsheet-mobile.png){.right}
+<br>
 
 ## Data Grid with Spreadsheet Controls
 
@@ -37,7 +21,7 @@ Create applications with spreadsheet-like controls. Manage thousands of database
 
 Impress your clients with a better user experience.
 
-* Embed rich data grid on your web applications;
+* Embed a rich data grid on your web applications;
 * Handle complicated data inputs with Excel-like controls;
 * Copy and paste across different spreadsheet software;
 * Highly flexible and customizable JavaScript Plugin;
@@ -56,7 +40,7 @@ Impress your clients with a better user experience.
 The advanced integrated tab management system gives users a higher degree of flexibility in their usage.
 [Learn More](/docs/examples/highcharts)
 
-{.bubble .quotation}
+{.bubble .green}
 > _“We vetted 10 JS spreadsheet components and we must say that jspreadsheet comes out as the best”_
 > 
 > **Lode Cools,**\
@@ -98,6 +82,8 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
 
 jspreadsheet.setLicense('###license###');
 
@@ -108,8 +94,8 @@ export default function App() {
     // Render component
     return (
         <>
-            <Spreadsheet ref={spreadsheet} tags={true} toolbar={true}>
-                <Worksheet />
+            <Spreadsheet ref={spreadsheet} tabs={true} toolbar={true}>
+                <Worksheet minDimensions={[6, 6]} />
             </Spreadsheet>
         </>
     );
@@ -117,13 +103,15 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :tags="true" :toolbar="true">
-        <Worksheet />
+    <Spreadsheet ref="spreadsheet" :license="license" :tabs="true" :toolbar="true">
+        <Worksheet :minDimensions="[6, 6]"/>
     </Spreadsheet>
 </template>
 
 <script>
 import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
 
 const license = '###license###';
 
@@ -142,7 +130,9 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -156,13 +146,13 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new JavaScript data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             tabs: true,
             toolbar: true,
             worksheets: [{
-                minDimensions: [8,8],
+                minDimensions: [6,6],
             }],
         });
     }
@@ -174,15 +164,15 @@ export class AppComponent {
 
 ### More spreadsheet examples
 
-#### Spreadsheet data
+#### Spreadsheet Data
 
-*   [Json data binding](/docs/examples/data-binding)
+*   [Json Data Grid Binding](/docs/examples/data-binding)
 *   [Import from XLSX](/docs/examples/xlsx-parser)
 *   [Export to XLSX](/docs/examples/xlsx-render)
 
 #### Formulas
 
-*   [Custom formulas](/docs/examples/custom-formulas)
+*   [Custom Data Grid Formulas](/docs/examples/custom-formulas)
 *   [Cross calculations](/docs/examples/cross-calculations)
 *   [External values](/docs/examples/external-values)
 
@@ -220,36 +210,227 @@ export class AppComponent {
 
 ## License
 
-You must have a license to use this software. Take a moment to explore the various [license plans](/pricing) available that best suit your specific needs.
-
+You must have a license to use this software. Take a moment to explore the various [license plans](/content/pricing.md) available that best suit your specific needs.
  
 
 ### About Jspreadsheet
 
-Inspired by other spreadsheet software, Jspreadsheet Pro is an original JavaScript app created to facilitate data input and manipulation in web-based applications. This software has two different distributions, the Community Edition (CE) and the Pro Edition. It is a lightweight alternative to other JavaScript spreadsheet libraries.Thus, you will be familiar with migrating your data to JSS Spreadsheet.  
+Inspired by other spreadsheet software, Jspreadsheet Pro is an original JavaScript data grid component created to facilitate data input and manipulation in web-based applications. This software has two different distributions, the Community Edition (CE) and the Pro Edition. It is a lightweight alternative to other JavaScript spreadsheet libraries.Thus, you will be familiar with migrating your data to JSS Spreadsheet.  
 
 ## Comparison
 
- 
-
 ### Pro vs Community editions
 
-| Feature                      | Description                                                                                                                                                                                                                                                                                                     |
-| -----------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| DOM management               | With a new DOM management engine, the pagination and lazy loading options allow for higher efficiency when rendering tables.                                                                                                                                                                                    |
-| Formula parsing              | The upgraded formula engine ensures that the efficiency and accuracy of calculations are enhanced, even when dealing with chained formulas.                                                                                                                                                                     |
-| Cross-Worksheet calculations | Work with formulas from different and multiple worksheets.                                                                                                                                                                                                                                                      |
-| Data persistence             | Offers complete support for data persistence. Developers can persist not only data, but also the properties of data tables in a remote server. Data tables can thus be easily recreated.<br/><br/>Stronger integration with remote servers enables better management of record IDs and remote data persistence. |
-| Decouple editors             | Allows for overwriting column properties for one specific cell. For example, the table can be configured to render a drop-down in one specific cell within a text type column.                                                                                                                                  |
-| Filter options               | The filterOptions property helps developers overwrite the behavior of a cell based on the values of another cell. For example, I have two date columns in a table; the second should not have a date that is before the one in the first.                                                                       |
-| Real-time collaboration      | Real-time online sharing capacity gives multiple users the ability to collaborate effectively.                                                                                                                                                                                                                  |
-| Custom editor template       | Offers a lot of new native column types and provides a new simplified custom type template. Developers can extend and create new custom column types in mere minutes.                                                                                                                                           |
-| Worksheet management         | The advanced integrated tab management system gives users a higher degree of flexibility, including the option to create new worksheets inside a spreadsheet.                                                                                                                                                   |
-| Add-ons and extensions       | Support for add-ons and plugins, which allows developers to use third-party extensions or create their own add-ons.                                                                                                                                                                                             |
-| Premium support              | Offers timely and comprehensive technical support to help developers maximize the potential of Jspreadsheet Pro and fulfill any application requirements.                                                                                                                                                       |
+| Feature                       | Description                                                                                                                                                                                                                                                                                                      |
+|-------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| DOM management                | With a new DOM management engine, the pagination and lazy loading options allow for higher efficiency when rendering tables.                                                                                                                                                                                     |
+| Formula parsing               | The upgraded formula engine ensures that the efficiency and accuracy of calculations are enhanced, even when dealing with chained formulas.                                                                                                                                                                      |
+| Cross-Worksheet calculations  | Work with formulas from different and multiple worksheets.                                                                                                                                                                                                                                                       |
+| Data persistence              | Offers complete support for data persistence. Developers can persist not only data, but also the properties of data tables in a remote server. Data tables can thus be easily recreated.<br/><br/>Stronger integration with remote servers enables better management of record IDs and remote data persistence.  |
+| Decouple editors              | Allows for overwriting column properties for one specific cell. For example, the table can be configured to render a drop-down in one specific cell within a text type column.                                                                                                                                   |
+| Filter options                | The filterOptions property helps developers overwrite the behavior of a cell based on the values of another cell. For example, I have two date columns in a table; the second should not have a date that is before the one in the first.                                                                        |
+| Real-time collaboration       | Real-time online sharing capacity gives multiple users the ability to collaborate effectively.                                                                                                                                                                                                                   |
+| Custom editor template        | Offers a lot of new native column types and provides a new simplified custom type template. Developers can extend and create new custom column types in mere minutes.                                                                                                                                            |
+| Worksheet management          | The advanced integrated tab management system gives users a higher degree of flexibility, including the option to create new worksheets inside a spreadsheet.                                                                                                                                                    |
+| Add-ons and extensions        | Support for add-ons and plugins, which allows developers to use third-party extensions or create their own add-ons.                                                                                                                                                                                              |
+| Premium support               | Offers timely and comprehensive technical support to help developers maximize the potential of Jspreadsheet Pro and fulfill any application requirements.                                                                                                                                                        |
 
 
-## Jspreadsheet release notes
+## Jspreadsheet Release Notes
+
+[Click here to see all history](/docs/changelog)
+
+#### 11.6.0
+
+- Introduced a new (cell range filter)[/docs/filters];
+- Updated filter properties and methods for enhanced functionality;
+
+#### 11.5.6
+
+- Improved positioning of media elements during onload and resize;
+- Introduced a new cellAnchor property for media elements;
+- Added a new getMedia method for worksheets;
+- Updated dynamicSource to accept definedNames;
+
+#### 11.5.5
+
+- Improved setValue in batch operations to ensure formulas are re-calculated within the topology chain.
+- Enhanced getDataFromRange to accept worksheet names;
+- Fixed the `dynamicSource` property use for dropdowns;
+
+#### 11.5.4
+
+- Fixed the toolbar font-family dropdown to correctly select fonts, even when the font name includes white spaces;
+- Fixed data grid filter position;
+- Enhanced setProperties to accept a new type as a custom editor object;
+
+#### 11.5.3
+
+- New rows now default to an empty array upon insertion;
+
+#### 11.5.2
+
+- Prevent console errors when using the Tab and Enter keys with no active selection;
+- Added a select-all option for nested headers;
+
+#### 11.5.1
+
+- Prevent default keydown behavior on read-only cells.
+
+#### 11.5.0
+
+- Fixed data grid filter position when using nestedHeaders with frozenColumn;
+- Included the onclick event for data grid dispatch;
+- Aligned the Backspace shortcut behavior with Excel and Google Sheets;
+- Introduced a new method, worksheetInstance.getStyleIndexes(cell?: string), to retrieve style indexes;
+- oncopy now accepts an overwrite value;
+- Added the force property for value setting during batch execution;
+
+> Note: Starting from version 11.5.0, worksheet.options, worksheet.getConfig(), and spreadsheet.getConfig() will return style indexes to enhance performance during persistence.
+
+#### 11.4.12
+
+* setFilter forces an array of strings to lowercase;
+* Applying a filter on load forces the array of strings to lowercase;
+* Consider null as blank during filtering;
+* Fix data grid filter position when using nestedHeaders with frozenColumn;
+
+#### 11.4.11
+
+* oneditionstart can return false to block the edition;
+
+#### Jspreadsheet 11.4.10
+
+* When filters: false but filters are enabled on the column level + sorting fix;
+
+#### Jspreadsheet 11.4.9
+
+* Case-sensitive filters
+* added ctrl+shift.* shortcuts
+* added @types locked:boolean for the Cells interface
+
+#### Jspreadsheet 11.4.7
+
+* Accept numbers as worksheet names;
+
+#### Jspreadsheet 11.4.6
+
+* Update on the toolbar undo & redo button state;
+* setWidth & setHeight will work with editable: false to improve the user experience;
+* Filter false on checkbox column types fix;
+
+#### Jspreadsheet 11.4.5
+
+* setReadOnly clone column information fix;
+* Block update cell calls for non-existing cells;
+
+#### Jspreadsheet 11.4.4
+
+* onmerge event expanded to the removeMerge method;
+* onopenfilter to accept a promise as a valid return;
+
+#### Jspreadsheet 11.4.3
+
+* minSpareRows initial loading fix;
+* Force updateFormulas on readonly cells during table reference updates;
+
+#### Jspreadsheet 11.4.2
+
+* Fix readonly to keep the column original properties into the cell;
+* Fix setValidations for type format;
+
+#### Jspreadsheet 11.4.1
+
+* Update formulas with $ when changing the data grid structure fix;
+* Showing array formula result during spreadsheet render fix;
+* New method 'getStyleId'
+* New data grid shortcut management system. `jspreadsheet.shortcut.set(string, method)`
+
+#### Jspreadsheet 11.3.0
+
+If you are upgrading from any previous version, you might need to upgrade your certificate.
+
+* New argument for the loadValidations method;
+* loadData adjustDimensions will destroy the merged cells;
+* Fixes in some edge cases on the formula references when change the spreadsheet structure;
+* Range name with or without worksheet name when there are changes in the spreadsheet structure;
+* Mobile touch events improvement;
+* New global persistence handler;
+
+#### Jspreadsheet 11.2.5
+
+* isFront() is improved to identify a backend or frontend;
+* Types updates;
+* definedNames update references fix
+* setMedia initial top,left persistence when create a new media;
+
+#### Jspreadsheet 11.2.3
+
+* adjustDimensions argument on spreadsheet loadData to consider JSON data type;
+* Update the data grid toolbar state on undo/redo;
+* Re-focus on the input when back to the screen with Jspreadsheet;
+
+#### Jspreadsheet 11.2.2
+
+* Checkbox and radio editors should not transform the original data;
+* Create cells when using range style;
+* Record Editor type;
+* New argument on getWorksheet;
+
+#### Jspreadsheet 11.2.0
+
+* New validations engine;
+* Custom data grid cell validations;
+* Remove selection updates on insert rows and columns (internally);
+
+#### Jspreadsheet 11.1.4
+
+* worksheetId generated automatically when not defined;
+
+#### Jspreadsheet 11.1.3
+
+* getData optimization;
+* copy performance optimization;
+* custom validations;
+
+#### Jspreadsheet 11.1.2
+
+* Formula cache optimization;
+* Dropdown dynamicSource property;
+* definedNames optimization;
+
+#### Jspreadsheet 11.1.1
+
+* New extension: OpenAI Integration;
+* Vertical Scrolling rowHeight;
+* loadData to reset data fix;
+* onerror to intercept loading errors;
+* Delete worksheet improvements;
+* Rename worksheet improvements;
+* Range style with setStyle;
+* updateProperty & setProperty improvements;
+* Multiple rows and columns resize outside the current data grid selection fix;
+* Update data grid selection after insert rows or columns;
+
+#### Jspreadsheet 11.0.28
+
+* Trim() on dropdown items fix;
+* Apply mask during setValue;
+* Data grid reject validation with format fix;
+* loadData new argument adjustDimension;
+* getValueFromCoords new argument raw;
+
+#### Jspreadsheet 11.0.23
+
+* SnapToGrid fix
+* Background CSS combination (dropdown, notes and style) fix.
+
+#### Jspreadsheet 11.0.22
+
+* Data grid defined names to work correctly with $ and null;
+* setProperty to rebuild the cell data grid with all properties and validations;
+* Chart extension with a new option to disable animations;
+* setFreeze Rows & Columns to ignore DOM on backend operations;
 
 #### Jspreadsheet 11.0.21
 

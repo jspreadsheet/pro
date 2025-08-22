@@ -2,7 +2,7 @@ title: Data Grid Appearance
 keywords: Jspreadsheet, data grid, javascript, excel-like, spreadsheet, documentation, appearance
 description: Change the spreadsheet appearance using the native modern CSS classes.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Spreadsheet
 

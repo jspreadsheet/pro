@@ -96,9 +96,10 @@ document.getElementById("resetgroup").onclick = () => spreadsheet[0].resetColumn
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet, jspreadsheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -116,21 +117,23 @@ export default function App() {
     const spreadsheet = useRef();
 
     // Columns - group 5 columns, collapsed
-    const columns = [{},{},{},{},{},{ group: 5, state: false }];
+    const columns = [{}, {}, {}, {}, {}, {group: 5, state: false}];
 
     // Render component
     return (
         <>
-        <Spreadsheet ref={spreadsheet} license={license}>
-            <Worksheet
-                data={data}
-                tableOverflow
-                tableWidth="800px"
-                tableHeight="400px"
-                columns={columns} />
-        </Spreadsheet>
-        <input type="button" value="setColumnGroup(0,3)" onClick={() => spreadsheet.current[0].setColumnGroup(0,3)} />
-        <input type="button" value="resetColumnGroup(0)" onClick={() => spreadsheet.current[0].resetColumnGroup(0)} />
+            <Spreadsheet ref={spreadsheet} license={license}>
+                <Worksheet
+                    data={data}
+                    tableOverflow
+                    tableWidth="800px"
+                    tableHeight="400px"
+                    columns={columns}/>
+            </Spreadsheet>
+            <input type="button" value="setColumnGroup(0,3)"
+                   onClick={() => spreadsheet.current[0].setColumnGroup(0, 3)}/>
+            <input type="button" value="resetColumnGroup(0)"
+                   onClick={() => spreadsheet.current[0].resetColumnGroup(0)}/>
         </>
     );
 }
@@ -186,7 +189,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -212,7 +218,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [

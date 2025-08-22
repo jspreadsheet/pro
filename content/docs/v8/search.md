@@ -2,7 +2,7 @@ title: Spreadsheet Search
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, search
 description: Learn how to set up the spreadsheet search, and how to intercept, cancel or customize the search behavior using the onbeforesearch events.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Search
 
@@ -30,7 +30,7 @@ The `onbeforesearch` can be used to intercept, change or cancel the search resul
 | Event          | Description                                                                                                                                                                                                |
 | ---------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | onbeforesearch | `onbeforesearch(worksheet: Object, terms: String, results: Array, search: Object)`<br/>Action to be executed before the search. It can be used to cancel or to intercept and customize the search process. |
-| onsearch       | `onbeforesearch(worksheet: Object, terms: String, rowNumber: Array, search: Object)`<br/>After the search process is completed.                                                                            |
+| onsearch       | `onsearch(worksheet: Object, terms: String, rowNumber: Array, search: Object)`<br/>After the search process is completed.                                                                            |
 
  
 
@@ -59,7 +59,7 @@ Basic example with search and pagination.
 
 <div id="spreadsheet"></div>
 
-<input type='button' value='Search for APP' id="searchbtn"/>
+<input type='button' value='Search for APP' id="btn1" />
 
 <script>
 // Set the JSS spreadsheet license
@@ -83,7 +83,7 @@ let worksheets = jspreadsheet(document.getElementById('spreadsheet'), {
     }]
 });
 
-document.getElementById("searchbtn").onclick = () => worksheets[0].search('app');
+document.getElementById("btn1").onclick = () => worksheets[0].search('app');
 </script>
 </html>
 ```

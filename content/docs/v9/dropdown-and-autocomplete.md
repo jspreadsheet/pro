@@ -2,7 +2,7 @@ title: JavaScript Dropdown and Autocomplete
 keywords: Jspreadsheet, data grid, javascript, excel-like, spreadsheet, documentation, autocomplete, dropdown, javascript dropdown
 description: Learn more about the native javascript dropdown and autocomplete editor. Create advanced conditional javascript dropdown editors.
 
-[Back to the documentation](/docs/v9 "Back to the documentation section")
+
 
 # JavaScript Dropdown
 

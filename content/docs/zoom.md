@@ -69,8 +69,8 @@ document.getElementById("btn2").onclick = () => spreadsheet[0].setZoom(1)
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -84,7 +84,8 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet minDimensions={[50,20]} tableOverflow={true} tableWidth={"600"} tableHeight={"400"} zoom={0.8} />
+                <Worksheet minDimensions={[50, 20]} tableOverflow={true} tableWidth={"600"} tableHeight={"400"}
+                           zoom={0.8}/>
             </Spreadsheet>
             <button onClick={() => spreadsheet.current[0].setZoom(0.8)}>setZoom(0.8)</button>
             <button onClick={() => spreadsheet.current[0].setZoom(1)}>setZoom(1)</button>
@@ -97,8 +98,8 @@ export default function App() {
     <Spreadsheet ref="spreadsheet" :license="license">
         <Worksheet :minDimensions="[50,20]" :tableOverflow="true" :tableWidth="600" :tableHeight="400" :zoom="0.8" />
     </Spreadsheet>
-    <button @click="handleSetFreeze">setZoom(0.8)</button>
-    <button @click="handleReset">setZoom(1)</button>
+    <button @click="setZoomHalf">setZoom(0.8)</button>
+    <button @click="setZoomOne">setZoom(1)</button>
 </template>
 
 <script>
@@ -132,12 +133,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
         <button (click)="setZoomHalf()">setZoom(0.8)</button>
@@ -148,14 +150,14 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [
+            worksheets: [{
                 minDimensions: [50,20],
                 tableOverflow: true,
-                tableWidth: '600px',
-                tableHeight: '400px',
+                tableWidth: 600,
+                tableHeight: 400,
                 zoom: 0.8,
             }]
         });

@@ -184,9 +184,10 @@ document.getElementById('clonebtn').onclick = clone
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet, jspreadsheet} from "@jspreadsheet/react";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -198,7 +199,7 @@ export default function App() {
     const copy = useRef();
 
     // Method to clone the data grid
-    const clone = function() {
+    const clone = function () {
         // Get the data grid configuration
         let config = spreadsheet.current[0].parent.getConfig();
         // Show on the textarea
@@ -211,19 +212,20 @@ export default function App() {
 
     return (
         <>
-            <Spreadsheet ref={spreadsheet} license={license} tabs toolbar>
-                <Worksheet data={[[1,2,3]]} minDimensions={[8,8]} />
+            <Spreadsheet ref={spreadsheet} license={license} tabs={true} toolbar={true}>
+                <Worksheet data={[[1, 2, 3]]} minDimensions={[8, 8]}/>
             </Spreadsheet>
-            <div ref={copy}></div><br>
-            <textarea ref={console}></textarea><br>
-            <input type="button" value="Clone the data grid above" onClick={() => clone()} />
-        </>
-    );
-}
+            <div ref={copy}></div>
+            <br>
+                <textarea ref={console}></textarea><br>
+                <input type="button" value="Clone the data grid above" onClick={() => clone()}/>
+            </>
+                );
+                }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" tabs toolbar>
+    <Spreadsheet ref="spreadsheet" :license="license" :tabs="true" :toolbar="true">
         <Worksheet :data="[[1,2,3]]" :minDimensions="[8,8]" />
     </Spreadsheet>
     <div ref="copy"></div><br />
@@ -269,7 +271,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -282,7 +287,7 @@ jspreadsheet.setLicense('###license###');
         <div #copy></div><br>
         <textarea #console></textarea><br>
         <input type="button" value="Clone the data grid above" (click)="this.clone()" />
-    `;
+    `,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -291,7 +296,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

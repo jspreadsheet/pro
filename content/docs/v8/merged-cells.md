@@ -2,8 +2,6 @@ title: Spreadsheet Merge cells
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, merge cells
 description: How to create and manage merged cells on your online spreadsheets.
 
-[Back to the documentation](/docs/v8 "Back to the examples section")
-
 # Spreadsheet Merged cells
 
 This section covers creating and managing merged cells in your online spreadsheets. 
@@ -71,7 +69,7 @@ Open the [merged cells example](https://jsfiddle.net/spreadsheet/gLc0a1x2/) on J
 jspreadsheet.setLicense('###license###');
 let data = [
     ['Mazda', 2001, 2000, '2006-01-01 12:00:00'],
-    ['Pegeout', 2010, 5000, '2005-01-01 13:00:00'],
+    ['Peugeot', 2010, 5000, '2005-01-01 13:00:00'],
     ['Honda Fit', 2009, 3000, '2004-01-01 14:01:00'],
     ['Honda CRV', 2010, 6000, '2003-01-01 23:30:00'],
 ]

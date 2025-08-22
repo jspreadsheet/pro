@@ -1,8 +1,16 @@
-![OpenAI Data Grid](img/data-grid/search-and-replace.svg){.icon}
+title: OpenAI ChatGPT and Jspreadsheet Integration
+keywords: JavaScript Data Grid, OpenAI, ChatGPT Integration
+description: This section brings more information about our Jspreadsheet Server integration, and how to create ChatGPT API requests directly from your jspreadsheet data grid.
 
-# OpenAI Data Grid
+![OpenAI ChatGPT Integration](img/data-grid/chatgpt.svg){.icon}
 
-Integrate the intelligence of OpenAI's ChatGPT into your Jspreadsheet Pro with the OpenAI Data Grid extension. This tool seamlessly embeds AI capabilities into your data grid, allowing for automated content generation, response handling, and direct querying about your data. It leverages the OpenAI ChatGPT to deliver a more interactive data exploration and management experience. 
+# OpenAI
+
+## ChatGPT API Integration
+
+The Jspreadsheet OpenAI extension is a full-stack plugin that integrates the ChatGPT API into your Jspreadsheet Pro data grids. It enables automated content generation, response handling, and advanced data analysis. Full functionality requires the Jspreadsheet Server extension, enabling front-end queries to connect to the backend API for real-time data delivery to users.
+
+> This extension runs on Jspreadsheet Server hosted on your infrastructure, ensuring your API keys and data remain secure.
 
 ## Endless possibilities
 
@@ -19,7 +27,7 @@ B2: "Fitness tracking, sleep monitoring, 48-hour battery life"
 
 In C2, you would enter:
 
-=OPENAI.PROMPT("Write an engaging marketing copy for a product named ", A2, " with these features: ", B2)
+=PROMPT("Write an engaging marketing copy for a product named ", A2, " with these features: ", B2)
 ```
   
 
@@ -27,23 +35,20 @@ In C2, you would enter:
 
 ### Methods
 
-| Method                    | Description                                                                                                                                                                                                      |
-| --------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| =OPENAI.PROMPT(...PROMPT) | This function is used to create dynamic prompts by combining different values or text fragments. It allows you to interact with AI models using customized prompts.                                              |
-| =OPENAI.TAG(LIST, OPT)    | This function is used for tasks such as text classification, sentiment analysis, or content filtering. It helps assign relevant tags or categories to input data by leveraging AI models and predefined options. |
-
+| Method                | Description                                                                                                                                                          |
+|-----------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| =PROMPT(...ARGUMENTS) | This function is used to create dynamic prompts by combining different values or text fragments. It allows you to interact with AI models using customized prompts.  |
  
 
 ## Installation
 
-Please choose one of the following options 
+This extension requires Jspreadsheet Server & an OpenAI API account.
 
 ### Using NPM
 
 ```bash
 $ npm install @jspreadsheet/openai
 ```
- 
 
 ### Using a CDN
 
@@ -55,77 +60,203 @@ $ npm install @jspreadsheet/openai
 
 ## Configuration
 
-To incorporate OpenAI into Jspreadsheet, you must include it in the formulas configuration by utilizing the "setFormula" function. 
+The OpenAI extension requires the Jspreadsheet Server so one user can perform a secure requests to ChatGPT API via Jspreadsheet Server, which will broadcast the same answer to all connect users. Using the cache saving the result to the cell, this way a request happen only when strictly necessary.
 
-### Setting as Formula
+### Server Installation
 
-When setting it as a formula, the OpenAI key should be provided in the configuration object, as demonstrated in the following code snippet: 
+You load the OpenAI and pass as an extension to Jspreadsheet server as below.
+
+| Option         | Description                                                                                                                                                                        |
+|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `apiKey`       | Your OpenAI private key.                                                                                                                                                           |
+| `onbeforesend` | Modify the default request options before sending the API request.<br>`onbeforesend(instance, requestOptions) => void`                                                             |
+| `onsuccess`    | Customize return, return false to cancel the cell update.<br>`onsuccess(value: String, result: Object, x: Number, y: Number, worksheet: Object)` => string \| boolean \| undefined |                                                                           
+
+#### requestOptions default
+
+It is possible to customize the option request.
 
 {.ignore}
 ```javascript
-import openai from "@jspreadsheet/openai"
-import formula from "@jspreadsheet/formula-pro"
-
-formula.setFormula({ OPENAI: openai({ key: '<your-openai-key>' }) })
+let requestOptions = {
+    model: "gpt-4",
+    messages: [
+        {
+            role: "system",
+            content: "prompt passed from frontend spreadsheet",
+        }
+    ]
+}
 ```
- 
 
-## More Examples
+#### Example
+
+{.ignore}
+```javascript
+const server = require('@jspreadsheet/server');
+const openai = require('@jspreadsheet/openai');
+
+// Connect to the Open AI API
+openai({
+    apiKey: 'your-open-ai-key',
+    onbeforesend: function(instance, options) {
+        // Update the default
+        options.model = 'gpt-4o';
+    },
+    onsuccess: function(value, result) {
+        // It is possible to overwrite the result
+        return value;
+    }
+});
+
+// You can get this information on your Jspreadsheet Account
+const license = {
+    clientId: 'your-client-id',
+    licenseKey: 'your-license'
+}
+
+// Private server that runs on your servers (100% private)
+server({
+    config: {
+        cors: {
+            origin: "*"
+        },
+    },
+    port: 3000,
+    error: function(e) {
+        // Your implementation
+    },
+    auth: async function(socket) {
+        // Your implementation
+    },
+    load: async function(guid) {
+        // Your implementation
+    },
+    create: async function(guid, config) {
+        // Your implementation
+    },
+    destroy: async function(guid) {
+        // Your implementation
+    },
+    change: async function(guid, changes) {
+        // Your implementation
+    },
+    license: license,
+    extensions: { openai },
+});
+```
+
+### Frontend
+
+OpenAI API requests are routed through your server to ensure the security of your API key.
+
+#### Example
+
+{.ignore}
+```html
+<html>
+<script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
+<link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
+<script src="https://jsuites.net/v5/jsuites.js"></script>
+<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+
+<script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/formula-pro/dist/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/client/dist/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/openai/dist/index.min.js"></script>
+
+<div id="spreadsheet"></div>
+
+<script>
+// Set the license for both plugin and the spreadsheet
+jspreadsheet.setLicense('###license###');
+
+// Load the extensions
+jspreadsheet.setExtensions({ formula, client, openai });
+
+// Connect
+let remote = client.connect({
+    url: 'https://yourdomain.com'
+});
+
+// Connect to a spreadsheet
+jspreadsheet(document.getElementById('spreadsheet'), {
+    guid: '53aa4c90-791d-4a65-84a6-1ac25d6b1118'
+});
+</script>
+</html>
+```
+```jsx
+import React, { useRef } from "react";
+import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import client from "@jspreadsheet/client";
+import formula from "@jspreadsheet/formula-pro";
+import openai from "@jspreadsheet/openai";
+
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+
+// Set the license
+jspreadsheet.setLicense('###license###');
+// Define the extensions
+jspreadsheet.setExtensions({ formula, client, openai });
+
+// Connect to your server
+let remote = client.connect({
+    url: 'https://yourdomain.com'
+});
+
+export default function App() {
+    // Spreadsheet array of worksheets
+    const spreadsheet = useRef();
+    // Render component
+    return (<Spreadsheet ref={spreadsheet} guid={"guid"} />);
+}
+```
+
+### More information
+
+- [Jspreadsheet Client](/products/client)
+- [Jspreadsheet Server](/products/server)
+
+
+## Usage Examples
 
 ### Translating Column to French
 
-This example demonstrates the utilization of OPENAI.PROMPT to translate an entire column effortlessly. 
+This example demonstrates the utilization of PROMPT to translate an entire column. 
 
 {.ignore}
-```html
-<script>
-jspreadsheet(dom, {
-    data:[
-        ['Hello', '=OPENAI.PROMPT("Translate ",A1," to French")'],
-        ['Bye'],
-        ['Thanks'],
-        ['Sorry'],
-]})
-</script>
+```javascript
+jspreadsheet(HTMLElement, {
+    worksheets: [
+        {
+            data: [
+                ['Hello', '=PROMPT("Translate ",A1," to French")'],
+                ['Bye', '=PROMPT("Translate ",A2," to French")'],
+                ['Thanks', '=PROMPT("Translate ",A3," to French")'],
+                ['Sorry', '=PROMPT("Translate ",A4," to French")'],
+            ]
+        }
+    ]
+})
 ```
  
-
 ### Combining Words Semantics
 
- This example demonstrates the utilization of OPENAI.PROMPT to effectively combine word semantics. 
+ This example demonstrates the utilization of `PROMPT` to combine word semantics. 
 
 {.ignore}
-```html
-<script>
-jspreadsheet(dom, {
-    data:[
-            ['Flower', 'Bee', `=OPENAI.PROMPT(A1," and ",B1," combined result in this word:")`],
-            ['Fire', 'Water'],
-            ['Fire', 'Wood'],
-            ['Flower', 'Water'],
-            ['Paper', 'Pen'],
-            ['Moon', 'Sun']
-]})
-</script>
+```javascript
+jspreadsheet(HTMLElement, {
+    worksheets: [
+        {
+            data: [
+                ['Flower', 'Bee', `=PROMPT(A1," and ",B1," combined result in this word:")`],
+            ]
+        }
+    ]
+})
 ```
- 
 
-### Classifying Customer Reviews
-
- This example illustrates the utilization of OPENAI.TAG to assess the intent of customer review messages. 
-
-{.ignore}
-```html
-<script>
-jspreadsheet(self.jssRef, {
-    data:[
-            ['Reviews', 'Classification', 'Options'],
-            ['Very good product', `=OPENAI.TAG(A2:A6, C2:C5)`, 'Positive'],
-            ['Very bad product', '', 'Negative'],
-            ['Would not buy again', '', 'Neutral'],
-            ['I recommend to everyone!'],
-            ['Its ok']
-]})
-</script>
-```
- 

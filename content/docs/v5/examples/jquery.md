@@ -2,7 +2,7 @@ title: Jquery Spreadsheet with Jspreadsheet Version 5
 keywords: Jspreadsheet, javascript, using Jspreadsheet and Jquery
 description: An example of how to integrate Jspreadsheet Pro version 5 with jQuery.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Jquery
 

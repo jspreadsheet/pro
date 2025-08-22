@@ -2,7 +2,7 @@ title: Data Grid Meta information
 keywords: Javascript spreadsheet, javascript, javascript table, meta information,
 description: Manage hidden information about your data grid cells using meta information methods. Learn how to set and reveal hidden information.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Meta information
 

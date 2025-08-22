@@ -4,7 +4,6 @@ description: How to create rich javascript data grids with spreadsheet controls 
 
 Examples
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # React Spreadsheet
 
@@ -15,8 +14,9 @@ How to create a rich data grid with spreadsheet controls using React and Jspread
 [See this example working online](https://codesandbox.io/s/react-spreadsheet-pfrgf) 
 
 {.ignore}
+
 ```jsx
-import React, { useRef, useEffect } from "react";
+import React, {useRef, useEffect} from "content/docs/v7/examples/react";
 import jspreadsheet from "jspreadsheet-pro";
 import xls from "@jspreadsheet/xls";
 
@@ -24,37 +24,37 @@ import "jspreadsheet-pro/dist/jspreadsheet.css";
 import "jsuites/dist/jsuites.css";
 
 export default function App() {
-  const spreadsheetRef = useRef(null);
-  const license = "###license###";
+    const spreadsheetRef = useRef(null);
+    const license = "###license###";
 
-  useEffect(() => {
-    if (!spreadsheetRef.current.jexcel) {
-      jspreadsheet(spreadsheetRef.current, [
-        {
-          data: [["Sheet1"]],
-          minDimensions: [10, 10],
-          license: license
-        },
-        {
-          data: [["Sheet2"]],
-          minDimensions: [10, 10],
-          license: license
+    useEffect(() => {
+        if (!spreadsheetRef.current.jexcel) {
+            jspreadsheet(spreadsheetRef.current, [
+                {
+                    data: [["Sheet1"]],
+                    minDimensions: [10, 10],
+                    license: license
+                },
+                {
+                    data: [["Sheet2"]],
+                    minDimensions: [10, 10],
+                    license: license
+                }
+            ]);
         }
-      ]);
-    }
-  }, null);
+    }, null);
 
-  return (
-    <div>
-      <div ref={spreadsheetRef} />
-      <br />
-      <input
-        type="button"
-        value="Download"
-        onClick={() => xls(spreadsheetRef.current, { version: true })}
-      />
-    </div>
-  );
+    return (
+        <div>
+            <div ref={spreadsheetRef}/>
+            <br/>
+            <input
+                type="button"
+                value="Download"
+                onClick={() => xls(spreadsheetRef.current, {version: true})}
+            />
+        </div>
+    );
 }
 ```
  

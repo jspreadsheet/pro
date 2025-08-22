@@ -60,9 +60,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -72,15 +73,15 @@ export default function App() {
 
     // Columns
     const columns = [
-        { type: 'text' }
+        {type: 'text'}
     ];
     const cells = {
-        A1: { type: 'dropdown', source: ['Male','Female'] }
+        A1: {type: 'dropdown', source: ['Male', 'Female']}
     };
     // Render data grid component
     return (
         <Spreadsheet ref={spreadsheet} license={license}>
-            <Worksheet columns={columns} cells={cells} />
+            <Worksheet columns={columns} cells={cells}/>
         </Spreadsheet>
     );
 }
@@ -122,7 +123,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -136,7 +140,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -557,7 +561,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -571,7 +578,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -700,7 +707,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         data: [
             { id:'1', data:['Google', '5', ''] },
-            { id:'2', data:['Bind', '4', ''] },
+            { id:'2', data:['Bing', '4', ''] },
             { id:'3', data:['Yahoo', '1', ''] },
             { id:'4', data:['Duckduckgo', '5', ''] },
         ],
@@ -745,7 +752,7 @@ export default function App() {
     // Data
     const data = [
         { id:'1', data:['Google', '5', ''] },
-        { id:'2', data:['Bind', '4', ''] },
+        { id:'2', data:['Bing', '4', ''] },
         { id:'3', data:['Yahoo', '1', ''] },
         { id:'4', data:['Duckduckgo', '5', ''] },
     ]
@@ -804,7 +811,7 @@ export default {
         // Data
         const data = [
             { id:'1', data:['Google', '5', ''] },
-            { id:'2', data:['Bind', '4', ''] },
+            { id:'2', data:['Bing', '4', ''] },
             { id:'3', data:['Yahoo', '1', ''] },
             { id:'4', data:['Duckduckgo', '5', ''] },
         ]
@@ -826,7 +833,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -859,13 +869,13 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
                 data: [
                     { id:'1', data:['Google', '5', ''] },
-                    { id:'2', data:['Bind', '4', ''] },
+                    { id:'2', data:['Bing', '4', ''] },
                     { id:'3', data:['Yahoo', '1', ''] },
                     { id:'4', data:['Duckduckgo', '5', ''] },
                 ],

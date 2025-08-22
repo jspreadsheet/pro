@@ -73,7 +73,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 import cloud from '@jspreadsheet/cloud';
 
 // Set the license
@@ -85,14 +88,14 @@ jspreadsheet.setExtensions({ cloud });
 // Create the data grid component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create summary spreadsheet
         jspreadsheet(this.spreadsheet.nativeElement, {
             cloud: 'e6e15247-e9fb-40c6-b07d-8519f6a53ca1',

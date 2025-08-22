@@ -2,7 +2,6 @@ title: Spreadsheet Cell Text Wrapping
 keywords: Jspreadsheet, Jexcel, javascript, javascript vanilla, javascript plugin, plugin, excel-like, spreadsheet, table, tables, grid, datatables, data, text wrapping
 description: How to set up the text wrap in your spreadsheet cells.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Text wrapping
 

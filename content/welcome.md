@@ -12,4 +12,18 @@ To access your profile and get the free trial license key, click the verificatio
 
 No email in your inbox? Please verify your spam folder.
 
-<script>document.getElementById('registration').textContent = localStorage.getItem('registration-email')||'you';</script>
+<script>
+document.getElementById('registration').textContent = localStorage.getItem('registration-email')||'you';
+
+document.addEventListener("DOMContentLoaded", () => {
+    rdt('track', 'Lead', {
+      "products": [
+          {
+              "id": "Jspreadsheet Pro",
+              "name": "Jspreadsheet Pro",
+              "category": "Jspreadsheet Pro"
+          }
+      ]
+    });
+});
+</script>

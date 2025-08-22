@@ -69,9 +69,10 @@ document.getElementById("resetfreeze").onclick = () => spreadsheet[0].resetFreez
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -84,13 +85,13 @@ export default function App() {
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
                 <Worksheet
-                    minDimensions={[50,20]}
+                    minDimensions={[50, 20]}
                     tableOverflow
                     tableWidth="800"
-                    freezeRows="4" />
+                    freezeRows="4"/>
             </Spreadsheet>
-            <input type="button" value="setFreezeRows(2)" onClick={() => spreadsheet.current[0].setFreezeRows(2)} />
-            <input type="button" value="resetFreezeRows()" onClick={() => spreadsheet.current[0].resetFreezeRows()} />
+            <input type="button" value="setFreezeRows(2)" onClick={() => spreadsheet.current[0].setFreezeRows(2)}/>
+            <input type="button" value="resetFreezeRows()" onClick={() => spreadsheet.current[0].resetFreezeRows()}/>
         </>
     );
 }
@@ -137,7 +138,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -155,10 +159,10 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [
+            worksheets: [{
                 minDimensions: [50,20],
                 tableOverflow: true,
                 tableWidth: '800px',
@@ -223,6 +227,7 @@ export default function App() {
                 tableWidth="800"
                 freezeRowControl
                 freezeColumnControl
+            />
         </Spreadsheet>
     );
 }
@@ -259,7 +264,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -273,10 +281,10 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [
+            worksheets: [{
                 minDimensions: [50,20],
                 tableOverflow: true,
                 tableWidth: '800px',

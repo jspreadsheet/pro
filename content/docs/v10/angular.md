@@ -42,7 +42,10 @@ A basic angular spreadsheet with export to XLSX.
 {.ignore}
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 @Component({
   selector: "app-root",

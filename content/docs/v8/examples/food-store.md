@@ -2,7 +2,7 @@ title: Basic Grocery Store Spreadsheet
 keywords: Jspreadsheet, Jexcel, javascript, cases, food store
 description: A grocery store inventory management spreadsheet with search, pagination, image upload using Jspreadsheet Pro Version 8.
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # Grocery Store
 

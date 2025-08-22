@@ -114,11 +114,12 @@ chart = Highcharts.chart('container', {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import HighchartsReact from "highcharts-react-official";
-import Highcharts from "highcharts";
+import Highcharts from "content/docs/v10/examples/highcharts";
 
 const license = '###license###'
 
@@ -157,18 +158,18 @@ const chartOptions = {
         name: "Tokyo",
         data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
     },
-    {
-        name: "New York",
-        data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-    },
-    {
-        name: "Berlin",
-        data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-    },
-    {
-        name: "London",
-        data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-    }
+        {
+            name: "New York",
+            data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+        },
+        {
+            name: "Berlin",
+            data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+        },
+        {
+            name: "London",
+            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+        }
     ]
 };
 
@@ -218,17 +219,17 @@ export default function App() {
             }
         }
     };
-    
+
     // Render data grid component
     return (
         <>
-            <HighchartsReact ref={chart} highcharts={Highcharts} options={chartOptions} />
+            <HighchartsReact ref={chart} highcharts={Highcharts} options={chartOptions}/>
             <Spreadsheet ref={spreadsheet} license={license} onchange={updates}>
-                <Worksheet data={data} columns={columns} minDimensions={[0, 4]} />
+                <Worksheet data={data} columns={columns} minDimensions={[0, 4]}/>
             </Spreadsheet>
         </>
-        );
-    }
+    );
+}
 ```
 ```vue
 <template>
@@ -354,8 +355,11 @@ export default {
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import { Chart } from 'highcharts'
-import * as jspreadsheet from "jspreadsheet";
-import * as charts from "@jspreadsheet/charts";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+import charts from "@jspreadsheet/charts";
 
 // Set the license
 jspreadsheet.setLicense('###license###');
@@ -414,7 +418,7 @@ const chartOptions = {
 @Component({
     selector: "app-root",
     template: `<div #chartContainer></div>
-        <div #spreadsheet></div>`;
+        <div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -422,7 +426,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create summary spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

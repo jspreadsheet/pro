@@ -82,7 +82,7 @@ export default function App() {
     // Render data grid component
     return (
         <>
-            <Spreadsheet ref={spreadsheet} license={license} toolbar gridline>
+            <Spreadsheet ref={spreadsheet} license={license} toolbar={true} gridline={true}>
                 <Worksheet data={data} />
             </Spreadsheet>
             <input type="button" value="toggle()" onClick={() => toggle(spreadsheet.current[0])} />
@@ -92,7 +92,7 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" toolbar>
+    <Spreadsheet ref="spreadsheet" :license="license" :toolbar="true">
         <Worksheet :data="data" />
     </Spreadsheet>
     <input type="button" value="toggle()" @click="toggle" />
@@ -137,7 +137,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -145,14 +148,14 @@ jspreadsheet.setLicense('###license###');
 @Component({
     selector: "app-root",
     template: `<div #spreadsheet></div>
-        <input type="button" value="toggle()" (click)="toggle" />`;
+        <input type="button" value="toggle" (click)="toggle()" />`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             toolbar: true,

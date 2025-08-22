@@ -2,7 +2,7 @@ title: Spreadsheet Appearance
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, grid, spreadshet appearance, style, themes, skin.
 description: How to customize the appearance of your spreadsheets.
 
-[Back to Documentation](/docs/v7)
+
 
 # Spreadsheet appearance
 

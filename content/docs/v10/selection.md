@@ -93,9 +93,10 @@ document.getElementById("updateselectionbtn").onclick = () => table[0].updateSel
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -106,12 +107,12 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet minDimensions={[6,6]} />
+                <Worksheet minDimensions={[6, 6]}/>
             </Spreadsheet>
             <input type="button" value="Select all"
-                onClick={() => spreadsheet.current[0].selectAll()} />
+                   onClick={() => spreadsheet.current[0].selectAll()}/>
             <input type="button" value="Select coords (2,2,3,3)"
-                onClick={() => spreadsheet.current[0].updateSelectionFromCoords(2,2,3,3)} />
+                   onClick={() => spreadsheet.current[0].updateSelectionFromCoords(2, 2, 3, 3)}/>
         </>
     );
 }
@@ -153,7 +154,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -162,17 +166,15 @@ jspreadsheet.setLicense('###license###');
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
-        <input type="button" value="Select all"
-            (click)="this.worksheets[0].selectAll()} />
-        <input type="button" value="Select coords (2,2,3,3)"
-            (click)="this.worksheets[0].updateSelectionFromCoords(2,2,3,3)} />`
+        <input type="button" value="Select all" (click)="this.worksheets[0].selectAll()" />
+        <input type="button" value="Select coords (2,2,3,3)" (click)="this.worksheets[0].updateSelectionFromCoords(2,2,3,3)" />`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -289,7 +291,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -310,7 +315,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [

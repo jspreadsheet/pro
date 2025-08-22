@@ -2,7 +2,7 @@ title: Create a basic javascript spreadsheet
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet, create a table
 description: Create a basic JavaScript spreadsheet.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Create a basic javascript spreadsheet
 

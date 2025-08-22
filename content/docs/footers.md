@@ -110,9 +110,10 @@ document.getElementById("btn1").onclick = update
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import jSuites from "jsuites";
 import formula from "@jspreadsheet/formula";
 import "jsuites/dist/jsuites.css";
@@ -122,7 +123,7 @@ import "jspreadsheet/dist/jspreadsheet.css";
 jspreadsheet.setLicense('###license###');
 
 // Load the formula pro extension
-jspreadsheet.setExtensions({ formula });
+jspreadsheet.setExtensions({formula});
 
 // Create a new data grid
 export default function App() {
@@ -137,7 +138,7 @@ export default function App() {
     ];
     // Columns
     const columns = [
-        { width:'400px' }
+        {width: '400px'}
     ];
     // Data grid cell definitions
     const footers = [
@@ -151,108 +152,114 @@ export default function App() {
     const onrenderfootercell = (worksheet, x, y, value, td) => {
         if (value && x > 0) {
             // Applying a mask to the footer value
-            td.innerText = jSuites.mask.render(value, { mask: '$ #,##0.00'}, true);
+            td.innerText = jSuites.mask.render(value, {mask: '$ #,##0.00'}, true);
         }
     }
     // Update
     const update = () => {
-        spreadsheet.current[0].setFooterValue(0,0,'Avarage');
-        spreadsheet.current[0].setFooterValue(1,0,'=AVERAGE(B:B)');
-        spreadsheet.current[0].setFooterValue(2,0,'=AVERAGE(C:C)');
+        spreadsheet.current[0].setFooterValue(0, 0, 'Average');
+        spreadsheet.current[0].setFooterValue(1, 0, '=AVERAGE(B:B)');
+        spreadsheet.current[0].setFooterValue(2, 0, '=AVERAGE(C:C)');
     }
     // Render data grid component
-    return (
+    return (<>
         <Spreadsheet ref={spreadsheet} onrenderfootercell={onrenderfootercell}>
-            <Worksheet data={data} columns={columns} footers={footers} />
+            <Worksheet data={data} columns={columns} footers={footers}/>
         </Spreadsheet>
-        <input type="button" value="Change to AVERAGE" onClick={()=>update()} />
-    );
+        <input type="button" value="Change to AVERAGE" onClick={() => update()}/>
+    </>);
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :onrenderfootercell="onrenderfootercell">
-        <Worksheet :data="data" :columns="columns" :footers="footers"  />
-    </Spreadsheet>
-    <button type="button" @click="update">Update</button>
+  <Spreadsheet ref="spreadsheet" :onrenderfootercell="onrenderfootercell">
+    <Worksheet :data="data" :columns="columns" :footers="footers" />
+  </Spreadsheet>
+  <button type="button" @click="update">Update</button>
 </template>
 
 <script>
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import { Spreadsheet, Worksheet, jspreadsheet } from '@jspreadsheet/vue';
+import formula from '@jspreadsheet/formula';
+import jSuites from 'jsuites';
 
-const license = '###license###';
+import 'jsuites/dist/jsuites.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
+
+// License
+jspreadsheet.setLicense(
+  '###license###'
+);
+
+// Load the formula pro extension
+jspreadsheet.setExtensions({ formula });
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+  methods: {
+    update() {
+      this.$refs.spreadsheet.current[0].setFooterValue(0, 0, 'Average');
+      this.$refs.spreadsheet.current[0].setFooterValue(1, 0, '=AVERAGE(B:B)');
+      this.$refs.spreadsheet.current[0].setFooterValue(2, 0, '=AVERAGE(C:C)');
     },
-    methods: {
-        update() {
-            this.$refs.spreadsheet.current[0].setFooterValue(0,0,'Avarage');
-            this.$refs.spreadsheet.current[0].setFooterValue(1,0,'=AVERAGE(B:B)');
-            this.$refs.spreadsheet.current[0].setFooterValue(2,0,'=AVERAGE(C:C)');
-        },
-        // Event
-        onrenderfootercell(worksheet, x, y, value, td) {
-            if (value && x > 0) {
-                // Applying a mask to the footer value
-                td.innerText = jSuites.mask.render(value, { mask: '$ #,##0.00'}, true);
-            }
-        }
+    // Event
+    onrenderfootercell(worksheet, x, y, value, td) {
+      if (value && x > 0) {
+        // Applying a mask to the footer value
+        td.innerText = jSuites.mask.render(value, { mask: '$ #,##0.00' }, true);
+      }
     },
-    data() {
-        // Data
-        const data = [
-            ['Cheese', 10, 6.00, "=B1*C1"],
-            ['Apples', 5, 4.00, "=B2*C2"],
-            ['Carrots', 5, 1.00, "=B3*C3"],
-            ['Oranges', 6, 2.00, "=B4*C4"],
-        ];
-        // Columns
-        const columns = [
-            { width:'400px' }
-        ];
-        // Data grid cell definitions
-        const footers = [
-            [
-                'Total',
-                '=SUM(B:B)',
-                '=SUM(C:C)',
-            ]
-        ];
+  },
+  data() {
+    // Data
+    const data = [
+      ['Cheese', 10, 6.0, '=B1*C1'],
+      ['Apples', 5, 4.0, '=B2*C2'],
+      ['Carrots', 5, 1.0, '=B3*C3'],
+      ['Oranges', 6, 2.0, '=B4*C4'],
+    ];
+    // Columns
+    const columns = [{ width: '400px' }];
+    // Data grid cell definitions
+    const footers = [['Total', '=SUM(B:B)', '=SUM(C:C)']];
 
-        return {
-            data,
-            columns,
-            footers,
-            license,
-        };
-    }
-}
+    return {
+      data,
+      columns,
+      footers,
+    };
+  },
+};
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+import formula from '@jspreadsheet/formula';
+import jSuites from 'jsuites';
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
+// Load the formula pro extension
+jspreadsheet.setExtensions({ formula });
+
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
-        <button type="button" (click)="toogle">Update</button>`;
+        <button type="button" (click)="update()">Update</button>`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
         worksheets: [{
@@ -282,7 +289,7 @@ export class AppComponent {
         });
     }
     update() {
-        this.worksheets[0].setFooterValue(0,0,'Avarage');
+        this.worksheets[0].setFooterValue(0,0,'Average');
         this.worksheets[0].setFooterValue(1,0,'=AVERAGE(B:B)');
         this.worksheets[0].setFooterValue(2,0,'=AVERAGE(C:C)');
     }
@@ -302,6 +309,7 @@ Footers are used to hold static information, but the following example creates a
 <script src="https://jsuites.net/v5/jsuites.js"></script>
 <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
 <link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/formula-pro@5.8.0/dist/index.min.js"></script>
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
 
@@ -312,6 +320,9 @@ Footers are used to hold static information, but the following example creates a
 <script>
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
+
+// Load the formula pro extension
+jspreadsheet.setExtensions({ formula });
 
 // Create the spreadsheet
 let s1 = jspreadsheet(document.getElementById('spreadsheet1'), {
@@ -505,13 +516,20 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+import formula from "@jspreadsheet/formula";
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
+// Load the formula pro extension
+jspreadsheet.setExtensions({ formula });
+
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #spreadsheet1></div>
@@ -528,7 +546,7 @@ export class AppComponent {
     s2: jspreadsheet.worksheetInstance[];
     s3: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create the spreadsheet
         this.s1 = jspreadsheet(this.spreadsheet1.nativeElement, {
             worksheets: [{

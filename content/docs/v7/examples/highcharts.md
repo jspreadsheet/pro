@@ -2,8 +2,6 @@ title: Highcharts Integration with Jspreadsheet Version 7
 keywords: Jspreadsheet, javascript, highcharts, charts
 description: Integrating Jspreadsheet Pro version 7 with Highcharts example.
 
-[Back to Cases](/docs/v7/examples "Back to the cases section")
-
 # Highcharts
 
 Creating a dynamic chart using a jspreadsheet table as a source.

@@ -24,15 +24,15 @@ Jspreadsheet offers a versatile dropdown column type that is responsive and feat
 
 The JSS data grid supports several attributes that can be used with the properties of a `column` or `cells`, including:
 
-| Property                 | Description                                               |
-|--------------------------|-----------------------------------------------------------|
-| source: Items[]          | Array of items to be loaded into the dropdown             |
-| url: String              | Get the data from a remote URL.                           |
-| multiple: Boolean        | Multiple options                                          |
-| delimiter: String        | Define the delimiter. Default: ';'                        |
-| autocomplete: Boolean    | Allow autocomplete                                        |
-| filterOptions: Function  | Change the dropdown configuration before editing a cell.  |
-
+| Property                  | Description                                                                    |
+|---------------------------|--------------------------------------------------------------------------------|
+| source: Items[]           | Array of items to be loaded into the dropdown                                  |
+| url: String               | Get the data from a remote URL.                                                |
+| multiple: Boolean         | Multiple options                                                               |
+| delimiter: String         | Define the delimiter. Default: ';'                                             |
+| autocomplete: Boolean     | Allow autocomplete                                                             |
+| filterOptions: Function   | Change the dropdown configuration before editing a cell.                       |
+| dynamicSource: String     | It defines the options of a dropdown from a cell range. Example: Sheet1!A1:A4  |
  
 
 ### Extended Options
@@ -40,7 +40,7 @@ The JSS data grid supports several attributes that can be used with the properti
 Can be defined using the `options` property within the `column` or `cells` settings.
 
 | Property                 | Description                                                         |
-| -------------------------|---------------------------------------------------------------------|
+|--------------------------|---------------------------------------------------------------------|
 | type: String             | Render type: default \| picker \| searchbar                         |
 | placeholder: String      | Placeholder instructions                                            |
 | newOptions: Boolean      | The user can add new options to the dropdown.                       |
@@ -48,25 +48,91 @@ Can be defined using the `options` property within the `column` or `cells` setti
 | url: String              | Remote backend to respond to the search.                            |
 | onbeforeinsert: Function | Before a new item is added. Return false to cancel the user action. |
 | oninsert: Function       | When the user adds a new item to the dropdown.                      |
+| prompt: Function         | Customize the prompt for adding an ew item.                        |
 
- 
+#### Customize the prompt
+
+You can customize the prompt as example below:
+
+{.ignore}
+```javascript
+const addANewItem = (addNewOption) => {
+    // Customize your prompt and call the function when you are ready
+    let title = prompt('Add a new item', '');
+    if (title) {
+        // Define the id of the new item
+        let id = Math.random() * 1000;
+        // Execute new item
+        addNewOption(title, id);
+    }
+}
+
+jspreadsheet(root, {
+    worksheets: [{
+        minDimensions: [20, 20],
+        tableOverflow: true,
+        tableWidth: 800,
+        columns: [
+            {
+                type:'dropdown',
+                source: [1,2,3],
+                options: {
+                    newOptions: true,
+                    prompt: addANewItem
+                }
+            }
+        ],
+    }]
+});
+```
+
+#### Include a JWT in Your Autocomplete Dropdown Requests
+
+Easily intercept autocomplete requests to your server and attach variables or custom HTTP headers—such as a JSON Web Token (JWT)—for authentication.
+
+{.ignore}
+```javascript
+jspreadsheet(document.getElementById('spreadsheet'), {
+    tabs: true,
+    toolbar: true,
+    worksheets: [{
+        minDimensions: [8,8],
+        columns: [{
+            type: 'dropdown',
+            options: {
+                url: 'https://jspreadsheet.com/jspreadsheet/countries',
+                autocomplete: true,
+                remoteSearch: true,
+                onbeforesearch: function(instance, request) {
+                    request.method = 'POST';
+                    request.data['anotherVariable'] = 1;
+                    request.beforeSend = (httpRequest) => {
+                        httpRequest.setRequestHeader('Authorization', 'Bearer ' + sessionStorage.getItem('jwt'));
+                    }
+                    return request;
+                }
+            }
+        }]
+    }],
+});
+```
 
 ### Properties of an item
 
 Each option in the dropdown is defined by one object and the possible attributes are the following:
 
-| Property          | Description                           |
-| ------------------|---------------------------------------|
-| id: mixed         | key of the item                       |
-| value: string     | value of the item                     |
-| title: string     | Description of the item               |
-| image: string     | Icon for the item                     |
-| group: string     | Name of the group the item belongs to |
-| synonym: array    | Keywords to help find one item        |
-| disabled: boolean | Item is disabled                      |
-| color: number     | Color for the item                    |
-| icon: string      | Material icon keyword                 |
-| tooltip: string   | On mouse over instructions            |
+| Property           | Description                            |
+|--------------------|----------------------------------------|
+| id: mixed          | key of the item                        |
+| value: string      | value of the item                      |
+| title: string      | Description of the item                |
+| image: string      | Icon for the item                      |
+| group: string      | Name of the group the item belongs to  |
+| synonym: array     | Keywords to help find one item         |
+| disabled: boolean  | Item is disabled                       |
+| color: number      | Color for the item                     |
+| icon: string       | Material icon keyword                  |
+| tooltip: string    | On mouse over instructions             |
 
  
 
@@ -101,7 +167,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
             ['BR', 'Pasta', 'Yes', '2019-01-12'],
         ],
         columns: [
-            { type:'dropdown', width:'200px', title:'Product Origin', url:'/jspreadsheet/countries', autocomplete:true, multiple:true },
+            { type:'dropdown', width:'200px', title:'Product Origin', url:'https://jspreadsheet.com/jspreadsheet/countries', autocomplete:true, multiple:true },
             { type:'text', width:'100px', title:'Description' },
             { type:'dropdown', width:'100px', title:'Stock', source:['No','Yes'], options:{ newOptions:true } },
             { type:'calendar', width:'100px', title:'Best before', format:'DD/MM/YYYY' },
@@ -112,8 +178,8 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -132,37 +198,37 @@ export default function App() {
     // Columns
     const columns = [
         {
-            type:'dropdown',
-            width:'300px',
+            type: 'dropdown',
+            width: '300px',
             title: 'Product Origin',
-            url:'/jspreadsheet/countries',
-            autocomplete:true,
-            multiple:true
+            url: 'https://jspreadsheet.com/jspreadsheet/countries',
+            autocomplete: true,
+            multiple: true
         },
         {
-            type:'text',
-            width:'200px',
-            title:'Description'
+            type: 'text',
+            width: '200px',
+            title: 'Description'
         },
         {
-            type:'dropdown',
-            width:'150px',
-            title:'Stock',
-            source:['No','Yes'],
-            options:{ newOptions:true }
+            type: 'dropdown',
+            width: '150px',
+            title: 'Stock',
+            source: ['No', 'Yes'],
+            options: {newOptions: true}
         },
         {
-            type:'calendar',
-            width:'150px',
-            title:'Best before',
-            format:'DD/MM/YYYY'
+            type: 'calendar',
+            width: '150px',
+            title: 'Best before',
+            format: 'DD/MM/YYYY'
         }
     ];
 
     // Render data grid component
     return (
         <Spreadsheet ref={spreadsheet} license={license}>
-            <Worksheet data={data} columns={columns} />
+            <Worksheet data={data} columns={columns}/>
         </Spreadsheet>
     );
 }
@@ -200,7 +266,7 @@ export default {
                 type:'dropdown',
                 width:'300px',
                 title: 'Product Origin',
-                url:'/jspreadsheet/countries',
+                url:'https://jspreadsheet.com/jspreadsheet/countries',
                 autocomplete:true,
                 multiple:true
             },
@@ -236,12 +302,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -250,7 +317,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -261,10 +328,10 @@ export class AppComponent {
                     ['BR', 'Pasta', 'Yes', '2019-01-12'],
                 ],
                 columns: [
-                    { type:'dropdown', width:'300px', title:'Product Origin', url:'/jspreadsheet/countries', autocomplete:true, multiple:true },
-                    { type:'text', width:'200px', title:'Description' },
-                    { type:'dropdown', width:'150px', title:'Stock', source:['No','Yes'], options:{ newOptions:true } },
-                    { type:'calendar', width:'150px', title:'Best before', format:'DD/MM/YYYY' },
+                    { type:'dropdown', title:'Product Origin', url:'/jspreadsheet/countries', autocomplete:true, multiple:true },
+                    { type:'text', title:'Description' },
+                    { type:'dropdown', title:'Stock', source:['No','Yes'], options:{ newOptions:true } },
+                    { type:'calendar', title:'Best before', format:'DD/MM/YYYY' },
                 ],
             }]
         });
@@ -361,11 +428,11 @@ import "jspreadsheet/dist/jspreadsheet.css";
 const license = '###license###';
 
 const filterOptions = (o, cell, x, y, value, config) => {
-    let value = o.getValueFromCoords(x - 1, y);
+    let category = o.getValueFromCoords(x - 1, y);
 
-    if (value == 1) {
+    if (category == 1) {
         config.source = ['Apples','Bananas','Oranges'];
-    } else if (value == 2) {
+    } else if (category == 2) {
         config.source = ['Carrots'];
     } else {
         config.source = ['Apples','Bananas','Carrots','Oranges','Cheese'];
@@ -441,11 +508,11 @@ import "jspreadsheet/dist/jspreadsheet.css";
 const license = '###license###';
 
 const filterOptions = (o, cell, x, y, value, config) => {
-    let value = o.getValueFromCoords(x - 1, y);
+    let category = o.getValueFromCoords(x - 1, y);
 
-    if (value == 1) {
+    if (category == 1) {
         config.source = ['Apples','Bananas','Oranges'];
-    } else if (value == 2) {
+    } else if (category == 2) {
         config.source = ['Carrots'];
     } else {
         config.source = ['Apples','Bananas','Carrots','Oranges','Cheese'];
@@ -503,8 +570,8 @@ export default {
 
         return {
             data,
-            options,
             license,
+            columns
         };
     }
 }
@@ -512,18 +579,18 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Filter options
-const filterOptions = function(o, cell, x, y, value, config) {
-    let value = o.getValueFromCoords(x - 1, y);
+const filterOptions = function(o: any, cell: any, x: any, y: any, value: any, config: any) {
+    let category = o.getValueFromCoords(x - 1, y);
 
-    if (value == 1) {
+    if (category == 1) {
         config.source = ['Apples','Bananas','Oranges'];
-    } else if (value == 2) {
+    } else if (category == 2) {
         config.source = ['Carrots'];
     } else {
         config.source = ['Apples','Bananas','Carrots','Oranges','Cheese'];
@@ -535,14 +602,14 @@ const filterOptions = function(o, cell, x, y, value, config) {
 // Create component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -556,7 +623,6 @@ export class AppComponent {
                     {
                         type:'dropdown',
                         title:'Category',
-                        width:'300',
                         source:[
                             { 'id':'1', 'name':'Fruits' },
                             { 'id':'2', 'name':'Legumes' },
@@ -566,18 +632,16 @@ export class AppComponent {
                     {
                         type:'dropdown',
                         title:'Food',
-                        width:'200',
                         source: [ 'Apples','Bananas','Carrots','Oranges','Cheese' ],
                         filterOptions: filterOptions
                     },
                     {
                         type:'checkbox',
                         title:'Buy',
-                        width:'100'
                     }
                 ]
             }],
-            onchange: function(worksheet, cell, c, r, value) {
+            onchange: function(worksheet, cell, c, r: any, value) {
                 if (c == 0) {
                     let columnName = jspreadsheet.helpers.getColumnNameFromCoords(c + 1, r);
                     worksheet.setValue(columnName, '');
@@ -663,8 +727,8 @@ export default function App() {
             options: { url: '/jspreadsheet/sample', remoteSearch: true, autocomplete: true }
         },
         {
-            type:'text,
-            title: 'Company,
+            type:'text',
+            title: 'Company',
             width: '300px'
         }
     ]
@@ -712,8 +776,8 @@ export default {
                 options: { url: '/jspreadsheet/sample', remoteSearch:true, autocomplete:true }
             },
             {
-                type:'text,
-                title: 'Company,
+                type:'text',
+                title: 'Company',
                 width: '300px'
             }
         ];
@@ -729,7 +793,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -743,7 +810,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -755,15 +822,13 @@ export class AppComponent {
                 columns: [
                     {
                         type:'dropdown',
-                        width:'200px',
                         title:'Contact',
                         source:['Richard','Jorge'],
                         options: { url: '/jspreadsheet/sample', remoteSearch:true, autocomplete:true }
                     },
                     {
-                        type:'text,
-                        title: 'Company,
-                        width: '300px'
+                        type:'text',
+                        title: 'Company',
                     }
                 ],
             }]
@@ -945,7 +1010,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -959,7 +1024,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -973,7 +1038,6 @@ export class AppComponent {
                     {
                         type:'dropdown',
                         title:'Category',
-                        width:'300',
                         source:[
                             { id:'1', name:'Jorge', image:'img/2.jpg', title:'Admin', group:'Secretary' },
                             { id:'2', name:'Cosme Sergio', image:'img/2.jpg', title:'Teacher', group:'Docent' },
@@ -985,7 +1049,6 @@ export class AppComponent {
                     {
                         type:'dropdown',
                         title:'Working hours',
-                        width:'200',
                         source:['Morning','Afternoon','Evening'],
                         options: { type:'picker' },
                     },
@@ -1161,7 +1224,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -1175,7 +1238,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -1190,7 +1253,6 @@ export class AppComponent {
                     {
                         type: 'dropdown',
                         title: 'Name',
-                        width: '300px',
                         source: [
                             { id:'1', name:'Paul' },
                             { id:'2', name:'Ringo' },
@@ -1202,7 +1264,6 @@ export class AppComponent {
                     {
                         type:'dropdown',
                         title:'Band',
-                        width:'200px',
                         source: ['Beatles'],
                     },
                 ],

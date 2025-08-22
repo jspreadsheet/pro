@@ -2,7 +2,7 @@ title: Most Common Implementation Questions
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, tables, most common questions
 description: A list of the most common questions and answers when using Jspreadsheet.
 
-[Back to Documentation](/docs/v7)
+
 
 # Most common questions and answers
 

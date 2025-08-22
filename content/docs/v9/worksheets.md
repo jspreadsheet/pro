@@ -2,7 +2,7 @@ title: Worksheets Properties, Methods and Events.
 keywords: Jspreadsheet, data grid, javascript, excel-like, spreadsheet, documentation, table, grid, events, worksheet support.
 description: How to set up and handle worksheets programmatically. Learn more about all worksheets properties and settings.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # Worksheets
 
@@ -49,13 +49,14 @@ Available methods to interact programmatically with the worksheets.
 
 Available events related to the worksheets.
 
-| Event             | Description                                                                                                     |
-| ------------------|-----------------------------------------------------------------------------------------------------------------|
-| onopenworksheet   | `onopenworksheet(Object worksheet, Number worksheetNumber) : void`                                              | onbeforecreateworksheet | Before creating a new worksheet, it is possible to overwrite the configuration for the new worksheet or cancel the operation (return false).<br/>`onbeforecreateworksheet(Object options, Number worksheetNumber) : mixed` |
-| oncreateworksheet | `oncreateworksheet(Object worksheetInstance, Object worksheetOptions, Number worksheetNumber) : void`           |
-| onrenameworksheet | `onrenameworksheet(Object worksheetInstance, Number worksheetNumber, String newValue, String oldValue) : void;` |
-| ondeleteworksheet | `ondeleteworksheet(Object oldWorksheetInstance, Number oldWorksheetNumber) : void`                              |
-| onmoveworksheet   | `onmoveworksheet(Object worksheetInstance, Number newPosition, Number oldPosition) : void`                      |
+| Event                   | Description                                                                                                                                                                                                                |
+|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| onopenworksheet         | `onopenworksheet(Object worksheet, Number worksheetNumber) : void`                                                                                                                                                         |
+| onbeforecreateworksheet | Before creating a new worksheet, it is possible to overwrite the configuration for the new worksheet or cancel the operation (return false).<br/>`onbeforecreateworksheet(Object options, Number worksheetNumber) : mixed` |
+| oncreateworksheet       | `oncreateworksheet(Object worksheetInstance, Object worksheetOptions, Number worksheetNumber) : void`                                                                                                                      |
+| onrenameworksheet       | `onrenameworksheet(Object worksheetInstance, Number worksheetNumber, String newValue, String oldValue) : void;`                                                                                                            |
+| ondeleteworksheet       | `ondeleteworksheet(Object oldWorksheetInstance, Number oldWorksheetNumber) : void`                                                                                                                                         |
+| onmoveworksheet         | `onmoveworksheet(Object worksheetInstance, Number newPosition, Number oldPosition) : void`                                                                                                                                 |
 
  
 

@@ -31,6 +31,15 @@ The following property is available through the initialization of the online spr
 | freezeRows: number\|number[]      | Define the frozen rows on initialization.        |
 | freezeRowControl: boolean Premium | Enable freeze row manual control. Default: false |
 
+### Events
+
+Available events.
+
+| Event        | Description                                              |
+|--------------|----------------------------------------------------------|
+| onfreezerows | `onfreezerows(worksheet: Object, rows: Number[]) : void` |
+
+
 ## Examples
 
 ### Basic Freeze Rows Example
@@ -70,9 +79,10 @@ document.getElementById("btn2").onclick = () => spreadsheet[0].resetFreezeRows()
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -87,13 +97,13 @@ export default function App() {
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
                 <Worksheet
-                    minDimensions={[50,20]}
+                    minDimensions={[50, 20]}
                     tableOverflow
                     tableWidth="800"
-                    freezeRows="4" />
+                    freezeRows="4"/>
             </Spreadsheet>
-            <input type="button" value="setFreezeRows(2)" onClick={() => spreadsheet.current[0].setFreezeRows(2)} />
-            <input type="button" value="resetFreezeRows()" onClick={() => spreadsheet.current[0].resetFreezeRows()} />
+            <input type="button" value="setFreezeRows(2)" onClick={() => spreadsheet.current[0].setFreezeRows(2)}/>
+            <input type="button" value="resetFreezeRows()" onClick={() => spreadsheet.current[0].resetFreezeRows()}/>
         </>
     );
 }
@@ -125,7 +135,7 @@ export default {
     },
     methods: {
         setFreezeRows(number) {
-            alert(this.$refs.spreadsheet.current[0].setFreezeRows(number));
+            this.$refs.spreadsheet.current[0].setFreezeRows(number);
         },
         resetFreezeRows() {
             this.$refs.spreadsheet.current[0].resetFreezeRows();
@@ -142,12 +152,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
@@ -160,10 +171,10 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [
+            worksheets: [{
                 minDimensions: [50,20],
                 tableOverflow: true,
                 tableWidth: '800px',
@@ -224,10 +235,11 @@ export default function App() {
         <Spreadsheet ref={spreadsheet} license={license}>
             <Worksheet
                 minDimensions={[50,20]}
-                tableOverflow
-                tableWidth="800"
-                freezeRowControl
-                freezeColumnControl
+                tableOverflow={true}
+                tableWidth="800px"
+                freezeRowControl={true}
+                freezeColumnControl={true}
+            />
         </Spreadsheet>
     );
 }
@@ -237,10 +249,10 @@ export default function App() {
     <Spreadsheet ref="spreadsheet" :license="license">
         <Worksheet
             :minDimensions="[50,20]"
-            :tableOverflow
-            :tableWidth="800"
-            :freezeRowControl
-            :freezeColumnControl />
+            :tableOverflow="true"
+            tableWidth="800px"
+            :freezeRowControl="true"
+            :freezeColumnControl="true" />
     </Spreadsheet>
 </template>
 
@@ -266,7 +278,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -280,10 +292,10 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [
+            worksheets: [{
                 minDimensions: [50,20],
                 tableOverflow: true,
                 tableWidth: '800px',

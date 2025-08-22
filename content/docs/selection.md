@@ -53,14 +53,25 @@ In version 11, the methods `getSelected` and `getSelectedRows`  exclude the hidd
 | resetBorders                                 | Reset the selection by its name. Reset all exiting borders when selectionName is not defined.<br/>`resetBorders(selectionName?: string, resetPosition: boolean) : void`                                                                                                                                                               |
 | refreshBorders                               | Refresh one or more selections. Refresh all existing borders when selectionName is not defined.<br/>`refreshBorders(selectionName?: string) : void`                                                                                                                                                                                   |
 
+
+##### Example
+
+A real world example of the use of getBorders is when the developer needs the coordinates of the marching ants border during a copy.
+
+{.ignore}
+```javascript
+worksheetInstance.getBorder('copying');
+```
+
+
  ### Selection Events
 
-| Event             | Description                                                                                                  |
-| ------------------|--------------------------------------------------------------------------------------------------------------|
-| onblur            | `onblur(worksheet: Object) : void`                                                                           |
-| onfocus           | `onfocus(worksheet: Object) : void`                                                                          |
-| onbeforeselection | `onbeforeselection(worksheet: Object, x1: Number, y1: Number, x2: Number, y2: Number, e: MouseEvent) : void` |
-| onselection       | `onselection(worksheet: Object, x1: Number, y1: Number, x2: Number, y2: Number, e: MouseEvent) : void`       |
+| Event             | Description                                                                                                             |
+| ------------------|-------------------------------------------------------------------------------------------------------------------------|
+| onblur            | `onblur(worksheet: Object) : void`                                                                                      |
+| onfocus           | `onfocus(worksheet: Object) : void`                                                                                     |
+| onbeforeselection | `onbeforeselection(worksheet: Object, x1: Number, y1: Number, x2: Number, y2: Number, e: MouseEvent) : Boolean \| void` |
+| onselection       | `onselection(worksheet: Object, x1: Number, y1: Number, x2: Number, y2: Number, e: MouseEvent) : void`                  |
 
  
 ### Initial Settings
@@ -109,8 +120,8 @@ document.getElementById("btn2").onclick = () => table[0].updateSelectionFromCoor
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -123,12 +134,12 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet minDimensions={[6,6]} />
+                <Worksheet minDimensions={[6, 6]}/>
             </Spreadsheet>
             <input type="button" value="Select all"
-                onClick={() => spreadsheet.current[0].selectAll()} />
+                   onClick={() => spreadsheet.current[0].selectAll()}/>
             <input type="button" value="Select coords (2,2,3,3)"
-                onClick={() => spreadsheet.current[0].updateSelectionFromCoords(2,2,3,3)} />
+                   onClick={() => spreadsheet.current[0].updateSelectionFromCoords(2, 2, 3, 3)}/>
         </>
     );
 }
@@ -172,26 +183,25 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
-        <input type="button" value="Select all"
-            (click)="this.worksheets[0].selectAll()} />
-        <input type="button" value="Select coords (2,2,3,3)"
-            (click)="this.worksheets[0].updateSelectionFromCoords(2,2,3,3)} />`
+        <input type="button" value="Select all" (click)="this.worksheets[0].selectAll()" />
+        <input type="button" value="Select coords (2,2,3,3)" (click)="this.worksheets[0].updateSelectionFromCoords(2,2,3,3)" />`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -236,7 +246,7 @@ let table = jspreadsheet(document.getElementById('spreadsheet'), {
 
 document.getElementById("btn1").onclick = () => table[0].setBorder(1,1,2,2,'red-visit','#ff0000')
 document.getElementById("btn2").onclick = () => table[0].setBorder(3,3,4,4,'blue-visit','#0000ff')
-document.getElementById("btn3").onclick = () => table[0].resetBorders()
+document.getElementById("btn3").onclick = () => table[0].resetBorders(null, true)
 </script>
 </html>
 ```
@@ -258,11 +268,11 @@ export default function App() {
                 <Worksheet minDimensions={[6,6]} />
             </Spreadsheet>
             <button value="Create new red selection"
-                onClick={() => spreadsheet.current[0].setBorder(1,1,2,2,'test1','#ff0000')} />
+                onClick={() => spreadsheet.current[0].setBorder(1,1,2,2,'test1','#ff0000')}>Create new red selectio</button>
             <button value="Create new blue selection"
-                onClick={() => spreadsheet.current[0].setBorder(3,3,4,4,'test2','#0000ff')} />
+                onClick={() => spreadsheet.current[0].setBorder(3,3,4,4,'test2','#0000ff')}>Create new blue selection</button>
             <button value="Clear all selection"
-                onClick={() => spreadsheet.current[0].resetBorders()} />
+                onClick={() => spreadsheet.current[0].resetBorders(null, true)} >Clear all selection</button>
         </>
     );
 }
@@ -294,7 +304,7 @@ export default {
             this.$refs.spreadsheet.current[0].setBorder(...arguments);
         },
         resetBorders() {
-            this.$refs.spreadsheet.current[0].resetBorders();
+            this.$refs.spreadsheet.current[0].resetBorders(null, true);
         },
     },
     data() {
@@ -308,28 +318,26 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
-        <input type="button"
-            (click)="this.worksheets[0].setBorder(1,1,2,2,'test1','#ff0000')" value="Create a new red selection" />
-        <input type="button"
-            (click)="this.worksheets[0].setBorder(3,3,4,4,'test2','#0000ff')" value="Create a new blue selection" />
-        <input type="button"
-            (click)="this.worksheets[0].resetBorders()" value="Clear all selection" />`
+        <input type="button" (click)="this.worksheets[0].setBorder(1,1,2,2,'test1','#ff0000')" value="Create a new red selection" />
+        <input type="button" (click)="this.worksheets[0].setBorder(3,3,4,4,'test2','#0000ff')" value="Create a new blue selection" />
+        <input type="button" (click)="this.worksheets[0].resetBorders(undefined, true)" value="Clear all selection" />`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [

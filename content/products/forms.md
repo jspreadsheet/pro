@@ -95,7 +95,7 @@ jspreadsheet.setExtensions({ forms });
 // Create the spreadsheet
 let jss = jspreadsheet(document.getElementById('spreadsheet1'), {
     worksheets: [{
-        minDimensions: [ 6, 8 ],
+        minDimensions: [ 6, 4 ],
         columns: [
             {
                 title: 'Name'
@@ -134,6 +134,11 @@ document.getElementById("btn1").onclick = create
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
 import forms from "@jspreadsheet/forms";
+
+import "@lemonadejs/studio";
+import "@lemonadejs/studio/dist/style.css";
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Define the grid license
 const license = '###license###';
@@ -174,7 +179,7 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license} extensions={extensions}>
-                <Worksheet columns={columns} />
+                <Worksheet columns={columns} minDimensions={[6, 4]}/>
             </Spreadsheet>
             <div ref={form}></div>
             <input type="button" value="Create form" onClick={() => create()} />
@@ -185,15 +190,20 @@ export default function App() {
 ```vue
 <template>
     <Spreadsheet ref="spreadsheet" :license="license" :extensions="extensions">
-        <Worksheet :minDimensions="[10,10]" />
+        <Worksheet :minDimensions="[6, 4]" :columns="columns" />
     </Spreadsheet>
     <div ref="form"></div>
     <input type="button" value="Create form" @click="create" />
 </template>
 
 <script>
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
-import forms from "@jspreadsheet/forms";
+import { Spreadsheet, Worksheet, jspreadsheet } from '@jspreadsheet/vue';
+import forms from '@jspreadsheet/forms';
+
+import '@lemonadejs/studio';
+import '@lemonadejs/studio/dist/style.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
+import 'jsuites/dist/jsuites.css';
 
 // Define the grid license
 const license = '###license###';
@@ -202,54 +212,55 @@ const license = '###license###';
 const extensions = { forms };
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+  methods: {
+    create() {
+      // First worksheet instance
+      let worksheet = this.$refs.spreadsheet.current[0];
+      // Create form from the spreadsheet
+      jspreadsheet.forms(this.$refs.form, {
+        logo: 'https://jspreadsheet.com/jspreadsheet/logo.png',
+        columns: worksheet.options.columns,
+        onbeforesave: function (el, data) {
+          // Get the values
+          worksheet.insertRow([{ data: Object.values(data) }]);
+          // Stop default behavior
+          return false;
+        },
+      });
     },
-    methods: {
-        create() {
-            // First worksheet instance
-            let worksheet = this.$refs.spreadsheet.current[0]);
-            // Create form from the spreadsheet
-            jspreadsheet.forms(this.$refs.form.current, {
-                logo: 'https://jspreadsheet.com/jspreadsheet/logo.png',
-                columns: worksheet.options.columns,
-                onbeforesave: function(el, data) {
-                    // Get the values
-                    worksheet.insertRow([{ data: Object.values(data) }]);
-                    // Stop default behavior
-                    return false;
-                }
-            });
-        }
-    },
-    data() {
-        const spreadsheet = ref(null);
-        const form = ref(null);
-
-        // Columns
-        const columns = [
-            { title: 'Name' },
-            { title: 'Birthday', type: 'calendar' },
-            { title: 'Team color', type: 'color' },
-            { title: 'Department', type: 'dropdown', source: ['Accounts','IT','Marketing'] },
-            { title: 'Rating', type: 'rating', }, { title: 'Reviewed', type: 'checkbox', }
-        ];
-
-        return {
-            spreadsheet,
-            columns,
-            license,
-            extensions,
-        };
-    }
-}
+  },
+  data() {
+    return {
+      license,
+      extensions,
+      columns: [
+        { title: 'Name' },
+        { title: 'Birthday', type: 'calendar' },
+        { title: 'Team color', type: 'color' },
+        {
+          title: 'Department',
+          type: 'dropdown',
+          source: ['Accounts', 'IT', 'Marketing'],
+        },
+        { title: 'Rating', type: 'rating' },
+        { title: 'Reviewed', type: 'checkbox' },
+      ],
+    };
+  },
+};
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as form from "@jspreadsheet/form";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+import form from "@jspreadsheet/form";
 
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
@@ -276,7 +287,7 @@ export class AppComponent {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
-                minDimensions: [ 6, 8 ],
+                minDimensions: [ 6, 4 ],
                 columns: [
                     {
                         title: 'Name'

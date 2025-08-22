@@ -46,6 +46,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet } from "@jspreadsheet/react";
@@ -83,63 +84,67 @@ export default function App() {
     ];
 
     // Render data grid component
-    return (<Spreadsheet ref={spreadsheet} license={license} worksheets={worksheets} />);
+    return (<Spreadsheet ref={spreadsheet} license={license} worksheets={worksheets}/>);
 }
 ```
 ```vue
 <template>
-  <Jspreadsheet :options="Options" />
+  <Spreadsheet :license="license" :worksheets="worksheets" />
 </template>
 
 <script>
+import { Spreadsheet } from "@jspreadsheet/vue";
+
 import "@jspreadsheet/formula-charts";
-import Jspreadsheet from "./components/Jspreadsheet";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
 export default {
   components: {
-    Jspreadsheet,
+    Spreadsheet,
   },
   setup() {
     const license =
       "###license###";
 
-    const Options = {
-      worksheets: [
+    // Worksheets
+    const worksheets = [
         {
-          data: [
-            ['=CHART("pie", A4:A6, B4:B6)'],
-            [],
-            ["Proposals", "Votes (%)"],
-            ["Proposal 1", 0.36],
-            ["Proposal 2", 0.29],
-            ["Proposal 3", 0.35],
-          ],
-          minDimensions: [6, 1],
-          mergeCells: {
-            A1: [6, 1],
-          },
-          defaultColWidth: "60px",
-          columns: [{ width: "100px" }, { width: "100px" }],
-          rows: { 0: { height: "380px" } },
-        },
-      ],
-      license,
-    };
-    return { Options };
+            data: [
+                ['=CHART("pie", A4:A6, B4:B6)'],
+                [],
+                ['Proposals', 'Votes (%)'],
+                ['Proposal 1', 0.36],
+                ['Proposal 2', 0.29],
+                ['Proposal 3', 0.35],
+            ],
+            minDimensions: [6, 1],
+            mergeCells: {
+                'A1': [6, 1],
+            },
+            defaultColWidth: '30px',
+            columns: [
+                {width: '100px'},
+                {width: '100px'},
+            ],
+            rows: {0: {height: '380px'}},
+        }
+    ];
+
+    return { worksheets, license };
   },
 };
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 import "@jspreadsheet/formula-charts";
 
 jspreadsheet.setLicense('###license###');
 
 @Component({
+  standalone: true,
   selector: "app-root",
   template: `<div #spreadsheet></div>`
 })

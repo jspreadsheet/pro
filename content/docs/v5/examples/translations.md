@@ -2,7 +2,7 @@ title: How to translate the default messages from Jspreadsheet
 keywords: Jspreadsheet, spreadsheet, javascript, javascript table, translate, translations
 description: How to translate default messages from Jspreadsheet.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Jspreadsheet internationalization
 

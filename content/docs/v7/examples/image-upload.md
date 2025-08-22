@@ -2,7 +2,6 @@ title: Embed Base64 Images to your Data Grid
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, image upload, base64, embed images
 description: An example of how to embed and upload images to your spreadsheet.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Embed images into your spreadsheet
 

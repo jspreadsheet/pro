@@ -10,8 +10,8 @@ The JSS Render is an extension for Jspreadsheet that enables users to convert th
 
 
 {.green}
-> **Export to XLSX using Node.JS**\
-> From version 11, it is possible to generate files on the backend using Node.JS
+> **Export to XLSX using NodeJS**\
+> From version 11, it is possible to generate files on the backend using NodeJS
 
 ## Documentation
 
@@ -41,7 +41,16 @@ $ npm install @jspreadsheet/render
 ```html
 <script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/render/dist/index.min.js"></script>
 ```
-  
+
+### Excel Limitations
+
+When exporting a file to XLSX using this extension, it's essential to be aware of certain limitations in Excel that are not present in Jspreadsheet. Despite these limitations, the extension is designed to handle data effectively during export. The list below highlights some of these constraints, though it is not exhaustive, and more limitations may be identified in the future:
+
+- **Worksheet Name Length**: Excel restricts worksheet names to 30 characters.
+- **Dynamic Source for Dropdowns**: Due to Excel's limitations, dropdowns with a dynamic source that spans more than a single row or column are ignored during rendering.
+- **Cell vs. Column Dropdowns**: If a cell contains dropdowns configured at the column level and within the cell itself, its specific configuration takes precedence during export. Additionally, if a cell has both a dropdown and a list validation, the list validation will be excluded from the export.
+- **Dropdown Source Character Limit**: When exporting a dropdown, if the total number of characters in the source exceeds Excel's allowed limit, the export process will trim options from the source to prevent the resulting XLSX file from breaking.
+- **Groups**: Groups that are only partially within other groups are not exported due to Excel limitations; Excel allows up to seven levels of groups, so if a group is nested within seven or more other groups, it is not exported;
 
 ## Code samples
 
@@ -96,6 +105,8 @@ import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
 import jspreadsheet from "jspreadsheet";
 import render from "@jspreadsheet/render";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -103,23 +114,24 @@ jspreadsheet.setLicense('###license###');
 // Add-on for your JSS data grid
 jspreadsheet.setExtensions({ render });
 
-const download = function() {
-    jspreadsheet.render(document.getElementById('spreadsheet'), {
-        filename: 'file.xlsx',
-    });
-}
-
 export default function App() {
     // Spreadsheet array of worksheets
     const spreadsheet = useRef();
+
+    const download = function() {
+        jspreadsheet.render(spreadsheet.current[0].parent.el, {
+            filename: 'file.xlsx',
+        });
+    }
+
     // Render component
     return (
         <>
-            <Spreadsheet ref={spreadsheet} license={license}>
+            <Spreadsheet ref={spreadsheet}>
                 <Worksheet />
                 <Worksheet />
             </Spreadsheet>
-            <input type="button" value="Generate XLSX" onClick={() => download()} />
+            <input type="button" value="Download" onClick={() => download()} />
         </>
     );
 }
@@ -130,12 +142,14 @@ export default function App() {
         <Worksheet :minDimensions="[10,10]" />
         <Worksheet :minDimensions="[10,10]" />
     </Spreadsheet>
-    <input type="button" value="Import CSV" @click="download" />
+    <input type="button" value=Download" @click="download" />
 </template>
 
 <script>
 import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
 import render from "@jspreadsheet/render";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
 
 // Define the data grid license
 const license = '###license###';
@@ -151,16 +165,13 @@ export default {
     methods: {
         download() {
             // Spreadsheet instance
-            jspreadsheet.render(this.$refs.spreadsheet.current[0].parent, {
+            jspreadsheet.render(this.$refs.spreadsheet.current[0].parent.el, {
                 filename: 'file.xlsx',
             });
         }
     },
     data() {
-        const spreadsheet = ref(null);
-
         return {
-            spreadsheet,
             license,
             extensions,
         };
@@ -170,24 +181,20 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as render from "@jspreadsheet/render";
-
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
-
-const license = '###license###';
+import jspreadsheet from "jspreadsheet";
+import render from "@jspreadsheet/render";
 
 // Set your JSS license key (The following key only works for one day)
-jspreadsheet.setLicense(license);
+jspreadsheet.setLicense('###license###');
 
 // Extensions
 jspreadsheet.setExtensions({ render });
 
 @Component({
-  selector: "app-root",
-  template: `<div #spreadsheet></div>
-    <input type="button" value="Import CSV" (click)="this.export()" />`
+    standalone: true,
+    selector: "app-root",
+    template: `<div #spreadsheet></div>
+    <input type="button" value="Generate XLSX" (click)="this.export()" />`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -197,15 +204,15 @@ export class AppComponent {
     ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-          worksheets: [
-              { minDimensions: [6, 6] },
-              { minDimensions: [6, 6] }
-          ]
+            worksheets: [
+                { minDimensions: [6, 6] },
+                { minDimensions: [6, 6] }
+            ]
         });
     }
     export() {
         // Spreadsheet instance
-        jspreadsheet.render(this.worksheets[0].parent, {
+        jspreadsheet.render!(this.worksheets[0].parent.el, {
             filename: 'file.xlsx',
         });
     }

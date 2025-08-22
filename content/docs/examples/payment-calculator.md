@@ -75,8 +75,7 @@ export default function App() {
     const spreadsheet = useRef();
     // Data
     const data = [
-        ['<img src="https://www.autoblog.com/img/research/styles/photos/performance.jpg"
-            style="width:200px;height:auto;"><br><h4>Vehicle Payment Calculator</h4>', ''],
+        ['<img src="https://www.autoblog.com/img/research/styles/photos/performance.jpg" style="width:200px;height:auto;"><br><h4>Vehicle Payment Calculator</h4>', ''],
         ['Purchase price', '19700'],
         ['Down payment', '1000'],
         ['Trade-in value', '500'],
@@ -98,7 +97,7 @@ export default function App() {
         B9: { type:'number', mask: '#.##0,00' },
     }
     // Merge cells
-    const mergeCells: {
+    const mergeCells = {
         A1: [2, 1]
     }
     // Columns
@@ -162,7 +161,7 @@ export default {
             B9: { type:'number', mask: '#.##0,00' },
         }
         // Merge cells
-        const mergeCells: {
+        const mergeCells = {
             A1: [2, 1]
         }
         // Columns
@@ -189,31 +188,27 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
-  selector: "app-root",
-  template: `<div #spreadsheet></div>`
+    standalone: true,
+    selector: "app-root",
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    @ViewChild("form") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
     ngAfterViewInit() {
         // Create spreadsheet
-        this.worksheets = jspreadsheet(document.getElementById('spreadsheet'), {
+        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
                 data: [
-                    ['<img src="https://www.autoblog.com/img/research/styles/photos/performance.jpg"
-                        style="width:200px;height:auto;"><br><h4>Vehicle Payment Calculator</h4>', ''],
+                    ['<img src="https://www.autoblog.com/img/research/styles/photos/performance.jpg" style="width:200px;height:auto;"><br><h4>Vehicle Payment Calculator</h4>', ''],
                     ['Purchase price', '19700'],
                     ['Down payment', '1000'],
                     ['Trade-in value', '500'],
@@ -223,25 +218,19 @@ export class AppComponent {
                     ['Monthly payment', '=PMT(B5/12,B6,B2-(B3+B4))'],
                     ['Total cost', '=-(B8*B6)+(B3+B4)'],
                 ],
-                columns: [
-                    { width:'300px' },
-                    { width:'100px' },
-                ],
+                columns: [],
                 mergeCells: {
                     A1: [2, 1]
                 },
-                rows: {
-                    0: { height:'200px' }
-                },
                 cells: {
-                    A1: { type:'html', readonly: true },
-                    B2: { type:'number', mask: '#.##0,00' },
-                    B3: { type:'number', mask: '#.##0,00' },
-                    B4: { type:'number', mask: '#.##0,00' },
-                    B5: { type:'number', mask: '0.00%' },
-                    B6: { type: 'dropdown', source: [12,24,36,48,60] },
-                    B8: { type:'number', mask: '#.##0,00' },
-                    B9: { type:'number', mask: '#.##0,00' },
+                    A1: { type: 'html' },
+                    B2: { type: 'number', mask: '#.##0,00' },
+                    B3: { type: 'number', mask: '#.##0,00' },
+                    B4: { type: 'number', mask: '#.##0,00' },
+                    B5: { type: 'number', mask: '0.00%' },
+                    B6: { type: 'dropdown', source: [12, 24, 36, 48, 60] },
+                    B8: { type: 'number', mask: '#.##0,00' },
+                    B9: { type: 'number', mask: '#.##0,00' },
                 },
             }]
         });

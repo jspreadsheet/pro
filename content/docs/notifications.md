@@ -66,8 +66,8 @@ document.getElementById("btn1").onclick = () => spreadsheet[0].page(1);
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import jSuites from "jsuites";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
@@ -78,7 +78,7 @@ export default function App() {
     // Spreadsheet array of worksheets
     const spreadsheet = useRef();
 
-    const onError = function(spreadsheet, result) {
+    const onError = function (spreadsheet, result) {
         // Customize the alerts
         jSuites.notification(result);
     }
@@ -86,9 +86,9 @@ export default function App() {
     // Render component
     return (<>
         <Spreadsheet ref={spreadsheet} license={license} onerror={onError}>
-            <Worksheet minDimensions={[5, 5]} />
+            <Worksheet minDimensions={[5, 5]}/>
         </Spreadsheet>
-        <p><input type='button' value='Try to change page...' onClick={() => spreadsheet.current[0].page(1)} /></p>
+        <p><input type='button' value='Try to change page...' onClick={() => spreadsheet.current[0].page(1)}/></p>
     </>);
 }
 ```
@@ -136,13 +136,14 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 import jSuites from "jsuites";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
@@ -154,13 +155,13 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
                 minDimensions: [5,5],
             }],
-            onerror: function(spreadsheet, result) {
+            onerror: function(spreadsheet, result:any) {
                 // Customize the alerts
                 jSuites.notification(result);
             }

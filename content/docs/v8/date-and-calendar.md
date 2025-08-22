@@ -2,7 +2,7 @@ title: Javascript Calendar
 keywords: Jspreadsheet, data grid, javascript, excel-like, spreadsheet, documentation, javascript calendar
 description: This section is dedicated to the calendar input type, date operations, formatting, and other related date features.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Date and calendar
 

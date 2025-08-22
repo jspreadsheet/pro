@@ -2,8 +2,6 @@ title: Highcharts Integration with Jspreadsheet Version 8
 keywords: Jspreadsheet, javascript, highcharts, charts
 description: Integrating Jspreadsheet Pro version 8 with Highcharts example.
 
-[Back to Examples](/docs/v8/examples)
-
 # Highcharts
 
 Creating a dynamic real-time charts from spreadsheet data.

@@ -72,16 +72,16 @@ A new option is added to the context menu. Right-click above any cell and click 
 
 ```html
 <html>
-<script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
 <link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jsuites/css/dist/style.min.css" type="text/css"/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jspreadsheet/comments/dist/style.min.css" type="text/css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jsuites/css/dist/style.min.css" type="text/css"/>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jsuites/css/dist/style.min.css" type="text/css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jspreadsheet/comments/dist/style.min.css" type="text/css" />
-
+<script src="https://jsuites.net/v5/jsuites.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lemonadejs/dist/lemonade.min.js"></script>
+<script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/comments/dist/index.min.js"></script>
 
 <div id='spreadsheet'></div>
@@ -136,6 +136,8 @@ import React, { useRef, useState } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
 import comments from "@jspreadsheet/comments";
 
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
 import "@jsuites/css/dist/style.css";
 import "@jspreadsheet/comments/dist/style.css";
 
@@ -196,9 +198,6 @@ export default function App() {
 import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
 import comments from "@jspreadsheet/comments";
 
-import "@jsuites/css/dist/style.css";
-import "@jspreadsheet/comments/dist/style.css";
-
 // Define the data grid license
 const license = '###license###';
 
@@ -225,7 +224,13 @@ export default {
                 image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlNBvnyqH0ZPLUFNGhOpZ09m7C4e3PDzsHELj51FYdcu_jIU1z97Y-ucjrSnxr1H-S0TM&usqp=CAU",
                 date: "2022-04-28 12:00:21",
                 comments: "Please can you try that one?",
-            }, ],
+            },
+            {
+                 name: 'Miguel Rodrigues',
+                 image: 'img/7359.jpg',
+                 date: '2022-05-01 00:00:21',
+                 comments: 'Yes. Can you send more details about the calculations?',
+            }],
             // Simple comments (notes)
             F1: "test",
         }
@@ -241,21 +246,19 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as comments from "@jspreadsheet/comments";
+import jspreadsheet from "jspreadsheet";
+import comments from "@jspreadsheet/comments";
 
 import "jsuites/dist/jsuites.css";
-import "@jsuites/css/dist/style.css";
 import "jspreadsheet/dist/jspreadsheet.css";
+import "@jsuites/css/dist/style.css";
 import "@jspreadsheet/comments/dist/style.css";
 
 // Set your JSS license key (The following key only works for one day)
-jspreadsheet.setLicense('view['license ']?>');
+jspreadsheet.setLicense('###license###');
 
 // Extensions
-jspreadsheet.setExtensions({
-    comments
-});
+jspreadsheet.setExtensions({ comments });
 
 // Who is connected to the data grid
 comments({
@@ -265,6 +268,7 @@ comments({
 });
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -281,9 +285,13 @@ export class AppComponent {
                 comments: {
                     A3: [{
                         name: "George Michael",
-                        image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlNBvnyqH0ZPLUFNGhOpZ09m7C4e3PDzsHELj51FYdcu_jIU1z97Y-ucjrSnxr1H-S0TM&usqp=CAU",
                         date: "2022-04-28 12:00:21",
                         comments: "Please can you try that one?"
+                    },
+                    {
+                        name: 'Miguel Rodrigues',
+                        date: '2022-05-01 00:00:21',
+                        comments: 'Yes. Can you send more details about the calculations?',
                     }],
                     // Simple comments (notes)
                     F1: "test"

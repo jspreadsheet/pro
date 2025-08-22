@@ -2,7 +2,7 @@ title: Spreadsheet Events
 keywords: Jspreadsheet, data grid, javascript, excel-like, spreadsheet, documentation, events, javascript events.
 description: This section brings a summary of all spreadsheet events. Also, learn more about the specific JS events and the global event dispatcher.
 
-[Back to Documentation](/docs/v9)
+
 
 # Spreadsheet Events
 

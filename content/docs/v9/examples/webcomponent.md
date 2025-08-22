@@ -2,7 +2,7 @@ title: Spreadsheet Web Components
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, web components
 description: The example shows how to implement Jspreadsheet as a web component.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # Spreadsheet Web Component
 

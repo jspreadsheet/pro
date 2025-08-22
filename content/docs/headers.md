@@ -1,4 +1,4 @@
-title: Spreadsheet Headers: All About Column Titles
+title: Spreadsheet Headers
 keywords: Jspreadsheet, Jexcel, data grids, JavaScript data grid, excel-like headers, column title, headers, data grid headers, column headers, customize headers, modify headers, spreadsheet customization, column title customization, data grid organization
 description: Customize and modify column titles in your online data grids. Personalize headers and organize your data grid effectively. Learn more about programmatically changing headers and other customization options.
 
@@ -35,7 +35,7 @@ To customize the headers, you can use the title and tooltip attributes in the co
 ```html
 <script>
 jspreadsheet(document.getElementById('spreadsheet'), {
-    workshets: [{
+    worksheets: [{
         columns: [
             {
                 type: 'text',
@@ -135,9 +135,10 @@ document.getElementById("btn2").onclick = () => alert(table[0].getHeader(documen
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet, jspreadsheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -161,14 +162,14 @@ export default function App() {
             title: 'Country',
             tooltip: 'Country of origin',
             width: '200px',
-            url: '/jspreadsheet/countries'
+            url: 'https://jspreadsheet.com/jspreadsheet/countries'
         },
         {
             type: 'dropdown',
             title: 'Food',
             tooltip: 'Category of food',
             width: '100px',
-            source: [ 'Apples','Bananas','Carrots','Oranges','Cheese' ]
+            source: ['Apples', 'Bananas', 'Carrots', 'Oranges', 'Cheese']
         },
         {
             type: 'checkbox',
@@ -188,116 +189,125 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet data={data} columns={columns} />
+                <Worksheet data={data} columns={columns}/>
             </Spreadsheet>
             <select ref={select}>
-            <option value="0">Column 0</option>
-            <option value="1">Column 1</option>
-            <option value="2">Column 2</option>
-            <option value="3">Column 3</option>
+                <option value="0">Column 0</option>
+                <option value="1">Column 1</option>
+                <option value="2">Column 2</option>
+                <option value="3">Column 3</option>
             </select>
             <input type='button' value='Set'
-                onClick={() => spreadsheet.current[0].setHeader(select.current.value)} />
+                   onClick={() => spreadsheet.current[0].setHeader(select.current.value)}/>
             <input type='button' value='Get'
-                onClick={() => spreadsheet.current[0].getHeader(select.current.value)} />
+                   onClick={() => spreadsheet.current[0].getHeader(select.current.value)}/>
         </>
     );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license">
-        <Worksheet :data="data" :columns="columns" />
-    </Spreadsheet>
-    <select ref="select">
+  <Spreadsheet ref="spreadsheet" :license="license">
+    <Worksheet :data="data" :columns="columns" />
+  </Spreadsheet>
+  <select ref="select">
     <option value="0">Column 0</option>
     <option value="1">Column 1</option>
     <option value="2">Column 2</option>
     <option value="3">Column 3</option>
-    </select>
-    <input type='button' value='Set'
-        @click="this.$refs.spreadsheet.current[0].setHeader(select.current.value)" />
-    <input type='button' value='Get'
-        @click="this.$refs.spreadsheet.current[0].getHeader(select.current.value)" />
+  </select>
+  <input type="button" value="Set" @click="setHeader" />
+  <input type="button" value="Get" @click="getHeader" />
 </template>
 
 <script>
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import { Spreadsheet, Worksheet, jspreadsheet } from '@jspreadsheet/vue';
+import 'jsuites/dist/jsuites.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
 
-const license = '###license###';
+const license =
+  '###license###';
 
 // Data
 let data = [];
 for (let j = 0; j < 50; j++) {
-    data[j] = [];
-    for (let i = 0; i < 50; i++) {
-        data[j][i] = jspreadsheet.helpers.getColumnNameFromCoords(i, j);
-    }
+  data[j] = [];
+  for (let i = 0; i < 50; i++) {
+    data[j][i] = jspreadsheet.helpers.getColumnNameFromCoords(i, j);
+  }
 }
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
-    },
-    data() {
-        // Data
-        const data = [
-            ['BR', 'Cheese', 1],
-            ['CA', 'Apples', 0],
-            ['US', 'Carrots', 1],
-            ['GB', 'Oranges', 0],
-        ]
-        // Columns settings
-        const columns = [
-            {
-                type: 'autocomplete',
-                title: 'Country',
-                tooltip: 'Country of origin',
-                width: '200px',
-                url: '/jspreadsheet/countries'
-            },
-            {
-                type: 'dropdown',
-                title: 'Food',
-                tooltip: 'Category of food',
-                width: '100px',
-                source: [ 'Apples','Bananas','Carrots','Oranges','Cheese' ]
-            },
-            {
-                type: 'checkbox',
-                title: 'Stock',
-                tooltip: 'Quantity on stock',
-                width: '100px'
-            },
-            {
-                type: 'number',
-                title: 'Price',
-                tooltip: 'Retail pricing',
-                width: '100px'
-            }
-        ];
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+  data() {
+    // Data
+    const data = [
+      ['BR', 'Cheese', 1],
+      ['CA', 'Apples', 0],
+      ['US', 'Carrots', 1],
+      ['GB', 'Oranges', 0],
+    ];
+    // Columns settings
+    const columns = [
+      {
+        type: 'autocomplete',
+        title: 'Country',
+        tooltip: 'Country of origin',
+        width: '200px',
+        url: 'https://jspreadsheet.com/jspreadsheet/countries',
+      },
+      {
+        type: 'dropdown',
+        title: 'Food',
+        tooltip: 'Category of food',
+        width: '100px',
+        source: ['Apples', 'Bananas', 'Carrots', 'Oranges', 'Cheese'],
+      },
+      {
+        type: 'checkbox',
+        title: 'Stock',
+        tooltip: 'Quantity on stock',
+        width: '100px',
+      },
+      {
+        type: 'number',
+        title: 'Price',
+        tooltip: 'Retail pricing',
+        width: '100px',
+      },
+    ];
 
-        return {
-            data,
-            options,
-            license,
-        };
-    }
-}
+    return {
+      columns,
+      data,
+      license,
+    };
+  },
+  methods: {
+    setHeader() {
+      const selectedValue = this.$refs.select.value;
+      this.$refs.spreadsheet.current[0].setHeader(selectedValue);
+    },
+    getHeader() {
+      const selectedValue = this.$refs.select.value;
+      alert(this.$refs.spreadsheet.current[0].getHeader(selectedValue));
+    },
+  },
+};
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Data
-let data = [];
+let data: any = [];
 for (let j = 0; j < 50; j++) {
     data[j] = [];
     for (let i = 0; i < 50; i++) {
@@ -306,6 +316,7 @@ for (let j = 0; j < 50; j++) {
 }
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
         <select #col>
@@ -315,7 +326,7 @@ for (let j = 0; j < 50; j++) {
         <option value="3">Column 3</option>
         </select>
         <input type='button' value='Set' (click)="this.worksheets[0].setHeader(this.col.nativeElement.value)" />
-        <input type='button' value='Get' (click)="this.worksheets[0].getHeader(this.col.nativeElement.value)" />`
+        <input type='button' value='Get' (click)="alert(this.worksheets[0].getHeader(this.col.nativeElement.value))" />`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -323,7 +334,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -338,27 +349,27 @@ export class AppComponent {
                         type: 'autocomplete',
                         title: 'Country',
                         tooltip: 'Country of origin',
-                        width: '200px',
-                        url: '/jspreadsheet/countries'
+                        width: 200,
+                        url: 'https://jspreadsheet.com/jspreadsheet/countries'
                     },
                     {
                         type: 'dropdown',
                         title: 'Food',
                         tooltip: 'Category of food',
-                        width: '100px',
+                        width: 100,
                         source: ['Apples','Bananas','Carrots','Oranges','Cheese']
                     },
                     {
                         type: 'checkbox',
                         title: 'Stock',
                         tooltip: 'Quantity on stock',
-                        width: '100px'
+                        width: 100
                     },
                     {
                         type: 'number',
                         title: 'Price',
                         tooltip: 'Retail pricing',
-                        width: '100px'
+                        width: 100
                     },
                 ],
             }]

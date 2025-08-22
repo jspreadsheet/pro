@@ -2,7 +2,6 @@ title: Spreadsheet Custom Search
 keywords: Jspreadsheet, Jexcel, javascript, javascript vanilla, javascript plugin, plugin, excel-like, spreadsheet, table, tables, grid, datatables, native search, custom search.
 description: How to customize the native spreadsheet search methods using onbeforesearch event.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Custom spreadsheet search
 

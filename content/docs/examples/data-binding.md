@@ -284,7 +284,7 @@ export default {
     },
     methods: {
         get() {
-            this.$refs.log.value.value = JSON.stringify(data);
+            this.$refs.log.value = JSON.stringify(this.data, null, 2);
         }
     },
     data() {
@@ -338,7 +338,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -346,68 +349,68 @@ jspreadsheet.setLicense('###license###');
 // Get the data
 const data = [
     {
-       "id":1,
-       "name":"Jorge",
-       "img":"img/nophoto.jpg",
-       "department":"Marketing",
-       "extension":"3120",
+        "id": 1,
+        "name": "Jorge",
+        "img": "img/nophoto.jpg",
+        "department": "Marketing",
+        "extension": "3120",
     },
     {
-       "id":2,
-       "name":"Antonio",
-       "img":"img/nophoto.jpg",
-       "department":"Marketing",
-       "extension":"3121",
+        "id": 2,
+        "name": "Antonio",
+        "img": "img/nophoto.jpg",
+        "department": "Marketing",
+        "extension": "3121",
     },
     {
-       "id":3,
-       "name":"Manoel",
-       "img":"img/nophoto.jpg",
-       "department":"Marketing",
-       "extension":"3123",
+        "id": 3,
+        "name": "Manoel",
+        "img": "img/nophoto.jpg",
+        "department": "Marketing",
+        "extension": "3123",
     },
     {
-       "id":4,
-       "name":"Pedro",
-       "img":"img/nophoto.jpg",
-       "department":"Marketing",
-       "extension":"3124",
+        "id": 4,
+        "name": "Pedro",
+        "img": "img/nophoto.jpg",
+        "department": "Marketing",
+        "extension": "3124",
     },
     {
-       "id":5,
-       "name":"Carlos",
-       "img":"img/nophoto.jpg",
-       "department":"Marketing",
-       "extension":"3125",
+        "id": 5,
+        "name": "Carlos",
+        "img": "img/nophoto.jpg",
+        "department": "Marketing",
+        "extension": "3125",
     },
 ];
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
         <textarea #log></textarea>
-        <input type='button' value='Get the content of the data variable'
-            (click)="this.log.value = JSON.stringify(this.data)" />`;
+        <input type='button' value='Get the content of the data variable' (click)="addLog()" />`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     @ViewChild("log") log: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
-    // Data
-    data: data;
+    data: any[] = [];
+
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
+        // Data
+        this.data = data;
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
                 data: data,
                 minDimensions: [6, 5],
                 worksheetName: 'Employees',
-                columns:
-                // Columns
-                const columns = [
+                columns: [
                     {
                         title: 'Id',
                         type: 'autonumber',
@@ -434,7 +437,7 @@ export class AppComponent {
                         type: 'text',
                         name: 'department',
                         width: '180px',
-                        source: ['Marketing','Accounts','General'],
+                        source: ['Marketing', 'Accounts', 'General'],
                     },
                     {
                         title: 'Extension',
@@ -444,6 +447,10 @@ export class AppComponent {
                 ],
             }]
         });
+    }
+
+    addLog() {
+        this.log.nativeElement.value = JSON.stringify(this.data)
     }
 }
 ```

@@ -104,9 +104,10 @@ document.getElementById('commentBtn3').onclick = function() { worksheets[0].setC
 <button type="button" id="commentBtn3">Reset A1 comments</button>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -122,9 +123,9 @@ export default function App() {
         ['BR', 'Oranges', '2019-01-12'],
     ]
     const columns = [
-        { width: '300px' },
-        { width: '200px' },
-        { width: '200px' },
+        {width: '300px'},
+        {width: '200px'},
+        {width: '200px'},
     ]
     const comments = {
         B1: 'Initial comments on B1',
@@ -138,14 +139,14 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license} oncomments={oncomments}>
-                <Worksheet data={data} columns={columns} comments={comments} allowComments />
+                <Worksheet data={data} columns={columns} comments={comments} allowComments/>
             </Spreadsheet>
             <input type="button" value="Set A1 comments"
-                onClick={() => spreadsheet.current[0].setComments('A1', 'Test')} />
+                   onClick={() => spreadsheet.current[0].setComments('A1', 'Test')}/>
             <input type="button" value="Get A1 comments"
-                onClick={() => alert(spreadsheet.current[0].getComments('A1'))} />
+                   onClick={() => alert(spreadsheet.current[0].getComments('A1'))}/>
             <input type="button" value="Reset A1 comments"
-                onClick={() => spreadsheet.current[0].setComments('A1', '')} />
+                   onClick={() => spreadsheet.current[0].setComments('A1', '')}/>
         </>
     );
 }
@@ -210,7 +211,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -229,7 +233,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [

@@ -334,7 +334,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -384,7 +387,7 @@ const data = [
         <div #spreadsheet></div>
         <textarea #log></textarea>
         <input type='button' value='Get the content of the data variable'
-            (click)="this.log.value = JSON.stringify(this.data)" />`;
+            (click)="logValue()" />`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -394,7 +397,7 @@ export class AppComponent {
     // Data
     data: data;
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -440,6 +443,10 @@ export class AppComponent {
                 ],
             }]
         });
+    }
+
+    logValue() {
+        this.log.nativeElement.value = JSON.stringify(data)
     }
 }
 ```

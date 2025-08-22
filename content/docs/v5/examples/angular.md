@@ -2,7 +2,7 @@ title: Jspreadsheet Pro Version 5 with Angular
 keywords: Jspreadsheet, javascript, using Jspreadsheet and angular
 description: An example of how to integrate Jspreadsheet with Angular.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Jspreadsheet with Angular
 
@@ -63,4 +63,4 @@ NOTE: Make sure to import the Jspreadsheet.css in your angular.json
 
 Base angular project using Jspreadsheet
 
-[View source](https://github.com/paulhodel/Jspreadsheet-with-angular)
+[View source](https://github.com/jexcel/Jspreadsheet-with-angular)

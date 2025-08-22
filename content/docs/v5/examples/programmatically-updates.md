@@ -2,7 +2,7 @@ title: JavaScript Data Grid Updates
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet, javascript programmatically changes
 description: Learn how to apply changes to your data grid programmatically. Learn how to add, delete and move columns and rows, sorting, and other options.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Programmatically Data Grid Updates
 

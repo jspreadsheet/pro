@@ -2,7 +2,7 @@ title: React Spreadsheet with Jspreadsheet Version 5.
 keywords: Jspreadsheet, javascript, using Jspreadsheet and react
 description: An example of how to integrate Jspreadsheet Version 5 with React.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # The Javascript spreadsheet with React
 

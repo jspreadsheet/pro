@@ -2,7 +2,7 @@ title: Spreadsheet Data Binding
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, data-binding
 description: Binding the data to be updated automatically when the cell value changes.
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # Spreadsheet
 

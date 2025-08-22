@@ -2,7 +2,7 @@ title: Rich Text Column Type Editor
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, editors, javascript richtext, html editor
 description: The rich text column helps the user add formatted text into the spreadsheet cells using a mini JavaScript HTML editor.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # HTML editor
 

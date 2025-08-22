@@ -2,7 +2,7 @@ title: Data Grid HTML Column Type
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet, html editor
 description: Learn how to allow users to include rich text to your spreadsheet using the new HTML editor column type.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Rich text Column Type
 

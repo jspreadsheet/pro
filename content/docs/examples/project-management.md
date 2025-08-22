@@ -12,7 +12,6 @@ A simple online task management spreadsheet.
 <script src="https://jsuites.net/v5/jsuites.js"></script>
 <link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
 <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
-
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
 
 <div id="spreadsheet"></div>
@@ -47,10 +46,10 @@ let spreadsheet = jspreadsheet(document.getElementById('spreadsheet'), {
         ],
         columns: [
             {
-                type: 'text',
+                type: 'html',
                 width: '60px',
                 title: 'Photo',
-                readonly: true
+                // readonly: true
             },
             {
                 type: 'dropdown',
@@ -81,7 +80,7 @@ let spreadsheet = jspreadsheet(document.getElementById('spreadsheet'), {
             },
         ],
     }],
-    oninsertrow: function(worksheet) {
+    oncreaterow: function(worksheet) {
         for (let j = 0; j < worksheet.rows.length; j++) {
             worksheet.setValue('A' + (j+1), '=PHOTO(B' + (j+1) + ')', true);
         }
@@ -101,8 +100,7 @@ import "jspreadsheet/dist/jspreadsheet.css";
 
 // Set the license
 jspreadsheet.setLicense('###license###');
-// Set the extensions
-jspreadsheet.setFormulas({ formula });
+jspreadsheet.setExtensions({ formula });
 
 const PHOTO = function(photo) {
     if (! photo) {
@@ -158,48 +156,67 @@ export default function App() {
         },
     ];
     // Event to make sure the first cell is populated
-    const oninsertrow = (worksheet) => {
+    const oncreaterow = (worksheet) => {
         for (let j = 0; j < worksheet.rows.length; j++) {
-            if (! worksheet.options.data[j][0]) {
-                worksheet.setValue('A' + (j+1), '=PHOTO(B' + (j+1) + ')', true);
-            }
+            worksheet.setValue("A" + (j + 1), "=PHOTO(B" + (j + 1) + ")", true);
         }
-    }
+    };
+
     // Render data grid component
     return (
         <>
-            <Spreadsheet ref={spreadsheet} oninsertrow={oninsertrow}>
+            <Spreadsheet ref={spreadsheet} oncreaterow={oncreaterow}>
                 <Worksheet data={data} columns={columns} />
             </Spreadsheet>
-            <input type={"button"} value={"Add new task"} onClick={() => spreadsheet.current[0].insertRow()} />
+            <input
+                type="button"
+                value="Add new task"
+                onClick={() => spreadsheet.current[0].insertRow()}
+            />
         </>
     );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :oninsertrow="oninsertrow">
-            <Worksheet :data="data" :columns="columns" />
-    </Spreadsheet>
-    <input type='button' value='Add new task' onclick="spreadsheet[0].insertRow()" />
+  <Spreadsheet
+    ref="spreadsheet"
+    :license="license"
+    :oncreaterow="oncreaterow"
+  >
+    <Worksheet :data="data" :columns="columns" />
+  </Spreadsheet>
+
+  <input
+    type="button"
+    value="Add new task"
+    @click="insertRow"
+  />
 </template>
 
 <script>
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
+import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
+import formula from "@jspreadsheet/formula-pro";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
-const license = '###license###';
+jspreadsheet.setLicense('###license###');
 
-// Custom formula
-const PHOTO = function(photo) {
-    if (! photo) {
-        photo = 'nophoto';
+jspreadsheet.setExtensions({ formula });
+
+// Custom formula PHOTO
+const PHOTO = function (photo) {
+    if (!photo) {
+        photo = "nophoto";
     }
-    return ' <img src="/templates/default/img/'+photo+'.jpg" class="users-small" />';
-}
+    return (
+        '<img src="/templates/default/img/' +
+        photo +
+        '.jpg" class="users-small" />'
+    );
+};
 
-// Set the custom formulas
+// Registra a fórmula
 formula.setFormula({ PHOTO });
 
 export default {
@@ -208,89 +225,75 @@ export default {
         Worksheet,
     },
     data() {
-        // Data
-        const data = [
-            [ '=PHOTO(B1)', '2', 'New products section', '2019-02-12', '80' ],
-            [ '=PHOTO(B2)', '2', 'API integration', '2019-03-01', '100' ],
-            [ '=PHOTO(B3)', '4', 'Deck', '2018-11-10', '30' ],
-            [ '=PHOTO(B4)', '2', 'Prototype', '2019-01-12', '0' ],
-        ]
-        // Columns
-        const columns = [
-            {
-                type: 'text',
-                width: '60px',
-                title: 'Photo',
-                readonly: true
-            },
-            {
-                type: 'dropdown',
-                width: '140px',
-                title: 'Name',
-                source: [
-                    { id: '2', name: 'Jorge' },
-                    { id: '4', name: 'Paul' }
-                ]
-            },
-            {
-                type: 'text',
-                width: '200px',
-                title: 'Task'
-            },
-            {
-                type: 'calendar',
-                width: '100px',
-                title: 'When'
-            },
-            {
-                type: 'progressbar',
-                width: '200px',
-                title: '%'
-            },
-        ];
-        // Event to make sure the first cell is populated
-        const oninsertrow = (worksheet) => {
-            for (let j = 0; j < worksheet.rows.length; j++) {
-                if (! worksheet.options.data[j][0]) {
-                    worksheet.setValue('A' + (j+1), '=PHOTO(B' + (j+1) + ')', true);
-                }
-            }
-        }
-
         return {
-            data,
-            columns,
-            oninsertrow,
-            license
+            data: [
+                ["=PHOTO(B1)", "2", "New products section", "2019-02-12", "80"],
+                ["=PHOTO(B2)", "2", "API integration", "2019-03-01", "100"],
+                ["=PHOTO(B3)", "4", "Deck", "2018-11-10", "30"],
+                ["=PHOTO(B4)", "2", "Prototype", "2019-01-12", "0"],
+            ],
+            columns: [
+                {
+                    type: "text",
+                    width: "60px",
+                    title: "Photo",
+                    readonly: true,
+                },
+                {
+                    type: "dropdown",
+                    width: "140px",
+                    title: "Name",
+                    source: [
+                        { id: "2", name: "Jorge" },
+                        { id: "4", name: "Paul" },
+                    ],
+                },
+                { type: "text", width: "200px", title: "Task" },
+                { type: "calendar", width: "100px", title: "When" },
+                { type: "progressbar", width: "200px", title: "%" },
+            ],
         };
     },
-}
+    methods: {
+        oncreaterow(worksheet) {
+            for (let j = 0; j < worksheet.rows.length; j++) {
+              worksheet.setValue("A" + (j + 1), "=PHOTO(B" + (j + 1) + ")", true);
+            }
+          },
+        insertRow() {
+            this.$refs.spreadsheet.current[0].insertRow();
+        },
+    },
+};
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import jspreadsheet from "jspreadsheet";
+import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
+// Set the extensions
+jspreadsheet.setExtensions({ formula })
+
 // Custom formula
-const PHOTO = function(photo) {
-    if (! photo) {
+const PHOTO = function (photo: any) {
+    if (!photo) {
         photo = 'nophoto';
     }
-    return ' <img src="/templates/default/img/'+photo+'.jpg" class="users-small" />';
+    return ' <img src="https://jspreadsheet.com/templates/default/img/' + photo + '.jpg" class="users-small" />';
 }
 
 // Set the custom formulas
 formula.setFormula({ PHOTO });
 
+
 @Component({
-  selector: "app-root",
-  template: `<div #spreadsheet></div>`
+    standalone: true,
+    selector: "app-root",
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -299,7 +302,7 @@ export class AppComponent {
     // Create a new data grid
     ngAfterViewInit() {
         // Create spreadsheet
-        this.worksheets = jspreadsheet(document.getElementById('spreadsheet'), {
+        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
                 data: [
                     [ '=B1', '2', 'New products section', '2019-02-12', '80' ],
@@ -310,13 +313,10 @@ export class AppComponent {
                 columns: [
                     {
                         type: 'text',
-                        width: '60px',
                         title: 'Photo',
-                        readonly: true
                     },
                     {
                         type: 'dropdown',
-                        width: '140px',
                         title: 'Name',
                         source: [{
                             id: '2',
@@ -328,25 +328,27 @@ export class AppComponent {
                     },
                     {
                         type: 'text',
-                        width: '200px',
                         title: 'Task'
                     },
                     {
                         type: 'calendar',
-                        width: '100px',
                         title: 'When'
                     },
                     {
                         type: 'progressbar',
-                        width: '200px',
                         title: '%'
                     },
                 ],
             }],
-            oninsertrow: function(worksheet) {
+            oncreaterow: function (worksheet: any) {
                 for (let j = 0; j < worksheet.rows.length; j++) {
-                    if (! worksheet.options.data[j][0]) {
-                        worksheet.setValue('A' + (j+1), '=PHOTO(B' + (j+1) + ')', true);
+                    // SOMENTE LINHAS NOVAS/VÁZIAS RECEBEM A FÓRMULA
+                    if (!worksheet.options.data[j][0]) {
+                        worksheet.setValue(
+                            'A' + (j + 1),
+                            '=PHOTO(B' + (j + 1) + ')',
+                            true
+                        );
                     }
                 }
             }

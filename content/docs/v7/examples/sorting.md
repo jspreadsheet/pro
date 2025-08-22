@@ -2,7 +2,6 @@ title: Sorting the Spreadsheet Columns
 keywords: Jspreadsheet, Jexcel, spreadsheet, javascript, javascript table, sorting
 description: An example of how to sort the data grid by columns via JavaScript.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Data Grid Sorting
 
@@ -20,7 +19,7 @@ You can sort your javascript data grid by a double click in the header, using th
 <script>
 let data = [
     ['Mazda', 2001, 2000, '2006-01-01', '453.00', '2', '=E1*F1'],
-    ['Pegeout', 2010, 5000, '2005-01-01', '23.00', '5', '=E2*F2'],
+    ['Peugeot', 2010, 5000, '2005-01-01', '23.00', '5', '=E2*F2'],
     ['Honda Fit', 2009, 3000, '2004-01-01', '214.00', '3', '=E3*F3'],
     ['Honda CRV', 2010, 6000, '2003-01-01', '56.11', '2', '=E4*F4'],
 ];
@@ -64,7 +63,7 @@ The sorting is a native enabled feature, use the columnSorting: false directive 
 <script>
 let data = [
     ['Mazda', 2001, 2000, '2006-01-01'],
-    ['Pegeout', 2010, 5000, '2005-01-01'],
+    ['Peugeot', 2010, 5000, '2005-01-01'],
     ['Honda Fit', 2009, 3000, '2004-01-01'],
     ['Honda CRV', 2010, 6000, '2003-01-01'],
 ];

@@ -21,9 +21,10 @@ $ npm install @jspreadsheet/react
 How to create a web-based spreadsheet using the Jspreadsheet react wrapper. 
 
 {.ignore}
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -33,8 +34,8 @@ export default function App() {
 
     // Render component
     return (
-        <Spreadsheet ref={spreadsheet} license={license} tabs={true} toolbar>
-            <Worksheet />
+        <Spreadsheet ref={spreadsheet} license={license} tabs={true} toolbar={true}>
+            <Worksheet/>
         </Spreadsheet>
     );
 }

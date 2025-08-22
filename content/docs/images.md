@@ -83,9 +83,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -95,7 +96,7 @@ export default function App() {
     // Spreadsheet array of worksheets
     const spreadsheet = useRef();
     // Data grid media items
-    const media: [
+    const media = [
         {
             type: 'image',
             src: 'https://lemonadejs.net/templates/default/img/components.svg',
@@ -106,7 +107,7 @@ export default function App() {
     // Render component
     return (
         <Spreadsheet ref={spreadsheet} license={license}>
-            <Worksheet minDimensions={[6,6]} media={media} />
+            <Worksheet minDimensions={[6, 6]} media={media}/>
         </Spreadsheet>
     );
 }
@@ -132,7 +133,7 @@ export default {
     },
     data() {
         // Data grid media items
-        const media: [
+        const media = [
             {
                 type: 'image',
                 src: 'https://lemonadejs.net/templates/default/img/components.svg',
@@ -151,22 +152,23 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -262,7 +264,7 @@ export default function App() {
 ```vue
 <template>
     <Spreadsheet ref="spreadsheet" :license="license">
-        <Worksheet :minDimensions="[6,6]" :images="images" />
+        <Worksheet :minDimensions="[2,4]" :data="data" :columns="columns" />
     </Spreadsheet>
 </template>
 
@@ -280,16 +282,18 @@ export default {
     },
     data() {
         // Column definitions
-        const images: [
-            {
-                src: 'https://lemonadejs.net/templates/default/img/components.svg',
-                width: 200,
-                height: 150,
-            }
+        const data = [
+            ['LemonadejS', 'https://lemonadejs.net/templates/default/img/components.svg'],
         ];
 
+        const columns = [
+            { type: 'text', width: 300, title: 'Title' },
+            { type: 'image', width: 120, title: 'Image' },
+        ]
+
         return {
-            images,
+            data,
+            columns,
             license,
         };
     }
@@ -298,33 +302,34 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
-                minDimensions: [6,6],
-                images: [
-                    {
-                        src: 'https://lemonadejs.net/templates/default/img/components.svg',
-                        width: 200,
-                        height: 150,
-                    }
-                ]
+                data: [
+                    ['LemonadejS', 'https://lemonadejs.net/templates/default/img/components.svg'],
+                ],
+                minDimensions: [2,4],
+                columns: [
+                    { type:'text', width:300, title:'Title' },
+                    { type:'image', width:120, title:'Image' },
+                ],
             }],
         });
     }
@@ -425,6 +430,7 @@ export default {
         return {
             data,
             cells,
+            license
         };
     }
 }
@@ -432,22 +438,23 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

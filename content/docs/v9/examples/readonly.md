@@ -2,7 +2,7 @@ title: Worksheet Readonly Cells State
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, editors, javascript richtext, html editor
 description: Learn how to set columns or individual cells to read-only.
 
-[Back to Examples](/docs/v9/examples)
+
 
 # Read Only Cells
 

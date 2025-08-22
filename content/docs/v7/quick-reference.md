@@ -2,7 +2,7 @@ title: Jspreadsheet method and events
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation
 description: A quick reference of all methods, configuration variables, events and language.
 
-[Back to Documentation](/docs/v7)
+
 
 # Quick reference
 

@@ -2,7 +2,7 @@ title: Cross Spreadsheet Calculations
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, custom formulas, javascript formulas, excel-like formulas, spreadsheet-like formulas, cross spreadsheet calculations
 description: This example shows how to implement calculations across different spreadsheets.
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # Spreadsheet Cross Calculations
 

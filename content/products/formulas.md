@@ -21,7 +21,7 @@ Formula Pro is a plugin that can parse Excel-like formulas into JavaScript, offe
   * More than 400 Excel formulas available in JavaScript;
   * Operates in a private scope;
   * Utilization of a custom shunting yard parser, `eliminating` the need for `eval `or `Function` constructs;
-  * A bespoke approach to addressing JavaScript's precision limitations;;
+  * A bespoke approach to addressing JavaScript's precision limitations;
   * Capability to perform date operations;
   * Supports cross-worksheet calculations;
   * Supports defined names and external variable definitions;
@@ -63,12 +63,16 @@ The basic standalone usage.
 {.ignore-execution}
 ```html
 <html>
+<script src="https://cdn.jsdelivr.net/npm/jsuites/dist/jsuites.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/formula-pro/dist/index.min.js"></script>
 <script>
 // Activate the precision adjust
 formula.adjustPrecision = true;
 // Define the license just once
-formula.license('YjQzMzdlOTRiOGY3ZTQ0ZDQ4ZTI1YWU3MDFjMDI0ZWJmOTNjODA');
+formula.license({
+    clientId: 'your-client-id',
+    licenseKey: 'your-key',
+});
 </script>
 </html>
 ```
@@ -86,9 +90,12 @@ npm install @jspreadsheet/formula-pro
 // Import formula pro
 import formula from '@jspreadsheet/formula-pro';
 // Define the license just once
-formula.license('YjQzMzdlOTRiOGY3ZTQ0ZDQ4ZTI1YWU3MDFjMDI0ZWJmOTNjODA');
+formula.license({
+    clientId: 'your-client-id',
+    licenseKey: 'your-key',
+});
 // Calculate
-formula('A1*2', { A1: 10 }); // Result 10
+formula('A1*2', { A1: 10 }); // Result 20
 ```
 
 ### License
@@ -308,7 +315,11 @@ formula('SHEET1!B1*SHEET2!B1', { SHEET1: [[1,2,3],[4,5,6]], SHEET2: [[10,20,30]]
 // Returns 2 * 20
 ```
   
+## Limitations
 
+A few of known Formula Pro limitations:
+
+- Limited loop detection within conditional functions.
 
 ## Available formulas
 
@@ -353,62 +364,8 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 ```
 ```jsx
 import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
 import formula from "@jspreadsheet/formula-pro";
-
-// License string
-const license = '###license###';
-
-// Extensions
-const extensions = { formula };
-
-export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-
-    // Render component
-    return (
-        <Spreadsheet ref={spreadsheet} license={license} extensions={extensions}>
-            <Worksheet />
-            <Worksheet />
-        </Spreadsheet>
-    );
-}
-```
-```vue
-import { ref } from 'vue';
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
-import formula from "@jspreadsheet/formula-pro";
-
-const license = '###license###';
-
-// Extensions
-const extensions = { formula };
-
-export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
-    },
-    data() {
-        const spreadsheet = ref(null);
-
-        return {
-            spreadsheet,
-            license,
-            extensions,
-        };
-    },
-    template: `<Spreadsheet ref="spreadsheet" :license="license" :extensions="extensions">
-        <Worksheet :minDimensions="[10,10]" />
-        <Worksheet :minDimensions="[10,10]" />
-    </Spreadsheet>`,
-}
-```
-```angularjs
-import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as formula from "@jspreadsheet/formula-pro";
 
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
@@ -419,7 +376,70 @@ jspreadsheet.setLicense('###license###');
 // Add-on for JSpreadsheet
 jspreadsheet.setExtensions({ formula });
 
+export default function App() {
+    // Spreadsheet array of worksheets
+    const spreadsheet = useRef();
+
+    // Render component
+    return (
+        <Spreadsheet ref={spreadsheet}>
+            <Worksheet minDimensions={[5, 5]} data={[['=SUM(10, 10)']]} />
+            <Worksheet minDimensions={[5, 5]}/>
+        </Spreadsheet>
+    );
+}
+```
+```vue
+<template>
+  <Spreadsheet
+    ref="spreadsheet"
+    :license="license"
+    :extensions="extensions"
+    toolbar="true"
+  >
+    <Worksheet :minDimensions="[10, 10]" :data="[['=SUM(10, 10)']]" />
+    <Worksheet :minDimensions="[10, 10]" />
+  </Spreadsheet>
+</template>
+
+<script>
+import { Spreadsheet, Worksheet, jspreadsheet } from '@jspreadsheet/vue';
+import formula from '@jspreadsheet/formula-pro';
+
+import '@lemonadejs/studio';
+import '@lemonadejs/studio/dist/style.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
+import 'jsuites/dist/jsuites.css';
+
+// Set your JSS license key (The following key only works for one day)
+jspreadsheet.setLicense(
+  'OWJiZDQ3MTYzYTUzZTNkOTExZTdhY2M3NWUxNmJlNDNkYjdiNzA4Y2E2YzYxYjdjNDg1ODllYmU1YjRkZjgzNDAwYjcyZGQ0NjE3ZTY1NmVlMzc3MDI4NWVmYmM2MjM0M2NmNGRjNTczMmRlZGY4MGY3MWVlNTBlMzM1MDE1MzgsZXlKamJHbGxiblJKWkNJNklpSXNJbTVoYldVaU9pSktjM0J5WldGa2MyaGxaWFFpTENKa1lYUmxJam94TnpVek16RTJNek16TENKa2IyMWhhVzRpT2xzaWFuTndjbVZoWkhOb1pXVjBMbU52YlNJc0ltTnZaR1Z6WVc1a1ltOTRMbWx2SWl3aWFuTm9aV3hzTG01bGRDSXNJbU56WWk1aGNIQWlMQ0p6ZEdGamEySnNhWFI2TG1sdklpd2lkMlZpWTI5dWRHRnBibVZ5TG1sdklpd2lkMlZpSWl3aWJHOWpZV3hvYjNOMElsMHNJbkJzWVc0aU9pSXpOQ0lzSW5OamIzQmxJanBiSW5ZM0lpd2lkamdpTENKMk9TSXNJbll4TUNJc0luWXhNU0lzSW1Ob1lYSjBjeUlzSW1admNtMXpJaXdpWm05eWJYVnNZU0lzSW5CaGNuTmxjaUlzSW5KbGJtUmxjaUlzSW1OdmJXMWxiblJ6SWl3aWFXMXdiM0owWlhJaUxDSmlZWElpTENKMllXeHBaR0YwYVc5dWN5SXNJbk5sWVhKamFDSXNJbkJ5YVc1MElpd2ljMmhsWlhSeklpd2lZMnhwWlc1MElpd2ljMlZ5ZG1WeUlpd2ljMmhoY0dWeklpd2labTl5YldGMElsMHNJbVJsYlc4aU9uUnlkV1Y5'
+);
+
+// Add-on for JSpreadsheet
+jspreadsheet.setExtensions({ formula });
+
+export default {
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+};
+</script>
+```
+```angularjs
+import { Component, ViewChild, ElementRef } from "@angular/core";
+import jspreadsheet from "jspreadsheet";
+import formula from "@jspreadsheet/formula-pro";
+
+// Set your JSS license key (The following key only works for one day)
+jspreadsheet.setLicense('###license###');
+
+// Add-on for JSpreadsheet
+jspreadsheet.setExtensions({ formula });
+
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -432,8 +452,8 @@ export class AppComponent {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
-                { minDimensions: [6, 6] },
-                { minDimensions: [6, 6] },
+                { minDimensions: [5, 5], data: [['=SUM(10, 10)']] },
+                { minDimensions: [5, 5] },
             ],
         });
     }
@@ -477,17 +497,20 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 ```
 ```jsx
 import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
 import formula from "@jspreadsheet/formula-pro";
 
-// License
-const license = '###license###';
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
 
-// Extensions
-const extensions = { formula };
+// License
+jspreadsheet.setLicense('###license###');
 
 // Define custom variables to be use in the calculations
-formula.define({ QTY: 10, CALC: 20, HELLO: '"Dealing with strings"' })
+formula.define({ QTY: 10, CALC: 20, HELLO: '"Dealing with strings"' });
+
+// Extensions
+jspreadsheet.setExtensions({ formula });
 
 export default function App() {
     // Spreadsheet array of worksheets
@@ -497,7 +520,7 @@ export default function App() {
 
     // Render component
     return (
-        <Spreadsheet ref={spreadsheet} license={license} extensions={extensions}>
+        <Spreadsheet ref={spreadsheet}>
             <Worksheet data={data} />
         </Spreadsheet>
     );
@@ -505,23 +528,27 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :extensions="extensions">
+    <Spreadsheet ref="spreadsheet">
         <Worksheet :data="data" :minDimensions="[10,10]" />
     </Spreadsheet>
 </template>
 
 <script>
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
+import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
 import formula from "@jspreadsheet/formula-pro";
 
-// License
-const license = '###license###';
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
 
-// Extensions
-const extensions = { formula };
+// License
+jspreadsheet.setLicense('###license###');
 
 // Define custom variables to be use in the calculations
-formula.define({ QTY: 10, CALC: 20, HELLO: '"Dealing with strings"' })
+formula.define({ QTY: 10, CALC: 20, HELLO: '"Dealing with strings"' });
+
+// Extensions
+jspreadsheet.setExtensions({ formula });
+
 
 export default {
     components: {
@@ -530,12 +557,10 @@ export default {
     },
     data() {
         // Data
-        const data = { data: [['=QTY*10', '=CALC*10', '=HELLO']] };
+        const data = [['=QTY*10', '=CALC*10', '=HELLO']];
 
         return {
             data,
-            license,
-            extensions,
         };
     }
 }
@@ -543,22 +568,20 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as formula from "@jspreadsheet/formula-pro";
-
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import jspreadsheet from "jspreadsheet";
+import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
-const license = '###license###';
+jspreadsheet.setLicense('###license###');
+
+// Define custom variables to be use in the calculations
+formula.define({ QTY: 10, CALC: 20, HELLO: '"Dealing with strings"' });
 
 // Extensions
 jspreadsheet.setExtensions({ formula });
 
-// Define custom variables to be use in the calculations
-formula.define({ QTY: 10, CALC: 20, HELLO: '"Dealing with strings"' })
-
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })

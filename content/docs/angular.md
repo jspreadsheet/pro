@@ -1,10 +1,10 @@
-title: Angular Data Grid with spreadsheet-like controls
+title: Angular Spreadsheet
 keywords: Angular, Jspreadsheet, spreadsheet controls, data grid integration, TypeScript support, Angular application development, JavaScript grid functionality
 description: Learn to create powerful data grids with Jspreadsheet and Angular with spreadsheet-like controls, featuring spreadsheet-like controls for enhanced functionality.
 
 # Angular Spreadsheet
 
-Jspreadsheet extends its advanced data grid capabilities to Angular, offering spreadsheet-like controls tailored for TypeScript and Angular environments. This guide details the steps for incorporating Jspreadsheet into your Angular projects, ensuring a smooth integration process. Each example within this documentation is complemented by an Angular implementation, illustrating practical applications in Angular contexts.
+Jspreadsheet extends its advanced JavaScript Data Grid component capabilities to Angular, offering spreadsheet-like controls tailored for TypeScript and Angular environments. This guide details the steps for incorporating Jspreadsheet into your Angular projects, ensuring a smooth integration process. Each example within this documentation is complemented by an Angular implementation, illustrating practical applications in Angular contexts.
 
 ## Documentation
 
@@ -22,8 +22,9 @@ $ npm install jspreadsheet
 
 A basic angular spreadsheet with export to XLSX. 
 
-[Angular Online Spreadsheet](https://codesandbox.io/s/angular-spreadsheet-lbtcwf)
-
+- [Angular Online Spreadsheet](https://codesandbox.io/s/angular-spreadsheet-lbtcwf)
+- [Angular Data Grid with Spreadsheet Controls](https://stackblitz.com/edit/data-grid-with-spreadsheet-controls)
+- [Dynamic spreadsheets](https://stackblitz.com/edit/online-spreadsheets)
  
 
 #### Online XLSX editor with Angular
@@ -39,7 +40,7 @@ Import XLSX files and edit them online using Jspreadsheet Pro.
 {.ignore}
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 @Component({
   selector: "app-root",
@@ -76,7 +77,8 @@ export class AppComponent {
   }
 }
 ```
-  
+
+
 
 **NOTE** : Make sure to import the Jspreadsheet and Jsuites CSS files to your angular.json
 

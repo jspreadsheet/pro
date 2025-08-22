@@ -144,7 +144,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -159,7 +162,7 @@ const data = [
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
-        <p><input type="button" value="Rotate A1 (-90deg)" (click)="this.worksheets[0].rotate('A1', -90);"></p>
+        <p><input type="button" value="Rotate A1 (-90deg)" (click)="this.worksheets[0].rotate('A1', -90)"></p>
     `
 })
 export class AppComponent {
@@ -167,7 +170,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             data: [

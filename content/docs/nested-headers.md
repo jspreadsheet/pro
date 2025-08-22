@@ -128,8 +128,8 @@ document.getElementById("btn1").onclick = () => table[0].setNestedCell(0, 0, { t
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -156,7 +156,7 @@ export default function App() {
             type: 'dropdown',
             title: 'Food',
             width: '100px',
-            source: ['Apples','Bananas','Carrots','Oranges','Cheese']
+            source: ['Apples', 'Bananas', 'Carrots', 'Oranges', 'Cheese']
         },
         {
             type: 'checkbox',
@@ -196,10 +196,10 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet data={data} columns={columns} nestedHeaders={nestedHeaders} minDimensions={[8,4]} />
+                <Worksheet data={data} columns={columns} nestedHeaders={nestedHeaders} minDimensions={[8, 4]}/>
             </Spreadsheet>
             <input type='button' value='Update'
-                onClick={() => spreadsheet.current[0].setNestedCell(0, 0, { title: 'New', tooltip: 'Tooltip' })} />
+                   onClick={() => spreadsheet.current[0].setNestedCell(0, 0, {title: 'New', tooltip: 'Tooltip'})}/>
         </>
     );
 }
@@ -209,8 +209,7 @@ export default function App() {
     <Spreadsheet ref="spreadsheet" :license="license">
         <Worksheet :data="data" :columns="columns" :nestedHeaders="nestedHeaders" :minDimensions="[8,4]" />
     </Spreadsheet>
-    <input type='button' value='Update'
-        @click="this.$refs.spreadsheet.current[0].setNestedCell(0, 0, { title:'New', tooltip:'Tooltip' })" />
+    <input type='button' value='Update' @click="update" />
 </template>
 
 <script>
@@ -287,13 +286,18 @@ export default {
             nestedHeaders,
             license,
         };
+    },
+    methods: {
+        update() {
+            this.$refs.spreadsheet.current[0].setNestedCell(0, 0, { title:'New', tooltip:'Tooltip' })
+        }
     }
 }
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 import jSuites from "jSuites";
 
 // Set your JSS license key (The following key only works for one day)
@@ -301,17 +305,19 @@ jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>
-        <input type='button' value='Update'
-            (click)="this.worksheets[0].setNestedCell(0, 0, { title:'New title',tooltip:'New tooltip' })">`;
+    template: `
+        <div #spreadsheet></div>
+        <input type='button' value='Update' (click)="this.worksheets[0].setNestedCell(0, 0, { title:'New title',tooltip:'New tooltip' })">
+    `,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -325,23 +331,19 @@ export class AppComponent {
                     {
                         type: 'autocomplete',
                         title: 'Country',
-                        width: '200px'
                     },
                     {
                         type: 'dropdown',
                         title: 'Food',
-                        width: '100px',
                         source: ['Apples','Bananas','Carrots','Oranges','Cheese']
                     },
                     {
                         type: 'checkbox',
                         title: 'Stock',
-                        width: '100px'
                     },
                     {
                         type: 'number',
                         title: 'Price',
-                        width: '100px'
                     },
                 ],
                 minDimensions: [8,4],
@@ -349,21 +351,21 @@ export class AppComponent {
                     [
                         {
                             title: 'Supermarket information',
-                            colspan: '8',
+                            colspan: 8,
                         },
                     ],
                     [
                         {
                             title: 'Location',
-                            colspan: '1',
+                            colspan: 1,
                         },
                         {
                             title: ' Other Information',
-                            colspan: '2'
+                            colspan: 2
                         },
                         {
                             title: ' Costs',
-                            colspan: '5'
+                            colspan: 5
                         }
                     ],
                 ]
@@ -510,25 +512,26 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import jSuites from "jSuites";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>
-        <input type='button' value='Update'
-            (click)="this.worksheets[0].setNestedCell(0, 0, { title:'New title',tooltip:'New tooltip' })">`;
+    template: `
+        <div #spreadsheet></div>
+        <input type='button' value='Update' (click)="this.worksheets[0].setNestedCell(0, 0, { title:'New title',tooltip:'New tooltip' })">
+    `,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -542,23 +545,19 @@ export class AppComponent {
                     {
                         type: 'autocomplete',
                         title: 'Country',
-                        width: '200px'
                     },
                     {
                         type: 'dropdown',
                         title: 'Food',
-                        width: '100px',
                         source: ['Apples','Bananas','Carrots','Oranges','Cheese']
                     },
                     {
                         type: 'checkbox',
                         title: 'Stock',
-                        width: '100px'
                     },
                     {
                         type: 'number',
                         title: 'Price',
-                        width: '100px'
                     },
                 ],
                 minDimensions: [20,20],
@@ -566,21 +565,21 @@ export class AppComponent {
                     [
                         {
                             title: 'Supermarket information',
-                            colspan: '8',
+                            colspan: 8,
                         },
                     ],
                     [
                         {
                             title: 'Location',
-                            colspan: '1',
+                            colspan: 1,
                         },
                         {
                             title: ' Other Information',
-                            colspan: '2'
+                            colspan: 2
                         },
                         {
                             title: ' Costs',
-                            colspan: '5'
+                            colspan: 5
                         }
                     ],
                 ]
@@ -588,5 +587,6 @@ export class AppComponent {
         });
     }
 }
+
 ```
  

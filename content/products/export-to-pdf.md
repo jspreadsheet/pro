@@ -69,12 +69,15 @@ Select a language below, the corresponding font will be set to display values of
 <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
 
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@lemonadejs/studio/dist/style.min.css" type="text/css" />
 
 <script src="https://cdn.jsdelivr.net/npm/lemonadejs/dist/lemonade.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@lemonadejs/studio/dist/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js"></script>
+<script src="https://unpkg.com/@pdf-lib/fontkit@1.1.1"></script>
+<script src="https://unpkg.com/regenerator-runtime@0.13.1/runtime.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/print/dist/index.min.js"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.js"></script>
-<script type="text/javascript" src="https://unpkg.com/@pdf-lib/fontkit@1.1.1"></script>
-<script type="text/javascript" src="https://unpkg.com/regenerator-runtime@0.13.1/runtime.js"></script>
 
 <div id="spreadsheet"></div><br><br>
 
@@ -137,8 +140,11 @@ document.getElementById("selectedLanguage").onchange = (e) => changeLanguage(e)
 ```jsx
 import React, { useRef, useState } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
-import jspreadsheet from "jspreadsheet";
 import print from "@jspreadsheet/print";
+
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+import "@lemonadejs/studio/dist/style.css";
 
 // License
 const license = '###license###';
@@ -176,7 +182,7 @@ export default function App() {
 
     return (
         <>
-            <Spreadsheet ref={spreadsheet} license={license} extensions={extensions} toolbar>
+            <Spreadsheet ref={spreadsheet} license={license} extensions={extensions} toolbar={true}>
                 <Worksheet data={data} />
             </Spreadsheet>
             <select id='selectedLanguage' onChange={(event) => changeLanguage(event)} value={lang}>
@@ -207,8 +213,12 @@ export default function App() {
 </template>
 
 <script>
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
+import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
 import print from "@jspreadsheet/vue";
+
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+import "@lemonadejs/studio/dist/style.css";
 
 const dataExamples = {
   la: [["Hello", "World"]],
@@ -262,17 +272,21 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as print from "@jspreadsheet/print";
+import jspreadsheet from "jspreadsheet";
+import print from "@jspreadsheet/print";
 
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
+import "@lemonadejs/studio/dist/style.css";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Extensions
 jspreadsheet.setExtensions({ print });
+
+// Add language type for the possible languages in this example
+type Language = 'la' | 'jp' | 'ch' | 'kr' | 'in';
 
 const dataExamples = {
   la: [["Hello", "World"]],
@@ -283,38 +297,48 @@ const dataExamples = {
 };
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
-    <select id="selectedLanguage" (change)="changeLanguage($event)" [(ngModel)]="lang">
+    <select id="selectedLanguage" (change)="changeLanguage($event)">
         <option value="la">Latin script</option>
         <option value="jp">Japanese</option>
         <option value="ch">Chinese</option>
         <option value="kr">Korean</option>
         <option value="in">Hindi</option>
     </select>
-    <button (click)="print(this.worksheet)>Export/Print</button>`
+    <button (click)="handleClick()">Export/Print</button>`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
+    worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
     ngAfterViewInit() {
         // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement);
+        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+            worksheets: [{
+                minDimensions: [6, 6]
+            }]
+        });
     }
 
     changeLanguage(event: any) {
-      const newLanguage = event.target.value;
-      this.lang = newLanguage;
+      let lang: Language = event.target.value;
       
-      if (newLanguage === 'jp' || newLanguage === 'kr' || newLanguage === 'la') {
-          print.setFont('./fonts/Pretendard-Regular.ttf');
-      } else if (newLanguage === 'ch') {
-          print.setFont('./fonts/FengGuangMingRui-Regular.ttf');
-      } else if (newLanguage === 'in') {
-          print.setFont('./fonts/NotoSans-Regular.ttf');
+      // You should add the assets folder to angular.json in projects.<project-name>.architect.options.assets
+      if (lang === 'jp' || lang === 'kr' || lang === 'la') {
+        print.setFont('assets/fonts/Pretendard-Regular.ttf');
+      } else if (lang === 'ch') {
+        print.setFont('assets/fonts/FengGuangMingRui-Regular.ttf');
+      } else if (lang === 'in') {
+        print.setFont('assets/fonts/NotoSans-Regular.ttf');
       }
   
-      this.worksheets[0].setData(dataExamples[newLanguage])
+      this.worksheets[0].setData(dataExamples[lang])
+    }
+
+    handleClick() {
+        print(this.worksheets[0])
     }
 }
 ```

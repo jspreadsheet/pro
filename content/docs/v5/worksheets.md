@@ -2,7 +2,7 @@ title: Worksheets properties, methods and events.
 keywords: Jspreadsheet, jquery, javascript, excel-like, spreadsheet, table, grid, events
 description: How to handle worksheets programmatically using methods events and properties.
 
-[Back to Documentation](/docs/v5)
+
 
 # Worksheets
 

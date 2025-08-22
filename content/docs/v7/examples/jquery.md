@@ -4,7 +4,6 @@ description: An example of how to integrate Jspreadsheet with jQuery.
 
 Examples
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Jquery
 

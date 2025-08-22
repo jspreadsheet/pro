@@ -2,7 +2,6 @@ title: Customize the spreadsheet style CSS
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, table style, css
 description: Learn how to customize your JavaScript spreadsheet and bring a better visual experience to your applications.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Spreadsheet Style
 

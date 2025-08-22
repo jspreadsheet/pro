@@ -6,17 +6,15 @@ description: Learn more about the Spreadsheet media features.
 
 The recent release of Jspreadsheet introduces two enhanced methods to integrate images within the data grid. Users can embed images directly into cells or utilize the worksheet media library to provide floating images in the viewport.  
 
-> **Deprecation notice**  The worksheet settings 'images' and the method 'setImages' are deprecated; please use 'media' and 'setMedia'. 
-
 ## Documentation
 
 ### Methods
 
-| Method   | Description                                                                                                     |
-| ---------|-----------------------------------------------------------------------------------------------------------------|
-| setMedia | Add one or more images to the media library of the spreadsheet.<br/>setMedia(content: Media \| Media[]) => void |
+| Method   | Description                                                                                                                     |
+|----------|---------------------------------------------------------------------------------------------------------------------------------|
+| getMedia | Get the media element position or object by guid.<br/>getMedia(guid: string, position?: boolean) => false \| undefined \| Media |
+| setMedia | Add one or more element to worksheet media library.<br/>setMedia(content: Media \| Media[]) => void                             |
 
- 
 
 ### Settings
 
@@ -28,18 +26,20 @@ Using the `media` property, you can establish images as the default when initial
 
  
 
-### Media[]
+### Media
 
-An image is an object with the following properties.
+Media is an object with the following properties.
 
-| Method          | Description                                |
-| ----------------|--------------------------------------------|
-| type: 'image'   | The media type.                            |
-| src: String     | The URL or data that represents the image. |
-| width?: Number  | Width of the image                         |
-| height?: Number | Height of the image                        |
-| top?: Number    | Top reference of the image                 |
-| left?: Number   | Left reference of the image                |
+| Method                              | Description                                                   |
+|-------------------------------------|---------------------------------------------------------------|
+| type: 'image' \| 'chart' \| 'shape' | The media type. It requires an extension for chart and shapes |
+| src: String                         | The URL or data that represents the image                     |
+| width?: Number                      | Width of the image                                            |
+| height?: Number                     | Height of the image                                           |
+| top?: Number                        | Top reference of the image                                    |
+| left?: Number                       | Left reference of the image                                   |
+| options?: Object                    | Will have different settings depending on the type.           |
+| cellAnchor?: String                 | Anchor cell name                                              |
 
  
 
@@ -81,9 +81,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -93,7 +94,7 @@ export default function App() {
     // Spreadsheet array of worksheets
     const spreadsheet = useRef();
     // Data grid media items
-    const media: [
+    const media = [
         {
             type: 'image',
             src: 'https://lemonadejs.net/templates/default/img/components.svg',
@@ -104,7 +105,7 @@ export default function App() {
     // Render component
     return (
         <Spreadsheet ref={spreadsheet} license={license}>
-            <Worksheet minDimensions={[6,6]} media={media} />
+            <Worksheet minDimensions={[6, 6]} media={media}/>
         </Spreadsheet>
     );
 }
@@ -130,7 +131,7 @@ export default {
     },
     data() {
         // Data grid media items
-        const media: [
+        const media = [
             {
                 type: 'image',
                 src: 'https://lemonadejs.net/templates/default/img/components.svg',
@@ -149,22 +150,26 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -272,7 +277,7 @@ export default {
     },
     data() {
         // Column definitions
-        const images: [
+        const images = [
             {
                 src: 'https://lemonadejs.net/templates/default/img/components.svg',
                 width: 200,
@@ -290,22 +295,26 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -388,4 +397,77 @@ export default function App() {
     );
 }
 ```
- 
+```vue
+<template>
+    <Spreadsheet ref="spreadsheet" :license="license">
+        <Worksheet :minDimensions="[4,8]" :cells="cells" :data="data" />
+    </Spreadsheet>
+</template>
+
+<script>
+import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+
+const license = '###license###';
+
+export default {
+    components: {
+        Spreadsheet,
+        Worksheet,
+    },
+    data() {
+        // Data
+        const data = [
+            ['LemonadejS', 'https://lemonadejs.net/templates/default/img/components.svg'],
+        ];
+        // Column definitions
+        const cells = {
+            B1: { type:'image', options: { absolute: true, width: '200px' } }
+        };
+
+        return {
+            data,
+            cells,
+        };
+    }
+}
+</script>
+```
+```angularjs
+import { Component, ViewChild, ElementRef } from "@angular/core";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+
+// Set your JSS license key (The following key only works for one day)
+jspreadsheet.setLicense('###license###');
+
+// Create component
+@Component({
+    standalone: true,
+    selector: "app-root",
+    template: `<div #spreadsheet></div>`,
+})
+export class AppComponent {
+    @ViewChild("spreadsheet") spreadsheet: ElementRef;
+    // Worksheets
+    worksheets: jspreadsheet.worksheetInstance[];
+    // Create a new data grid
+    ngAfterViewInit() {
+        // Create spreadsheet
+        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+            worksheets: [{
+                minDimensions: [4,8],
+                cells: {
+                    B1: { type:'image', options: { absolute: true, width: '200px' } }
+                },
+                data: [
+                    ['LemonadejS', 'https://lemonadejs.net/templates/default/img/components.svg'],
+                ],
+            }],
+        });
+    }
+}
+```

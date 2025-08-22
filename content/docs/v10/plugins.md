@@ -132,22 +132,23 @@ let spreadsheet = jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import newPlugin from "./js/newPlugin.js";
 
 const license = '###license###';
 
-const plugins = { newPlugin };
+const plugins = {newPlugin};
 
 export default function App() {
     const spreadsheet = useRef();
 
     return (
         <Spreadsheet ref={spreadsheet} license={license} plugins={plugins}>
-            <Worksheet minDimensions={[10,10]} />
-            <Worksheet minDimensions={[10,10]} />
+            <Worksheet minDimensions={[10, 10]}/>
+            <Worksheet minDimensions={[10, 10]}/>
         </Spreadsheet>
     );
 }
@@ -185,8 +186,16 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import newPlugin from "./js/newPlugin.js";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+
+const newPlugin = (function() {
+    let plugin = {};
+
+    return plugin;
+});
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -196,14 +205,14 @@ const plugins = { newPlugin };
 
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -262,7 +271,12 @@ worksheets[0].parent.setPlugins({ otherPlugin });
 ```jsx
 import React, { useRef, useEffect } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
-import otherPlugin from "./js/otherPlugin.js";
+
+const otherPlugin = (function() {
+    let plugin = {};
+
+    return plugin;
+});
 
 const license = '###license###';
 
@@ -291,12 +305,18 @@ export default function App() {
 
 <script>
 import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
-import newPlugin from "./js/newPlugin.js";
+
+
+const otherPlugin = (function() {
+    let plugin = {};
+
+    return plugin;
+});
 
 // Set the license
 const license = '###license###';
 
-const plugins = { newPlugin };
+const plugins = { otherPlugin };
 
 export default {
     components: {
@@ -317,25 +337,33 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import newPlugin from "./js/newPlugin.js";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+
+const otherPlugin = (function() {
+    let plugin = {};
+
+    return plugin;
+});
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Loading data grid plugins
-const plugins = { newPlugin };
+const plugins = { otherPlugin };
 
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -402,4 +430,67 @@ jspreadsheet(document.getElementById('spreadsheet'), {
     plugins: { properties },
 });
 ```
- 
+```vue
+<template>
+    <Spreadsheet ref="spreadsheet" :license="license" :plugins="properties">
+        <Worksheet :minDimensions="[10,10]" />
+        <Worksheet :minDimensions="[10,10]" />
+    </Spreadsheet>
+</template>
+
+<script>
+import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
+// Installation npm install @jspreadsheet/properties
+import properties from "@jspreadsheet/properties";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+
+const license = '###license###';
+
+export default {
+    components: {
+        Spreadsheet,
+        Worksheet,
+    },
+    data() {
+        return {
+            // License
+            license: license,
+            properties: { properties }
+        };
+    }
+}
+</script>
+```
+```angularjs
+import { Component, ViewChild, ElementRef } from "@angular/core";
+import jspreadsheet from "jspreadsheet";
+// Installation: npm install @jspreadsheet/properties
+import properties from "@jspreadsheet/properties";
+
+// Set your JSS license key (The following key only works for one day)
+jspreadsheet.setLicense('###license###');
+
+// Create component
+@Component({
+    standalone: true,
+    selector: "app-root",
+    template: `<div #spreadsheet></div>`,
+})
+export class AppComponent {
+    @ViewChild("spreadsheet") spreadsheet: ElementRef;
+    // Worksheets
+    worksheets: jspreadsheet.worksheetInstance[];
+    // Create a new data grid
+    ngAfterViewInit() {
+        // Create spreadsheet
+        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+            worksheets: [
+                { minDimensions: [6, 6] }, // Worksheet 1
+                { minDimensions: [6, 6] }, // Worksheet 2
+            ],
+            plugins: { properties }
+        });
+    }
+}
+```

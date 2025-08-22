@@ -2,7 +2,7 @@ title: Enable and customize the toolbar on your spreadsheet
 keywords: Jspreadsheet, javascript, vanilla javascript, excel-like, spreadsheet, datatables, data, table, toolbars
 description: An example of how to enable or customize your JavaScript spreadsheet toolbar.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Spreadsheet toolbars
 

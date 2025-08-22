@@ -2,7 +2,7 @@ title: Fullscreen Mode in Jspreadsheet
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, full screen
 description: Fullscreen mode allows the spreadsheet cells to fits all available space on the screen.
 
-[Back to Examples](/docs/v9/examples)
+
 
 # Spreadsheet Full Screen
 

@@ -2,7 +2,7 @@ title: Spreadsheet charts with ChartJS
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, spreadsheet with ChartJS
 description: Embed charts in your spreadsheet cells using ChartJS.
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # ChartJS integration
 

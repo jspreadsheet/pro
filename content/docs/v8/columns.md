@@ -2,7 +2,7 @@ title: Spreadsheet Columns Types
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, cells settings
 description: Learn how to deal with the spreadsheet columns, their settings, methods, and related events.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Columns Types
 

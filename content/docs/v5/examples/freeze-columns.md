@@ -2,7 +2,7 @@ title: Data Grid Freeze Columns
 keywords: Jspreadsheet, javascript, javascript vanilla, javascript plugin, plugin, excel-like, spreadsheet, table, tables, grid, datatables, data, freeze columns
 description: Set up freeze columns in a Jspreadsheet JavaScript spreadsheet.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Freeze columns
 

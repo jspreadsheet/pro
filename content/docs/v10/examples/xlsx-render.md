@@ -4,8 +4,6 @@ description: Learn how to export a Jspreadsheet to XLSX format using the XLSX re
 
 # Examples
 
-[Back to Examples](/docs/v10/examples "Back to the examples section")
-
 ## JSS to XLSX export Extension
 
 XLSX render is a premium extension and not part of the default distribution.
@@ -143,22 +141,23 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as render from "@jspreadsheet/render";
+import jspreadsheet from "jspreadsheet";
 
-
-const license = '###license###';
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+import render from "@jspreadsheet/render";
 
 // Set your JSS license key (The following key only works for one day)
-jspreadsheet.setLicense(license);
+jspreadsheet.setLicense('###license###');
 
 // Extensions
 jspreadsheet.setExtensions({ render });
 
 @Component({
-  selector: "app-root",
-  template: `<div #spreadsheet></div>
-    <input type="button" value="Import CSV" (click)="this.export()" />`
+    standalone: true,
+    selector: "app-root",
+    template: `<div #spreadsheet></div>
+    <input type="button" value="Export XLSX" (click)="this.export()" />`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -168,10 +167,10 @@ export class AppComponent {
     ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-          worksheets: [
-              { minDimensions: [6, 6] },
-              { minDimensions: [6, 6] }
-          ]
+            worksheets: [
+                { minDimensions: [6, 6] },
+                { minDimensions: [6, 6] }
+            ]
         });
     }
     export() {

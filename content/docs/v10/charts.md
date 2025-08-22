@@ -50,9 +50,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet} from "@jspreadsheet/react";
 import "@jspreadsheet/formula-charts";
 
 const license = '###license###';
@@ -85,7 +86,7 @@ export default function App() {
     ];
 
     // Render data grid component
-    return (<Spreadsheet ref={spreadsheet} license={license} worksheets={worksheets} />);
+    return (<Spreadsheet ref={spreadsheet} license={license} worksheets={worksheets}/>);
 }
 ```
 ```vue
@@ -134,7 +135,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 import "@jspreadsheet/formula-charts";
 
 jspreadsheet.setLicense('###license###');

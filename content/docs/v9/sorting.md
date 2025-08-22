@@ -2,7 +2,7 @@ title: Sorting the spreadsheet columns
 keywords: Jspreadsheet, spreadsheet, javascript, javascript table, spreadsheet, documentationm, sorting, custom sorting
 description: All information about the spreadsheet sorting, events, programmatically sorting, sorting customization methods, and initial spreadsheet settings.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Sreadsheet Column Sorting
 

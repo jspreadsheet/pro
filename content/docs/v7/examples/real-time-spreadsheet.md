@@ -2,7 +2,7 @@ title: Real-time Spreadsheets with Jspreadsheet Pro Version 7
 keywords: Jspreadsheet, Jexcel, javascript, read-time spreadsheet
 description: Create real-time spreadsheets using Jspreadsheet Pro and socket.io.
 
-[Back to Use Cases](/docs/v7/examples "Back to the use examples section")
+
 
 # Real-time Spreadsheet
 

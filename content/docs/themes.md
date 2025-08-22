@@ -37,9 +37,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 });
 </script>
 ```
+
 ```jsx
-import React, { useRef, useState } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef, useState} from "content/docs/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
@@ -53,7 +54,7 @@ export default function App() {
     // Render component
     return (
         <Spreadsheet ref={spreadsheet} license={license}>
-            <Worksheet />
+            <Worksheet/>
         </Spreadsheet>
     );
 }
@@ -89,7 +90,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 import 'jspreadsheet/dist/jspreadsheet.themes.css';
 
@@ -97,6 +101,7 @@ import 'jspreadsheet/dist/jspreadsheet.themes.css';
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`;
 })
@@ -105,7 +110,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

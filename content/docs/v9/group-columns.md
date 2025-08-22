@@ -2,7 +2,7 @@ title: Spreadsheet Collapsable Columns
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, column group
 description: How to create a collapsable column group in your JSS data grid.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Collapsable Columns
 

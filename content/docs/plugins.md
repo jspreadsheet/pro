@@ -101,6 +101,7 @@ const newPlugin = (function() {
 
 Considering the following example, you can use the following code to integrate the plugin into a spreadsheet. 
 
+{.ignore-execution}
 ```html
 <html>
 <script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
@@ -133,23 +134,23 @@ let spreadsheet = jspreadsheet(document.getElementById('spreadsheet'), {
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import newPlugin from "./js/newPlugin.js";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
 const license = '###license###';
 
-const plugins = { newPlugin };
+const plugins = {newPlugin};
 
 export default function App() {
     const spreadsheet = useRef();
 
     return (
         <Spreadsheet ref={spreadsheet} license={license} plugins={plugins}>
-            <Worksheet minDimensions={[10,10]} />
-            <Worksheet minDimensions={[10,10]} />
+            <Worksheet minDimensions={[10, 10]}/>
+            <Worksheet minDimensions={[10, 10]}/>
         </Spreadsheet>
     );
 }
@@ -189,8 +190,16 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import newPlugin from "./js/newPlugin.js";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+
+const newPlugin = (function() {
+    let plugin = {};
+
+    return plugin;
+});
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -199,15 +208,16 @@ jspreadsheet.setLicense('###license###');
 const plugins = { newPlugin };
 
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -224,6 +234,7 @@ export class AppComponent {
 
 How to load a plugin into a JSS data grid programmatically. 
 
+{.ignore-execution}
 ```html
 <html>
 <script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
@@ -319,8 +330,16 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import newPlugin from "./js/newPlugin.js";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+
+const otherPlugin = (function() {
+    let plugin = {};
+
+    return plugin;
+});
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -329,15 +348,16 @@ jspreadsheet.setLicense('###license###');
 const plugins = { newPlugin };
 
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -362,6 +382,7 @@ The properties plugin allow the user to change some of the spreadsheet settings,
 
 _Right-click in any cell and choose the last option in the context menu._  
 
+{.ignore-execution}
 ```html
 <html>
 <script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
@@ -448,7 +469,7 @@ export default {
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet";
-// Installation npm install @jspreadsheet/properties
+// Installation: npm install @jspreadsheet/properties
 import properties from "@jspreadsheet/properties";
 
 // Set your JSS license key (The following key only works for one day)
@@ -456,15 +477,16 @@ jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [

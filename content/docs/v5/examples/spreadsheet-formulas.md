@@ -2,7 +2,7 @@ title: Basic to Advance Spreadsheet Formulas
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet, formulas, currency, calculations
 description: Learn how to use spreadsheet-like formulas on your JavaScript data grid.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Excel-like Formulas
 

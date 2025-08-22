@@ -2,7 +2,7 @@ title: Getting started Jspreadsheet Pro Version 8
 keywords: Jspreadsheet, Jexcel, spreadsheet, javascript, javascript tables, grid, excel-like spreadsheets, online spreadsheets
 description: Getting started with Jspreadsheet Pro. Learning the basics, create your first online spreadsheet, and get more information about the JSS web-based spreadsheets.
 
-[Back to Documentation](/docs/v8)
+
 
 # Getting started
 
@@ -91,7 +91,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         data: [
             ['Mazda', 2001, 2000],
-            ['Pegeout', 2010, 5000],
+            ['Peugeot', 2010, 5000],
             ['Honda Fit', 2009, 3000],
             ['Honda CRV', 2010, 6000],
         ],

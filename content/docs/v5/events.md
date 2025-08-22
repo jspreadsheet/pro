@@ -2,7 +2,7 @@ title: Handling events on Jspreadsheet
 keywords: Jspreadsheet, jquery, javascript, excel-like, spreadsheet, table, grid, events
 description: How to handle events on your javascript spreadsheet.
 
-[Back to Documentation](/docs/v5)
+
 
 # Events on Jspreadsheet spreadsheet
 
@@ -28,7 +28,7 @@ Although you have various specific events, Jspreadsheet has one global event dis
 <script>
 let data = [
     ['Mazda', 2001, 2000],
-    ['Pegeout', 2010, 5000],
+    ['Peugeot', 2010, 5000],
     ['Honda Fit', 2009, 3000],
     ['Honda CRV', 2010, 6000],
 ];

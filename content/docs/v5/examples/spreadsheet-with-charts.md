@@ -2,7 +2,7 @@ title: JavaScript Spreadsheets with Charts
 keywords: Jspreadsheet, javascript, cases, data persistence, database, spreadsheet, charts
 description: Learn how to include charts on your javascript spreadsheets using ChartJS.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # ChartJS and Jspreadsheet Integration
 

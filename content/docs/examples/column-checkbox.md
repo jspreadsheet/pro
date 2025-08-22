@@ -160,6 +160,7 @@ import 'jspreadsheet/dist/jspreadsheet.css';
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: 'app-root',
     template: `<div #spreadsheet></div>`,
 })

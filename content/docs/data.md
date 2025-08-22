@@ -40,6 +40,8 @@ The variable data is defined as a reference to an array, which means that any ch
 <link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
 <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+
 <div id='spreadsheet'></div>
 <p><input type='button' id='btn1' value='console.log on data'/></p>
 <pre id='log'></pre>
@@ -70,6 +72,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         // Data pass as a reference
         data: data,
+        worksheetName: 'Binding',
         columns: [{
             // Path to the data property for this column
             name: 'name',
@@ -98,9 +101,10 @@ document.getElementById('btn1').onclick = function () { document.getElementById(
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -156,165 +160,170 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet data={data} columns={columns} />
+                <Worksheet data={data} columns={columns}/>
             </Spreadsheet>
             <div ref={console}></div>
-            <input type='button' onClick={() => console.current.innerText = JSON.stringify(data)} />
+            <button onClick={() => console.current.innerText = JSON.stringify(data)}>console.log</button>
         </>
     );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license">
-        <Worksheet :data="data" :columns="data" />
-    </Spreadsheet>
-    <div ref="log"></div>
-    <input type='button' @click="get" />
+  <Spreadsheet ref="spreadsheet" :license="license">
+    <Worksheet :data="data" :columns="data" />
+  </Spreadsheet>
+  <div ref="log"></div>
+  <button @click="get">console.log on data</button>
 </template>
 
 <script>
 import { ref } from 'vue';
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import { Spreadsheet, Worksheet } from '@jspreadsheet/vue';
+import 'jsuites/dist/jsuites.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
 
 const license = '###license###';
 
 // Data
 const data = [
-    {
-        name: 'Jorge',
-        address: {
-            number: '201',
-            city: 'New York'
-        }
+  {
+    name: 'Jorge',
+    address: {
+      number: '201',
+      city: 'New York',
     },
-    {
-        name: 'Paul',
-        address: {
-            number: '1',
-            city: 'New Jersey'
-        }
-    }
+  },
+  {
+    name: 'Paul',
+    address: {
+      number: '1',
+      city: 'New Jersey',
+    },
+  },
 ];
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+  methods: {
+    get() {
+      this.$refs.log.innerText = JSON.stringify(data);
     },
-    methods: {
-        get() {
-            this.$refs.log.value.innerText = JSON.stringify(data)
-        }
-    },
-    data() {
-        // Columns
-        const columns = [
-            {
-                // Path to the data property for this column
-                name: 'name',
-                title: 'Full name',
-                type: 'text',
-                width: '200px',
-            },
-            {
-                // Path to the data property for this column
-                name: 'address.number',
-                title: 'Number',
-                type: 'text',
-                width: '200px',
-            },
-            {
-                // Path to the data property for this column
-                name: 'address.city',
-                title: 'City',
-                type: 'text',
-                width: '300px',
-            }
-        ];
+  },
+  data() {
+    // Columns
+    const columns = [
+      {
+        // Path to the data property for this column
+        name: 'name',
+        title: 'Full name',
+        type: 'text',
+        width: '200px',
+      },
+      {
+        // Path to the data property for this column
+        name: 'address.number',
+        title: 'Number',
+        type: 'text',
+        width: '200px',
+      },
+      {
+        // Path to the data property for this column
+        name: 'address.city',
+        title: 'City',
+        type: 'text',
+        width: '300px',
+      },
+    ];
 
-        return {
-            data,
-            options,
-            license,
-        };
-    }
-}
+    return {
+      data,
+      license,
+    };
+  },
+};
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Data
 const data = [
-    {
-        name: 'Jorge',
-        address: {
-            number: '201',
-            city: 'New York'
-        }
+  {
+    name: 'Jorge',
+    address: {
+      number: '201',
+      city: 'New York',
     },
-    {
-        name: 'Paul',
-        address: {
-            number: '1',
-            city: 'New Jersey'
-        }
+  },
+  {
+    name: 'Paul',
+    address: {
+      number: '1',
+      city: 'New Jersey',
     },
+  },
 ];
 
 // Create component
 @Component({
-    selector: "app-root",
-    template: `<div #spreadsheet></div>
+  standalone: true,
+  selector: 'app-root',
+  template: `<div #spreadsheet></div>
         <div #log></div>
-        <input type='button' (click)="get" />`;
+        <input type='button' value="log on data" (click)="get()" />`,
 })
 export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    @ViewChild("log") log: ElementRef;
-    // Worksheets
-    worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngOnInit() {
-        // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [{
-                // Data pass as a reference
-                data: data,
-                columns: [{
-                    // Path to the data property for this column
-                    name: 'name',
-                    title: 'Full name',
-                    type: 'text',
-                    width: '200px',
-                },
-                {
-                    // Path to the data property for this column
-                    name: 'address.number',
-                    title: 'Number',
-                    type: 'text',
-                    width: '200px',
-                },
-                {
-                    // Path to the data property for this column
-                    name: 'address.city',
-                    title: 'City',
-                    type: 'text',
-                    width: '300px',
-                }]
-            }]
-        });
-    },
-    get() {
-        this.log.innerText = JSON.stringify(data);
-    }
+  @ViewChild('spreadsheet') spreadsheet: ElementRef;
+  @ViewChild('log') log: ElementRef;
+  // Worksheets
+  worksheets: jspreadsheet.worksheetInstance[];
+  // Create a new data grid
+  ngAfterViewInit() {
+    // Create spreadsheet
+    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+      worksheets: [
+        {
+          // Data pass as a reference
+          data: data,
+          columns: [
+            {
+              // Path to the data property for this column
+              name: 'name',
+              title: 'Full name',
+              type: 'text',
+              width: 200,
+            },
+            {
+              // Path to the data property for this column
+              name: 'address.number',
+              title: 'Number',
+              type: 'text',
+              width: 200,
+            },
+            {
+              // Path to the data property for this column
+              name: 'address.city',
+              title: 'City',
+              type: 'text',
+              width: 300,
+            },
+          ],
+        },
+      ],
+    });
+  }
+
+  get() {
+    this.log.nativeElement.innerText = JSON.stringify(data);
+  }
 }
 ```
 
@@ -345,37 +354,37 @@ Methods to help the data management on your grid or spreadsheet.
 
 #### Read Methods
 
-| Method             | Description                                                                                                                                                                                                                                                                                                                                                |
-| -------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| getValue           | Get the value of a cell name. <br/>@param {string} cellName - The string to represent a cell name, for example A1, B1... <br/>@param {boolean} Get the raw data (false). Get the processed data (true)<br/> `getValue(cellName: String, processed: Boolean) => any`                                                                                        |
-| getValueFromCoords | Get the value of a cell from its coordinates.<br/> `getValueFromCoords(x: Number, y: Number, processed: Boolean) => any`                                                                                                                                                                                                                                   |
-| getData            | Extract the data from the spreadsheet. <br/>@param {boolean} Get the data from the highlighted cells only. <br/>@param {boolean} Get the raw data (false). Get the processed data (true). <br/>@param {string} Delimiter for exporting. Default \t<br/> `getData(highlighted?: Boolean, processed?: Boolean, delimiter?: String, asJson?: Boolean) => []]` |
-| getDataFromRange   | Get the data from a Excel like string range.<br/>`getDataFromRange(range: String, processed: Boolean) => []]`                                                                                                                                                                                                                                              |
-| getRowData         | Get the data from one row by its number starting on zero.<br/>`getRowData(rowNumber: Number, processed: Boolean) => []]`                                                                                                                                                                                                                                   |
-| getColumnData      | Get the data from one column by its number starting on zero.<br/>`getColumnData(colNumber: Number, processed: Boolean) => []`                                                                                                                                                                                                                              |
-| download           | Download the data from a worksheet in a CSV format. <br/>@param {boolean} Include the headers <br/>@param {boolean} Returns the raw data when false or Returns the processed data and formulas when true.<br/> `download(includeHeaders: Boolean, processed: Boolean) => void`                                                                             |
+| Method             | Description                                                                                                                                                                                                                                                                                                                                                                                                   |
+|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| getValue           | Get the value of a cell name. <br/>@param {string} cellName - The string to represent a cell name, for example A1, B1... <br/>@param {boolean} Get the raw data (false). Get the processed data (true)<br/> `getValue(cellName: String, processed: Boolean) => any`                                                                                                                                           |
+| getValueFromCoords | Get the value of a cell from its coordinates.<br/> `getValueFromCoords(x: Number, y: Number, processed: Boolean, raw: Boolean) => any`                                                                                                                                                                                                                                                                        |
+| getData            | Extract the data from the spreadsheet. <br/>@param {boolean\|number[]} Get the data from the highlighted cells only. <br/>@param {boolean} Get the raw data (false). Get the processed data (true). <br/>@param {string} Delimiter for exporting. Default \t<br/> `getData(highlighted?: Boolean\|Number[], processed?: Boolean, delimiter?: String, asJson?: Boolean, includeFilteredRows?: Boolean) => []]` |
+| getDataFromRange   | Get the data from a Excel like string range.<br/>`getDataFromRange(range: String, processed: Boolean) => []]`                                                                                                                                                                                                                                                                                                 |
+| getRowData         | Get the data from one row by its number starting on zero.<br/>`getRowData(rowNumber: Number, processed: Boolean) => []]`                                                                                                                                                                                                                                                                                      |
+| getColumnData      | Get the data from one column by its number starting on zero.<br/>`getColumnData(colNumber: Number, processed: Boolean) => []`                                                                                                                                                                                                                                                                                 |
+| download           | Download the data from a worksheet in a CSV format. <br/>@param {boolean} Include the headers <br/>@param {boolean} Returns the raw data when false or Returns the processed data and formulas when true.<br/> `download(includeHeaders: Boolean, processed: Boolean) => void`                                                                                                                                |
 
 #### Write Methods
 
-| Method             | Description                                                                                                                                                                                                                                                                                                                                                |
-| -------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| setValue           | Set the value of a cell or multiple cells. <br/>@param {string\|object[]} cellName - The string to represent a cell name, such as A1,B1, etc. <br/>@param {value?} - The cell new value <br/>@param {boolean?} - Force update values on read-only cells. `setValue(cellName: String\|object[], value: String\|Number, force: Boolean) => void`             |
-| setValueFromCoords | Set the value of a cell from its coordinates<br/>`setValueFromCoords(x: Number, y: Number, value: String\|Number, force: Boolean) => void`                                                                                                                                                                                                                 |
-| setData            | Update the data from the data JavaScript data grid. <br/>`setData(data: [[]]) => void`                                                                                                                                                                                                                                                                     |
-| loadData           | Reset the data from the JavaScript data grid and do not call any events.<br/> `loadData(data: [[]]) => void`                                                                                                                                                                                                                                               |
-| setRowData         | Set the data for one row by its number starting on zero. <br/>@param {number} row number. <br/>@param {number[]\|string[]} The new data. <br/>@param {boolean} Force update on readonly cells.<br/> `setRowData(rowNumber: Number, data: [], force: Boolean) => void`                                                                                      |
-| setColumnData      | Set the data for one column by its number starting on zero. <br/>@param {number} column number. <br/>@param {number[]\|string[]} The new data. <br/>@param {boolean} Force update on readonly cells.<br/> `setColumnData(columnNumber: Number, data: [], force: Boolean) => void`                                                                          |
+| Method              | Description                                                                                                                                                                                                                                                                                                                                         |
+|---------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| setValue            | Set the value of a cell or multiple cells. <br/>@param {string\|object[]} cellName - The string to represent a cell name, such as A1,B1, etc. <br/>@param {value?} - The cell new value <br/>@param {boolean?} - Force update values on read-only cells.<br/>`setValue(cellName: String\|object[], value: String\|Number, force: Boolean) => void`  |
+| setValueFromCoords  | Set the value of a cell from its coordinates<br/>@param {number} x - cell coordinate<br/>@param {number} y - cell coordinate<br/>@param {value?} - The cell new value<br/>@param {boolean?} - Force update values on read-only cells.<br/>`setValueFromCoords(x: Number, y: Number, value: String\|Number, force: Boolean) => void`                 |
+| setData             | Update the data from the data JavaScript data grid. <br/>`setData(data: [[]]) => void`                                                                                                                                                                                                                                                              |
+| loadData            | Reset the data from the JavaScript data grid and do not call any events.<br/> `loadData(data: [[]], adjustDimensions?: Boolean) => void`                                                                                                                                                                                                            |
+| setRowData          | Set the data for one row by its number starting on zero. <br/>@param {number} row number. <br/>@param {number[]\|string[]} The new data. <br/>@param {boolean} Force update on readonly cells.<br/> `setRowData(rowNumber: Number, data: [], force: Boolean) => void`                                                                               |
+| setColumnData       | Set the data for one column by its number starting on zero. <br/>@param {number} column number. <br/>@param {number[]\|string[]} The new data. <br/>@param {boolean} Force update on readonly cells.<br/> `setColumnData(columnNumber: Number, data: [], force: Boolean) => void`                                                                   |
 
 
 ### Events
 
 Events related to operations with the spreadsheet data.
 
-| Event                   | Description                                                                                                                                                                                            |
-| ------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| onbeforechange          | `onbeforechange(worksheet: Object, cell: DOMElement, x: Number, y: Number, value: Value) => void`<br/>Before changing the cell value. This can be used to intercept, change or cancel the user action. |
-| onchange                | `onchange(worksheet: Object, cell:DOMElement, x: Number, y: Number, newValue: Any, oldValue: Any)`<br/>After a new value is updated.                                                                   |
-| onafterchanges          | `onafterchanges(worksheet: Object, records: Array, origin: String)`<br/>An array of cells affected. Origin: 'paste', 'fill-handle', undefined for anything else.                                       |
+| Event                    | Description                                                                                                                                                                                             |
+|--------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| onbeforechange           | `onbeforechange(worksheet: Object, cell: DOMElement, x: Number, y: Number, value: Value) => void`<br/>Before changing the cell value. This can be used to intercept, change or cancel the user action.  |
+| onchange                 | `onchange(worksheet: Object, cell:DOMElement, x: Number, y: Number, newValue: Any, oldValue: Any)`<br/>After a new value is updated.                                                                    |
+| onafterchanges           | `onafterchanges(worksheet: Object, records: Array, origin: String)`<br/>An array of cells affected. Origin: 'paste', 'fill-handle', undefined for anything else.                                        |
 
 
 
@@ -383,14 +392,14 @@ Events related to operations with the spreadsheet data.
 
 Settings can be used during the data grid initialization.
 
-| Property             | Description                                     |
-| ---------------------|-------------------------------------------------|
-| data: Array \| Object  | Define the new data from a local JSON or array. |
-| url: String          | Load the data from an external file.            |
-| csv: String          | Load the data from an external CSV file.        |
-| csvHeaders: Boolean  | The first row of the CSV file is the headers    |
-| csvDelimiter: String | CSV divisor. `Default: ','`                     |
-
+| Property              | Description                                                                                                           |
+|-----------------------|-----------------------------------------------------------------------------------------------------------------------|
+| data: Array \| Object | Define the new data from a local JSON or array.                                                                       |
+| url: String           | Load the data from an external file.                                                                                  |
+| csv: String           | Load the data from an external CSV file.                                                                              |
+| csvHeaders: Boolean   | The first row of the CSV file is the headers                                                                          |
+| csvDelimiter: String  | CSV divisor. `Default: ','`                                                                                           |
+| autoNames: Boolean    | Automatically detects column names from the data object when column names are not explicitly declared. Default: true. |
  
 
 ## Examples
@@ -497,22 +506,23 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -523,9 +533,9 @@ export class AppComponent {
                     ['Honda CRV', 2010, 6000],
                 ],
                 columns: [
-                    { title:'Model', width:'300px' },
-                    { title:'Price', width:'80px' },
-                    { title:'Model', width:'100px' }
+                    { title:'Model', width: 300 },
+                    { title:'Price', width: 80 },
+                    { title:'Model', width: 100 }
                 ]
             }]
         });
@@ -541,9 +551,18 @@ export class AppComponent {
 How to create a data grid from a JSON object. 
 
 ```html
+<script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
+<script src="https://jsuites.net/v5/jsuites.js"></script>
+<link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
+<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+
 <div id="spreadsheet"></div>
 
 <script>
+jspreadsheet.setLicense('###license###')
+
 jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         data: [
@@ -635,39 +654,41 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
-    selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+  selector: 'app-root',
+  template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    // Worksheets
-    worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngOnInit() {
-        // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [{
-                data: [
-                    { name:'Jorge', id:'3', age:'40', gender:'Male' },
-                    { name:'Cosme Sergio', id:'4', age:'48', gender:'Male' },
-                    { name:'Jorge Santos', id:'5', age:'32', gender:'Female' },
-                ],
-                columns: [
-                    { type:'text', width:'300px', name:'id' },
-                    { type:'text', width:'200px', name:'name' },
-                    { type:'text', width:'100px', name:'age' },
-                    { type:'hidden', name:'gender' },
-                 ]
-            }]
-        });
-    }
+  @ViewChild('spreadsheet') spreadsheet: ElementRef;
+  // Worksheets
+  worksheets: jspreadsheet.worksheetInstance[];
+  // Create a new data grid
+  ngAfterViewInit() {
+    // Create spreadsheet
+    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+      worksheets: [
+        {
+          data: [
+            { name: 'Jorge', id: '3', age: '40', gender: 'Male' },
+            { name: 'Cosme Sergio', id: '4', age: '48', gender: 'Male' },
+            { name: 'Jorge Santos', id: '5', age: '32', gender: 'Female' },
+          ],
+          columns: [
+            { type: 'text', width: 300, name: 'id' },
+            { type: 'text', width: 200, name: 'name' },
+            { type: 'text', width: 100, name: 'age' },
+            { type: 'hidden', name: 'gender' },
+          ],
+        },
+      ],
+    });
+  }
 }
 ```
  
@@ -679,13 +700,20 @@ export class AppComponent {
 How to create a data grid from a remote CSV file 
 
 ```html
+<script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
+<script src="https://jsuites.net/v5/jsuites.js"></script>
+<link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
+<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+
 <div id="spreadsheet"></div>
 
 <script>
 jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         // Point to your file
-        csv: '/jspreadsheet/demo.csv',
+        csv: 'http://localhost:8009/jspreadsheet/demo.csv',
         // First line will define the header titles
         csvHeaders: true,
         columns: [
@@ -712,7 +740,7 @@ export default function App() {
     // Render data grid component
     return (
         <Spreadsheet ref={spreadsheet} license={license}>
-            <Worksheet csv="/jspreadsheet/demo.csv" csvHeaders />
+            <Worksheet csv="/jspreadsheet/demo.csv" csvHeaders={true} />
         </Spreadsheet>
     );
 }
@@ -720,7 +748,7 @@ export default function App() {
 ```vue
 <template>
     <Spreadsheet ref="spreadsheet" :license="license">
-        <Worksheet csv="/jspreadsheet/demo.csv" csvHeaders />
+        <Worksheet csv="/jspreadsheet/demo.csv" csvHeaders={true} />
     </Spreadsheet>
 </template>
 
@@ -746,7 +774,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -761,7 +789,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -770,9 +798,9 @@ export class AppComponent {
                 // First line will define the header titles
                 csvHeaders: true,
                 columns: [
-                    { width: '200px' },
-                    { width: '100px' },
-                    { width: '100px' },
+                    { width: 200 },
+                    { width: 100 },
+                    { width: 100 },
                 ]
             }]
         });
@@ -882,37 +910,41 @@ import "jspreadsheet/dist/jspreadsheet.css";
 const license = '###license###';
 
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
 
-    // Update multiple cells
-    const update = () => {
-        let records = [
-            {
-                x: 0,
-                y: 0,
-                value: 'update A1',
-            },
-            {
-                x: 10,
-                y: 10,
-                value: 'Another cell',
-            },
-            // (...)
-        ];
+  // Update multiple cells
+  const update = () => {
+    let records = [
+      {
+        x: 0,
+        y: 0,
+        value: 'update A1',
+      },
+      {
+        x: 3,
+        y: 3,
+        value: 'Another cell',
+      },
+      // (...)
+    ];
 
-        spreadsheet.current[0].setValue(records);
-    }
+    spreadsheet.current[0].setValue(records);
+  };
 
-    // Render data grid component
-    return (
-        <>
-            <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet />
-            </Spreadsheet>
-        <input type='button' value='Update multiple cells' onClick={()=>update()} />
-        </>
-    );
+  // Render data grid component
+  return (
+    <>
+      <Spreadsheet ref={spreadsheet} license={license}>
+        <Worksheet />
+      </Spreadsheet>
+      <input
+        type="button"
+        value="Update multiple cells"
+        onClick={() => update()}
+      />
+    </>
+  );
 }
 ```
 ```vue
@@ -944,8 +976,8 @@ export default {
                     value: 'update A1',
                 },
                 {
-                    x: 10,
-                    y: 10,
+                    x: 3,
+                    y: 3,
                     value: 'Another cell',
                 },
                 // (...)
@@ -964,7 +996,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -973,14 +1005,14 @@ jspreadsheet.setLicense('###license###');
 @Component({
     selector: "app-root",
     template: `<div #spreadsheet></div>
-        <input type='button' value='Update multiple cells' (click)="update" />`;
+        <input type='button' value='Update multiple cells' (click)="update()" />`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -996,8 +1028,8 @@ export class AppComponent {
                 value: 'update A1',
             },
             {
-                x: 10,
-                y: 10,
+                x: 3,
+                y: 3,
                 value: 'Another cell',
             },
             // (...)
@@ -1022,6 +1054,16 @@ Depending on the version of XLSX and the operations included in the file, this e
 This feature requires an extension that is part of the Premium and Enterprise license. 
 
 ```html
+<script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
+<script src="https://jsuites.net/v5/jsuites.js"></script>
+<link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
+<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.6.0/dist/jszip.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/parser@5.8.8/dist/index.min.js"></script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+
 <div id="spreadsheet"></div>
 
 <script>
@@ -1034,6 +1076,7 @@ let spreadsheet = document.getElementById('spreadsheet')
 jspreadsheet.parser({
     url: '/jspreadsheet/list.xlsx',
     onload: function(config) {
+        config.namespace = 'test-parser';
         // Create the spreadsheet
         jspreadsheet(spreadsheet, config);
     },
@@ -1058,7 +1101,7 @@ export default function App() {
     // Data
     const load = () => {
         jspreadsheet.parser({
-            url: '/tests/Samples/sample.xlsx',
+            url: '/jspreadsheet/list.xlsx',
             onload: function(config) {
                 // Create the spreadsheet
                 jspreadsheet(spreadsheet.current, config);
@@ -1096,7 +1139,7 @@ export default {
     methods: {
         load() {
             jspreadsheet.parser({
-                url: '/tests/Samples/sample.xlsx',
+                url: '/jspreadsheet/list.xlsx',
                 onload: function(config) {
                     // Create the spreadsheet
                     jspreadsheet(this.$refs.grid.value, config);
@@ -1117,7 +1160,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -1126,14 +1169,14 @@ jspreadsheet.setLicense('###license###');
 @Component({
     selector: "app-root",
     template: `<div #grid></div>
-        <input type="button" (click)="load" value="Create data grid" />`;
+        <input type="button" (click)="load()" value="Create data grid" />`;
 })
 export class AppComponent {
     @ViewChild("grid") grid: ElementRef;
     // Create a new data grid
     load() {
         jspreadsheet.parser({
-            url: '/tests/Samples/sample.xlsx',
+            url: '/jspreadsheet/list.xlsx',
             onload: function(config) {
                 // Create the spreadsheet
                 jspreadsheet(this.grid, config);

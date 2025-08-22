@@ -2,7 +2,7 @@ title: Project Management Spreadsheet
 keywords: Jspreadsheet, javascript, cases, food store
 description: How to create a online project management using Jspreadsheet.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Project Management Spreadsheet
 

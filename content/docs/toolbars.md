@@ -110,8 +110,8 @@ document.getElementById("btn2").onclick = () => grid[0].parent.hideToolbar();
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -123,18 +123,18 @@ export default function App() {
     // Render component
     return (
         <>
-            <Spreadsheet ref={spreadsheet} license={license} toolbar>
-                <Worksheet minDimensions={[6,6]} />
+            <Spreadsheet ref={spreadsheet} license={license} toolbar={true}>
+                <Worksheet minDimensions={[6, 6]}/>
             </Spreadsheet>
-            <input type='button' value='Show Toolbar' onClick={() => spreadsheet.current[0].showToolbar()} />
-            <input type='button' value='Hide Toolbar' onClick={() => spreadsheet.current[0].hideToolbar()} />
+            <input type='button' value='Show Toolbar' onClick={() => spreadsheet.current[0].showToolbar()}/>
+            <input type='button' value='Hide Toolbar' onClick={() => spreadsheet.current[0].hideToolbar()}/>
         </>
     );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" toolbar>
+    <Spreadsheet ref="spreadsheet" :license="license" :toolbar="true">
         <Worksheet :minDimensions="[6,6]" />
     </Spreadsheet>
     <input type="button" value="Show Toolbar" @click="showToolbar" />
@@ -171,24 +171,25 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
-        <input type="button" value="Add new validation" (click)="this.worksheets[0].showToolbar();" />
-        <input type="button" value="Remove validation" (click)="this.worksheets[0].hideToolbar();" />`
+        <input type="button" value="Show Toolbar" (click)="this.worksheets[0].showToolbar();" />
+        <input type="button" value="Hide Toolbar" (click)="this.worksheets[0].hideToolbar();" />`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -274,7 +275,7 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" toolbar>
+    <Spreadsheet ref="spreadsheet" :license="license" :toolbar="true">
         <Worksheet :minDimensions="[6,6]" />
     </Spreadsheet>
 </template>
@@ -315,7 +316,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -329,7 +330,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             toolbar: function(toolbar) {
@@ -523,7 +524,7 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" toolbar>
+    <Spreadsheet ref="spreadsheet" :license="license" :toolbar="true">
         <Worksheet :minDimensions="[6,6]" worksheetName="Toolbar example" />
     </Spreadsheet>
 </template>
@@ -611,73 +612,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
-jspreadsheet.setLicense('###license###');
-
-// Custom toolbar definitions
-let customToolbar = {
-    items: [
-        {
-            content: 'save',
-            onclick: function () {
-                jspreadsheet.current.download();
-            }
-        },
-        {
-            type:'divisor',
-        },
-        {
-            type:'select',
-            width: '160px',
-            options: [ 'Verdana', 'Arial', 'Courier New' ],
-            render: function(e) {
-                return '<span style="font-family:' + e + '">' + e + '</span>';
-            },
-            onchange: function(a,b,c,d) {
-                jspreadsheet.current.setStyle(jspreadsheet.current.getSelected(), 'font-family', d);
-            }
-        },
-        {
-            type: 'i',
-            content: 'format_bold',
-            onclick: function(a,b,c) {
-                jspreadsheet.current.setStyle(jspreadsheet.current.getSelected(), 'font-weight', 'bold');
-            }
-        },
-        {
-            type: 'i',
-            content: 'format_italic',
-            onclick: function(a,b,c) {
-                jspreadsheet.current.setStyle(jspreadsheet.current.getSelected(), 'font-style', 'italic');
-            }
-        },
-        {
-            content: 'search',
-            onclick: function(a,b,c) {
-                if (c.children[0].innerText == 'search') {
-                    jspreadsheet.current.showSearch();
-                    c.children[0].innerText = 'search_off';
-                } else {
-                    jspreadsheet.current.hideSearch();
-                    c.children[0].innerText = 'search';
-                }
-            },
-            tooltip: 'Toggle Search',
-            updateState: function(a,b,c,worksheet) {
-                // Call this one when the worksheet is opened and on the selection of any cells
-                if (worksheet.options.search == true) {
-                    c.children[0].innerText = 'search_off';
-                } else {
-                    c.children[0].innerText = 'search';
-                }
-            }
-        }
-    ]
-}
+jspreadsheet.setLicense('ZGIzOTQ1MGZjYTU2OWU1ZTMzMDdkMTFkZmY0Mzg0YTVkZGU2MDEzNjk0YjhiZWI3YzYzZWE0ZDlmN2Q3MzdiYTZhZmNlYTkxZmExN2NmMGZkYzdjZjc2NTkyOWRlMGJjNDdjZDZjM2NmMDMyNWEzMTQzNjQ1ZjQ0ZTJkZTY1YmQsZXlKamJHbGxiblJKWkNJNklpSXNJbTVoYldVaU9pSktjM0J5WldGa2MyaGxaWFFpTENKa1lYUmxJam94TnpFMk5UVXhNelF4TENKa2IyMWhhVzRpT2xzaWFuTndjbVZoWkhOb1pXVjBMbU52YlNJc0ltTnZaR1Z6WVc1a1ltOTRMbWx2SWl3aWFuTm9aV3hzTG01bGRDSXNJbU56WWk1aGNIQWlMQ0ozWldJaUxDSnNiMk5oYkdodmMzUWlYU3dpY0d4aGJpSTZJak0wSWl3aWMyTnZjR1VpT2xzaWRqY2lMQ0oyT0NJc0luWTVJaXdpZGpFd0lpd2lkakV4SWl3aVkyaGhjblJ6SWl3aVptOXliWE1pTENKbWIzSnRkV3hoSWl3aWNHRnljMlZ5SWl3aWNtVnVaR1Z5SWl3aVkyOXRiV1Z1ZEhNaUxDSnBiWEJ2Y25SbGNpSXNJbUpoY2lJc0luWmhiR2xrWVhScGIyNXpJaXdpYzJWaGNtTm9JaXdpY0hKcGJuUWlMQ0p6YUdWbGRITWlMQ0pqYkdsbGJuUWlMQ0p6WlhKMlpYSWlMQ0p6YUdGd1pYTWlYU3dpWkdWdGJ5STZkSEoxWlgwPQ==');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -686,14 +627,76 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
+        // Custom toolbar definitions
+        let customToolbar = {
+            bottom: false,
+            items: [
+                {
+                    content: 'save',
+                    onclick: function () {
+                        jspreadsheet.current!.download();
+                    }
+                },
+                {
+                    type: 'divisor',
+                },
+                {
+                    type: 'select',
+                    width: '160px',
+                    options: ['Verdana', 'Arial', 'Courier New'],
+                    render: function (e:any) {
+                        return '<span style="font-family:' + e + '">' + e + '</span>';
+                    },
+                    onchange: function (a:any, b:any, c:any, d:any) {
+                        jspreadsheet.current!.setStyle(jspreadsheet.current!.getSelected(), 'font-family', d);
+                    }
+                },
+                {
+                    type: 'i',
+                    content: 'format_bold',
+                    onclick: function (a:any, b:any, c:any) {
+                        jspreadsheet.current!.setStyle(jspreadsheet.current!.getSelected(), 'font-weight', 'bold');
+                    }
+                },
+                {
+                    type: 'i',
+                    content: 'format_italic',
+                    onclick: function (a:any, b:any, c:any) {
+                        jspreadsheet.current!.setStyle(jspreadsheet.current!.getSelected(), 'font-style', 'italic');
+                    }
+                },
+                {
+                    content: 'search',
+                    onclick: function (a:any, b:any, c:any) {
+                        if (c.children[0].innerText == 'search') {
+                            jspreadsheet.current!.showSearch();
+                            c.children[0].innerText = 'search_off';
+                        } else {
+                            jspreadsheet.current!.hideSearch();
+                            c.children[0].innerText = 'search';
+                        }
+                    },
+                    tooltip: 'Toggle Search',
+                    updateState: function (a:any, b:any, c:any, worksheet:any) {
+                        // Call this one when the worksheet is opened and on the selection of any cells
+                        if (worksheet.options.search == true) {
+                            c.children[0].innerText = 'search_off';
+                        } else {
+                            c.children[0].innerText = 'search';
+                        }
+                    }
+                }
+            ]
+        }
+
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
                 worksheetName: 'Toolbar example',
-                minDimensions: [6,6],
-            }]
-            toolbar: customToolbar
+                minDimensions: [6, 6],
+            }],
+            toolbar: customToolbar as any,
         });
     }
 }
@@ -732,10 +735,19 @@ const getDefault = function() {
         return [];
     }
 
+
     items.push({
         content: 'undo',
         onclick: function() {
             jspreadsheet.history.undo();
+        },
+        updateState: function(a,b,c,d) {
+            let index = jspreadsheet.history.index + 1;
+            if (index > 0) {
+                c.classList.remove('jtoolbar-disabled');
+            } else {
+                c.classList.add('jtoolbar-disabled');
+            }
         }
     });
 
@@ -743,6 +755,15 @@ const getDefault = function() {
         content: 'redo',
         onclick: function() {
             jspreadsheet.history.redo();
+        },
+        updateState: function(a,b,c,d) {
+            let size = jspreadsheet.history.actions.length;
+            let index = jspreadsheet.history.index + 1;
+            if (size > index) {
+                c.classList.remove('jtoolbar-disabled');
+            } else {
+                c.classList.add('jtoolbar-disabled');
+            }
         }
     });
 

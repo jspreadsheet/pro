@@ -2,7 +2,7 @@ title: Spreadsheet Data Management
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, spreadsheet data
 description: Learn all the different ways to load and manipulate the worksheet data of your online spreadsheets, including methods for programmatically updates and all related events to help integrate the spreadsheet with various applications.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Data
 

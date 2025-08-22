@@ -2,7 +2,6 @@ title: Adding formulas to your spreadsheets
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, formulas, currency, calculations
 description: Learn how to use Excel-like formulas on your JavaScript spreadsheet.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Adding formulas to your spreadsheets
 

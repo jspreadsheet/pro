@@ -38,11 +38,11 @@ The `onbeforesort` can be used to intercept, change or cancel the order results.
 
 The following property helps to define the sorting behavior.
 
-| Property            | Description                                                                   |
-| --------------------|-------------------------------------------------------------------------------|
-| sorting: function   | Define a custom sorting handler.<br/>`sorting(direction: Boolean) : function` |
-| columnSorting: bool | Allow the user to sort the spreadsheet by columns. `Default: true`            |
-
+| Property                         | Description                                                                    |
+|----------------------------------|--------------------------------------------------------------------------------|
+| sorting: function                | Define a custom sorting handler.<br/>`sorting(direction: Boolean) : function`  |
+| columnSorting: boolean           | Allow the user to sort the spreadsheet by columns. `Default: true`             |
+| columnSortingOnDblClick: boolean | Double click in the header for sorting.  `Default: true`                       |
  
 
 ### Native sorting handler
@@ -96,8 +96,8 @@ let table = jspreadsheet(document.getElementById('spreadsheet'), {
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -108,13 +108,13 @@ const license = '###license###';
  * @param {boolean} Direction
  * @param {number} Column number starting on zero.
  */
-const sortingHandler = function(direction, column) {
+const sortingHandler = function (direction, column) {
     // Handler
-    return function(a, b) {
+    return function (a, b) {
         let valueA = a[1];
         let valueB = b[1];
 
-        if (! direction) {
+        if (!direction) {
             return (valueA === '' && valueB !== '') ? 1 : (valueA !== '' && valueB === '') ? -1 :
                 (valueA > valueB) ? 1 : (valueA < valueB) ? -1 : 0;
         } else {
@@ -131,7 +131,7 @@ export default function App() {
     // Render component
     return (
         <Spreadsheet ref={spreadsheet} license={license} sorting={sortingHandler}>
-            <Worksheet />
+            <Worksheet/>
         </Spreadsheet>
     );
 }
@@ -188,7 +188,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -198,9 +198,9 @@ jspreadsheet.setLicense('###license###');
  * @param {boolean} Direction
  * @param {number} Column number starting on zero.
  */
-const sortingHandler = function(direction, column) {
+const sortingHandler = function(direction:any, column:any) {
     // Handler
-    return function(a, b) {
+    return function(a:any, b:any) {
         let valueA = a[1];
         let valueB = b[1];
 
@@ -215,6 +215,7 @@ const sortingHandler = function(direction, column) {
 }
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -223,11 +224,11 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
-                minDimensions: [10,10],
+                minDimensions: [6,6],
             }],
             sorting: sortingHandler,
         });
@@ -348,7 +349,7 @@ export default {
     },
     methods: {
         sortColumn() {
-            this.$refs.spreadsheet.current[0].orderBy(this.$refs.select.value.value);
+            this.$refs.spreadsheet.current[0].orderBy(this.$refs.select.value);
         }
     },
     data() {
@@ -370,12 +371,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
@@ -394,7 +396,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -577,12 +579,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -591,7 +594,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -628,3 +631,134 @@ export class AppComponent {
 }
 ```
  
+### Disable Sorting on the First Column
+
+How to use `onbeforesort` to disable sorting for the first column only.
+
+```html
+<html>
+<script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
+<script src="https://jsuites.net/v5/jsuites.js"></script>
+<link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
+<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+
+<div id="spreadsheet"></div>
+
+<script>
+// Set your JSS license key (The following key only works for one day)
+jspreadsheet.setLicense('###license###');
+
+// Create the spreadsheet
+jspreadsheet(document.getElementById('spreadsheet'), {
+    worksheets: [{
+        minDimensions: [6,6],
+    }],
+    onbeforesort: function(worksheet, column) {
+        if (column === 0) {
+            return false;
+        }
+    }
+});
+</script>
+</html>
+```
+```jsx
+import React, { useRef } from "react";
+import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+
+const license = '###license###';
+
+export default function App() {
+    // Spreadsheet array of worksheets
+    const spreadsheet = useRef();
+
+    const onbeforesort = (worksheet, column) => {
+        if (column === 0) {
+            return false;
+        }
+    }
+
+    // Render component
+    return (
+        <Spreadsheet ref={spreadsheet} license={license} onbeforesort={onbeforesort}>
+            <Worksheet />
+        </Spreadsheet>
+    );
+}
+```
+```vue
+<template>
+    <Spreadsheet ref="spreadsheet" :license="license" :onbeforesort="onbeforesort">
+        <Worksheet />
+    </Spreadsheet>
+</template>
+
+<script>
+import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+
+const license = '###license###';
+
+// Create the data grid component
+export default {
+    components: {
+        Spreadsheet,
+        Worksheet,
+    },
+    methods: {
+        // Sorting handler
+        sorting(worksheet, column) {
+          if (column === 0) {
+            return false;
+          }
+        }
+    },
+    data() {
+        return {
+            license,
+        };
+    }
+}
+</script>
+```
+```angularjs
+import { Component, ViewChild, ElementRef } from "@angular/core";
+import jspreadsheet from "jspreadsheet";
+
+// Set your JSS license key (The following key only works for one day)
+jspreadsheet.setLicense('###license###');
+
+@Component({
+    standalone: true,
+    selector: "app-root",
+    template: `<div #spreadsheet></div>`
+})
+export class AppComponent {
+    @ViewChild("spreadsheet") spreadsheet: ElementRef;
+    // Worksheets
+    worksheets: jspreadsheet.worksheetInstance[];
+    // Create a new data grid
+    ngAfterViewInit() {
+        // Create spreadsheet
+        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+            worksheets: [{
+                minDimensions: [6,6],
+            }],
+            onbeforesort: function(
+                worksheet: any,
+                column: number,
+                direction: number,
+                newOrderValues: number[]
+              ): false | undefined {
+                  if (column === 0) {
+                      return false;
+                  }
+                  return undefined;
+              }                 
+        });
+    }
+}
+```

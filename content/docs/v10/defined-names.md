@@ -75,9 +75,10 @@ let worksheets = jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import formula from "@jspreadsheet/formula-pro";
 
 const license = '###license###';
@@ -98,12 +99,12 @@ export default function App() {
         Summary: 'Sheet1!A1:A6',
     }
     // Extensions
-    const extensions = { formula };
+    const extensions = {formula};
 
     // Render component
     return (
         <Spreadsheet ref={spreadsheet} license={license} extensions={extensions} definedNames={definedNames}>
-            <Worksheet data={data} minDimensions={[6,6]} />
+            <Worksheet data={data} minDimensions={[6, 6]}/>
         </Spreadsheet>
     );
 }
@@ -154,7 +155,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
@@ -166,14 +170,14 @@ jspreadsheet.setExtensions({ formula });
 // Create component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             toolbar: true,

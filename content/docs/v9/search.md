@@ -2,7 +2,7 @@ title: Spreadsheet Search
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, search
 description: Learn how to set up the spreadsheet search, and how to intercept, cancel or customize the search behavior using the onbeforesearch events.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Spreadsheet Search
 

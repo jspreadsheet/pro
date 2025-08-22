@@ -31,7 +31,16 @@ The following property is available through the initialization of the online spr
 | ----------------------------------------|---------------------------------------------------------|
 | freezeColumns: number\|number[]         | Define the frozen columns on initialization.            |
 | freezeColumnControl: boolean Enterprise | Enable the freeze column manual control. Default: false |
- 
+
+
+### Events
+
+Available events.
+
+| Event                   | Description                                                      |
+|-------------------------|------------------------------------------------------------------|
+| onfreezecolumns         | `onfreezecolumns(worksheet: Object, columns: Number[]) : void`   |
+
 
 ## Examples
 
@@ -72,9 +81,10 @@ document.getElementById("btn2").onclick = () => spreadsheet[0].resetFreezeColumn
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -88,7 +98,7 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet minDimensions={[50,20]} tableOverflow={true} tableWidth="800" freezeColumns="1" />
+                <Worksheet minDimensions={[50, 20]} tableOverflow={true} tableWidth="800" freezeColumns="1"/>
             </Spreadsheet>
             <button onClick={() => spreadsheet.current[0].setFreezeColumns(2)}>setFreezeColumns(2)</button>
             <button onClick={() => spreadsheet.current[0].resetFreezeColumns()}>resetFreezeColumns()</button>
@@ -136,12 +146,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
     <div #spreadsheet></div>
@@ -154,10 +165,10 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [
+            worksheets: [{
                 minDimensions: [50,20],
                 tableOverflow: true,
                 tableWidth: '800px',
@@ -235,10 +246,10 @@ export default function App() {
     <Spreadsheet ref="spreadsheet" :license="license">
         <Worksheet
             :minDimensions="[50,20]"
-            tableOverflow
-            tableWidth="800"
-            freezeRowControl
-            freezeColumnControl />
+            :tableOverflow="true"
+            tableWidth="800px"
+            :freezeRowControl="true"
+            :freezeColumnControl="true" />
     </Spreadsheet>
 </template>
 
@@ -265,12 +276,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -279,10 +291,10 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [
+            worksheets: [{
                 minDimensions: [50,20],
                 tableOverflow: true,
                 tableWidth: '800px',

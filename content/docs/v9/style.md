@@ -2,7 +2,7 @@ title: Spreadsheet Styling
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, style, themes
 description: How to apply CSS to the cells of your spreadsheets. Learn how to handle style programmatically and tracking the related events.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Spreadsheet Style
 

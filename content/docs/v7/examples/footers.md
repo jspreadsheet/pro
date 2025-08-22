@@ -2,7 +2,6 @@ title: Formulas on the Data Grid Footer
 keywords: Jspreadsheet, Jexcel, javascript, multiple spreadsheets, formulas, table footer
 description: Adding fixed formulas on the data grid footer.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Footer data
 

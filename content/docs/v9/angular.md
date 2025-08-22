@@ -2,7 +2,7 @@ title: Angular Spreadsheet
 keywords: Jspreadsheet, Jexcel, javascript, using Jspreadsheet and angular
 description: An example of how to integrate Jspreadsheet with Angular. Create an online spreadsheet with Angular.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # Angular spreadsheet
 
@@ -37,7 +37,10 @@ A basic angular spreadsheet with export to XLSX.
 {.ignore}
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 @Component({
   selector: "app-root",

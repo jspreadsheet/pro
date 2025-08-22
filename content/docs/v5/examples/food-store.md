@@ -2,7 +2,7 @@ title: Grocery Store as a Spreadsheet Example
 keywords: Jspreadsheet, javascript, cases, food store
 description: Create a basic grocery store inventory spreadsheet using Jspreadsheet.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Food Store
 

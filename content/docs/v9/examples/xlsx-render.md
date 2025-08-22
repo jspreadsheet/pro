@@ -2,7 +2,7 @@ title: Jspreadsheet to XLSX render
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, xlsx, xlsx render, jss to xlsx converter, export to XLSX
 description: This example shows how to export a Jspreadsheet to XLSX using the XLSX render extension.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # JSS to XLSX export Extension
 

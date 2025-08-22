@@ -2,7 +2,7 @@ title: Spreadsheets from CSV or JSON or XLSX
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet, loading data, csv, json, xlsx.
 description: How to create a new spreadsheet based on different data sources, such as CSV, JSON, array, or XLSX files.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Create a javascript spreadsheet
 

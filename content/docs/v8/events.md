@@ -2,7 +2,7 @@ title: Spreadsheet Events
 keywords: Jspreadsheet, data grid, javascript, excel-like, spreadsheet, documentation, events, javascript events.
 description: This section brings a summary of all spreadsheet events. Also, learn more about the specific JS events and the global event dispatcher.
 
-[Back to Documentation](/docs/v8)
+
 
 # Events
 
@@ -109,7 +109,7 @@ The data grid event dispatcher is a global-centralized method to handle all even
 <script>
 let data = [
     ['Mazda', 2001, 2000],
-    ['Pegeout', 2010, 5000],
+    ['Peugeot', 2010, 5000],
     ['Honda Fit', 2009, 3000],
     ['Honda CRV', 2010, 6000],
 ];
@@ -118,7 +118,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         data: [
             ['Mazda', 2001, 2000],
-            ['Pegeout', 2010, 5000],
+            ['Peugeot', 2010, 5000],
             ['Honda Fit', 2009, 3000],
             ['Honda CRV', 2010, 6000],
         ],

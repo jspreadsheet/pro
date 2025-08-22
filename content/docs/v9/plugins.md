@@ -2,7 +2,7 @@ title: Jspreadsheet Plugins
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, plugins
 description: Create addons for your JSS spreadsheets via custom plugins.
 
-[Back to Documentation](/docs/v9)
+
 
 # Jspreadsheet Plugins
 

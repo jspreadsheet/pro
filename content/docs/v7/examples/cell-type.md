@@ -2,7 +2,6 @@ title: JSS Data Grid Cell Types
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet, autonumber, autoincrement column type
 description: Learn how to add native or custom editor types to the cells in your javascript data grid using Jspreadsheet Version 7.
 
-[Back to examples](/docs/v7/examples "Back to the examples section")
 
 # Data Grid Cell Types
 

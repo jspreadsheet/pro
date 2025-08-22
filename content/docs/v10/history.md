@@ -91,9 +91,10 @@ document.getElementById("resetbtn").onclick = () => jspreadsheet.history.reset()
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import jspreadsheet from "jspreadsheet";
 
 const license = '###license###';
@@ -106,11 +107,11 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet minDimensions={[8,8]} />
+                <Worksheet minDimensions={[8, 8]}/>
             </Spreadsheet>
-            <input type="button" value="Undo" onClick={() => jspreadsheet.history.undo()} />
-            <input type="button" value="Redo" onClick={() => jspreadsheet.history.redo()} />
-            <input type="button" value="Reset" onClick={() => jspreadsheet.history.reset()} />
+            <input type="button" value="Undo" onClick={() => jspreadsheet.history.undo()}/>
+            <input type="button" value="Redo" onClick={() => jspreadsheet.history.redo()}/>
+            <input type="button" value="Reset" onClick={() => jspreadsheet.history.reset()}/>
         </>
     );
 }
@@ -146,7 +147,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -157,14 +161,14 @@ jspreadsheet.setLicense('###license###');
     template: `<div #spreadsheet></div>
         <input type="button" value="Undo" (click)="jspreadsheet.history.undo()" />
         <input type="button" value="Redo" (click)="jspreadsheet.history.redo()" />
-        <input type="button" value="Reset" (click)="jspreadsheet.history.reset()" />`;
+        <input type="button" value="Reset" (click)="jspreadsheet.history.reset()" />`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

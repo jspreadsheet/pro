@@ -109,9 +109,10 @@ document.getElementById("getallmeta").onclick = () => document.getElementById('c
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -136,33 +137,33 @@ export default function App() {
             autocomplete: true,
             multiple: true
         },
-        { type: 'text', title: 'Description', width: '200px' },
-        { type: 'dropdown', title: 'Stock', width: '100px', source: ['No','Yes'] },
-        { type: 'calendar', title: 'Best before', width: '100px' },
+        {type: 'text', title: 'Description', width: '200px'},
+        {type: 'dropdown', title: 'Stock', width: '100px', source: ['No', 'Yes']},
+        {type: 'calendar', title: 'Best before', width: '100px'},
     ];
     // Meta information
     const meta = {
-        A1: { myMeta: 'this is just a test', otherMetaInformation: 'other test' },
-        A2: { info: 'test' }
+        A1: {myMeta: 'this is just a test', otherMetaInformation: 'other test'},
+        A2: {info: 'test'}
     }
 
     // Render component
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet data={data} columns={columns} meta={meta} />
+                <Worksheet data={data} columns={columns} meta={meta}/>
             </Spreadsheet>
-            <textarea ref={console} style={{ width: '100%', height: '80px' }}></textarea>
+            <textarea ref={console} style={{width: '100%', height: '80px'}}></textarea>
             <button type="button" value="Set meta data for multiple columns"
-                onClick={() => spreadsheet.current[0].setMeta({ C1: { id:'1', y:'2019' }, C2: { id:'2' } })} />
+                    onClick={() => spreadsheet.current[0].setMeta({C1: {id: '1', y: '2019'}, C2: {id: '2'}})}/>
             <button type="button" value="Set a meta information for B2"
-                onClick={() => spreadsheet.current[0].setMeta('B2', 'myMetaData', prompt('myMetaData:'))} />
+                    onClick={() => spreadsheet.current[0].setMeta('B2', 'myMetaData', prompt('myMetaData:'))}/>
             <button type="button" value="Reset the meta information for A1, B2, C2"
-                onClick={() => spreadsheet.current[0].resetMeta(['A1','B2','C2'])} />
+                    onClick={() => spreadsheet.current[0].resetMeta(['A1', 'B2', 'C2'])}/>
             <button type="button" value="Get the meta information for A1"
-                onClick={() => console.current.value = JSON.stringify(spreadsheet.current[0].getMeta('A1'))} />
+                    onClick={() => console.current.value = JSON.stringify(spreadsheet.current[0].getMeta('A1'))}/>
             <button type="button" value="Get all meta information"
-                onClick={() => console.current.value = JSON.stringify(spreadsheet.current[0].getMeta())} />
+                    onClick={() => console.current.value = JSON.stringify(spreadsheet.current[0].getMeta())}/>
         </>
     );
 }
@@ -235,7 +236,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 import jSuites from "jSuites";
 
 // Set your JSS license key (The following key only works for one day)
@@ -260,7 +264,7 @@ jspreadsheet.setLicense('###license###');
         </button>
         <button type="button" onclick="this.log.nativeElement.value  = JSON.stringify(this.worksheets[0].getMeta());">
         Get all meta information
-        </button>`;
+        </button>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -268,7 +272,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

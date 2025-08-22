@@ -2,8 +2,6 @@ title: Grocery Store Spreadsheet Using Jspreadsheet Version 7
 keywords: Jspreadsheet, Jexcel, javascript, cases, food store
 description: A grocery inventory spreadsheet using Jspreadsheet Version 7.
 
-[Back to Use Cases](/docs/v7/examples "Back to the use cases section")
-
 # Grocery Store
 
 A simple javascript data grid with spreadsheet controls to manage an online grocery store inventory.

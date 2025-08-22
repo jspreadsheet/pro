@@ -50,16 +50,17 @@ jspreadsheet.helpers.getCoordsFromRange('B1:C4');
 let coords = worksheets[0].helpers.getCoordsFromCellName('B2');
 </script>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet, jspreadsheet} from "@jspreadsheet/react";
 
 export default function App() {
     // Spreadsheet array of worksheets
     const spreadsheet = useRef();
 
     // Returns A1
-    let cellName = jspreadsheet.helpers.getCellNameFromCoords(0,0);
+    let cellName = jspreadsheet.helpers.getCellNameFromCoords(0, 0);
     // Returns (4) [1, 0, 2, 3]
     let range = jspreadsheet.helpers.getCoordsFromRange('B1:C4');
     // Also works with the worksheet instance. Returns 1,1
@@ -68,7 +69,7 @@ export default function App() {
     // Render data grid component
     return (
         <Spreadsheet ref={spreadsheet} license={license}>
-            <Worksheet />
+            <Worksheet/>
         </Spreadsheet>
     );
 }
@@ -109,7 +110,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 @Component({
     selector: "app-root",
@@ -120,7 +124,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [

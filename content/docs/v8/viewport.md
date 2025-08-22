@@ -2,7 +2,7 @@ title: Spreadsheet Viewport
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, viewport
 description: More information about the viewport, how to change the dimensions programmatically and all related events and settings to the viewport, lazyloading and more.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Spreadsheet Viewport
 

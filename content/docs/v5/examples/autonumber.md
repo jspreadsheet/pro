@@ -2,7 +2,7 @@ title: Auto increment column type
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet, autonumber, autoincrement column type
 description: Learn how to use the autonumber column type in your spreadsheet to enhance the syncing of the spreadsheet data with databases, as well as date persistence.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Autonumber
 

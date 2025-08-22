@@ -2,7 +2,7 @@ title: Freeze Columns
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, formulas, freeze columns
 description: Learn how to sticky an arbitrary number of floating columns on the left side of the spreadsheet.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Freeze columns
 

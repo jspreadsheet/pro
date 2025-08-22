@@ -2,7 +2,7 @@ title: Data Grid Cell Comments
 keywords: Jspreadsheet, spreadsheet, javascript, cell comments, javascript table
 description: How to add user comments in your spreadsheets cells.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Comments on your javascript spreadsheet
 

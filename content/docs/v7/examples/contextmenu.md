@@ -2,7 +2,6 @@ title: Custom Spreadsheet Contextmenu
 keywords: Jspreadsheet, Jexcel, javascript, javascript vanilla, javascript plugin, plugin, excel-like, spreadsheet, table, tables, grid, datatables, data
 description: How to use and customize the spreadsheet contextmenu. Learn how to add custom actions to your javascript spreadsheets.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Custom contextmenu
 

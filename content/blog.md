@@ -5,7 +5,7 @@ description: You can find in our blog useful information about development, tool
 {.center}
 # Blog
 
-<div class="posts">
+<div class="box shadow" data-number="3">
 <div>
 
 [![Spreadsheet-like Calculations](img/blog/the-new-formula-pro-v4.jpg){.cover}](/blog/formulas-pro-v5)

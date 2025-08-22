@@ -14,32 +14,34 @@ The shapes extension allows users to add floating shapes on their worksheets.
 
 | Settings              | Description                               |
 |-----------------------|-------------------------------------------|
-| type?: String         | One of the chart types describe below.    |
-| options?: Object      | Shapes options                            |
-| top?: Number          | Shape relative top position. Default 0px  |
-| left?: Number         | Shape relative left position. Default 0px |
+| type: String         | Must be 'shape' when using shape-based media.    |
+| options: Object      | Shape configuration object. Must include type to define the shape type.    |
+| options.type: String | The shape to display. See Shape Types below. |
+| top?: Number          | Shape top position (relative). Default 0px  |
+| left?: Number         | Shape left position (relative). Default 0px |
 | width?: Number        | Shape width. Default 400px                |
 | height?: Number       | Shape height. Default 300px               |
-| zIndex?: Number       | Shape zIndex. Default 3                   |
+| zIndex?: Number       | Shape z-index. Default 3                  |
 
-### Shapes Types
+### Shape Types
 
-| Chart types    |
+Below are the most common shape types. Additional shapes can be found at the end of this page.
+
+| Shape types    |
 |----------------|
-| rectangle      |
-| rounded        |
-| triangle       |
-| right          |
-| ellipse        |
-| diamond        |
-| trapezium      |
-| pentagon       |
-| parallelogram  |
-| hexagon        |
-| heptagon       |
-| octagon        |
-| decagon        |
-
+| rectangle |
+| triangle |
+| ellipse |
+| diamond |
+| trapezium |
+| pentagon |
+| parallelogram |
+| hexagon |
+| heptagon |
+| octagon |
+| decagon |
+| simpleLine |
+| lineWithArrow |
 
 
 ## Installation
@@ -58,7 +60,7 @@ You can include the charts on your browser as below. To run the extension please
 
 {.ignore}
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/charts/dist/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/shapes/dist/index.min.js"></script>
 ```
 
 ## Examples
@@ -161,7 +163,7 @@ export default function App() {
 
     // Render component
     return (
-        <Spreadsheet ref={spreadsheet} toolbar>
+        <Spreadsheet ref={spreadsheet} toolbar={true}>
             <Worksheet data={data} media={media} minDimensions={[8, 8]} />
         </Spreadsheet>
     );
@@ -230,12 +232,6 @@ import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet";
 import shapes from "@jspreadsheet/shapes";
 
-import "@lemonadejs/studio";
-import "@lemonadejs/studio/dist/style.css";
-import "@jspreadsheet/shapes/dist/style.css";
-import "jspreadsheet/dist/jspreadsheet.css"
-import "jsuites/dist/jsuites.css"
-
 // Add license
 jspreadsheet.setLicense('###license###');
 // Define the data grid extensions
@@ -279,3 +275,120 @@ export class AppComponent {
     }
 }
 ```
+
+### All Shape Types
+
+| All Shape types    |
+|----------------|
+| rectangle |
+| triangle |
+| ellipse |
+| diamond |
+| trapezium |
+| pentagon |
+| parallelogram |
+| hexagon |
+| heptagon |
+| octagon |
+| decagon |
+| simpleLine |
+| lineWithArrow |
+| doubleArrowLine |
+| elbowConnector |
+| elbowArrowConnector |
+| doubleArrowElbowConnector |
+| curvedElbowConnector |
+| curvedArrowConnector |
+| curvedDoubleArrowConnector |
+| rounded-rectangle |
+| singleCutCornerRectangle |
+| doubleCutCornerRectangle |
+| oppositeCutCornerRectangle |
+| roundedTopRightRectangle |
+| roundedTopLeftRectangle |
+| roundedTopRightBottomLeftRectangle |
+| right-triangle |
+| ovalInterfaceIcon |
+| cutCircle |
+| circlewithtoprightoutsideangle |
+| doubleLineSquare |
+| doubledtoprighangle |
+| doubleLineShape |
+| mouldingCrown |
+| crossIcon |
+| plaqueShape |
+| cylinderShape |
+| cubeShape |
+| bevelShape |
+| donutShape |
+| noShape |
+| blockArk |
+| smileyFace |
+| heart |
+| lightningBolt |
+| sun |
+| crescentMoon |
+| cloud |
+| arcCurve |
+| leftSquareBrackets |
+| rightSquareBrackets |
+| squareBracketsPair |
+| leftFlowerBracket |
+| rightFlowerBracket |
+| flowerBrackets |
+| rightBlockArrow |
+| leftBlockArrow |
+| upBlockArrow |
+| downBlockArrow |
+| upDownArrow |
+| leftRightArrow |
+| quadArrow |
+| leftRightUpArrow |
+| bentArrow |
+| uTurnArrow |
+| leftUpArrow |
+| bentUpArrow |
+| curvedRightArrow |
+| curvedLeftArrow |
+| curvedUpArrow |
+| curvedDownArrow |
+| stripedRightArrow |
+| notchedRightArrow |
+| pentagonArrow |
+| chevron |
+| rightArrowCallout |
+| downArrowCallout |
+| leftArrowCallout |
+| upArrowCallout |
+| leftRightArrowCallout |
+| quadArrowCallout |
+| circularArrow |
+| plus |
+| minus |
+| multiplication |
+| division |
+| equal |
+| notEqualTo |
+| predefinedTask |
+| internalStorage |
+| document |
+| multitaskingDocuments |
+| terminator |
+| preparation |
+| manualInput |
+| manualOperation |
+| offpageConnector |
+| card |
+| punchedTape |
+| swimmingJunction |
+| orShape |
+| collateShape |
+| sortShape |
+| extractShape |
+| mergeShape |
+| storedDataShape |
+| delayShape |
+| sequentialAccessStorageShape |
+| directAccessStorage |
+| displayShape |
+| blockShape |

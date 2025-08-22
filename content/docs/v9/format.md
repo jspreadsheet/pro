@@ -2,7 +2,7 @@ title: Spreadsheet Input Format
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, cell formatting, format, number formatting
 description: This section brings details on how to format numbers and dates on your JSS spreadsheets.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Spreadsheet Input Format
 

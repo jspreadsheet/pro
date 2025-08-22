@@ -2,8 +2,6 @@ title: Fullscreen Mode
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, full screen
 description: Fullscreen mode allows the spreadsheet to fit all available space on the screen.
 
-[Back to Examples](/docs/v8/examples)
-
 # Full Screen
 
 How to expand the spreadsheet to fit all available space on fullscreen mode. 
@@ -33,7 +31,7 @@ let worksheets = jspreadsheet(document.getElementById('spreadsheet'), {
         minDimensions: [8,0],
         data: [
             ['Mazda', 2001, 2000, 1],
-            ['Pegeout', 2010, 5000, 1],
+            ['Peugeot', 2010, 5000, 1],
             ['Honda Fit', 2009, 3000, 1],
             ['Honda CRV', 2010, 6000, 0],
         ],

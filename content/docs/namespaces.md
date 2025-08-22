@@ -19,7 +19,7 @@ This concept is very important when dealing with the `jspreadsheet/server` exten
 
 ## Example
 
-### Cross calculations for multiple spreadsheets
+### Multiple spreadsheet calculations
 
 In the following example, the second spreadsheet is configured to seamlessly reference data from an external worksheet, avoiding naming conflicts. Despite the last spreadsheet sharing the same worksheet name, it resides in a different namespace, preventing any interference with cross-spreadsheet calculations.
 

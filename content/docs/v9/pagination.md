@@ -2,7 +2,7 @@ title: Spreadsheet Pagination
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, pagination
 description: Learn how to intercept, cancel or customize the pagination behavior using the onbeforechangepage events.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Spreadsheet Pagination
 

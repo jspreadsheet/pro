@@ -2,7 +2,7 @@ title: Spreadsheet Column Editors
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, table, column editors
 description: Integrate native or custom editors to your spreadsheets to create a great a better user experience.
 
-[Back to Documentation](/docs/v7)
+
 
 # Editors
 

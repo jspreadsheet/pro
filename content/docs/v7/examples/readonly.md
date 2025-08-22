@@ -2,7 +2,7 @@ title: Data Grid Readonly Columns
 keywords: Jspreadsheet, Jexcel, spreadsheet, javascript, javascript table, readonly
 description: How to use readonly columns and cells. Learn how to programmatically change the readonly status of one cell.
 
-[Back to Examples](/docs/v7/examples)
+
 
 # Data Grid Readonly Cells
 
@@ -29,7 +29,7 @@ let toggle = function(b) {
 
 let data = [
     ['Mazda', 2001, 2000, 1],
-    ['Pegeout', 2010, 5000, 1],
+    ['Peugeot', 2010, 5000, 1],
     ['Honda Fit', 2009, 3000, 1],
     ['Honda CRV', 2010, 6000, 0],
 ];

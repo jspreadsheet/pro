@@ -2,7 +2,7 @@ title: Project Management Spreadsheet Example
 keywords: Jspreadsheet, Jexcel, javascript, cases, project management
 description: A simple project management spreadsheet using Jspreadsheet.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # Project management spreadsheet
 

@@ -132,8 +132,8 @@ document.getElementById("btn2").onclick = (e) => grid[0].parent.fullscreen(true)
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/react";
+import {Spreadsheet, Worksheet, jspreadsheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -144,10 +144,10 @@ const getData = () => {
     const data = [];
     // Create the data
     for (let j = 0; j < 500; j++) {
-         data[j] = [];
-         for (let i = 0; i < 20; i++) {
-             data[j][i] = jspreadsheet.helpers.getColumnNameFromCoords(i, j);
-         }
+        data[j] = [];
+        for (let i = 0; i < 20; i++) {
+            data[j][i] = jspreadsheet.helpers.getColumnNameFromCoords(i, j);
+        }
     }
     return data;
 }
@@ -161,19 +161,21 @@ export default function App() {
     const data = getData();
     // Resize viewport
     const setViewport = () => {
-        spreadsheet.current[0].setViewport(width.current, height.current);
-    }
-    let style = { width: '60px' };
+        const w = width.current.value || "800px";
+        const h = height.current.value || "400px";
+        spreadsheet.current[0].setViewport(w, h);
+    };
+    let style = {width: '60px'};
     // Render data grid component
     return (
         <>
-            <Spreadsheet ref={spreadsheet} license={license} toolbar>
-                <Worksheet data={data} tableOverflow tableWidth="600px" resize="both" />
+            <Spreadsheet ref={spreadsheet} license={license} toolbar={true}>
+                <Worksheet data={data} tableOverflow tableWidth="600px" resize="both"/>
             </Spreadsheet>
-            <input type="text" value="800px" style={style} ref={width} />
-            <input type="text" value="400px" style={style} ref={height} />
-            <input type="button" value="Set viewport" onClick={() => setViewport()} />
-            <input type="button" value="Set fullscreen" onClick={() => spreadsheet.current[0].fullscreen(true)} />
+            <input type="text" value="800px" style={style} ref={width}/>
+            <input type="text" value="400px" style={style} ref={height}/>
+            <input type="button" value="Set viewport" onClick={() => setViewport()}/>
+            <input type="button" value="Set fullscreen" onClick={() => spreadsheet.current[0].parent.fullscreen(true)}/>
         </>
     );
 }
@@ -219,7 +221,7 @@ export default {
             this.$refs.spreadsheet.current[0].setViewport(this.$refs.width.value.value, this.$refs.height.value.value);
         },
         fullScreen() {
-            this.$refs.spreadsheet.current[0].setViewport.fullscreen(true);
+            this.$refs.spreadsheet.current[0].parent.fullscreen(true);
         }
     },
     data() {
@@ -233,13 +235,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Data
-const data = [];
+const data: any = [];
 
 // Create the data
 for (let j = 0; j < 500; j++) {
@@ -250,12 +252,13 @@ for (let j = 0; j < 500; j++) {
 }
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
-        <input type="text" value="800px" style="width:60px" ref="width" />
-        <input type="text" value="400px" style="width:60px" ref="height" />
-        <input type="button" value="Set viewport" (click)="setViewport" />
-        <input type="button" value="Set fullscreen" (click)="fullScreen" />`;
+        <input #width type="text" value="800px" style="width:60px"/>
+        <input #height type="text" value="400px" style="width:60px"/>
+        <input type="button" value="Set viewport" (click)="setViewport()" />
+        <input type="button" value="Set fullscreen" (click)="fullScreen()" />`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -264,7 +267,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             toolbar: true,
@@ -279,9 +282,10 @@ export class AppComponent {
     }
     setViewport() {
         this.worksheets[0].setViewport(this.width.nativeElement.value, this.height.nativeElement.value);
-    },
-    fullScreen:() {
-        this.worksheets[0].setViewport.fullscreen(true);
+    }
+
+    fullScreen() {
+        this.worksheets[0].parent.fullscreen(true);
     }
 }
 ```
@@ -379,15 +383,16 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
-    <input type="button" value="Goto row number 500" (click)="this.worksheets[0].goto(499)" />`;
+    <input type="button" value="Goto row number 500" (click)="this.worksheets[0].goto(499)" />`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -395,7 +400,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

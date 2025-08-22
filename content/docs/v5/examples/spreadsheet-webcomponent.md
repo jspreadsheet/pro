@@ -2,7 +2,7 @@ title: Spreadsheet as a web component
 keywords: Jspreadsheet, javascript, javascript vanilla, javascript plugin, plugin, excel-like, spreadsheet, table, tables, grid, datatables, webcomponents
 description: How to create a spreadsheet JavaScript web component using Jspreadsheet.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Javascript Spreadsheet Web components
 

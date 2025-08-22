@@ -2,7 +2,7 @@ title: Spreadsheet Validations in Jspreadsheet
 keywords: Jspreadsheet, Jexcel, javascript, payment calculator spreadsheet, grid, validations, spreadsheet validations.
 description: A guide to implement data grid validations in Jspreadsheet Version 9
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Spreadsheet Validations
 

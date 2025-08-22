@@ -130,9 +130,10 @@ document.getElementById("destroymerge").onclick = () => table[0].destroyMerge();
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -180,20 +181,20 @@ export default function App() {
             },
         ],
         mergeCells: {
-            A1: [2,2]
+            A1: [2, 2]
         },
         columnDrag: true,
     }]
 
     return (
         <>
-            <Spreadsheet ref={spreadsheet} license={license} worksheets={worksheets} />
+            <Spreadsheet ref={spreadsheet} license={license} worksheets={worksheets}/>
             <div ref={log}></div>
-            <input type="text" value="setMerge('A3', 2, 3)" onclick="spreadsheet.current[0].setMerge('A3', 2, 3);" />
-            <input type="text" value="removeMerge('A3')" onclick="spreadsheet.current[0].removeMerge('A3');" />
+            <input type="text" value="setMerge('A3', 2, 3)" onclick="spreadsheet.current[0].setMerge('A3', 2, 3);"/>
+            <input type="text" value="removeMerge('A3')" onclick="spreadsheet.current[0].removeMerge('A3');"/>
             <input type="text" value="Get all merged cells"
-                onclick="log.current.value = JSON.stringify(spreadsheet.current[0].getMerge());" />
-            <input type="text" value="Destroy all merged" onclick="spreadsheet.current[0].destroyMerge();" />
+                   onclick="log.current.value = JSON.stringify(spreadsheet.current[0].getMerge());"/>
+            <input type="text" value="Destroy all merged" onclick="spreadsheet.current[0].destroyMerge();"/>
         </>
     )
 }
@@ -276,7 +277,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
@@ -294,7 +298,7 @@ jspreadsheet.setExtensions({ formula });
         <input type="text" value="removeMerge('A3')" onclick="this.worksheets[0].removeMerge('A3');" />
         <input type="text" value="Get all merged cells"
             onclick="this.log.nativeElement.value = JSON.stringify(this.worksheets[0].getMerge());" />
-        <input type="text" value="Destroy all merged" onclick="this.worksheets[0].destroyMerge();" />`;
+        <input type="text" value="Destroy all merged" onclick="this.worksheets[0].destroyMerge();" />`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -302,7 +306,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             toolbar: true,

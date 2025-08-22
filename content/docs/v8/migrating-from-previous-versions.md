@@ -2,7 +2,7 @@ title: Migrating to version 8
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, performance, what is new, migration to version 8
 description: Discover what is new with version 8. Find more about how to migrate from previous versions to Jspreadsheet Pro version 8.
 
-[Back to Documentation](/docs/v8)
+
 
 # Migrating to Jspreadsheet Pro Version 8
 

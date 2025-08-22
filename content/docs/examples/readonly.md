@@ -7,6 +7,7 @@ description: Learn how to make columns or individual cells read-only in Jspreads
 The example below defines a spreadsheet column or a single data grid cell as read-only. 
 
 ```html
+<html>
 <script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
 <script src="https://jsuites.net/v5/jsuites.js"></script>
 <link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
@@ -57,18 +58,6 @@ import "jspreadsheet/dist/jspreadsheet.css";
 // Set the license
 const license = '###license###';
 
-// Readonly state
-const toggle = function(worksheet, button) {
-    if (worksheet.isReadOnly('B2')) {
-        worksheet.setReadOnly('B2', false);
-        button.value = 'Disable B2';
-    } else {
-        worksheet.setReadOnly('B2', true);
-        button.value = 'Enable B2';
-    }
-}
-
-// Create the component
 export default function App() {
     // Spreadsheet array of worksheets
     const spreadsheet = useRef();
@@ -81,24 +70,28 @@ export default function App() {
     ]
 
     // Method
-    const toggle = function(worksheet, button) {
-        if (worksheet.isReadOnly('B2')) {
-            worksheet.setReadOnly('B2', false);
-            button.value = 'Disable B2';
+    const toggle = (worksheet, button) => {
+        if (worksheet.isReadOnly("B2")) {
+          worksheet.setReadOnly("B2", false);
+          button.value = "Disable B2";
         } else {
-            worksheet.setReadOnly('B2', true);
-            button.value = 'Enable B2';
+          worksheet.setReadOnly("B2", true);
+          button.value = "Enable B2";
         }
-    }
-
-    // Render data grid component
+      };
+    
     return (
-        <>
-            <Spreadsheet ref={spreadsheet} license={license} toolbar>
-                <Worksheet data={data} />
-            </Spreadsheet>
-            <input type={"button"} value={"Disabled B2"} onClick={() => toggle(spreadsheet.current[0], this)} />
-        </>
+    <>
+        <Spreadsheet ref={spreadsheet} license={license} toolbar={true}>
+        <Worksheet data={data} />
+        </Spreadsheet>
+
+        <input
+        type="button"
+        value="Disable B2"
+        onClick={(e) => toggle(spreadsheet.current[0], e.target)}
+        />
+    </>
     );
 }
 ```
@@ -125,13 +118,13 @@ export default {
     },
     methods: {
         toggle() {
-            let worksheet = this.refs.spreadsheet.current[0];
+            let worksheet = this.$refs.spreadsheet.current[0];
             if (worksheet.isReadOnly('B2')) {
                 worksheet.setReadOnly('B2', false);
-                this.refs.button.value.value = 'Disable B2';
+                this.$refs.button.value = 'Disable B2';
             } else {
                 worksheet.setReadOnly('B2', true);
-                this.refs.button.value.value = 'Enable B2';
+                this.$refs.button.value = 'Enable B2';
             }
         }
     },
@@ -154,26 +147,25 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
-        <input #button type='button' value='Disabled B2' (click)="this.toggle()" />`;
+        <input #button type='button' value='Disabled B2' (click)="this.toggle()" />`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     @ViewChild("button") button: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
-    // Data
-    data: data;
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -187,28 +179,23 @@ export class AppComponent {
                     {
                         type: 'text',
                         title:'Description',
-                        width:'200px',
-                        readonly:true,
                     },
                     {
                         type: 'text',
                         title:'Year',
-                        width:'200px'
                     },
                     {
                         type: 'text',
                         title:'Price',
-                        width:'100px',
                         mask:'#.##',
                     },
                     {
                         type: 'checkbox',
                         title:'Automatic',
-                        width:'100px'
                     },
                 ],
             }],
-            oncreatecell: (worksheet, cell, x, y, source, value, label) => {
+            oncreatecell: (worksheet: any, cell: any, x: any, y: any, value: any) => {
                 if (x == 2 && y == 2) {
                     cell.classList.add('readonly');
                 }
@@ -218,10 +205,10 @@ export class AppComponent {
     toggle() {
         if (this.worksheets[0].isReadOnly('B2')) {
             this.worksheets[0].setReadOnly('B2', false);
-            this.button.value = 'Disable B2';
+            this.button.nativeElement.value = 'Disable B2';
         } else {
             this.worksheets[0].setReadOnly('B2', true);
-            this.button.value = 'Enable B2';
+            this.button.nativeElement.value = 'Enable B2';
         }
     }
 }

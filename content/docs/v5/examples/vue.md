@@ -2,7 +2,7 @@ title: Jspreadsheet Pro 5 with Vue
 keywords: Jspreadsheet, javascript, using Jspreadsheet and Vue
 description: An example of how to integrate Jspreadsheet Pro version 5 with Vue.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # The Javascript Spreadsheet with Vue
 
@@ -10,7 +10,7 @@ Integrating Jspreadsheet Pro version 5 with Vue
 
 [See a full example on codesandbox](https://codesandbox.io/embed/vue-default-template-p4hwn)
 
-[Get a source code of a sample Vue project](https://github.com/paulhodel/Jspreadsheet-with-vue)  
+[Get a source code of a sample Vue project](https://github.com/jexcel/Jspreadsheet-with-vue)  
 
 ```html
 <html>

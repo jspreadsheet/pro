@@ -2,7 +2,7 @@ title: Nested headers and column header updates
 keywords: Jspreadsheet, spreadsheet, javascript, header updates, nested headers, javascript table
 description: Enable nested headers in your spreadsheet and learn how to set or get header values.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Spreadsheet Headers
 

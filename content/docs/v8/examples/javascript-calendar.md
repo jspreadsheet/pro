@@ -2,8 +2,6 @@ title: JavaScript Calendar Column Type
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, date, datetime, calendar
 description: A advanced calendar usage, date and datetime picker, valid date ranges, and conditional rendering.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
-
 # JavaScript Calendar
 
 With the new features of [javascript calendar](https://jsuites.net/docs/javascript-calendar) it is possible to explore this column editor to create advance calendar rules, and bring a better user experience, for instance:

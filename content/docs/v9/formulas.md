@@ -2,7 +2,7 @@ title: Excel-like Formulas
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, formulas, spreadsheet-like formulas, excel formulas
 description: Integrate excel-like formulas on online spreadsheets and create amazing applications that work and feel like a spreadsheet.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Spreadsheet formulas
 

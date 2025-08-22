@@ -148,9 +148,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -161,31 +162,33 @@ export default function App() {
 
     // Columns
     const columns = [{
-            type: 'autonumber',
-            width: '50px',
-            title: 'Code',
-            name: 'id',
-            readOnly: true,
-            primaryKey: true
-        },
+        type: 'autonumber',
+        width: '50px',
+        title: 'Code',
+        name: 'id',
+        readOnly: true,
+        primaryKey: true
+    },
         {
             type: 'image',
             width: '80px',
             title: 'Image',
             name: 'thumbnailUrl',
-            render: function(cell, val, col, row) {
-                if (! val) {
+            render: function (cell, val, col, row) {
+                if (!val) {
                     cell.innerHTML = '<img src="https://images-na.ssl-images-amazon.com/images/I/21%2Bwfxx2lyL._SX319_BO1,204,203,200_.jpg" style="width:60px;" />';
                 }
             }
         },
-        { type: 'text', width: '200px', title: 'Title', name: 'title' },
-        { type: 'text', width: '55px', title: 'Pages', name: 'pageCount' },
-        { type: 'calendar', width: '90px', title: 'Published', name: 'publishedDate' },
-        { type: 'text', width: '200px', title: 'Author', name: 'authors' },
-        { type: 'dropdown', width: '180px', title: 'Categories', name: 'categories',
-            source: [ 'Internet','Web Development', 'Java', 'Mobile', 'Open Source' ],
-            multiple: true, render: 'tag' }
+        {type: 'text', width: '200px', title: 'Title', name: 'title'},
+        {type: 'text', width: '55px', title: 'Pages', name: 'pageCount'},
+        {type: 'calendar', width: '90px', title: 'Published', name: 'publishedDate'},
+        {type: 'text', width: '200px', title: 'Author', name: 'authors'},
+        {
+            type: 'dropdown', width: '180px', title: 'Categories', name: 'categories',
+            source: ['Internet', 'Web Development', 'Java', 'Mobile', 'Open Source'],
+            multiple: true, render: 'tag'
+        }
     ];
 
     // Render react component
@@ -195,7 +198,7 @@ export default function App() {
                 url="/jspreadsheet/books.json"
                 columns={columns}
                 search
-                persistence="/jspreadsheet/save" />
+                persistence="/jspreadsheet/save"/>
         </Spreadsheet>
     );
 }
@@ -263,12 +266,16 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -277,7 +284,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             url: '/jspreadsheet/books.json',
@@ -402,7 +409,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         data: [
             { id:1, data:['Google', '5', ''] },
-            { id:2, data:['Bind', '4', ''] },
+            { id:2, data:['Bing', '4', ''] },
             { id:3, data:['Yahoo', '1', ''] },
             { id:4, data:['Duckduckgo', '5', ''] },
         ],
@@ -413,20 +420,20 @@ jspreadsheet(document.getElementById('spreadsheet'), {
         ],
         persistence: '/jspreadsheet/save',
     }],
-    oninsertrow: function(a,b,c,d,e) {
-        // Inserted before?
-        let rowNumber = e == false ? b + 1 : b;
-        // Go in remotely get the id and return to the cell
-        jSuites.ajax({
-            url: '/jspreadsheet/id',
-            method: 'GET',
-            dataType: 'json',
-            success: function(result) {
-                // The new id is
-                alert('The new row has id: ' + result);
-                // set row id
-                a.setRowId(rowNumber, result);
-            }
+    oninsertrow: function(worksheet, rows) {
+        rows.forEach((value) => {
+            // Go in remotely get the id and return to the cell
+            jSuites.ajax({
+                url: '/jspreadsheet/id',
+                method: 'GET',
+                dataType: 'json',
+                success: function(result) {
+                    // The new id is
+                    alert('The new row has id: ' + result);
+                    // set row id
+                    worksheet.setRowId(value.row, result);
+                }
+            })
         })
     }
 });
@@ -472,25 +479,25 @@ export default function App() {
     // Data
     const data = [
         { id:1, data:['Google', '5', ''] },
-        { id:2, data:['Bind', '4', ''] },
+        { id:2, data:['Bing', '4', ''] },
         { id:3, data:['Yahoo', '1', ''] },
         { id:4, data:['Duckduckgo', '5', ''] },
     ];
     // Event for insert row
-    const oninsertrow = (a,b,c,d,e) => {
-        // Inserted before?
-        let rowNumber = e == false ? b + 1 : b;
-        // Go in remotely get the id and return to the cell
-        jSuites.ajax({
-            url: '/jspreadsheet/id',
-            method: 'GET',
-            dataType: 'json',
-            success: function(result) {
-                // The new id is
-                alert('The new row has id: ' + result);
-                // set row id
-                a.setRowId(rowNumber, result);
-            }
+    const oninsertrow = function(worksheet, rows) {
+        rows.forEach((value) => {
+            // Go in remotely get the id and return to the cell
+            jSuites.ajax({
+                url: '/jspreadsheet/id',
+                method: 'GET',
+                dataType: 'json',
+                success: function(result) {
+                    // The new id is
+                    alert('The new row has id: ' + result);
+                    // set row id
+                    worksheet.setRowId(value.row, result);
+                }
+            })
         })
     }
     // Columns
@@ -554,28 +561,28 @@ export default {
     },
     methods {
         // Event for insert row
-        oninsertrow(a,b,c,d,e) {
-            // Inserted before?
-            let rowNumber = e == false ? b + 1 : b;
+        oninsertrow(worksheet, rows) {
+          rows.forEach((value) => {
             // Go in remotely get the id and return to the cell
             jSuites.ajax({
-                url: '/jspreadsheet/id',
-                method: 'GET',
-                dataType: 'json',
-                success: function(result) {
-                    // The new id is
-                    alert('The new row has id: ' + result);
-                    // set row id
-                    a.setRowId(rowNumber, result);
-                }
+              url: '/jspreadsheet/id',
+              method: 'GET',
+              dataType: 'json',
+              success: function(result) {
+                // The new id is
+                alert('The new row has id: ' + result);
+                // set row id
+                worksheet.setRowId(value.row, result);
+              }
             })
+          })
         }
     },
     data() {
         // Data
         const data = [
             { id:1, data:['Google', '5', ''] },
-            { id:2, data:['Bind', '4', ''] },
+            { id:2, data:['Bing', '4', ''] },
             { id:3, data:['Yahoo', '1', ''] },
             { id:4, data:['Duckduckgo', '5', ''] },
         ];
@@ -597,7 +604,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -627,21 +637,22 @@ const action = function() {
 }();
 
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
                 data: [
                     { id:1, data:['Google', '5', ''] },
-                    { id:2, data:['Bind', '4', ''] },
+                    { id:2, data:['Bing', '4', ''] },
                     { id:3, data:['Yahoo', '1', ''] },
                     { id:4, data:['Duckduckgo', '5', ''] },
                 ],
@@ -652,20 +663,20 @@ export class AppComponent {
                 ],
                 persistence: '/jspreadsheet/save',
             }],
-            oninsertrow: (a,b,c,d,e) => {
-                // Inserted before?
-                let rowNumber = e == false ? b + 1 : b;
-                // Go in remotely get the id and return to the cell
-                jSuites.ajax({
-                    url: '/jspreadsheet/id',
-                    method: 'GET',
-                    dataType: 'json',
-                    success: function(result) {
-                        // The new id is
-                        alert('The new row has id: ' + result);
-                        // set row id
-                        a.setRowId(rowNumber, result);
-                    }
+            oninsertrow: function(worksheet, rows) {
+                rows.forEach((value) => {
+                    // Go in remotely get the id and return to the cell
+                    jSuites.ajax({
+                        url: '/jspreadsheet/id',
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(result) {
+                            // The new id is
+                            alert('The new row has id: ' + result);
+                            // set row id
+                            worksheet.setRowId(value.row, result);
+                        }
+                    })
                 })
             }
         });

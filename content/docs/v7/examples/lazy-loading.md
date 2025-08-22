@@ -2,7 +2,7 @@ title: Dealing with Large Spreadsheets
 keywords: Jspreadsheet, Jexcel, javascript, javascript vanilla, javascript plugin, plugin, excel-like, spreadsheet, table, tables, grid, datatables, data
 description: An example of tackling large table datasets using Jspreadsheet Version 7.
 
-[Back to Examples](/docs/v7/examples)
+
 
 # Data Grid Lazy loading
 

@@ -117,8 +117,11 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as formula from "@jspreadsheet/formula-pro";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+import formula from "@jspreadsheet/formula-pro";
 
 // Set the license
 jspreadsheet.setLicense('###license###');
@@ -132,14 +135,14 @@ formula.define({ QTY: 10, MAX: 20, HELLO: '"Dealing with strings"' })
 // Create the data grid component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create summary spreadsheet
         jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

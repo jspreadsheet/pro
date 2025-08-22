@@ -81,7 +81,7 @@ let table = jspreadsheet(document.getElementById('spreadsheet'), {
                 type: 'dropdown',
                 title: 'Product Origin',
                 width: '300px',
-                url: '/jspreadsheet/countries',
+                url: 'https://jspreadsheet.com/jspreadsheet/countries',
                 autocomplete: true,
                 multiple: true
             },
@@ -104,9 +104,10 @@ document.getElementById("btn5").onclick = () => document.getElementById('console
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -129,175 +130,269 @@ export default function App() {
             type: 'dropdown',
             title: 'Product Origin',
             width: '300px',
-            url: '/jspreadsheet/countries',
+            url: 'https://jspreadsheet.com/jspreadsheet/countries',
             autocomplete: true,
             multiple: true
         },
-        { type: 'text', title: 'Description', width: '200px' },
-        { type: 'dropdown', title: 'Stock', width: '100px', source: ['No','Yes'] },
-        { type: 'calendar', title: 'Best before', width: '100px' },
+        {type: 'text', title: 'Description', width: '200px'},
+        {type: 'dropdown', title: 'Stock', width: '100px', source: ['No', 'Yes']},
+        {type: 'calendar', title: 'Best before', width: '100px'},
     ];
     // Meta information
     const meta = {
-        A1: { myMeta: 'this is just a test', otherMetaInformation: 'other test' },
-        A2: { info: 'test' }
+        A1: {myMeta: 'this is just a test', otherMetaInformation: 'other test'},
+        A2: {info: 'test'}
     }
 
-    let style = { width: '100%', height: '80px' }
-    
+    let style = {width: '100%', height: '80px'}
+
     // Render component
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet data={data} columns={columns} meta={meta} />
+                <Worksheet data={data} columns={columns} meta={meta}/>
             </Spreadsheet>
             <textarea ref={console} style={style}></textarea>
-            <button type="button" value="Set meta data for multiple columns"
-                onClick={() => spreadsheet.current[0].setMeta({ C1: { id:'1', y:'2019' }, C2: { id:'2' } })} />
-            <button type="button" value="Set a meta information for B2"
-                onClick={() => spreadsheet.current[0].setMeta('B2', 'myMetaData', prompt('myMetaData:'))} />
-            <button type="button" value="Reset the meta information for A1, B2, C2"
-                onClick={() => spreadsheet.current[0].resetMeta(['A1','B2','C2'])} />
-            <button type="button" value="Get the meta information for A1"
-                onClick={() => console.current.value = JSON.stringify(spreadsheet.current[0].getMeta('A1'))} />
-            <button type="button" value="Get all meta information"
-                onClick={() => console.current.value = JSON.stringify(spreadsheet.current[0].getMeta())} />
+            <input type="button" value="Set meta data for multiple columns"
+                    onClick={() => spreadsheet.current[0].setMeta({C1: {id: '1', y: '2019'}, C2: {id: '2'}})}/>
+            <input type="button" value="Set a meta information for B2"
+                    onClick={() => spreadsheet.current[0].setMeta('B2', 'myMetaData', prompt('myMetaData:'))}/>
+            <input type="button" value="Reset the meta information for A1, B2, C2"
+                    onClick={() => spreadsheet.current[0].resetMeta(['A1', 'B2', 'C2'])}/>
+            <input type="button" value="Get the meta information for A1"
+                    onClick={() => console.current.value = JSON.stringify(spreadsheet.current[0].getMeta('A1'))}/>
+            <input type="button" value="Get all meta information"
+                    onClick={() => console.current.value = JSON.stringify(spreadsheet.current[0].getMeta())}/>
         </>
     );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license">
-        <Worksheet :data="data" :columns="columns" :meta="meta" />
-    </Spreadsheet>
-    <textarea ref="log" style='width:100%;height:80px;'></textarea>
-    <button type="button" value="Set meta data for multiple columns"
-        @click="this.$refs.spreadsheet.current[0].setMeta({ C1: { id:'1', y:'2019' }, C2: { id:'2' } })" />
-    <button type="button" value="Set a meta information for B2"
-        @click="this.$refs.spreadsheet.current[0].setMeta('B2', 'myMetaData', prompt('myMetaData:'))" />
-    <button type="button" value="Reset the meta information for A1, B2, C2"
-        @click="this.$refs.spreadsheet.current[0].resetMeta(['A1','B2','C2'])" />
-    <button type="button" value="Get the meta information for A1"
-        @click="this.$refs.console.value.value = JSON.stringify(this.$refs.spreadsheet.current[0].getMeta('A1'))" />
-    <button type="button" value="Get all meta information"
-        @click="this.$refs.console.value.value = JSON.stringify(this.$refs.spreadsheet.current[0].getMeta())" />
+  <Spreadsheet ref="spreadsheet" :license="license">
+    <Worksheet :data="data" :columns="columns" :meta="meta" />
+  </Spreadsheet>
+  <textarea ref="log" style="width: 100%; height: 80px"></textarea>
+  <input
+    type="button"
+    value="Set meta data for multiple columns"
+    @click="handleSetMultipleMeta"
+  />
+  <input
+    type="button"
+    value="Set a meta information for B2"
+    @click="handleSetB2Meta"
+  />
+  <input
+    type="button"
+    value="Reset the meta information for A1, B2, C2"
+    @click="handleResetMeta"
+  />
+  <input
+    type="button"
+    value="Get the meta information for A1"
+    @click="handleGetA1Meta"
+  />
+  <input
+    type="button"
+    value="Get all meta information"
+    @click="handleGetAllMeta"
+  />
 </template>
 
 <script>
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import { Spreadsheet, Worksheet } from '@jspreadsheet/vue';
+import 'jsuites/dist/jsuites.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
 
-const license = '###license###';
+const license =
+  '###license###';
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+  data() {
+    // Data
+    const data = [
+      ['US', 'Apples', 'Yes', '2019-02-12'],
+      ['CA;US;UK', 'Carrots', 'Yes', '2019-03-01'],
+      ['CA;BR', 'Oranges', 'No', '2018-11-10'],
+      ['BR', 'Coconuts', 'Yes', '2019-01-12'],
+    ];
+    // Columns
+    const columns = [
+      {
+        type: 'dropdown',
+        title: 'Product Origin',
+        width: '300px',
+        url: 'https://jspreadsheet.com/jspreadsheet/countries',
+        autocomplete: true,
+        multiple: true,
+      },
+      { type: 'text', title: 'Description', width: '200px' },
+      {
+        type: 'dropdown',
+        title: 'Stock',
+        width: '100px',
+        source: ['No', 'Yes'],
+      },
+      { type: 'calendar', title: 'Best before', width: '100px' },
+    ];
+    // Meta information
+    const meta = {
+      A1: { myMeta: 'this is just a test', otherMetaInformation: 'other test' },
+      A2: { info: 'test' },
+    };
+
+    return {
+      data,
+      columns,
+      meta,
+      license,
+    };
+  },
+  methods: {
+    // Extracted functions
+    handleSetMultipleMeta() {
+      this.$refs.spreadsheet.current[0].setMeta({
+        C1: { id: '1', y: '2019' },
+        C2: { id: '2' },
+      });
     },
-    data() {
-        // Data
-        const data = [
+
+    handleSetB2Meta() {
+      this.$refs.spreadsheet.current[0].setMeta(
+        'B2',
+        'myMetaData',
+        prompt('myMetaData:')
+      );
+    },
+
+    handleResetMeta() {
+      this.$refs.spreadsheet.current[0].resetMeta(['A1', 'B2', 'C2']);
+    },
+
+    handleGetA1Meta() {
+      this.$refs.log.value = JSON.stringify(
+        this.$refs.spreadsheet.current[0].getMeta('A1')
+      );
+    },
+
+    handleGetAllMeta() {
+      this.$refs.log.value = JSON.stringify(
+        this.$refs.spreadsheet.current[0].getMeta()
+      );
+    },
+  },
+};
+</script>
+```
+```angularjs
+// @ts-nocheck
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import jspreadsheet from 'jspreadsheet';
+
+// Set your JSS license key (The following key only works for one day)
+jspreadsheet.setLicense(
+  '###license###'
+);
+
+// Create component
+@Component({
+  standalone: true,
+  selector: 'app-root',
+  template: `
+        <div #spreadsheet></div>
+        <textarea #log style='width:100%;height:80px;'></textarea>
+        <button type="button" (click)="handleSetMultipleMeta()">
+        Set meta data for multiple columns
+        </button>
+        <button type="button" (click)="handleSetB2Meta()">
+        Set a meta information for B2
+        </button>
+        <button type="button" (click)="handleResetMeta()">
+        Reset the meta information for A1, B2, C2
+        </button>
+        <button type="button" (click)="handleGetA1Meta()">
+        Get the meta information for A1
+        </button>
+        <button type="button" (click)="handleGetAllMeta()">
+        Get all meta information
+        </button>
+    `,
+})
+export class AppComponent {
+  @ViewChild('spreadsheet') spreadsheet: ElementRef;
+  @ViewChild('log') log: ElementRef;
+  // Worksheets
+  worksheets: jspreadsheet.worksheetInstance[];
+
+  // Extracted functions
+  handleSetMultipleMeta() {
+    this.worksheets[0].setMeta({ C1: { id: '1', y: '2019' }, C2: { id: '2' } });
+  }
+
+  handleSetB2Meta() {
+    let metadata = prompt('myMetaData:');
+    this.worksheets[0].setMeta('B2', 'myMetaData', metadata || '');
+  }
+
+  handleResetMeta() {
+    this.worksheets[0].resetMeta(['A1', 'B2', 'C2']);
+  }
+
+  handleGetA1Meta() {
+    this.log.nativeElement.value = JSON.stringify(
+      this.worksheets[0].getMeta('A1')
+    );
+  }
+
+  handleGetAllMeta() {
+    this.log.nativeElement.value = JSON.stringify(this.worksheets[0].getMeta());
+  }
+
+  // Create a new data grid
+  ngAfterViewInit() {
+    // Create spreadsheet
+    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+      worksheets: [
+        {
+          data: [
             ['US', 'Apples', 'Yes', '2019-02-12'],
             ['CA;US;UK', 'Carrots', 'Yes', '2019-03-01'],
             ['CA;BR', 'Oranges', 'No', '2018-11-10'],
             ['BR', 'Coconuts', 'Yes', '2019-01-12'],
-        ];
-        // Columns
-        const columns = [
+          ],
+          columns: [
             {
-                type: 'dropdown',
-                title: 'Product Origin',
-                width: '300px',
-                url: '/jspreadsheet/countries',
-                autocomplete: true,
-                multiple: true
+              type: 'dropdown',
+              title: 'Product Origin',
+              width: 300,
+              url: 'https://jspreadsheet.com/jspreadsheet/countries',
+              autocomplete: true,
+              multiple: true,
             },
-            { type: 'text', title: 'Description', width: '200px' },
-            { type: 'dropdown', title: 'Stock', width: '100px', source: ['No','Yes'] },
-            { type: 'calendar', title: 'Best before', width: '100px' },
-        ];
-        // Meta information
-        const meta = {
-            A1: { myMeta: 'this is just a test', otherMetaInformation: 'other test' },
-            A2: { info: 'test' }
-        }
-
-        return {
-            data,
-            columns,
-            meta,
-            license,
-        };
-    }
-}
-</script>
-```
-```angularjs
-import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import jSuites from "jSuites";
-
-// Set your JSS license key (The following key only works for one day)
-jspreadsheet.setLicense('###license###');
-
-// Create component
-@Component({
-    selector: "app-root",
-    template: `<div #spreadsheet></div>
-        <textarea #console style='width:100%;height:80px;'></textarea>
-        <button type="button" onclick="this.worksheets[0].setMeta({ C1: { id:'1', y:'2019' }, C2: { id:'2' } });">
-        Set meta data for multiple columns
-        </button>
-        <button type="button" onclick="this.worksheets[0].setMeta('B2', 'myMetaData', prompt('myMetaData:'));">
-        Set a meta information for B2
-        </button>
-        <button type="button" onclick="this.worksheets[0].resetMeta(['A1','B2','C2'])">
-        Reset the meta information for A1, B2, C2
-        </button>
-        <button type="button" onclick="this.log.nativeElement.value = JSON.stringify(this.worksheets[0].getMeta('A1'));">
-        Get the meta information for A1
-        </button>
-        <button type="button" onclick="this.log.nativeElement.value  = JSON.stringify(this.worksheets[0].getMeta());">
-        Get all meta information
-        </button>`;
-})
-export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    @ViewChild("log") log: ElementRef;
-    // Worksheets
-    worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngOnInit() {
-        // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [{
-                data: [
-                    ['US', 'Apples', 'Yes', '2019-02-12'],
-                    ['CA;US;UK', 'Carrots', 'Yes', '2019-03-01'],
-                    ['CA;BR', 'Oranges', 'No', '2018-11-10'],
-                    ['BR', 'Coconuts', 'Yes', '2019-01-12'],
-                ],
-                columns: [
-                    {
-                        type: 'dropdown',
-                        title: 'Product Origin',
-                        width: '300px',
-                        url: '/jspreadsheet/countries',
-                        autocomplete: true,
-                        multiple: true
-                    },
-                    { type: 'text', title: 'Description', width: '200px' },
-                    { type: 'dropdown', title: 'Stock', width: '100px', source: ['No','Yes'] },
-                    { type: 'calendar', title: 'Best before', width: '100px' },
-                ],
-                meta:{
-                    A1: { myMeta: 'this is just a test', otherMetaInformation: 'other test' },
-                    A2: { info: 'test' }
-                },
-            }]
-        });
-    }
+            { type: 'text', title: 'Description', width: 200 },
+            {
+              type: 'dropdown',
+              title: 'Stock',
+              width: 100,
+              source: ['No', 'Yes'],
+            },
+            { type: 'calendar', title: 'Best before', width: 100 },
+          ],
+          meta: {
+            A1: {
+              myMeta: 'this is just a test',
+              otherMetaInformation: 'other test',
+            },
+            A2: { info: 'test' },
+          },
+        },
+      ],
+    });
+  }
 }
 ```

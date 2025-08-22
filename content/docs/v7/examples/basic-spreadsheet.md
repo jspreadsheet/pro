@@ -2,7 +2,6 @@ title: My first JavaScript Spreadsheet
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, create a spreadsheet, data grid, tables
 description: How to create a basic JavaScript Spreadsheet using Jspreadsheet Version 7.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Create a Basic Spreadsheet
 

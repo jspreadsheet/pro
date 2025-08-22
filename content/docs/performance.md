@@ -53,6 +53,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
@@ -83,7 +84,7 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license} onload={onload}>
-                <Worksheet tableOverflow={true} minDimensions={[10000,100000]} tableWidth="800px" tableHeight="300px" />
+                <Worksheet tableOverflow={true} minDimensions={[10000, 100000]} tableWidth="800px" tableHeight="300px"/>
             </Spreadsheet>
             <div ref={console}></div>
         </>
@@ -92,15 +93,19 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet :license="license">
-        <Worksheet tableOverflow :minDimensions="minDimensions" tableWidth="800px" tableHeight="300px" />
+    <Spreadsheet :license="license" id="spreadsheet" @onload="onload">
+        <Worksheet
+            tableOverflow
+            tableWidth="800px"
+            tableHeight="300px"
+            :minDimensions="minDimensions"
+        />
     </Spreadsheet>
     <div ref="console"></div>
 </template>
 
 <script>
-import { ref } from 'vue';
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
+import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -109,67 +114,73 @@ const license = '###license###';
 export default {
     components: {
         Spreadsheet,
-        Worksheet
+        Worksheet,
     },
-    setup() {
-        const log = ref(null);
-        let s = Date.now();
-
-        // When the data grid is ready
-        const onload = () => {
-            // Final time
-            let e = Date.now();
-            // Update console
-            log.value.innerText = 'The table was created in: ' + (e - s) + 'ms';
-        }
-
+    data() {
         return {
-            minDimensions: [10000,100000],
-            license,
-            onload,
-            log,
+            license: license,
+            minDimensions: [100, 100], // Reduced size to avoid browser crash on stackblitz
+            startTime: null,
         };
-    }
-}
+    },
+    methods: {
+        onload() {
+            const endTime = Date.now();
+            this.$refs.console.innerText = 'The table was created in: ' + (endTime - this.startTime) + 'ms';
+        },
+    },
+    mounted() {
+        this.startTime = Date.now();
+    },
+};
 </script>
 ```
 ```angularjs
-import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import jspreadsheet from 'jspreadsheet';
 
 // Set your JSS license key (The following key only works for one day)
-jspreadsheet.setLicense('###license###');
+jspreadsheet.setLicense(
+  '###license###'
+);
 
 // Initial time before creating the table
 let s = Date.now();
 
 @Component({
-    selector: "app-root",
-    template: `<div #spreadsheet></div><div id="console"></div>`;
+  standalone: true,
+  selector: 'app-root',
+  template: `<div #spreadsheet></div><div id="console"></div>`,
 })
 export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    // Worksheets
-    worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngOnInit() {
-        // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-             worksheets: [{
-                 minDimensions: [10000,100000],
-                 tableOverflow: true,
-                 tableWidth: '800px',
-                 tableHeight: '300px',
-             }],
-             onload: function() {
-                 // Final time
-                 let e = Date.now();
-                 // Update console
-                 document.getElementById('console').innerText = 'The table was created in: ' + (e - s) + 'ms';
-             }
-        });
-    }
+  @ViewChild('spreadsheet') spreadsheet: ElementRef;
+  // Worksheets
+  worksheets: jspreadsheet.worksheetInstance[];
+  // Create a new data grid
+  ngAfterViewInit() {
+    // Create spreadsheet
+    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+      worksheets: [
+        {
+          minDimensions: [10000, 100000],
+          tableOverflow: true,
+          tableWidth: '800px',
+          tableHeight: '300px',
+        },
+      ],
+      onload: function () {
+        // Final time
+        let e = Date.now();
+        // Update console
+        let console = document.getElementById('console');
+        if (console) {
+          console.innerText = 'The table was created in: ' + (e - s) + 'ms';
+        }
+      },
+    });
+  }
 }
+
 ```
 
 ## Smart Viewport Management

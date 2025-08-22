@@ -2,7 +2,7 @@ title: Data Grid Column Filters
 keywords: Jspreadsheet, javascript, multiple spreadsheets, column filters, filters
 description: How to enable column filters on your javascript spreadsheets.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Column filters
 

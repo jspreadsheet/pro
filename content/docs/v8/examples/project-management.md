@@ -2,7 +2,7 @@ title: Data Grid Project management
 keywords: Jspreadsheet, Jexcel, javascript, cases, project management
 description: A simple project management spreadsheet using Jspreadsheet Pro Version 8.
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # Project Management Spreadsheet
 

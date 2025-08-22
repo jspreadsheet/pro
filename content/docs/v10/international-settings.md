@@ -122,10 +122,11 @@ jspreadsheet.setDictionary({
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef, useEffect } from "react";
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
-    
+import React, {useRef, useEffect} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet, jspreadsheet} from "@jspreadsheet/react";
+
 const license = '###license###';
 
 export default function App() {
@@ -212,14 +213,228 @@ export default function App() {
     }, [spreadsheet])
 
     return (
-            <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet minDimensions={[10,10]} />
-                <Worksheet minDimensions={[10,10]} />
-            </Spreadsheet>
-        );
+        <Spreadsheet ref={spreadsheet} license={license}>
+            <Worksheet minDimensions={[10, 10]}/>
+            <Worksheet minDimensions={[10, 10]}/>
+        </Spreadsheet>
+    );
 };
 ```
- 
+```vue
+<template>
+    <Spreadsheet ref="spreadsheet" :license="license">
+        <Worksheet :minDimensions="[10,10]" />
+        <Worksheet :minDimensions="[10,10]" />
+    </Spreadsheet>
+</template>
+
+<script>
+import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+
+const license = '###license###';
+
+export default {
+    components: {
+        Spreadsheet,
+        Worksheet,
+    },
+    mounted() {
+        // Translate the spreadsheet
+        jspreadsheet.setDictionary({
+            'Show': 'Mostrar',
+            'Search': 'Buscar',
+            'entries': ' entradas',
+            'Column name': 'Nome da coluna',
+            'Change column type': 'Mudar tipo de coluna',
+            'Insert a new column before': 'Inserir uma coluna antes',
+            'Insert a new column after': 'Inserior uma coluna depois',
+            'Delete selected columns': 'Apagar colunas selecionadas',
+            'Rename this column': 'Renonear essa coluna',
+            'Order ascending': 'Ordenar ascendente',
+            'Order descending': 'Ordenar descendente',
+            'Insert a new row before': 'Inserir uma nova linha antes',
+            'Insert a new row after': 'Inserir uma nova linha depois',
+            'Delete selected rows': 'Apagar linhas selecionadas',
+            'Edit comments': 'Editar comentários',
+            'Add comments': 'Adicionar comentários',
+            'Comments': 'Comentários',
+            'Clear comments': 'Apagar comentários',
+            'Copy': 'Copiar',
+            'Paste': 'Colar',
+            'Save as': 'Salvar como',
+            'About': 'Sobre',
+            'Are you sure?': 'Tenha certeza:',
+            'This action will destroy any existing merged cells. Are you sure?':
+                'Essa ação irá desturir as celulas mescladas existentes. Tem certeza?',
+            'Invalid merged properties': 'Propriedades de mesclagem inválidas',
+            'No cell selected': 'Nenhuma celula selecionada',
+            'Rename this worksheet': 'Renomear essa planilha',
+            'Delete this worksheet': 'Apagar essa planilha',
+            'It was not possible to rename worksheet due conflict name':
+                'Não foi possível renomear essa planilha devido a um conflito de nomes',
+            'Cut': 'Cortar',
+            'Hide': 'Esconder',
+            'Unhide': 'Mostrar',
+            'Select All': 'Selecionar tudo',
+            'Blanks': 'Brancos',
+            'Add current selection to filter': 'Adicionar seleção atual ao filtro',
+            'Rename this cell': 'Renomear celula',
+            // Calendar text
+            'Jan': 'Jan',
+            'Feb': 'Fev',
+            'Mar': 'Mar',
+            'Apr': 'Abr',
+            'May': 'Mai',
+            'Jun': 'Jun',
+            'Jul': 'Jul',
+            'Aug': 'Ago',
+            'Sep': 'Set',
+            'Oct': 'Out',
+            'Nov': 'Nov',
+            'Dec': 'Dez',
+            'January': 'Janeiro',
+            'February': 'Fevereiro',
+            'March': 'Março',
+            'April': 'Abril',
+            'June': 'Junho',
+            'July': 'Julho',
+            'August': 'Agosto',
+            'September': 'Setembro',
+            'October': 'Outubro',
+            'November': 'Novembro',
+            'December': 'Dezembro',
+            'Sunday': 'Domingo',
+            'Monday': 'Segunda',
+            'Tuesday': 'Terca',
+            'Wednesday': 'Quarta',
+            'Thursday': 'Quinta',
+            'Friday': 'Sexta',
+            'Saturday': 'Sabado',
+            'Done': 'Feito',
+            'Reset': 'Apagar',
+            'Update': 'Atualizar',
+        });
+    },
+    data() {
+        return {
+            // License
+            license: license,
+        };
+    }
+}
+</script>
+```
+```angularjs
+import { Component, ViewChild, ElementRef } from "@angular/core";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+
+// Set your JSS license key (The following key only works for one day)
+jspreadsheet.setLicense('###license###');
+
+// Create component
+@Component({
+    standalone: true,
+    selector: "app-root",
+    template: `<div #spreadsheet></div>`,
+})
+export class AppComponent {
+    @ViewChild("spreadsheet") spreadsheet: ElementRef;
+    // Worksheets
+    worksheets: jspreadsheet.worksheetInstance[];
+    // Create a new data grid
+    ngAfterViewInit() {
+        // Create spreadsheet
+        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+            worksheets: [
+                { minDimensions: [6,6] }, // Worksheet 1
+                { minDimensions: [6,6] }, // Worksheet 2
+            ],
+        });
+
+        // Translate the spreadsheet
+        jspreadsheet.setDictionary({
+            'Show': 'Mostrar',
+            'Search': 'Buscar',
+            'entries': ' entradas',
+            'Column name': 'Nome da coluna',
+            'Change column type': 'Mudar tipo de coluna',
+            'Insert a new column before': 'Inserir uma coluna antes',
+            'Insert a new column after': 'Inserior uma coluna depois',
+            'Delete selected columns': 'Apagar colunas selecionadas',
+            'Rename this column': 'Renonear essa coluna',
+            'Order ascending': 'Ordenar ascendente',
+            'Order descending': 'Ordenar descendente',
+            'Insert a new row before': 'Inserir uma nova linha antes',
+            'Insert a new row after': 'Inserir uma nova linha depois',
+            'Delete selected rows': 'Apagar linhas selecionadas',
+            'Edit comments': 'Editar comentários',
+            'Add comments': 'Adicionar comentários',
+            'Comments': 'Comentários',
+            'Clear comments': 'Apagar comentários',
+            'Copy': 'Copiar',
+            'Paste': 'Colar',
+            'Save as': 'Salvar como',
+            'About': 'Sobre',
+            'Are you sure?': 'Tenha certeza:',
+            'This action will destroy any existing merged cells. Are you sure?':
+                'Essa ação irá desturir as celulas mescladas existentes. Tem certeza?',
+            'Invalid merged properties': 'Propriedades de mesclagem inválidas',
+            'No cell selected': 'Nenhuma celula selecionada',
+            'Rename this worksheet': 'Renomear essa planilha',
+            'Delete this worksheet': 'Apagar essa planilha',
+            'It was not possible to rename worksheet due conflict name':
+                'Não foi possível renomear essa planilha devido a um conflito de nomes',
+            'Cut': 'Cortar',
+            'Hide': 'Esconder',
+            'Unhide': 'Mostrar',
+            'Select All': 'Selecionar tudo',
+            'Blanks': 'Brancos',
+            'Add current selection to filter': 'Adicionar seleção atual ao filtro',
+            'Rename this cell': 'Renomear celula',
+            // Calendar text
+            'Jan': 'Jan',
+            'Feb': 'Fev',
+            'Mar': 'Mar',
+            'Apr': 'Abr',
+            'May': 'Mai',
+            'Jun': 'Jun',
+            'Jul': 'Jul',
+            'Aug': 'Ago',
+            'Sep': 'Set',
+            'Oct': 'Out',
+            'Nov': 'Nov',
+            'Dec': 'Dez',
+            'January': 'Janeiro',
+            'February': 'Fevereiro',
+            'March': 'Março',
+            'April': 'Abril',
+            'May': 'Maio',
+            'June': 'Junho',
+            'July': 'Julho',
+            'August': 'Agosto',
+            'September': 'Setembro',
+            'October': 'Outubro',
+            'November': 'Novembro',
+            'December': 'Dezembro',
+            'Sunday': 'Domingo',
+            'Monday': 'Segunda',
+            'Tuesday': 'Terca',
+            'Wednesday': 'Quarta',
+            'Thursday': 'Quinta',
+            'Friday': 'Sexta',
+            'Saturday': 'Sabado',
+            'Done': 'Feito',
+            'Reset': 'Apagar',
+            'Update': 'Atualizar',
+        });
+    }
+}
+```
 
 Other language contributions at <https://github.com/jspreadsheet/translations>  
 
@@ -610,7 +825,100 @@ export default function App() {
         </Spreadsheet>
     );
 }
+```
+```vue
+<template>
+    <Spreadsheet ref="spreadsheet" :license="license" :columns="columns">
+        <Worksheet :minDimensions="[6, 6]" />
+        <Worksheet :minDimensions="[6, 6]" />
+    </Spreadsheet>
+</template>
+
+<script>
+import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/vue";
+import "jsuites/dist/jsuites.css";
+import "jspreadsheet/dist/jspreadsheet.css";
+
+const license = '###license###';
+
+const calendarOptions = {
+    // Define the letter that represent the weekdays
+    weekdays_short: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+    // The week starts in which day?
+    startingDay: '1', // Starts on Monday
+    // Format
+    format: 'YYYY-Mon-DD',
+};
+
+const columns = [{
+    type: 'calendar',
+    options: calendarOptions,
+}]
+
+export default {
+    components: {
+        Spreadsheet,
+        Worksheet,
+    },
+    mounted() {
+
+    },
+    data() {
+        return {
+            // License
+            license: license,
+            columns: columns,
+        };
+    }
+}
 </script>
-</html>
+```
+```angularjs
+import { Component, ViewChild, ElementRef } from "@angular/core";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+
+// Set your JSS license key (The following key only works for one day)
+jspreadsheet.setLicense('###license###');
+
+// Create component
+@Component({
+    standalone: true,
+    selector: "app-root",
+    template: `<div #spreadsheet></div>`,
+})
+export class AppComponent {
+    @ViewChild("spreadsheet") spreadsheet: ElementRef;
+    // Worksheets
+    worksheets: jspreadsheet.worksheetInstance[];
+    // Create a new data grid
+    ngAfterViewInit() {
+        const calendarOptions = {
+            // Define the letter that represent the weekdays
+            weekdays_short: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+            // The week starts in which day?
+            startingDay: '1', // Starts on Monday
+            // Format
+            format: 'YYYY-Mon-DD',
+        };
+
+        const columns = [{
+            type: 'calendar',
+            options: calendarOptions,
+        }]
+
+        // Create spreadsheet
+        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+            worksheets: [
+                { minDimensions: [6, 6] }, // Worksheet 1
+                { minDimensions: [6, 6] }, // Worksheet 2
+            ],
+            columns: columns
+        });
+    }
+}
 ```
  
+

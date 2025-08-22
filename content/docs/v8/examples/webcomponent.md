@@ -2,7 +2,7 @@ title: Spreadsheet as web component using Jspreadsheet
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, web components
 description: The example shows how to implement Jspreadsheet data grid as a web components.
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # Spreadsheet Web Components
 

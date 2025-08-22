@@ -3,7 +3,6 @@ keywords: Jspreadsheet, Jexcel, javascript, cases, data persistence, database, s
 description: Learn how to include charts on your spreadsheets.
 
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # ChartJS extension for jspreadsheet
 

@@ -2,7 +2,7 @@ title: Getting started with Jspreadsheet Pro Version 7
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, table, grid
 description: Getting started with Jspreadsheet. Learning the basics, create instances, and more about the general spreadsheet configuration.
 
-[Back to Documentation](/docs/v7)
+
 
 # Getting started
 
@@ -60,7 +60,7 @@ A online spreadsheet can be created from an HTML table element, a JS array, a CS
 <script>
 let data = [
     ['Mazda', 2001, 2000],
-    ['Pegeout', 2010, 5000],
+    ['Peugeot', 2010, 5000],
     ['Honda Fit', 2009, 3000],
     ['Honda CRV', 2010, 6000],
 ];

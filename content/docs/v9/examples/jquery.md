@@ -2,7 +2,7 @@ title: Jquery Spreadsheet
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, data grid, jquery spreadsheet
 description: How to create a web-based spreadsheet using Jquery and Jspreadsheet.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # Jquery Spreadsheet
 

@@ -86,7 +86,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 
 ```
  
-#### 7. How do I overwrite a type of a cell over a column type?
+#### 7. How do I overwrite a cell type over a column type?
 
 {.ignore}
 ```javascript
@@ -104,7 +104,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 });
 ```
  
-#### 8. How do I disabled the JavaScript contextmenu in my spreadsheet?
+#### 8. How do I disable the JavaScript contextmenu in my spreadsheet?
 
 {.ignore}
 ```javascript
@@ -157,5 +157,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
     }
 });
 ```
+
+
+#### 13. How do you include headers or nested headers during XLSX generation?
+
+Since Excel does not support headers or nested headers directly, you can use the `onbeforerender` event in the render extension to include them. This event allows you to copy the headers or nested headers as data and update the relevant formulas in the JSON definition. 
  
 

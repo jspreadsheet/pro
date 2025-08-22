@@ -2,7 +2,7 @@ title: Spreadsheet Footers
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, column filters
 description: The spreadsheet footers helps to sticky information on the bottom of the table, including formulas and data summaries.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Spreadsheet footer
 

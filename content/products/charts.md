@@ -50,6 +50,15 @@ The new chart extension bring several new chart types and a more similar engine 
 | StackedBar    |
 | StackedColumn |
 
+### Animations
+
+To disable the animations during a update on the spreadsheet.
+
+{.ignore}
+```javascript
+charts({ animations: false });
+```
+
 
 ## Installation
 
@@ -91,7 +100,6 @@ Create a new data grid with a basic column chart on Jspreadsheet Pro.
 <script src="https://jsuites.net/v5/jsuites.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lemonadejs/dist/lemonade.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@lemonadejs/studio/dist/index.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/formula-pro/dist/index.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/charts/dist/index.min.js"></script>
 
@@ -124,8 +132,8 @@ jspreadsheet(document.getElementById('spreadsheet'), {
             },
             top: 10,
             left: 300,
-            width: 400,
-            height: 300,
+            width: 310,
+            height: 210,
         }]
     }],
 });
@@ -140,6 +148,8 @@ import formula from "@jspreadsheet/formula";
 
 import "@lemonadejs/studio";
 import "@lemonadejs/studio/dist/style.css";
+import "jsuites/dist/jsuites.css"
+import "jspreadsheet/dist/jspreadsheet.css"
 import "@jspreadsheet/charts/dist/style.css";
 
 // Add license
@@ -153,11 +163,11 @@ export default function App() {
 
     // Data
     const data = [
-        ['Test', '', ''],
-        ['Jan', '400', '234'],
-        ['Fev', '300', '431'],
-        ['Mar', '200', '134'],
-        ['Apr', '321', '513'],
+        ['Months','Product A','Product B'],
+        ['Jan','400','234'],
+        ['Fev','300','431'],
+        ['Mar','200','134'],
+        ['Apr','321','513'],
     ];
 
     // Media declaration
@@ -165,7 +175,7 @@ export default function App() {
         type: 'chart',
         options: {
             type: 'column',
-            range: 'A1:D5',
+            range: 'A1:C5',
         },
         top: 10,
         left: 300,
@@ -175,7 +185,7 @@ export default function App() {
 
     // Render component
     return (
-        <Spreadsheet ref={spreadsheet} toolbar>
+        <Spreadsheet ref={spreadsheet} toolbar={true}>
             <Worksheet data={data} media={media} />
         </Spreadsheet>
     );
@@ -183,18 +193,21 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" toolbars>
+    <Spreadsheet ref="spreadsheet" toolbar="true">
         <Worksheet :data="data" :media="media" :minDimensions="[10,10]" />
     </Spreadsheet>
 </template>
 
 <script>
 import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
+import jspreadsheet from 'jspreadsheet';
 import charts from "@jspreadsheet/charts";
 import formula from "@jspreadsheet/formula";
 
 import "@lemonadejs/studio";
 import "@lemonadejs/studio/dist/style.css";
+import "jsuites/dist/jsuites.css"
+import "jspreadsheet/dist/jspreadsheet.css"
 import "@jspreadsheet/charts/dist/style.css";
 
 // Add license
@@ -210,15 +223,16 @@ export default {
     data() {
         // Data
         const data = [
-            ['Test', '', ''],
-            ['Jan', '400', '234'],
-            ['Fev', '300', '431'],
-            ['Mar', '200', '134'],
-            ['Apr', '321', '513'],
+          ['Months','Product A','Product B'],
+          ['Jan','400','234'],
+          ['Fev','300','431'],
+          ['Mar','200','134'],
+          ['Apr','321','513'],
         ];
 
         // Media declaration
         const media = [{
+            id: '',
             type: 'chart',
             options: {
                 type: 'column',
@@ -237,25 +251,21 @@ export default {
     }
 }
 </script>
+
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 import charts from "@jspreadsheet/charts";
-import formula from "@jspreadsheet/formula";
-
-
-import "@lemonadejs/studio";
-import "@lemonadejs/studio/dist/style.css";
-import "@jspreadsheet/charts/dist/style.css";
+import formula from "@jspreadsheet/formula-pro";
 
 // Add license
 jspreadsheet.setLicense('###license###');
 // Define the data grid extensions
 jspreadsheet.setExtensions({ formula, charts });
 
-
 @Component({
+  standalone: true,
   selector: "app-root",
   template: `<div #spreadsheet></div>`
 })
@@ -271,11 +281,11 @@ export class AppComponent {
             worksheets: [{
                 minDimensions: [8,8],
                 data: [
-                    ['Test', '', ''],
-                    ['Jan', '400', '234'],
-                    ['Fev', '300', '431'],
-                    ['Mar', '200', '134'],
-                    ['Apr', '321', '513'],
+                    ['Months','Product A','Product B'],
+                    ['Jan','400','234'],
+                    ['Fev','300','431'],
+                    ['Mar','200','134'],
+                    ['Apr','321','513'],
                 ],
                 media: [{
                     type: 'chart',

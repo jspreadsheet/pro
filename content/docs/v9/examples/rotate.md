@@ -2,7 +2,7 @@ title: Spreadsheet Text Rotation
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, rotate text
 description: How to rotate the spreadsheet data grid cell text.
 
-[Back to Examples](/docs/v9/examples)
+
 
 # Rotate The Cell Text
 

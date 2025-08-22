@@ -51,12 +51,25 @@ Methods related with the editors and the data grid cell edition.
 
 Events related with the editors and the data grid edition.
 
-| Event           | Description                                                                                                           |
-|-----------------|-----------------------------------------------------------------------------------------------------------------------|
-| oneditionstart  | `oneditionstart(worksheet: Object, cell: HTMLELement, x: number, y: number) => void`                                    |
-| oneditionend    | `oneditionend(worksheet: Object, cell: HTMLELement, x: number, y: number, v: any, save: boolean) => void`                     |
-| oncreateeditor  | `oncomments(worksheet: Object, cell: HTMLElement, x: number, y: number, input: HTMLElement, options: object) => void` |
+| Event          | Description                                                                                                                |
+|----------------|----------------------------------------------------------------------------------------------------------------------------|
+| oneditionstart | `oneditionstart(worksheet: Object, cell: HTMLELement, x: number, y: number) => void \| boolean`                            |
+| oneditionend   | `oneditionend(worksheet: Object, cell: HTMLELement, x: number, y: number, v: any, save: boolean) => void`                  |
+| oncreateeditor | `oncreateeditor(worksheet: Object, cell: HTMLElement, x: number, y: number, input: HTMLElement, options: object) => void`  |
+| onkeydown      | Return `false` to cancel the event.<br>`onkeydown(worksheet: Object, e: Event) => boolean \| void`                         |
+| oninput        | `oninput(worksheet: Object, e: Event, test: String) => void`                                                               |
 
+### Properties
+
+While editing, the `worksheet.edition` property provides the DOMElement of the cell currently being edited.
+
+{.ignore}
+```javascript
+let x = worksheet.edition.getAttribute('data-x');
+let y = worksheet.edition.getAttribute('data-y');
+// Retrieve the options for this cell or column
+let options = worksheet.edition.getOptions(x, y);
+```
 <br>
 
 ### Declaring the editors
@@ -94,8 +107,8 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -107,15 +120,15 @@ export default function App() {
 
     // Columns
     const columns = [
-        { type: 'text' }
+        {type: 'text'}
     ];
     const cells = {
-        A1: { type: 'dropdown', source: ['Male','Female'] }
+        A1: {type: 'dropdown', source: ['Male', 'Female']}
     };
     // Render data grid component
     return (
         <Spreadsheet ref={spreadsheet} license={license}>
-            <Worksheet columns={columns} cells={cells} />
+            <Worksheet columns={columns} cells={cells}/>
         </Spreadsheet>
     );
 }
@@ -159,12 +172,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -173,7 +187,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -453,36 +467,35 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 const Editor = {
-    updateCell: function(cell, value, x, y, instance) {
+    updateCell: function(cell:any, value:any, x:any, y:any, instance:any) {
         value = Number(value) || 0;
         if (cell) {
             cell.innerText = value + '%';
         }
         return value / 100;
     },
-    createCell: function(cell, value, x, y, instance) {
+    createCell: function(cell:any, value:any, x:any, y:any, instance:any) {
         value = Number(value) || 0;
         if (cell) {
             cell.innerText = value + '%';
         }
         return value / 100;
     },
-    openEditor: function(cell, value, x, y, instance) {
+    openEditor: function(cell:any, value:any, x:any, y:any, instance:any) {
         instance.parent.input.onblur = function() {
             instance.closeEditor(cell, true);
         };
         if (value) {
             instance.parent.input.innerText = (Number(value)) * 100;
         }
-        jSuites.focus(instance.parent.input);
     },
-    closeEditor: function(cell, save, x, y, instance) {
+    closeEditor: function(cell:any, save:any, x:any, y:any, instance:any) {
         let value;
         if (save) {
             value = Number(instance.parent.input.innerText);
@@ -492,7 +505,7 @@ const Editor = {
 
         return value;
     },
-    get: function(options, val) {
+    get: function(options:any, val:any) {
         return (val * 100) + '%';
     }
 }
@@ -503,6 +516,7 @@ const data = [
 ];
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -511,7 +525,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -520,12 +534,10 @@ export class AppComponent {
                     {
                         type: 'text',
                         title: 'Course Title',
-                        width: '300px'
                     },
                     {
                         type: Editor,
                         title: 'Percent',
-                        width: '200px'
                     },
                 ]
             }]
@@ -546,6 +558,8 @@ Basic example using multiple different editors.
 <link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
 <script src="https://jsuites.net/v5/jsuites.js"></script>
 <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
 
 <div id="spreadsheet"></div>
 
@@ -789,12 +803,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -803,7 +818,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -896,6 +911,8 @@ Create a edit button in a cell.
 <script src="https://jsuites.net/v5/jsuites.js"></script>
 <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
 
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+
 <div id="spreadsheet"></div>
 
 <script>
@@ -928,7 +945,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         data: [
             { id:'1', data:['Google', '5', ''] },
-            { id:'2', data:['Bind', '4', ''] },
+            { id:'2', data:['Bing', '4', ''] },
             { id:'3', data:['Yahoo', '1', ''] },
             { id:'4', data:['Duckduckgo', '5', ''] },
         ],
@@ -975,7 +992,7 @@ export default function App() {
     // Data
     const data = [
         { id:'1', data:['Google', '5', ''] },
-        { id:'2', data:['Bind', '4', ''] },
+        { id:'2', data:['Bing', '4', ''] },
         { id:'3', data:['Yahoo', '1', ''] },
         { id:'4', data:['Duckduckgo', '5', ''] },
     ]
@@ -989,7 +1006,7 @@ export default function App() {
     // Render data grid component
     return (
         <Spreadsheet ref={spreadsheet} license={license}>
-            <Worksheet columns={columns} cells={cells} filters />
+            <Worksheet columns={columns} data={data} filters />
         </Spreadsheet>
     );
 }
@@ -1036,7 +1053,7 @@ export default {
         // Data
         const data = [
             { id:'1', data:['Google', '5', ''] },
-            { id:'2', data:['Bind', '4', ''] },
+            { id:'2', data:['Bing', '4', ''] },
             { id:'3', data:['Yahoo', '1', ''] },
             { id:'4', data:['Duckduckgo', '5', ''] },
         ]
@@ -1058,15 +1075,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
-const Action = function() {
-    let methods = {};
-
-    methods.createCell = (cell, value, x, y, instance, options) => {
+const Action: any = {
+    createCell: (cell: any, value: any, x: any, y: any, instance: any, options: any) => {
         let input = document.createElement('i');
         input.className = 'material-icons';
         input.style.cursor = 'pointer';
@@ -1074,15 +1089,15 @@ const Action = function() {
         input.innerHTML = "search";
         input.onclick = function() {
             alert(instance.getRowId(y));
-        }
+        };
 
         cell.appendChild(input);
     }
+};
 
-    return methods;
-}();
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -1091,20 +1106,20 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
                 data: [
                     { id:'1', data:['Google', '5', ''] },
-                    { id:'2', data:['Bind', '4', ''] },
+                    { id:'2', data:['Bing', '4', ''] },
                     { id:'3', data:['Yahoo', '1', ''] },
                     { id:'4', data:['Duckduckgo', '5', ''] },
                 ],
                 columns: [
-                    { type: 'text', width:'400px' },
-                    { type: 'rating', width:'100px' },
-                    { type: action, width:'100px', readOnly: true },
+                    { type: 'text'},
+                    { type: 'rating' },
+                    { type: Action, readOnly: true },
                 ]
             }]
         });

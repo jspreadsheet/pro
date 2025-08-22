@@ -2,7 +2,7 @@ title: Spreadsheet Cells Settings
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, cells settings
 description: Find out more about the events, methods, and settings related to the spreadsheet cells property. Learn how to overwrite column settings at the cell level.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Cells Settings
 

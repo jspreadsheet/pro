@@ -66,13 +66,24 @@ Click in the icon _file_download_{.material-icons} or in the button above to imp
 <html>
 <link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
 <link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jsuites/css/dist/style.min.css" type="text/css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jsuites/css/dist/style.min.css" type="text/css"/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@lemonadejs/studio/dist/style.min.css" type="text/css" />
 
 <script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
 <script src="https://jsuites.net/v5/jsuites.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lemonadejs/dist/lemonade.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@lemonadejs/studio/dist/index.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/importer/dist/index.min.js"></script>
+
+<style>
+    #btn1 {
+        border: 2px solid #737373;
+        background-color: #737373;
+        margin-right: 2px;
+    }
+</style>
+
 
 <div id='spreadsheet'></div>
 
@@ -98,13 +109,29 @@ let grid = jspreadsheet(document.getElementById('spreadsheet'), {
 
 document.getElementById("btn1").onclick = () => importer(grid[0])
 </script>
+
+<style>
+    #btn1 {
+      border: 2px solid #737373 !important;
+      background-color: #737373 !important;
+      margin-left: 5px !important;
+      color: white !important;
+      padding: 5px 10px;
+      cursor: pointer;
+    }
+</style>
+
 </html>
 ```
 ```jsx
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
 import importer from "@jspreadsheet/importer";
+import studio from '@lemonadejs/studio';
 
+import '@lemonadejs/studio/dist/style.css';
+import "jspreadsheet/dist/jspreadsheet.css";
+import "jsuites/dist/jsuites.css";
 import "@jsuites/css/dist/style.css";
 
 // Define the license
@@ -129,17 +156,21 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :extensions="extensions">
+    <Spreadsheet ref="spreadsheet" :license="license" :extensions="extensions" toolbar="true">
         <Worksheet :minDimensions="[10,10]" :tableOverflow="true" tableHeight="300" tableWidth="720" />
     </Spreadsheet>
-    <input type="button" value="Import CSV" @click="import" />
+    <input type="button" value="Import CSV" @click="importCSV" />
 </template>
 
 <script>
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
-import importer from "@jspreadsheet/importer";
+import { Spreadsheet, Worksheet } from '@jspreadsheet/vue';
+import importer from '@jspreadsheet/importer';
+import studio from '@lemonadejs/studio';
 
-import "@jsuites/css/dist/style.css";
+import '@lemonadejs/studio/dist/style.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
+import 'jsuites/dist/jsuites.css';
+import '@jsuites/css/dist/style.css';
 
 // Set the license
 const license = '###license###';
@@ -153,7 +184,7 @@ export default {
         Worksheet,
     },
     methods: {
-        import() {
+        importCSV() {
             // Worksheet where the new data should be imported into.
             importer(this.$refs.spreadsheet.current[0]);
         }
@@ -168,49 +199,45 @@ export default {
 </script>
 ```
 ```angularjs
-import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
-import * as importer from "@jspreadsheet/importer";
-
-import "jsuites/dist/jsuites.css";
-import "@jsuites/css/dist/style.css";
-import "jspreadsheet/dist/jspreadsheet.css";
-
-const license = '###license###';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import jspreadsheet from 'jspreadsheet';
+import importer from '@jspreadsheet/importer';
 
 // Set your JSS license key (The following key only works for one day)
-jspreadsheet.setLicense(license);
+jspreadsheet.setLicense('###license###');
 
 // Extensions
 jspreadsheet.setExtensions({ importer });
 
 @Component({
-  selector: "app-root",
+  standalone: true,
+  selector: 'app-root',
   template: `<div #spreadsheet></div>
-    <input type="button" value="Import CSV" (click)="this.import()" />`
+    <input type="button" value="Import CSV" (click)="this.import()" />`,
 })
 export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    // Worksheets
-    worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngAfterViewInit() {
-        // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-          worksheets: [
-            {
-              minDimensions: [10, 10],
-              tableOverflow: true,
-              tableHeight: 300,
-              tableWidth: 720,
-            }
-          ]
-        });
-    }
-    import() {
-        // Worksheet where the new data should be imported into.
-        importer(this.worksheets[0]);
-    }
+  @ViewChild('spreadsheet') spreadsheet: ElementRef;
+  // Worksheets
+  worksheets: jspreadsheet.worksheetInstance[];
+  // Create a new data grid
+  ngAfterViewInit() {
+    // Create spreadsheet
+    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+      worksheets: [
+        {
+          minDimensions: [10, 10],
+          tableOverflow: true,
+          tableHeight: 300,
+          tableWidth: 720,
+        },
+      ],
+      toolbar: true,
+    });
+  }
+  import() {
+    // Worksheet where the new data should be imported into.
+    importer(this.worksheets[0]);
+  }
 }
 
 ```

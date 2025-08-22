@@ -257,16 +257,22 @@ export default {
     template: `<Spreadsheet ref="spreadsheet" :license="license" :oninsertrow="oninsertrow">
         <Worksheet :data="data" :columns="columns" />
     </Spreadsheet>
-    <input type='button' value='Add new task' onclick="spreadsheet[0].insertRow()" />`,
+    <input type='button' value='Add new task' @click="spreadsheet[0].insertRow()" />`,
 }
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
+import formula from "@jspreadsheet/formula-pro";
 
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
+
+jspreadsheet.setExtensions({ formula });
 
 // Custom formula
 const PHOTO = function(photo) {

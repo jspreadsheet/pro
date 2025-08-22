@@ -2,7 +2,7 @@ title: Jspreadsheet special extended formulas
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, special formulas, extensions
 description: A quick list of extended and special native formulas
 
-[Back to Documentation](/docs/v7)
+
 
 # Special formulas
 

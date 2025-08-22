@@ -2,7 +2,7 @@ title: ChartJS Integration with Jspreadsheet Version 5
 keywords: Jspreadsheet, javascript, highcharts, charts
 description: Integrating Jspreadsheet Pro version 5 with ChartJS example.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # ChartJS
 

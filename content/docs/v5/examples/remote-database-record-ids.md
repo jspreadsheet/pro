@@ -2,7 +2,7 @@ title: Data Grid Remote Ids
 keywords: Jspreadsheet, javascript, remote database synchronization, remote ids
 description: Learn how to manage and sync remote IDs of database records with your local spreadsheets.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Remote database ids and actions
 
@@ -48,7 +48,7 @@ let action = function() {
 jspreadsheet(document.getElementById('spreadsheet'), {
     data: [
         { id:'1', data:['Google', '5', ''] },
-        { id:'2', data:['Bind', '4', ''] },
+        { id:'2', data:['Bing', '4', ''] },
         { id:'3', data:['Yahoo', '1', ''] },
         { id:'4', data:['Duckduckgo', '5', ''] },
     ],

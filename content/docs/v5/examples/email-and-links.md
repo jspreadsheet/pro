@@ -2,7 +2,7 @@ title: Embed email and links into your spreadsheets
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet,  embed email, links
 description: Learn how to embed links and email into your spreadsheets.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Email and links
 

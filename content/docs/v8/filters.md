@@ -2,7 +2,7 @@ title: Data Grid Column Filters
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, column filters
 description: This section covers more about filters for columns. How to use and customize, and details of the available data grid methods and events.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Spreadsheet Filters
 

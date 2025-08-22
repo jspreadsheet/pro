@@ -2,7 +2,7 @@ title: Data Grid Configuration
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, configuration
 description: The configuration holds various properties to controls the behavior of the spreadsheet and its worksheets. Learn more about each of the available options.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Data Grid Config
 

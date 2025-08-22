@@ -2,7 +2,7 @@ title: Most common implementation questions
 keywords: Jspreadsheet, jquery, javascript, excel-like, spreadsheet, tables, most common questions
 description: Library of the most common questions and answers
 
-[Back to Documentation](/docs/v5)
+
 
 # Most common questions and answers
 

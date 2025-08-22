@@ -2,7 +2,7 @@ title: Data Grid Footers
 keywords: Jspreadsheet, javascript, multiple spreadsheets, formulas, table footer
 description: Adding fixed formulas on the javascript data grid footer.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Table footer
 

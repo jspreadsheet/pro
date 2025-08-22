@@ -2,7 +2,6 @@ title: Advance use of Excel-like Formulas
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, formulas, currency, custom formulas
 description: Unleash the power of your application data grid by bringing excel-like formulas and custom JavaScript methods to your spreadsheets.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Excel-like Custom Formulas
 

@@ -85,9 +85,10 @@ document.getElementById("disablespreadsheet").onclick = () => spreadsheet(this)
 </script>
 <html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -104,7 +105,7 @@ export default function App() {
     // Method to handle the editable state of the first worksheet
     const worksheet = (e) => {
         // Toggle the editable state
-        spreadsheet.current[0].options.editable = ! spreadsheet.current[0].options.editable;
+        spreadsheet.current[0].options.editable = !spreadsheet.current[0].options.editable;
         // Change button label
         e.value = spreadsheet.current[0].options.editable ? 'Disable First Worksheet' : 'Enable First Worksheet';
     }
@@ -112,7 +113,7 @@ export default function App() {
     // Method to handle the editable state of the whole spreadsheet
     const all = (e) => {
         // Toggle the editable state
-        spreadsheet.current[0].parent.config.editable = ! spreadsheet.current[0].parent.config.editable;
+        spreadsheet.current[0].parent.config.editable = !spreadsheet.current[0].parent.config.editable;
         // Change button label
         e.value = spreadsheet.current[0].parent.config.editable ? 'Disable Spreadsheet' : 'Enable Spreadsheet';
     }
@@ -121,10 +122,10 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license} tabs>
-                <Worksheet data={data} />
+                <Worksheet data={data}/>
             </Spreadsheet>
-            <input type="button" value="Disable First Worksheet" onClick={(e) => worksheet(e.target)} />
-            <input type="button" value="Disable Spreadsheet" onClick={(e) => all(e.target)} />
+            <input type="button" value="Disable First Worksheet" onClick={(e) => worksheet(e.target)}/>
+            <input type="button" value="Disable Spreadsheet" onClick={(e) => all(e.target)}/>
         </>
     );
 }
@@ -187,7 +188,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -195,15 +199,15 @@ jspreadsheet.setLicense('###license###');
 @Component({
     selector: "app-root",
     template: `<div #spreadsheet></div>
-        <input type="button" value="Disable First Worksheet" (click)="worksheet" />
-        <input type="button" value="Disable Spreadsheet" (click)="all" />`
+        <input type="button" value="Disable First Worksheet" (click)="worksheet($event)" />
+        <input type="button" value="Disable Spreadsheet" (click)="all($event)" />`
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             tabs: true,
@@ -418,7 +422,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -432,7 +439,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

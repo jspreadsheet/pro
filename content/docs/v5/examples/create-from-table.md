@@ -2,7 +2,7 @@ title: HTML Table To Data Grid
 keywords: Jspreadsheet, javascript, javascript vanilla, javascript plugin, plugin, excel-like, spreadsheet, table, tables, grid, datatables, data
 description: Create a Jspreadsheet data grid from a simple HTML table.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Create from a HTML table
 

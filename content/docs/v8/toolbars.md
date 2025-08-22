@@ -2,7 +2,7 @@ title: Spreadsheet Toolbars
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, toolbars
 description: This section covers more information on how to add and customize the spreadsheet toolbar.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Spreadsheet toolbar
 

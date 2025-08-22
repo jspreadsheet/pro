@@ -2,8 +2,6 @@ title: Spreadsheet Performance
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, performance, spreadsheet benchmark
 description: What are the important aspects that can cause an impact on the spreadsheet performance and how to get the best of the Jspreadsheet Pro.
 
-[Back to Documentation](/docs/v9 "Back to the documentation")
-
 # Spreadsheet performance
 
 In this section, we will cover some important considerations about spreadsheet performance when dealing with large datasets. 

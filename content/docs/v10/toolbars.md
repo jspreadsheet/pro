@@ -98,9 +98,10 @@ document.getElementById("hidebtn").onclick = () => grid[0].parent.hideToolbar();
 <input type='button' value='Hide Toolbar' id="hidebtn">
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -110,18 +111,18 @@ export default function App() {
     // Render component
     return (
         <>
-            <Spreadsheet ref={spreadsheet} license={license} toolbar>
-                <Worksheet minDimensions={[8,5]} />
+            <Spreadsheet ref={spreadsheet} license={license} toolbar={true}>
+                <Worksheet minDimensions={[8, 5]}/>
             </Spreadsheet>
-            <input type='button' value='Show Toolbar' onClick={() => spreadsheet.current[0].showToolbar()} />
-            <input type='button' value='Hide Toolbar' onClick={() => spreadsheet.current[0].hideToolbar()} />
+            <input type='button' value='Show Toolbar' onClick={() => spreadsheet.current[0].showToolbar()}/>
+            <input type='button' value='Hide Toolbar' onClick={() => spreadsheet.current[0].hideToolbar()}/>
         </>
     );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" toolbar>
+    <Spreadsheet ref="spreadsheet" :license="license" :toolbar="true">
         <Worksheet :minDimensions="[8,5]" />
     </Spreadsheet>
     <input type="button" value="Show Toolbar" @click="showToolbar" />
@@ -156,7 +157,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -173,7 +177,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -257,7 +261,7 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" toolbar>
+    <Spreadsheet ref="spreadsheet" :license="license" :toolbar="true">
         <Worksheet :minDimensions="[8,10]" />
     </Spreadsheet>
 </template>
@@ -296,7 +300,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -310,7 +317,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             toolbar: function(toolbar) {
@@ -502,7 +509,7 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" toolbar>
+    <Spreadsheet ref="spreadsheet" :license="license" :toolbar="true">
         <Worksheet :minDimensions="[6,5]" worksheetName="Toolbar example" />
     </Spreadsheet>
 </template>
@@ -588,7 +595,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -663,7 +673,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

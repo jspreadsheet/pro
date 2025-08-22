@@ -2,7 +2,6 @@ title: How to merge the spreadsheet cells
 keywords: Jspreadsheet, Jexcel, spreadsheet, javascript, javascript table, merged cells
 description: An example of how to merge cells in your JavaScript data grids.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Merged cells
 
@@ -23,7 +22,7 @@ The following methods are available for merge cells management: _setMerge, getMe
 <script>
 let data = [
     ['Mazda', 2001, 2000, '2006-01-01'],
-    ['Pegeout', 2010, 5000, '2005-01-01'],
+    ['Peugeot', 2010, 5000, '2005-01-01'],
     ['Honda Fit', 2009, 3000, '2004-01-01'],
     ['Honda CRV', 2010, 6000, '2003-01-01'],
 ];

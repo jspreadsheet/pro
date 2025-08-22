@@ -2,7 +2,7 @@ title: Searchable Data Grid
 keywords: Jspreadsheet, javascript, javascript vanilla, javascript plugin, plugin, excel-like, spreadsheet, table, tables, grid, datatables, data
 description: An example of utilizing search and pagination to tackle big datasets.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Javascript spreadsheet with search and pagination
 

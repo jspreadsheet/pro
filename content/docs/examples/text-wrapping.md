@@ -118,7 +118,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -130,23 +130,26 @@ const data = [
 ];
 
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            data: data,
-            columns: [
-                { type:'text', width: '200px' },
-                { type:'text' },
-                { type:'text', width:'400px', align: 'left', wrap: true },
-            ]
+            worksheets: [{
+                data: data,
+                columns: [
+                    { type:'text' },
+                    { type:'text' },
+                    { type:'text', align: 'left', wrap: true },
+                ]
+            }]
         });
     }
 }

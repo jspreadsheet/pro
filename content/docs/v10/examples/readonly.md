@@ -243,7 +243,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -252,7 +255,7 @@ jspreadsheet.setLicense('###license###');
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
-        <input #button type='button' value='Disabled B2' (click)="this.toggle()" />`;
+        <input #button type='button' value='Disabled B2' (click)="toggle()" />`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
@@ -262,7 +265,7 @@ export class AppComponent {
     // Data
     data: data;
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

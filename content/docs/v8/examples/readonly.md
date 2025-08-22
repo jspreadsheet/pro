@@ -2,8 +2,6 @@ title: Readonly Data Grid Cells
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, editors, javascript richtext, html editor
 description: Learn how to set columns or individual data grid cells to read-only mode.
 
-[Back to Examples](/docs/v8/examples)
-
 # Data Grid Readonly Cells
 
 The example below defines a spreadsheet column or a single cell as read-only. 
@@ -37,7 +35,7 @@ let worksheets = jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         data: [
             ['Mazda', 2001, 2000, 1],
-            ['Pegeout', 2010, 5000, 1],
+            ['Peugeot', 2010, 5000, 1],
             ['Honda Fit', 2009, 3000, 1],
             ['Honda CRV', 2010, 6000, 0],
         ],

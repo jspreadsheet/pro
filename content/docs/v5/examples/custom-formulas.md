@@ -2,7 +2,7 @@ title: Advance Spreadsheet Formulas
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet, formulas, currency, custom formulas
 description: Unleash the power of your tables by bringing formulas and custom JavaScript methods to your Jspreadsheet spreadsheet.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Custom Data Grid Formulas
 

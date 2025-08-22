@@ -2,7 +2,7 @@ title: Data Grid Auto Number Column Type
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, editors, javascript progressbar
 description: The auto number column type helps to generates a unique number for each rows tracking as sequence.
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # Autonumber Column Type
 

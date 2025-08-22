@@ -2,8 +2,6 @@ title: Saving the Data Grid to Your Backend
 keywords: Jexcel, javascript, cases, data persistence, database synchronization
 description: Learn how data persistence can help you create exceptional online spreadsheets.
 
-[Back to Use Cases](/docs/v7/examplese "Back to the use cases section")
-
 # Data Persistence
 
 With the persistence directive, each change in the data will be sent to a remote URL.

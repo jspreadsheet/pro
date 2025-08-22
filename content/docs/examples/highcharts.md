@@ -18,6 +18,7 @@ Creating a dynamic chart from a JSS spreadsheet data.
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
 
+<div id="container"></div>
 <div id="spreadsheet"></div>
 
 <script>
@@ -54,6 +55,7 @@ jspreadsheet.setLicense('###license###');
 jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         data:data,
+        defaultColWidth: 50,
         columns: [
             { type: 'text', width:'200' },
         ],
@@ -113,8 +115,8 @@ chart = Highcharts.chart('container', {
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import HighchartsReact from "highcharts-react-official";
 import Highcharts from "highcharts";
 import "jsuites/dist/jsuites.css";
@@ -157,18 +159,18 @@ const chartOptions = {
         name: "Tokyo",
         data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
     },
-    {
-        name: "New York",
-        data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
-    },
-    {
-        name: "Berlin",
-        data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
-    },
-    {
-        name: "London",
-        data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
-    }
+        {
+            name: "New York",
+            data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
+        },
+        {
+            name: "Berlin",
+            data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
+        },
+        {
+            name: "London",
+            data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
+        }
     ]
 };
 
@@ -218,17 +220,17 @@ export default function App() {
             }
         }
     };
-    
+
     // Render data grid component
     return (
         <>
-            <HighchartsReact ref={chart} highcharts={Highcharts} options={chartOptions} />
+            <HighchartsReact ref={chart} highcharts={Highcharts} options={chartOptions}/>
             <Spreadsheet ref={spreadsheet} license={license} onchange={updates}>
-                <Worksheet data={data} columns={columns} minDimensions={[0, 4]} />
+                <Worksheet data={data} columns={columns} minDimensions={[0, 4]}/>
             </Spreadsheet>
         </>
-        );
-    }
+    );
+}
 ```
 ```vue
 <template>
@@ -355,14 +357,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import { Chart } from 'highcharts'
-import * as jspreadsheet from "jspreadsheet";
-import * as charts from "@jspreadsheet/charts";
+import Highcharts, { AlignValue, VerticalAlignValue } from 'highcharts'
+import jspreadsheet from "jspreadsheet";
+import charts from "@jspreadsheet/charts";
 
-// Set the license
-jspreadsheet.setLicense('###license###');
+jspreadsheet.setExtensions({ charts });
 
-const chartOptions = {
+const chartOptions: Highcharts.Options = {
     title: {
         text: "Monthly Average Temperature",
         x: -20 //center
@@ -389,23 +390,27 @@ const chartOptions = {
     },
     legend: {
         layout: "vertical",
-        align: "right",
-        verticalAlign: "middle",
+        align: "right" as AlignValue,
+        verticalAlign: "middle" as VerticalAlignValue,
         borderWidth: 0
     },
     series: [{
+            type: "line", 
             name: "Tokyo",
             data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6]
         },
         {
+            type: "line", 
             name: "New York",
             data: [-0.2, 0.8, 5.7, 11.3, 17.0, 22.0, 24.8, 24.1, 20.1, 14.1, 8.6, 2.5]
         },
         {
+            type: "line", 
             name: "Berlin",
             data: [-0.9, 0.6, 3.5, 8.4, 13.5, 17.0, 18.6, 17.9, 14.3, 9.0, 3.9, 1.0]
         },
         {
+            type: "line", 
             name: "London",
             data: [3.9, 4.2, 5.7, 8.5, 11.9, 15.2, 17.0, 16.6, 14.2, 10.3, 6.6, 4.8]
         }
@@ -414,56 +419,55 @@ const chartOptions = {
 
 // Create the data grid component
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #chartContainer></div>
-        <div #spreadsheet></div>`;
+        <div #spreadsheet></div>`,
 })
 export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    @ViewChild("chartContainer") chartContainer: ElementRef;
+    @ViewChild("spreadsheet") spreadsheet!: ElementRef;
+    @ViewChild("chartContainer") chartContainer!: ElementRef;
+
+    chart!: Highcharts.Chart;
+    
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
-        // Create summary spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [{
-                data: [
-                    [ chartOptions.series[0].name, ...chartOptions.series[0].data ],
-                    [ chartOptions.series[1].name, ...chartOptions.series[1].data ],
-                    [ chartOptions.series[2].name, ...chartOptions.series[2].data ],
-                    [ chartOptions.series[3].name, ...chartOptions.series[3].data ]
-                ],
-                columns: [
-                    { type: 'text', width:'200' },
-                ],
-            }],
-            onchange: (instance, cell, x, y, value) => {
-                // If the related series does not exists create a new one
-                if (! this.chart.series[y]) {
-                    // Create a new series row
-                    let row = [];
-                    for (i = 1; i < instance.options.data[y].length; i++) {
-                        row.push(parseFloat(instance.options.data[y][i]));
-                    }
-                    // Append new series to the chart
-                    chart.addSeries({ name: instance.options.data[y][0], data: row });
-                } else {
-                    if (x == 0) {
-                        // Update legend
-                        this.chart.series[y].update({ name:value });
-                    } else {
-                        // Update chart data
-                        this.chart.series[y].data[x-1].update({ y:parseFloat(value) });
-                    }
-                }
-            },
-        });
+    ngAfterViewInit() {
+    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+      worksheets: [
+        {
+          data: [
+            [chartOptions.series![0].name, ...(chartOptions.series![0] as any).data],
+            [chartOptions.series![1].name, ...(chartOptions.series![1] as any).data],
+            [chartOptions.series![2].name, ...(chartOptions.series![2] as any).data],
+            [chartOptions.series![3].name, ...(chartOptions.series![3] as any).data],
+          ],
+          columns: [{ type: "text" }],
+        },
+      ],
+      onchange: (instance, cell, x:any, y:any, value) => {
+        const sheetData = instance.options.data as any[][]; 
+        if (!this.chart.series[y]) {
+          const row: number[] = [];
+          for (let i = 1; i < (sheetData[y]?.length ?? 0); i++) {
+            row.push(parseFloat(sheetData[y][i]));
+          }
+          this.chart.addSeries({ name: sheetData[y][0], data: row } as any);
+        } else {
+          if (x === 0) {
+            (this.chart.series[y] as Highcharts.Series).update({
+                type: "line",
+                name: value as string
+              } as Highcharts.SeriesOptionsType);
+          } else {
+            this.chart.series[y].data[x - 1].update({ y: parseFloat(value as string) });
+          }
+        }
+      },
+    });
 
-        // Create external chart component
-        this.chart = Highcharts.chart(this.chartContainer.nativeElement, chartOptions);
-
-    }
+    this.chart = Highcharts.chart(this.chartContainer.nativeElement, chartOptions);
+  }
 }
 ```
- 

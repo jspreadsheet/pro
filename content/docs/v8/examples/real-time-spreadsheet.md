@@ -2,8 +2,6 @@ title: Real-time Spreadsheet
 keywords: Jspreadsheet, Jexcel, javascript, read-time spreadsheet
 description: Real-time spreadsheet sharing and collaboration with Jspreadsheet Cloud.
 
-[Back to Examples](/docs/v8/examples)
-
 # Real-time Spreadsheet
 
 [Jspreadsheet Cloud](/cloud) is a hosting service that allows you to share with other users in real-time. 

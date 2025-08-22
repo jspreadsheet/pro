@@ -2,7 +2,7 @@ title: Spreadsheet Events
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, events
 description: This section provides more demonstrations the Jspreadsheet events and the global event dispatcher. An integration example with data synchronization using events.
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # Spreadsheet Events
 
@@ -111,14 +111,14 @@ let chart = null;
 
 let data1 = [
     ['Mazda', 2001, 2000, '2006-01-01'],
-    ['Pegeout', 2010, 5000, '2005-01-01'],
+    ['Peugeot', 2010, 5000, '2005-01-01'],
     ['Honda Fit', 2009, 3000, '2004-01-01'],
     ['Honda CRV', 2010, 6000, '2003-01-01'],
 ];
 
 let data2 = [
     ['Mazda', 2001, 2000, '2006-01-01'],
-    ['Pegeout', 2010, 5000, '2005-01-01'],
+    ['Peugeot', 2010, 5000, '2005-01-01'],
     ['Honda Fit', 2009, 3000, '2004-01-01'],
     ['Honda CRV', 2010, 6000, '2003-01-01'],
 ];

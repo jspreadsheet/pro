@@ -7,7 +7,7 @@ description: Discover how to enable and apply CSS styles to cells in Jspreadshee
 Jspreadsheet is constructed using real DOM elements, which allows you to apply CSS directly to the cells. However, when you use external styling, there is no internal tracking, history, or persistence. Therefore, Jspreadsheet offers settings and methods to manage the internal style programmatically.  
 
 {.secondary}
-> **What is new**
+> **What is new**\
 > Jspreadsheet now features a global style property at the spreadsheet level, enabling the reuse of styles across different worksheets cells, columns and rows. It allows CSS styles to be applied to entire rows or columns through Excel-like syntax, such as A:A or 1:1. 
 
 ## Documentation
@@ -16,11 +16,12 @@ Jspreadsheet is constructed using real DOM elements, which allows you to apply C
 
 You can manage the spreadsheet cell style with the following methods.
 
-| Method     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-| -----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| getStyle   | Get style from one or multiple cells. <br/>@param {string\|null} - Cell identification or null for the whole table. <br/>@param {boolean?} - Return the indexes of the global style. <br/>`getStyle(cellName: String \| null, onlyIndexes?: Boolean)`                                                                                                                                                                                                               |
-| setStyle   | Set a single cell style by name, or set the style for multiple cells. <br/>@param {String\|Object} - ID of a cell or an object with multiple cells and the style definitions. <br/>@param {String?} property - Style property <br/>@param {String?} value - Style value <br/>@param {Boolean?} forceOverwrite - true to overwrite the existing CSS. <br/>`setStyle: (cell: string \| object, property?: string, value?: string, forceOverwrite?: boolean) => void;` |
-| resetStyle | Reset the style for one or multiple cells <br/>@param {string\|string[]} - String to identify a cell or an array of cell identifications (A1, A2... etc) <br/>`resetStyle(cellName: String \| String[])`                                                                                                                                                                                                                                                            |
+| Method     | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| -----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| getStyle   | Get style from one or multiple cells. <br/>@param {string\|null} - Cell identification or null for the whole table. <br/>@param {boolean?} - Return the indexes of the global style. <br/>`getStyle(cellName: String \| null, onlyIndexes?: Boolean)`                                                                                                                                                                                                                             |
+| setStyle   | Set a single cell style by name or range. Can be use in batch operations. <br/>@param {String\|String[]\|Object} - ID of a cell or an object with multiple cells and the style definitions. <br/>@param {String?} property - Style property <br/>@param {String?} value - Style value <br/>@param {Boolean?} forceOverwrite - true to overwrite the existing CSS. <br/>`setStyle: (cell: string \| object, property?: string, value?: string, forceOverwrite?: boolean) => void;` |
+| resetStyle | Reset the style for one or multiple cells <br/>@param {string\|string[]} - String to identify a cell or an array of cell identifications (A1, A2... etc) <br/>`resetStyle(cellName: String \| String[])`                                                                                                                                                                                                                                                                          |
+| getStyleId | Help to find existing styleId <br/>@param {string} - Style string                                                                                                                                                                                                                                                                                                                                                                                                                 |
 
  
 
@@ -49,11 +50,15 @@ The following property is available through the initialization of the online spr
 | Property          | Description                                                                                                                            |
 | ------------------|----------------------------------------------------------------------------------------------------------------------------------------|
 | style: string[]   | The global style definition is an array of CSS strings to generate the CSS classes that will be used across all worksheets.            |
+
+{.secondary .vue}
+> **Note:**\
+> When using the VueJS wrapper, the spreadsheet's `style` prop is renamed to `styles` to prevent conflicts with Vue's built-in `style` attribute.
  
-### Example
 
 The following declaration defined the style string that are available in the spreadsheet level, and you can utilize declare the style per cell, column or row.
 
+{.ignore}
 ```javascript
 // Create the spreadsheet
 jspreadsheet(document.getElementById('spreadsheet'), {
@@ -63,6 +68,22 @@ jspreadsheet(document.getElementById('spreadsheet'), {
             'C:C': 0,
             'E1': 1,
         },
+    }],
+    style: ['background-color: #ccffff; font-weight: bold', 'color: red']
+});
+```
+
+### Rows and Columns Style
+
+You can now specify a style ID as a property in the column or row initial setting declaration.
+
+{.ignore}
+```javascript
+// Create the spreadsheet
+jspreadsheet(document.getElementById('spreadsheet'), {
+    worksheets: [{
+        minDimensions: [4,4],
+        columns: [{ s: 1 }, { s: 1 }],
     }],
     style: ['background-color: #ccffff; font-weight: bold', 'color: red']
 });
@@ -104,8 +125,8 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -122,8 +143,8 @@ export default function App() {
 
     // Render component
     return (<Spreadsheet ref={spreadsheet} license={license}>
-            <Worksheet style={style} minDimensions={[6,4]} />
-        </Spreadsheet>);
+        <Worksheet style={style} minDimensions={[6, 4]}/>
+    </Spreadsheet>);
 }
 ```
 ```vue
@@ -162,12 +183,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -176,7 +198,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -262,7 +284,7 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :style="globalStyle">
+    <Spreadsheet ref="spreadsheet" :license="license" :styles="globalStyle">
         <Worksheet :style="style" :minDimensions="[6,4]" />
     </Spreadsheet>
 </template>
@@ -301,12 +323,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
@@ -315,7 +338,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -372,7 +395,7 @@ let w = jspreadsheet(document.getElementById('spreadsheet'), {
                 type: 'dropdown',
                 title: 'Product Origin',
                 width: 300,
-                url: '/jspreadsheet/countries', // Remote source for your dropdown
+                url: 'https://jspreadsheet.com/jspreadsheet/countries', // Remote source for your dropdown
                 autocomplete: true,
                 multiple: true
             },
@@ -437,7 +460,7 @@ export default function App() {
             type: 'dropdown',
             title: 'Product Origin',
             width: 300,
-            url: '/jspreadsheet/countries', // Remote source for your dropdown
+            url: 'https://jspreadsheet.com/jspreadsheet/countries', // Remote source for your dropdown
             autocomplete: true,
             multiple: true
         },
@@ -486,151 +509,172 @@ export default function App() {
     <Spreadsheet ref="spreadsheet" :license="license">
         <Worksheet :data="data" :columns="columns" :style="style" />
     </Spreadsheet>
-    <textarea ref='console' style='width:100%;max-width:600px;height:100px;'></textarea>
-    <input type="button" value="Set A2 background"
-        @click="setStyle('A2', 'background-color', 'yellow')" />
-    <input type="button" value="Change A3, B3 style"
-        @click="setStyle({ A3:'font-weight: bold;', B3:'background-color: yellow;' })" />
-    <input type="button" value="Get A1 style"
-        @click="console.value.innerHTML = getStyle('A1')" />
-    <input type="button" value="Get the table style"
-        @click="console.value.innerHTML = JSON.stringify(getStyle())" />
+    <textarea ref="consoleRef" style="width:100%;max-width:600px;height:100px;"></textarea>
+    <input type="button" value="Set A2 background" @click="setStyle1" />
+    <input type="button" value="Change A3, B3 style" @click="setStyle2" />
+    <input type="button" value="Get A1 style" @click="setStyle3" />
+    <input type="button" value="Get the table style" @click="setStyle4" />
 </template>
 
 <script>
 import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
+import { ref } from "vue";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
 const license = '###license###';
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
-    },
+    components: { Spreadsheet, Worksheet },
     setup() {
         const data = [
-            ['US', 'Cheese', 'Yes', '2019-02-12'],
-            ['CA;US;UK', 'Apples', 'Yes', '2019-03-01'],
-            ['CA;BR', 'Carrots', 'No', '2018-11-10'],
-            ['BR', 'Oranges', 'Yes', '2019-01-12'],
+            ["US", "Cheese", "Yes", "2019-02-12"],
+            ["CA;US;UK", "Apples", "Yes", "2019-03-01"],
+            ["CA;BR", "Carrots", "No", "2018-11-10"],
+            ["BR", "Oranges", "Yes", "2019-01-12"]
         ];
         const columns = [
             {
-                type: 'dropdown',
-                title: 'Product Origin',
+                type: "dropdown",
+                title: "Product Origin",
                 width: 300,
-                url: '/jspreadsheet/countries', // Remote source for your dropdown
+                url: "https://jspreadsheet.com/jspreadsheet/countries",
                 autocomplete: true,
                 multiple: true
             },
-            {
-                type: 'text',
-                title: 'Description',
-                width: 200
-            },
-            {
-                type: 'dropdown',
-                title: 'Stock',
-                width: 100 ,
-                source: ['No','Yes']
-            },
-            {
-                type: 'calendar',
-                title: 'Best before',
-                width: 100
-            },
+            { type: "text", title: "Description", width: 200 },
+            { type: "dropdown", title: "Stock", width: 100, source: ["No", "Yes"] },
+            { type: "calendar", title: "Best before", width: 100 }
         ];
         const style = {
-            A1:'background-color: orange;',
-            B1:'background-color: orange;',
+            A1: "background-color: orange;",
+            B1: "background-color: orange;"
         };
 
-        // Return object
-        return {
-            data,
-            columns,
-            style,
-            license
-        };
+        const consoleRef = ref();
+
+        return { data, columns, style, license, consoleRef };
+    },
+    methods: {
+        setStyle1() {
+            this.$refs.spreadsheet.current[0].setStyle("A2", "background-color", "yellow");
+        },
+        setStyle2() {
+            this.$refs.spreadsheet.current[0].setStyle({
+                A3: "font-weight: bold;",
+                B3: "background-color: yellow;"
+            });
+        },
+        setStyle3() {
+            this.$refs.consoleRef.value =
+                this.$refs.spreadsheet.current[0].getStyle("A1");
+        },
+        setStyle4() {
+            this.$refs.consoleRef.value = JSON.stringify(
+                this.$refs.spreadsheet.current[0].getStyle()
+            );
+        }
     }
-}
+};
 </script>
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
-        <div #spreadsheet></div>
-        <textarea ref='console' style='width:100%;max-width:600px;height:100px;'></textarea>
-        <input type="button" value="Set A2 background"
-            (click)="this.worksheets[0].setStyle('A2', 'background-color', 'yellow')} />
-        <input type="button" value="Change A3, B3 style"
-            (click)="this.worksheets[0].setStyle({ A3:'font-weight: bold;', B3:'background-color: yellow;' })} />
-        <input type="button" value="Get A1 style"
-            (click)="console.current.innerHTML = this.worksheets[0].getStyle('A1')} />
-        <input type="button" value="Get the table style"
-            (click)="console.current.innerHTML = JSON.stringify(this.worksheets[0].getStyle())} />
+      <div #spreadsheet></div>
+      <textarea #consoleRef style="width:100%;max-width:600px;height:100px;"></textarea>
+  
+      <input type="button" value="Set A2 background"
+          (click)="worksheets[0].setStyle('A2', 'background-color', 'yellow')" />
+  
+      <input type="button" value="Change A3, B3 style"
+          (click)="worksheets[0].setStyle({ A3: 'font-weight: bold;', B3: 'background-color: yellow;' })" />
+  
+      <input type="button" value="Get A1 style" (click)="getA1Style()" />
+  
+      <input type="button" value="Get the table style" (click)="getTableStyle()" />
     `
-})
-export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    // Worksheets
+  })
+  export class AppComponent {
+    @ViewChild("spreadsheet") spreadsheet!: ElementRef;
+    @ViewChild("consoleRef") consoleRef!: ElementRef<HTMLTextAreaElement>;
+  
     worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngOnInit() {
-        // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+  
+    ngAfterViewInit() {
+      this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+        worksheets: [
+          {
             data: [
-                ['US', 'Cheese', 'Yes', '2019-02-12'],
-                ['CA;US;UK', 'Apples', 'Yes', '2019-03-01'],
-                ['CA;BR', 'Carrots', 'No', '2018-11-10'],
-                ['BR', 'Oranges', 'Yes', '2019-01-12'],
+              ["US", "Cheese", "Yes", "2019-02-12"],
+              ["CA;US;UK", "Apples", "Yes", "2019-03-01"],
+              ["CA;BR", "Carrots", "No", "2018-11-10"],
+              ["BR", "Oranges", "Yes", "2019-01-12"]
             ],
             columns: [
-                {
-                    type: 'dropdown',
-                    title: 'Product Origin',
-                    width: 300,
-                    url: '/jspreadsheet/countries', // Remote source for your dropdown
-                    autocomplete: true,
-                    multiple: true
-                },
-                {
-                    type: 'text',
-                    title: 'Description',
-                    width: 200
-                },
-                {
-                    type: 'dropdown',
-                    title: 'Stock',
-                    width: 100 ,
-                    source: ['No','Yes']
-                },
-                {
-                    type: 'calendar',
-                    title: 'Best before',
-                    width: 100
-                },
+              {
+                type: "dropdown",
+                title: "Product Origin",
+                width: 300,
+                url: "https://jspreadsheet.com/jspreadsheet/countries",
+                autocomplete: true,
+                multiple: true
+              },
+              { type: "text", title: "Description", width: 200 },
+              { type: "dropdown", title: "Stock", width: 100, source: ["No", "Yes"] },
+              { type: "calendar", title: "Best before", width: 100 }
             ],
             style: {
-                A1:'background-color: orange;',
-                B1:'background-color: orange;',
+              A1: "background-color: orange;",
+              B1: "background-color: orange;"
             },
-        });
-    }
-}
-```
- 
+            tableOverflow: true,
+            minDimensions: [4, 4]
 
- 
+
+          }
+        ]
+      });
+    }
+  
+    getA1Style() {
+      this.consoleRef.nativeElement.value = this.worksheets[0].getStyle('A1') as string;
+    }
+  
+    getTableStyle() {
+      this.consoleRef.nativeElement.value = JSON.stringify(this.worksheets[0].getStyle());
+    }
+  }
+```
+
+### Row or Column style using ranges
+
+Starting with version 11.1.0, you can programmatically apply styles to entire rows or columns using ranges.
+
+{.ignore}
+```javascript
+// Apply style to the first column
+instance.setStyle('A:A', 'background-color', 'pink');
+// Apply style to the first row
+instance.setStyle('1:1', 'background-color', 'blue');
+```
+
+### Reset All Style
+
+The following script can be used to reset the style of the entire data grid.
+
+{.ignore}
+```javascript
+instance.resetStyle(Object.keys(instance.getStyle()));
+```
 
 ### External CSS styling
 
@@ -655,9 +699,20 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </style>
 ```
  
+{.green}
+> ## Release Notes
+> ### Differences from version 10
+> From version 11 you can declare the id of the style string during the spreadsheet initiation using the property columns or rows.
 
-## Release Notes
-
-### Differences from version 10
-
-From version 11 you can declare the id of the style string during the spreadsheet initiation using the property columns or rows.
+{.ignore}
+```javascript
+// Create the spreadsheet
+jspreadsheet(document.getElementById('spreadsheet'), {
+    worksheets: [{
+        minDimensions: [4,4],
+        columns: [{ s: 1 }, { s: 1 }],
+        rows: [ { s: 0 }],
+    }],
+    style: ['background-color: #ccffff; font-weight: bold', 'color: red']
+});
+```

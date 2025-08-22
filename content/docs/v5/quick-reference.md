@@ -2,7 +2,7 @@ title: Jspreadsheet Methods and Events
 keywords: Jspreadsheet, jquery, javascript, excel-like, spreadsheet, table, documentation
 description: A quick reference of all methods, configuration variables, events and language.
 
-[Back to Documentation](/docs/v5)
+
 
 # Jspreadsheet quick reference
 

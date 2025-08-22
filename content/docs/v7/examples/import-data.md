@@ -2,7 +2,6 @@ title: Load data from CSV or JSON or XLSX
 keywords: Jspreadsheet, Jexcel, javascript, excel-like, spreadsheet, loading data, csv, json, xlsx.
 description: How to create a new spreadsheet based on different data sources, such as CSV, JSON, array, or XLSX files using Jspreadsheet Version 7.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Create a javascript spreadsheet
 

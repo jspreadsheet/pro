@@ -2,7 +2,7 @@ title: Spreadsheet Column Editors
 keywords: Jspreadsheet, data grid, javascript, excel-like, spreadsheet, documentation, editors
 description: Editors are a very flexible and powerful way to transform simple spreadsheets into amazing web-based applications. Learn more about the native editors and how to build your own editors.
 
-[Back to Documentation](/docs/v8)
+
 
 # Editors
 

@@ -48,13 +48,14 @@ You can use the following settings to configure the spreadsheet and worksheet ma
 
 Available events related to the worksheets.
 
-| Event             | Description                                                                                        |
-| ------------------|----------------------------------------------------------------------------------------------------|
-| onopenworksheet   | `onopenworksheet(worksheet: Object, worksheetNumber: Number) : void`                               | onbeforecreateworksheet | Intercept the creation of worksheets to cancel or define the configuration of the new worksheet. <br/>`onbeforecreateworksheet(worksheet: Object, options: Object, worksheetNumber: Number) : mixed` |
-| oncreateworksheet | `oncreateworksheet(worksheet: Object, worksheetOptions: Object, worksheetNumber: Number) : void`   |
-| onrenameworksheet | `onrenameworksheet(worksheet: Object, worksheet: Number, value: String, oldValue: String) : void;` |
-| ondeleteworksheet | `ondeleteworksheet(worksheet: Object, oldWorksheetNumber: Number) : void`                          |
-| onmoveworksheet   | `onmoveworksheet(worksheet: Object, newPosition: Number, oldPosition: Number) : void`              |
+| Event                   | Description                                                                                                                                                                                          |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| onopenworksheet         | `onopenworksheet(worksheet: Object, worksheetNumber: Number) : void`                                                                                                                                 |
+| onbeforecreateworksheet | Intercept the creation of worksheets to cancel or define the configuration of the new worksheet. <br/>`onbeforecreateworksheet(worksheet: Object, options: Object, worksheetNumber: Number) : mixed` |
+| oncreateworksheet       | `oncreateworksheet(worksheet: Object, worksheetOptions: Object, worksheetNumber: Number) : void`                                                                                                     |
+| onrenameworksheet       | `onrenameworksheet(worksheet: Object, worksheet: Number, value: String, oldValue: String) : void;`                                                                                                   |
+| ondeleteworksheet       | `ondeleteworksheet(worksheet: Object, oldWorksheetNumber: Number) : void`                                                                                                                            |
+| onmoveworksheet         | `onmoveworksheet(worksheet: Object, newPosition: Number, oldPosition: Number) : void`                                                                                                                |
 
  
 
@@ -94,9 +95,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 });
 </script>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 export default function App() {
     // Spreadsheet array of worksheets
@@ -111,8 +113,8 @@ export default function App() {
     // Render component
     return (
         <Spreadsheet ref={spreadsheet} license={license} tabs={tabs}>
-            <Worksheet minDimensions={[6,6]} />
-            <Worksheet minDimensions={[6,6]} />
+            <Worksheet minDimensions={[6, 6]}/>
+            <Worksheet minDimensions={[6, 6]}/>
         </Spreadsheet>
     );
 }
@@ -269,7 +271,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -277,7 +282,7 @@ jspreadsheet.setLicense('###license###');
 @Component({
     selector: "app-root",
     template: `<div #spreadsheet></div>
-    <input type="button" value="Active worksheet" (click)="alert(this.worksheets[0].parent.getWorksheetActive())">
+    <input type="button" value="Active worksheet" (click)="triggerAlert()">
     <input type="button" value="Rename 1st worksheet" (click)="this.worksheets[0].parent.renameWorksheet(0, 'Anything')">`
 })
 export class AppComponent {
@@ -285,7 +290,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             // Allow create a new tab button
@@ -296,6 +301,10 @@ export class AppComponent {
                 { minDimensions: [6,6] },
             ],
         });
+    }
+
+    triggerAlert() {
+        alert(this.worksheets[0].parent.getWorksheetActive())
     }
 }
 ```
@@ -456,7 +465,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -470,7 +482,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             // Allow create a new tab button
@@ -601,7 +613,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -617,7 +632,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             tabs: true,
@@ -771,7 +786,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -785,7 +803,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [

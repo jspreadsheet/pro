@@ -2,7 +2,7 @@ title: Auto Number Column Type
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, editors, javascript progressbar
 description: The autonumber column generates a sequence number for the rows.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # Auto Number Column Type
 

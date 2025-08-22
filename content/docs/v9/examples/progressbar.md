@@ -2,7 +2,7 @@ title: Progressbar Column Type Editor
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, editors, javascript progressbar
 description: A quick example using the data grid progressbar column type.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # progressbar Column Type
 

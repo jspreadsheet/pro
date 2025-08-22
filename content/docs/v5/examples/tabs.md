@@ -2,7 +2,7 @@ title: Grouping Multiple Spreadsheets in Tabs
 keywords: Jspreadsheet, javascript, multiple spreadsheets, tabs
 description: How to enable tabs on the online spreadsheet, so that users can add new worksheets.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Spreadsheet Worksheets
 

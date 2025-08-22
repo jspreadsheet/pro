@@ -2,7 +2,7 @@ title: Loading from a JSON object
 keywords: Jspreadsheet, javascript, javascript vanilla, javascript plugin, plugin, excel-like, spreadsheet, table, tables, grid, datatables, loading from json
 description: How to create a dynamic table from a JSON object.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Loading from JSON
 

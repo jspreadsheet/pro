@@ -147,7 +147,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 import "@jspreadsheet/formula-charts";
 
 // Set the license
@@ -155,15 +155,16 @@ jspreadsheet.setLicense('###license###');
 
 // Create the data grid component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create summary spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -181,11 +182,7 @@ export class AppComponent {
                         'A1': [5, 1],
                     },
                     defaultColWidth: '40px',
-                    columns: [
-                        {width: '100px'},
-                        {width: '100px'},
-                    ],
-                    rows: {0: {height: '380px'}},
+                    columns: [],
                 }
             ]
         });
@@ -338,7 +335,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 import "@jspreadsheet/formula-charts";
 
 // Set the license
@@ -347,14 +344,14 @@ jspreadsheet.setLicense('###license###');
 // Create the data grid component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create summary spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -372,11 +369,7 @@ export class AppComponent {
                         'A1': [5, 1],
                     },
                     defaultColWidth: '40px',
-                    columns: [
-                        {width: '100px'},
-                        {width: '100px'},
-                    ],
-                    rows: {0: {height: '380px'}},
+                    columns: [],
                 }
             ]
         });
@@ -522,7 +515,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 import "@jspreadsheet/formula-charts";
 
 // Set the license
@@ -531,14 +524,14 @@ jspreadsheet.setLicense('###license###');
 // Create the data grid component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create summary spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -555,9 +548,7 @@ export class AppComponent {
                         'A1': [13, 1],
                     },
                     defaultColWidth: '40px',
-                    columns: [
-                        {width: '100px'},
-                    ],
+                    columns: [],
                 }
             ]
         });
@@ -724,7 +715,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 import "@jspreadsheet/formula-charts";
 
 // Set the license
@@ -733,14 +724,14 @@ jspreadsheet.setLicense('###license###');
 // Create the data grid component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create summary spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -763,11 +754,7 @@ export class AppComponent {
                         'A1': [5, 1],
                     },
                     defaultColWidth: '40px',
-                    columns: [
-                        {width: '100px'},
-                        {width: '100px'},
-                    ],
-                    rows: {0: {height: '380px'}},
+                    columns: [],
                 }
             ]
         });
@@ -936,7 +923,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 import "@jspreadsheet/formula-charts";
 
 // Set the license
@@ -945,14 +932,14 @@ jspreadsheet.setLicense('###license###');
 // Create the data grid component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create summary spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -975,11 +962,7 @@ export class AppComponent {
                         'A1': [5, 1],
                     },
                     defaultColWidth: '40px',
-                    columns: [
-                        {width: '100px'},
-                        {width: '100px'},
-                    ],
-                    rows: {0: {height: '380px'}},
+                    columns: [],
                 }
             ]
         });
@@ -1020,21 +1003,23 @@ jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [
         {
             data: [
-                ['Line progression', 150, 50, 250, 300, 350, '=CHART("sparkline", B1:F1)'],
+                ['Line progression', 150, 50, 250, 300, 350],
+                ['=CHART("sparkline", B1:F1)']
             ],
             columns: [
                 {type: 'text', width: '200px'},
-                {type: 'number'},
-                {type: 'number'},
-                {type: 'number'},
-                {type: 'number'},
-                {type: 'number'},
-                {type: 'text', width: '200px'},
+                {type: 'number', width: '50px'},
+                {type: 'number', width: '50px'},
+                {type: 'number', width: '50px'},
+                {type: 'number', width: '50px'},
+                {type: 'number', width: '50px'},
             ],
             rows: {
-                0: {height: '100px'}
+                0: {height: '50px'},
+                1: {height: '200px'}
             },
             worksheetName: 'Line progression',
+            mergeCells: { A2: [6, 1] }
         },
     ]
 });
@@ -1056,8 +1041,9 @@ export default function App() {
     // Worksheets
     const worksheets = [
         {
-            data: [
-                ['Line progression', 150, 50, 250, 300, 350, '=CHART("sparkline", B1:F1)'],
+           data: [
+                ['Line progression', 150, 50, 250, 300, 350],
+                ['=CHART("sparkline", B1:F1)']
             ],
             columns: [
                 {type: 'text', width: '200px'},
@@ -1101,7 +1087,8 @@ export default {
         const worksheets = [
             {
                 data: [
-                    ['Line progression', 150, 50, 250, 300, 350, '=CHART("sparkline", B1:F1)'],
+                    ['Line progression', 150, 50, 250, 300, 350],
+                    ['=CHART("sparkline", B1:F1)']
                 ],
                 columns: [
                     {type: 'text', width: '200px'},
@@ -1129,7 +1116,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 import "@jspreadsheet/formula-charts";
 
 // Set the license
@@ -1138,33 +1128,31 @@ jspreadsheet.setLicense('###license###');
 // Create the data grid component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create summary spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
                 {
                     data: [
-                        ['Line progression', 150, 50, 250, 300, 350, '=CHART("sparkline", B1:F1)'],
+                        ['Line progression', 150, 50, 250, 300, 350],
+                        ['=CHART("sparkline", B1:F1)']
                     ],
                     columns: [
-                        {type: 'text', width: '200px'},
+                        {type: 'text'},
                         {type: 'number'},
                         {type: 'number'},
                         {type: 'number'},
                         {type: 'number'},
                         {type: 'number'},
-                        {type: 'text', width: '200px'},
+                        {type: 'text'},
                     ],
-                    rows: {
-                        0: {height: '100px'}
-                    },
                     worksheetName: 'Line progression',
                 },
             ]
@@ -1205,19 +1193,23 @@ jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [
         {
             data: [
-                ['Pie chart', 30, 50, 26, 150, 90, '=CHART("sparkline", { "data": (B1:F1), "color": ["#F06292", "#64B5F6", "#81C784", "#FF7043", "#FFD54F"] }, "pie")'],
+                ['Pie chart', 30, 50, 26, 150, 90],
+                ['=CHART("sparkline", { "data": (B1:F1), "color": ["#F06292", "#64B5F6", "#81C784", "#FF7043", "#FFD54F"] }, "pie")']
             ],
             columns: [
-                {type: 'text', width: '200px'},
-                {type: 'number'},
-                {type: 'number'},
-                {type: 'number'},
-                {type: 'number'},
-                {type: 'number'},
-                {type: 'text', width: '200px'},
+                {type: 'text', width: '100px'},
+                {type: 'number', width: '50px'},
+                {type: 'number', width: '50px'},
+                {type: 'number', width: '50px'},
+                {type: 'number', width: '50px'},
+                {type: 'number', width: '50px'},
             ],
-            rows: {0: {height: '100px'}},
+            rows: {
+                0: {height: '50px'},
+                1: {height: '200px'}
+            },
             worksheetName: 'Pie chart',
+            mergeCells: { A2: [6, 1] }
         },
     ]
 });
@@ -1240,7 +1232,8 @@ export default function App() {
     const worksheets = [
         {
             data: [
-                ['Pie chart', 30, 50, 26, 150, 90, '=CHART("sparkline", { "data": (B1:F1), "color": ["#F06292", "#64B5F6", "#81C784", "#FF7043", "#FFD54F"] }, "pie")'],
+                ['Pie chart', 30, 50, 26, 150, 90],
+                ['=CHART("sparkline", { "data": (B1:F1), "color": ["#F06292", "#64B5F6", "#81C784", "#FF7043", "#FFD54F"] }, "pie")']
             ],
             columns: [
                 {type: 'text', width: '200px'},
@@ -1281,7 +1274,8 @@ export default {
         const worksheets = [
             {
                 data: [
-                    ['Pie chart', 30, 50, 26, 150, 90, '=CHART("sparkline", { "data": (B1:F1), "color": ["#F06292", "#64B5F6", "#81C784", "#FF7043", "#FFD54F"] }, "pie")'],
+                    ['Pie chart', 30, 50, 26, 150, 90],
+                    ['=CHART("sparkline", { "data": (B1:F1), "color": ["#F06292", "#64B5F6", "#81C784", "#FF7043", "#FFD54F"] }, "pie")']
                 ],
                 columns: [
                     {type: 'text', width: '200px'},
@@ -1306,7 +1300,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 import "@jspreadsheet/formula-charts";
 
 // Set the license
@@ -1315,31 +1309,31 @@ jspreadsheet.setLicense('###license###');
 // Create the data grid component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create summary spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
                 {
                     data: [
-                        ['Pie chart', 30, 50, 26, 150, 90, '=CHART("sparkline", { "data": (B1:F1), "color": ["#F06292", "#64B5F6", "#81C784", "#FF7043", "#FFD54F"] }, "pie")'],
+                        ['Pie chart', 30, 50, 26, 150, 90],
+                        ['=CHART("sparkline", { "data": (B1:F1), "color": ["#F06292", "#64B5F6", "#81C784", "#FF7043", "#FFD54F"] }, "pie")']
                     ],
                     columns: [
-                        {type: 'text', width: '200px'},
+                        {type: 'text'},
                         {type: 'number'},
                         {type: 'number'},
                         {type: 'number'},
                         {type: 'number'},
                         {type: 'number'},
-                        {type: 'text', width: '200px'},
+                        {type: 'text'},
                     ],
-                    rows: {0: {height: '100px'}},
                     worksheetName: 'Pie chart',
                 },
             ]

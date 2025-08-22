@@ -2,7 +2,7 @@ title: Javascript Spreadsheet From a CSV file
 keywords: Jspreadsheet, javascript, excel-like, spreadsheet, loading data, create from CSV
 description: How to create a JavaScript spreadsheet or data grid from a CSV file.
 
-[Back to Examples](/docs/v5/examples "Back to the examples section")
+
 
 # Create a javascript spreadsheet from a CSV file
 

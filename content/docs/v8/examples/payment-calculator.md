@@ -2,8 +2,6 @@ title: Spreadsheet Payment calculator
 keywords: Jspreadsheet, Jexcel, javascript, payment calculator spreadsheet
 description: A simple spreadsheet to calculate a car finance using Jspreadsheet.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
-
 # Spreadsheet Payment Calculator
 
 A nice example using various cell types for one unique column.

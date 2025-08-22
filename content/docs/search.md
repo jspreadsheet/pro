@@ -90,9 +90,10 @@ document.getElementById("btn1").onclick = () => worksheets[0].search('app');
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -103,11 +104,11 @@ export default function App() {
     const spreadsheet = useRef();
     // Columns
     const columns = [
-        { type:'text', width:80 },
-        { type:'text', width:100 },
-        { type:'text', width:100 },
-        { type:'text', width:200 },
-        { type:'text', width:100 },
+        {type: 'text', width: 80},
+        {type: 'text', width: 100},
+        {type: 'text', width: 100},
+        {type: 'text', width: 200},
+        {type: 'text', width: 100},
     ]
 
     // Render component
@@ -120,9 +121,9 @@ export default function App() {
                     csvHeaders
                     search
                     pagination="10"
-                    paginationOptions={[10,25,50,100]} />
+                    paginationOptions={[10, 25, 50, 100]}/>
             </Spreadsheet>
-            <input type={'button'} value={'Search for APP'} onClick={() => spreadsheet.current[0].search('app')} />
+            <input type={'button'} value={'Search for APP'} onClick={() => spreadsheet.current[0].search('app')}/>
         </>
     );
 }
@@ -158,7 +159,7 @@ export default {
         search(cell) {
             this.$refs.spreadsheet.current[0].search('app');
         },
-    }
+    },
     data() {
         const columns = [
             { type:'text', width:80 },
@@ -166,7 +167,7 @@ export default {
             { type:'text', width:100 },
             { type:'text', width:200 },
             { type:'text', width:100 },
-        ],
+        ];
 
         return {
             columns,
@@ -178,23 +179,27 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
-        <input type='button' value='Search for APP' (click)="this.worksheets[0].search('app')" />`;
+        <input type='button' value='Search for APP' (click)="this.worksheets[0].search('app')" />`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             csv: '/tests/demo.csv',
@@ -470,22 +475,26 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -733,7 +742,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 import jSuites from "jSuites";
 
 // Set your JSS license key (The following key only works for one day)
@@ -741,16 +753,17 @@ jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
-        <input type='button' value='Search for APP' (click)="this.worksheets[0].search('app')" />`;
+        <input type='button' value='Search for APP' (click)="this.worksheets[0].search('app')" />`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{

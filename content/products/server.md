@@ -21,9 +21,25 @@ The Jspreadsheet Server extension is a JavaScript plugin designed for real-time 
 {.green}
 > Jspreadsheet Server enhances your applications with real-time collaboration and data persistence securely hosted on your servers.  
 
+> Version 11.9.0+
+> There are changes on the method signature for auth, connect and disconnect. Now the argument is query defined on the frontend.
+
 ## Documentation
 
 The Jspreadsheet Server maintains a remote spreadsheet configuration for sharing across different users.  
+
+### Changelog
+
+#### 11.11.0
+
+- Added compression support;
+- Introduced `before` events for authentication and request transformations;
+- The auth property has been dropped; please use `beforeConnect` and `beforeLoad`;
+
+#### 11.9.0+
+
+- There are changes on the method signature for auth, connect and disconnect. Now the argument is query defined on the frontend.
+
 
 ### How to install
 
@@ -33,34 +49,35 @@ npm install @jspreadsheet/server
 
 ### Settings
 
-| Property                                               | Description                                             |
-|--------------------------------------------------------|---------------------------------------------------------|
-| port: string                                           | Service Port. Default: 3000                             |
-| license: object                                        | License information                                     |
-| auth: async function(socket) => boolean                | User authentication handler.                            |
-| load: async function(string) => object                 | Load the spreadsheet configuration by guid.             |
-| create: async function(config) => object               | Create a new spreadsheet with the given configuration.  |
-| change: async function(config) => object               | Update a given spreadsheet configuration.               |
-| destroy: async function(string) => boolean             | Delete a spreadsheet by guid.                           |
-| connect: async function(socket, identifier) => void    | It is triggered when a new user joins.                  |
-| disconnect: async function(socket, identifier) => void | Disconnect event                                        |
-| error: async function(e) => void                       | Something went wrong and why.                           |
+| **Description**                                                                                                                                                    |
+|--------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `port: number`<br>The service port the server will listen on. Default: 3000.                                                                                       |
+| `config: object`<br>Defines extra headers, such as CORS configurations.                                                                                            |
+| `license: object`<br>License information required for server deployment.                                                                                           |
+| `extensions: object`<br>Allows loading additional features or customizations via extensions.                                                                       |
+| `beforeConnect: async function(auth) => boolean`<br>Intercepts and validates user connections before they are established.                                         |
+| `beforeLoad: async function(guid, auth) => boolean`<br>Intercepts and authorizes access before loading a spreadsheet by its GUID.                                  |
+| `beforeChange: async function(guid, changes, auth) => boolean`<br>Intercepts and processes changes before they are applied to a spreadsheet.                       |
+| `load: async function(guid, auth, cache) => object \| boolean`<br>Loads the spreadsheet configuration by its GUID. Returns the configuration object or a boolean.  |
+| `create: async function(string, config, auth) => object`<br>Creates a new spreadsheet with the given configuration.                                                |
+| `change: async function(string, changes, auth, onerror) => object`<br>Updates a spreadsheet with the specified data and configuration.                             |
+| `replace: async function(string, config, auth) => boolean`<br>Overwrites the spreadsheet’s settings, including the data.                                           |
+| `destroy: async function(string, auth) => boolean`<br>Deletes a spreadsheet using its GUID.                                                                        |
+| `error: async function(e) => void`<br>Handles and logs errors, providing custom error management.                                                                  |
+
 
 ## Development considerations
 
 Jspreadsheet Server is really flexible and requires you to declare some features such as authentication and some persistent events. So, we the following table gives you some considerations for each available event.
 
-### Auth
-This event can be used to ensure that users have appropriate access to the spreadsheets. You can use `socket.query.token` to retrieve the token presented on the frontend.
-
-### Change
-In this event, developers can access and possibly update the spreadsheet's configuration. However, updating the entire configuration may need to be more efficient, as demonstrated in the example below. The information presented in the event can be used to optimize the persistence methods.
-
-### Connect
-Allows the addition of custom events to the socket, enhancing interaction capabilities within the Jspreadsheet environment.
+### Before Events
+The events can be used to ensure that users have appropriate access to the spreadsheets.
 
 ### Error
 Allows the developer to save the error in a file for debug purposes for example.
+
+### Limitations
+Functions or references cannot be persisted from the client to the server. Therefore, you must manage your events on the front end.
 
 {.green}
 > **Server Monitoring**
@@ -82,40 +99,29 @@ const license = {
     licenseKey: 'your-certificate-license'
 }
 
-// Create jspreadsheet server
+// Create a new server
 server({
     port: 3000,
-    config: {
-        // Socket IO server configuration
-    },
     error: async function(e) {
         // Save the error in a file  
     },
-    auth: async function(socket) {
-        // Return true when the user is authenticated
-        return true;
-    },
-    load: async function(guid) {
+    load: async function(guid, auth) {
         // Load an existing spredasheet based on the guid identifier
     },
-    create: async function(guid, config) {
+    create: async function(guid, config, auth) {
         // Create a new spreadsheet
     },
-    destroy: async function(guid) {
+    destroy: async function(guid, auth) {
         // Destroy an existing spreadsheet
     },
-    change: async function(guid, changes) {
+    change: async function(guid, changes, auth, onerror) {
         // Update an existing spradsheet
     },
-    connect: async function(socket, ident) {
-        // When a new user connects
-    },
-    disconnect: async function(socket, ident) {
-        // When a user disconnects
+    replace: async function(guid, config, auth) {
+        // Overwrite the existing spreadsheet
     },
     license: license,
 });
-
 ```
 
 ## Example
@@ -160,7 +166,7 @@ server({
         // Kill the thread
         process.exit(1);
     },
-    auth: async function(socket) {
+    beforeLoad: async function(guid, auth) {
         return true;
     },
     load: async function(guid) {
@@ -200,17 +206,24 @@ Connect to your server and create and open an existing remote spreadsheet using 
 
 ```html
 <html>
-<link rel="stylesheet" href="https://jspreadsheet.com/v11/jspreadsheet.css" type="text/css" />
-<link rel="stylesheet" href="https://jsuites.net/v5/jsuites.css" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/jspreadsheet@11/dist/index.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jspreadsheet@11/dist/jspreadsheet.min.css" type="text/css" />
+<script src="https://cdn.jsdelivr.net/npm/jsuites/dist/jsuites.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsuites/dist/jsuites.min.css" type="text/css" />
+
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Material+Icons" />
 
-<script src="https://jspreadsheet.com/v11/jspreadsheet.js"></script>
-<script src="https://jsuites.net/v5/jsuites.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
 <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/formula-pro/dist/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@jspreadsheet/client/dist/index.min.js"></script>
 
 <div id="spreadsheet"></div>
 
 <script>
+// Set your JSS license key (The following key only works for one day)
+jspreadsheet.setLicense('###license###');
+
 jspreadsheet.setExtensions({ formula, client });
 
 // Connect
@@ -218,23 +231,25 @@ let remote = client.connect({
     // Point this to your own domain server
     url: 'https://jspreadsheet.com',
     // Internal socket path
-    path: 'server/socket.io/',
+    path: 's/',
     // Can be used to send extra information to the server to validate this user connection
-    token: 'user-identifier'
+    token: 'jwt-token'
 });
 
-// Create in case does not exist
-remote.create('53aa4c90-791d-4a65-84a6-8ac25d6b1105', {
+// Create in case does not exist. worksheetName is mandatory
+remote.create('53aa4c90-791d-4a65-84a6-8ac25d6b1101', {
     tabs: true,
     toolbar: true,
     worksheets: [{
-        minDimensions: [4,6]
+        minDimensions: [4,6],
+        // Worksheet name is mandatory
+        worksheetName: 'Sheet1',
     }]
 });
 
 // Connect to a spreadsheet
 jspreadsheet(document.getElementById('spreadsheet'), {
-    guid: '53aa4c90-791d-4a65-84a6-8ac25d6b1105'
+    guid: '53aa4c90-791d-4a65-84a6-8ac25d6b1101'
 });
 </script>
 ```
@@ -261,21 +276,25 @@ const guid = '53aa4c90-791d-4a65-84a6-8ac25d6b1105'
 // Connect to the server
 let remote = client.connect({
     // Point this to your own domain server
-    url: 'https://jspreadsheet.com',
+    url: 'https://yourserver.com',
     // Internal socket path
     path: 'server/socket.io/',
     // Can be used to send extra information to the server to validate this user connection
-    token: 'user-identifier'
+    token: 'jwt-token'
 });
 
 // Create just one time. Do nothing if already exists
 remote.create(guid, {
-  tabs: true,
-  toolbar: true,
-  worksheets: [{
-    minDimensions: [4,6]
-  }]
-}).then(() => {});
+    tabs: true,
+    toolbar: true,
+    worksheets: [{
+        minDimensions: [4,6],
+        // Worksheet name is mandatory
+        worksheetName: 'Sheet1',
+    }]
+}).then((result) => {
+    console.log(result);
+});
 
 export default function App() {
   // Spreadsheet array of worksheets
@@ -313,32 +332,31 @@ const guid = '53aa4c90-791d-4a65-84a6-8ac25d6b1105'
 
 // Connect to the server
 let remote = client.connect({
-    // Point this to your own domain server
-    url: 'https://jspreadsheet.com',
-    // Internal socket path
-    path: 'server/socket.io/',
-    // Can be used to send extra information to the server to validate this user connection
-    token: 'user-identifier'
+  // Point this to your own domain server
+  url: 'https://yourserver.com',
+  // Can be used to send extra information to the server to validate this user connection
+  token: 'jwt-token'
 });
 
 // Create just one time. Do nothing if already exists
 remote.create(guid, {
-        tabs: true,
-        toolbar: true,
-        worksheets: [
-            {
-                minDimensions: [4, 6],
-            },
-        ],
-    })
-    .then(() => { });
+  tabs: true,
+  toolbar: true,
+  worksheets: [{
+    minDimensions: [4,6],
+    // Worksheet name is mandatory
+    worksheetName: 'Sheet1',
+  }]
+})
+.then((result) => {
+    console.log(result)
+});
 
 export default {
   components: {
       Spreadsheet,
   },
   data() {
-
       return {
           guid
       };
@@ -368,20 +386,23 @@ jspreadsheet.setExtensions({ client, formula });
 // Connect
 let remote = client.connect({
     // Point this to your own domain server
-    url: 'https://jspreadsheet.com',
-    // Internal socket path
-    path: 'server/socket.io/',
+    url: 'https://yourserver.com',
     // Can be used to send extra information to the server to validate this user connection
-    token: 'user-identifier'
+    token: 'jwt-token'
 });
 
 // Create in case does not exist
-remote.create('53aa4c90-791d-4a65-84a6-8ac25d6b1105', {
+remote.create(guid, {
     tabs: true,
     toolbar: true,
     worksheets: [{
-        minDimensions: [4,6]
+        minDimensions: [4,6],
+        // Worksheet name is mandatory
+        worksheetName: 'Sheet1',
     }]
+})
+.then((result) => {
+    console.log(result)
 });
 
 @Component({
@@ -394,12 +415,10 @@ export class AppComponent {
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
     ngAfterViewInit() {
-
-
-    // Create spreadsheet
-    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-        guid: '53aa4c90-791d-4a65-84a6-8ac25d6b1105'
-    });
+        // Create spreadsheet
+        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+            guid: '53aa4c90-791d-4a65-84a6-8ac25d6b1105'
+        });
     }
 }
 ```
@@ -410,11 +429,12 @@ export class AppComponent {
 
 Use this React TypeScript project as a template to set up a real-time collaborative spreadsheet server within minutes.
 
-- https://github.com/jspreadsheet/spreadsheet-react-server
+- [React Spreadsheet Server](https://github.com/jspreadsheet/spreadsheet-react-server)
 
 
 ### Jspreadsheet Server Nginx Setup
 
-You can quick enable your server using nginx following this tutorial
+You can quickly enable your server using nginx following this tutorial
 
-- https://github.com/jspreadsheet/server
+- [Spreadsheet Server Nginx Configuration](https://github.com/jspreadsheet/server)
+

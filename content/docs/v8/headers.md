@@ -2,7 +2,7 @@ title: Spreadsheet Headers
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, headers
 description: Learn to add custom headers to your spreadsheet and how to change those programmatically.
 
-[Back to the Documentation](/docs/v8 "Back to the documentation section")
+
 
 # Spreadsheet Headers
 
@@ -30,7 +30,7 @@ The header titles and tooltip can be defined through the attributes title and to
 ```html
 <script>
 jspreadsheet(document.getElementById('spreadsheet'), {
-    workshets: [{
+    worksheets: [{
         columns: [
             {
                 type: 'text',

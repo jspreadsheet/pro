@@ -2,7 +2,6 @@ title: Create a Data Grid From a JSON object
 keywords: Jspreadsheet, Jexcel, javascript, javascript vanilla, javascript plugin, plugin, excel-like, spreadsheet, table, tables, grid, datatables, loading from json
 description: How to create a dynamic data grid from a JSON object.
 
-[Back to Examples](/docs/v7/examples "Back to the examples section")
 
 # Data Grid from JSON
 

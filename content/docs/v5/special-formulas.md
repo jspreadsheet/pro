@@ -2,7 +2,7 @@ title: Jspreadsheet Custom Excel-like Formulas
 keywords: Jspreadsheet, jquery, javascript, excel-like, spreadsheet, table, special formulas, extensions
 description: A quick list of extended and special native formulas
 
-[Back to Documentation](/docs/v5)
+
 
 # Special formulas
 

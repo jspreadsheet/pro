@@ -2,8 +2,6 @@ title: Data Grid Embed Images
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, images
 description: Handle images on the cells of your online spreadsheet.
 
-[Back to documentation](/docs/v9 "Back to the documentation section")
-
 # Spreadsheet images
 
 This section is dedicated to handling images in the web based spreadsheet. 

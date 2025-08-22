@@ -63,16 +63,17 @@ worksheet.insertColumn([
 
 There are several events related to the column in your spreadsheet. There are a few `onbefore` events you can use to intercept, validate or cancel a user action.
 
-| Event                    | Description                                                                                                                                                               |
-| -------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| oncreatecolumn           |  When a new column is created.<br/> `oncreatecolumn(worksheet: Object, columnNumber: number, td: HTMLElement, options: Object)`                                           |
-| onbeforeinsertcolumn     | Before a new column is inserted. Return false to cancel the user action.<br/> `onbeforeinsertcolumn(worksheet: Object, columns: Object[]) => Boolean \| Object[] \| void` |
-| oninsertcolumn           |  After a new column is inserted.<br/> `oninsertcolumn(worksheet: Object, column: Object[]) => void`                                                                       |
-| onbeforedeletecolumn     |  Before a column is excluded. Return false to cancel the user action.<br/> `onbeforedeletecolumn(worksheet: Object, cols: Number[]) => boolean \| Number[] \| void`       |
-| ondeletecolumn           |  After a column is excluded.<br/> `ondeletecolumn(worksheet: Object, cols: Number[]) => void`                                                                             |
-| onmovecolumn             |  After a column is moved to a new position.<br/> `onmovecolumn(worksheet: Object, origin: Number, destination: Number, quantity: Number)`                                                   |
-| onresizecolumn           |  After a column width change for one or more columns.<br/> `onresizecolumn(worksheet: Object, column: Mixed, width: Mixed, oldWidth: Mixed)`                              |
-| onchangecolumnvisibility |  When the visibility of cols changes.<br/> `onchangecolumnvisibility(worksheet: Object, state: boolean: affected: []]) => void`                                           |
+| Event                    | Description                                                                                                                                                                                                |
+|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| oncreatecolumn           | When a new column is created.<br/> `oncreatecolumn(worksheet: Object, columnNumber: number, td: HTMLElement, options: Object)`                                                                             |
+| onbeforeinsertcolumn     | Before a new column is inserted. Return false to cancel the user action.<br/> `onbeforeinsertcolumn(worksheet: Object, columns: Object[]) => Boolean \| Object[] \| void`                                  |
+| oninsertcolumn           | After a new column is inserted.<br/> `oninsertcolumn(worksheet: Object, column: Object[]) => void`                                                                                                         |
+| onbeforedeletecolumn     | Before a column is excluded. Return false to cancel the user action.<br/> `onbeforedeletecolumn(worksheet: Object, cols: Number[]) => boolean \| Number[] \| void`                                         |
+| ondeletecolumn           | After a column is excluded.<br/> `ondeletecolumn(worksheet: Object, cols: Number[]) => void`                                                                                                               |
+| onbeforemovecolumn       | Before a column is moved to a new position. Return false to cancel the user action.<br/> `onbeforemovecolumn(worksheet: Object, origin: Number, destination: Number, quantity: Number) => boolean \| void` |
+| onmovecolumn             | After a column is moved to a new position.<br/> `onmovecolumn(worksheet: Object, origin: Number, destination: Number, quantity: Number) => void`                                                           |
+| onresizecolumn           | After a column width change for one or more columns.<br/> `onresizecolumn(worksheet: Object, column: Mixed, width: Mixed, oldWidth: Mixed) => void`                                                        |
+| onchangecolumnvisibility | When the visibility of cols changes.<br/> `onchangecolumnvisibility(worksheet: Object, state: boolean: affected: []]) => void`                                                                             |
 
  
 
@@ -179,9 +180,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -190,7 +192,7 @@ const license = '###license###';
 // Adding an arbitrary number leading zeros.
 const pad = (cell, value, x, y, instance, options) => {
     if (value !== '') {
-        let size = options.digits||0;
+        let size = options.digits || 0;
         value = value.toString();
         while (value.length < size) {
             value = "0" + value;
@@ -206,13 +208,13 @@ export default function App() {
     const data = [[1]];
     // Columns
     const columns = [
-        { render: pad, digits: 6 }
+        {render: pad, digits: 6}
     ];
 
     // Render component
     return (
         <Spreadsheet ref={spreadsheet} license={license}>
-            <Worksheet data={data} columns={columns} />
+            <Worksheet data={data} columns={columns}/>
         </Spreadsheet>
     );
 }
@@ -267,14 +269,14 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Adding an arbitrary number leading zeros.
-const pad = (cell, value, x, y, instance, options) => {
-    if (value !== '') {
+const pad = (cell: any, value: any, x: any, y: any, instance: any, options: any) => {
+    if (value || Number(value)) {
         let size = options.digits||0;
         value = value.toString();
         while (value.length < size) {
@@ -287,21 +289,22 @@ const pad = (cell, value, x, y, instance, options) => {
 // Create component
 @Component({
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             tabs: true,
             toolbar: true,
             worksheets: [{
                 data: [[1]],
-                minDimensions: [8,8],
+                minDimensions: [6,6],
+                // @ts-ignore
                 columns: [{ render: pad, digits: 6 }]
             }],
         });
@@ -409,117 +412,225 @@ export default function App() {
 ```
 ```vue
 <template>
+  <div>
     <Spreadsheet ref="spreadsheet" :license="license">
-        <Worksheet :data="data" />
+      <Worksheet :data="data" />
     </Spreadsheet>
     <ul>
-        <li @click="this.$refs.spreadsheet.current[0].insertColumn()">
-            Click to insert a new blank column at the end of the table
-        </li>
-        <li @click="this.$refs.spreadsheet.current[0].insertColumn(2, 0, 1)">
-            Click to insert two new blank columns at the beginning of the table
-        </li>
-        <li @click="this.$refs.spreadsheet.current[0].insertColumn([{ data: ['0.99', '1.22', '3.11', '2.21' ]}])">
-            Click to insert a new column with pre-populated values at the end of the table
-        </li>
-        <li @click="this.$refs.spreadsheet.current[0].deleteColumn()">
-            Click to delete the last column
-        </li>
-        <li @click="this.$refs.spreadsheet.current[0].moveColumn(0, 2)">
-            Click to move the first column to the third position
-        </li>
-        <li @click="this.$refs.spreadsheet.current[0].hideColumn(0)">
-            Hide the first column
-        </li>
-        <li @click="this.$refs.spreadsheet.current[0].showColumn(0)">
-            Show the first column
-        </li>
+      <li @click="insertColumnAtEnd">
+        Click to insert a new blank column at the end of the table
+      </li>
+      <li @click="insertColumnsAtBeginning">
+        Click to insert two new blank columns at the beginning of the table
+      </li>
+      <li @click="insertColumnWithData">
+        Click to insert a new column with pre-populated values at the end of the
+        table
+      </li>
+      <li @click="deleteLastColumn">Click to delete the last column</li>
+      <li @click="moveFirstColumnToThird">
+        Click to move the first column to the third position
+      </li>
+      <li @click="hideFirstColumn">Hide the first column</li>
+      <li @click="showFirstColumn">Show the first column</li>
     </ul>
+  </div>
 </template>
 
 <script>
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import { Spreadsheet, Worksheet } from '@jspreadsheet/vue';
+import 'jsuites/dist/jsuites.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
 
 const license = '###license###';
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+  data() {
+    // Data
+    const data = [
+      ['US', 'Cheese', 1000],
+      ['CA', 'Apples', 1200],
+      ['CA', 'Carrots', 2000],
+      ['BR', 'Oranges', 3800],
+    ];
+    return {
+      data,
+      license,
+    };
+  },
+  methods: {
+    // Helper method to get spreadsheet instance
+    getSpreadsheetInstance() {
+      return this.$refs.spreadsheet?.current?.[0];
     },
-    data() {
-        // Data
-        const data = [
-            ['US', 'Cheese', 1000 ],
-            ['CA', 'Apples', 1200 ],
-            ['CA', 'Carrots', 2000 ],
-            ['BR', 'Oranges', 3800 ],
-        ];
-        return {
-            data,
-            license,
-        };
-    }
-}
+
+    insertColumnAtEnd() {
+      const spreadsheet = this.getSpreadsheetInstance();
+      if (spreadsheet) {
+        spreadsheet.insertColumn();
+      }
+    },
+    insertColumnsAtBeginning() {
+      const spreadsheet = this.getSpreadsheetInstance();
+      if (spreadsheet) {
+        spreadsheet.insertColumn(2, 0, 1);
+      }
+    },
+    insertColumnWithData() {
+      const spreadsheet = this.getSpreadsheetInstance();
+      if (spreadsheet) {
+        spreadsheet.insertColumn([{ data: ['0.99', '1.22', '3.11', '2.21'] }]);
+      }
+    },
+    deleteLastColumn() {
+      const spreadsheet = this.getSpreadsheetInstance();
+      if (spreadsheet) {
+        spreadsheet.deleteColumn();
+      }
+    },
+    moveFirstColumnToThird() {
+      const spreadsheet = this.getSpreadsheetInstance();
+      if (spreadsheet) {
+        spreadsheet.moveColumn(0, 2);
+      }
+    },
+    hideFirstColumn() {
+      const spreadsheet = this.getSpreadsheetInstance();
+      if (spreadsheet) {
+        spreadsheet.hideColumn(0);
+      }
+    },
+    showFirstColumn() {
+      const spreadsheet = this.getSpreadsheetInstance();
+      if (spreadsheet) {
+        spreadsheet.showColumn(0);
+      }
+    },
+  },
+};
 </script>
 ```
 ```angularjs
-import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import jspreadsheet from 'jspreadsheet';
 
 // Set your JSS license key (The following key only works for one day)
-jspreadsheet.setLicense('###license###');
+jspreadsheet.setLicense(
+  '###license###'
+);
 
 // Create component
 @Component({
-    selector: "app-root",
-    template: `<div #spreadsheet></div>
+  standalone: true,
+  selector: 'app-root',
+  template: `<div #spreadsheet></div>
         <ul>
-            <li (click)="this.worksheets[0].insertColumn()">
+            <li (click)="insertColumnAtEnd()">
                 Click to insert a new blank column at the end of the table
             </li>
-            <li (click)="this.worksheets[0].insertColumn(2, 0, 1)">
+            <li (click)="insertColumnsAtBeginning()">
                 Click to insert two new blank columns at the beginning of the table
             </li>
-            <li (click)="this.worksheets[0].insertColumn([{ data: ['0.99', '1.22', '3.11', '2.21' ]}])">
+            <li (click)="insertColumnWithData()">
                 Click to insert a new column with pre-populated values at the end of the table
             </li>
-            <li (click)="this.worksheets[0].deleteColumn()">
+            <li (click)="deleteLastColumn()">
                 Click to delete the last column
             </li>
-            <li (click)="this.worksheets[0].moveColumn(0, 2)">
+            <li (click)="moveFirstColumnToThird()">
                 Click to move the first column to the third position
             </li>
-            <li (click)="this.worksheets[0].hideColumn(0)">
+            <li (click)="hideFirstColumn()">
                 Hide the first column
             </li>
-            <li (click)="this.worksheets[0].showColumn(0)">
+            <li (click)="showFirstColumn()">
                 Show the first column
             </li>
-        </ul>`;
+        </ul>`,
 })
 export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    // Worksheets
-    worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngOnInit() {
-        // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            tabs: true,
-            toolbar: true,
-            worksheets: [{
-                data: [
-                    ['US', 'Cheese', 1000 ],
-                    ['CA', 'Apples', 1200 ],
-                    ['CA', 'Carrots', 2000 ],
-                    ['BR', 'Oranges', 3800 ],
-                ]
-            }],
-        });
+  @ViewChild('spreadsheet') spreadsheet: ElementRef;
+  // Worksheets
+  worksheets: jspreadsheet.worksheetInstance[];
+
+  // Create a new data grid
+  ngAfterViewInit() {
+    // Create spreadsheet
+    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+      tabs: true,
+      toolbar: true,
+      worksheets: [
+        {
+          data: [
+            ['US', 'Cheese', 1000],
+            ['CA', 'Apples', 1200],
+            ['CA', 'Carrots', 2000],
+            ['BR', 'Oranges', 3800],
+          ],
+        },
+      ],
+    });
+  }
+
+  // Helper method to get the first worksheet
+  private getWorksheet() {
+    return this.worksheets?.[0];
+  }
+
+  insertColumnAtEnd() {
+    const worksheet = this.getWorksheet();
+    if (worksheet) {
+      worksheet.insertColumn();
     }
+  }
+
+  insertColumnsAtBeginning() {
+    const worksheet = this.getWorksheet();
+    if (worksheet) {
+      worksheet.insertColumn(2, 0, true);
+    }
+  }
+
+  insertColumnWithData() {
+    const worksheet = this.getWorksheet();
+    if (worksheet) {
+      // @ts-ignore
+      worksheet.insertColumn([{ data: ['0.99', '1.22', '3.11', '2.21'] }]);
+    }
+  }
+
+  deleteLastColumn() {
+    const worksheet = this.getWorksheet();
+    if (worksheet) {
+      // @ts-ignore
+      worksheet.deleteColumn();
+    }
+  }
+
+  moveFirstColumnToThird() {
+    const worksheet = this.getWorksheet();
+    if (worksheet) {
+      worksheet.moveColumn(0, 2);
+    }
+  }
+
+  hideFirstColumn() {
+    const worksheet = this.getWorksheet();
+    if (worksheet) {
+      worksheet.hideColumn(0);
+    }
+  }
+
+  showFirstColumn() {
+    const worksheet = this.getWorksheet();
+    if (worksheet) {
+      worksheet.showColumn(0);
+    }
+  }
 }
 ```
  
@@ -565,95 +676,143 @@ document.getElementById('btn1').onclick = function() { worksheets[0].insertColum
 </html>
 ```
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import React, { useRef } from 'react';
+import { Spreadsheet, Worksheet } from '@jspreadsheet/react';
+import 'jsuites/dist/jsuites.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
 
-const license = '###license###';
+const license =
+  '###license###';
 
 export default function App() {
-    // Spreadsheet array of worksheets
-    const spreadsheet = useRef();
-    // Adding a new column event
-    const onbeforeinsertcolumn = (worksheet, columns) => {
-        return columns.map(function(v) {
-            return { ...v, data:[1,2,3] }
-        });
-    };
-    // Render component
-    return (
-        <Spreadsheet ref={spreadsheet} license={license} onbeforeinsertcolumn={onbeforeinsertcolumn}>
-            <Worksheet minDimensions={[4,4]} />
-        </Spreadsheet>
-    );
+  // Spreadsheet array of worksheets
+  const spreadsheet = useRef();
+  // Adding a new column event
+  const onbeforeinsertcolumn = (worksheet, columns) => {
+    return columns.map(function (v) {
+      return { ...v, data: [1, 2, 3] };
+    });
+  };
+
+  const insertCol = () => {
+    spreadsheet.current[0].insertColumn();
+  };
+
+  // Render component
+  return (
+    <>
+      <Spreadsheet
+        ref={spreadsheet}
+        license={license}
+        onbeforeinsertcolumn={onbeforeinsertcolumn}
+      >
+        <Worksheet minDimensions={[4, 4]} />
+      </Spreadsheet>
+      <p>
+        <button onClick={insertCol}>
+          Insert a new blank column at the end
+        </button>
+      </p>
+    </>
+  );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :onbeforeinsertcolumn="onbeforeinsertcolumn">
-        <Worksheet :minDimensions="[4,4]" />
-    </Spreadsheet>
+  <Spreadsheet
+    ref="spreadsheet"
+    :license="license"
+    :onbeforeinsertcolumn="onbeforeinsertcolumn"
+  >
+    <Worksheet :minDimensions="[4, 4]" />
+  </Spreadsheet>
+  <button @click="insertCol">Insert a new blank column at the end</button>
 </template>
 
 <script>
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import { Spreadsheet, Worksheet } from '@jspreadsheet/vue';
+import 'jsuites/dist/jsuites.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
 
-const license = '###license###';
+const license =
+  '###license###';
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
-    },
-    data() {
-        // Adding a new column event
-        const onbeforeinsertcolumn = (worksheet, columns) => {
-            return columns.map(function(v) {
-                return { ...v, data:[1,2,3] }
-            });
-        };
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+  data() {
+    // Adding a new column event
+    const onbeforeinsertcolumn = (worksheet, columns) => {
+      return columns.map(function (v) {
+        return { ...v, data: [1, 2, 3] };
+      });
+    };
 
-        return {
-            onbeforeinsertcolumn,
-            license,
-        }
-    }
-}
+    return {
+      onbeforeinsertcolumn,
+      license,
+    };
+  },
+  methods: {
+    insertCol: function () {
+      this.$refs.spreadsheet.current[0].insertColumn();
+    },
+  },
+};
 </script>
+
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
-    selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+  selector: 'app-root',
+  template: `
+        <div #spreadsheet></div>
+        <button (click)="insertCol()">Insert a column at the end</button>
+    `,
 })
 export class AppComponent {
-    @ViewChild("spreadsheet") spreadsheet: ElementRef;
-    // Worksheets
-    worksheets: jspreadsheet.worksheetInstance[];
-    // Create a new data grid
-    ngOnInit() {
-        // Create spreadsheet
-        this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
-            worksheets: [{
-                minDimensions: [4,4],
-            }],
-            onbeforeinsertcolumn: function(worksheet, columns) {
-                return columns.map(function(v) {
-                    return { ...v, data:[1,2,3] }
-                });
-            }
+  @ViewChild('spreadsheet') spreadsheet: ElementRef;
+  // Worksheets
+  worksheets: jspreadsheet.worksheetInstance[];
+  // Create a new data grid
+  ngAfterViewInit() {
+    // Create spreadsheet
+    this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
+      worksheets: [
+        {
+          minDimensions: [4, 4],
+        },
+      ],
+      // @ts-ignore
+      onbeforeinsertcolumn: function (worksheet, columns) {
+        return columns.map(function (v) {
+          return { ...v, data: [1, 2, 3] };
         });
+      },
+    });
+  }
+
+  // Helper method to get the first worksheet
+  private getWorksheet() {
+    return this.worksheets?.[0];
+  }
+
+  // New method based on Vue example
+  insertCol() {
+    const worksheet = this.getWorksheet();
+    if (worksheet) {
+      worksheet.insertColumn();
     }
+  }
 }
 ```
  

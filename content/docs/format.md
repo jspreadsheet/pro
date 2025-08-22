@@ -98,9 +98,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 });
 </script>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -117,7 +118,7 @@ export default function App() {
     // Render data grid component
     return (
         <Spreadsheet ref={spreadsheet}>
-            <Worksheet columns={columns} minDimensions={[6,6]} />
+            <Worksheet columns={columns} minDimensions={[6, 6]}/>
         </Spreadsheet>
     );
 }
@@ -156,12 +157,13 @@ export default {
 ```
 ```angularjs
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
 export class AppComponent {
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -370,7 +372,7 @@ export default {
 ```angularjs
 export class AppComponent {
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -389,7 +391,7 @@ export class AppComponent {
 
 export class AppComponent {
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -406,7 +408,7 @@ export class AppComponent {
 
 export class AppComponent {
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -511,7 +513,7 @@ export default {
 })
 export class AppComponent {
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -611,7 +613,7 @@ export default {
 })
 export class AppComponent {
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -705,7 +707,7 @@ export default {
 })
 export class AppComponent {
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
@@ -867,7 +869,7 @@ export default function App() {
 
     // Render data grid component
     return (
-        <Spreadsheet ref={spreadsheet} license={license} toolbar>
+        <Spreadsheet ref={spreadsheet} license={license} toolbar={true}>
             <Worksheet data={data} columns={columns} minDimensions={[6,10]} defaultColWidth="110px" />
         </Spreadsheet>
     );
@@ -941,13 +943,22 @@ export default {
 </script>
 ```
 ```angularjs
+import { Component, ViewChild, ElementRef } from "@angular/core";
+import jspreadsheet from "jspreadsheet";
+
+// Set your JSS license key (The following key only works for one day)
+jspreadsheet.setLicense('###license###');
+
 @Component({
     selector: "app-root",
     template: `<div #spreadsheet></div>`
 })
 export class AppComponent {
+    @ViewChild('spreadsheet') spreadsheet: ElementRef;
+    // Worksheets
+    worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             toolbar: true,
@@ -1102,7 +1113,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -1119,7 +1130,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             tabs: true,
@@ -1183,7 +1194,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 import React, { useRef } from "react";
 import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
 import jspreadsheet from "jspreadsheet";
-import moment from "momentjs";
+import moment from "moment";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -1219,50 +1230,59 @@ export default function App() {
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license">
-        <Worksheet :data="data" :columns="columns" />
-    </Spreadsheet>
+  <Spreadsheet ref="spreadsheet" :license="license">
+    <Worksheet :data="data" :columns="columns" :minDimensions="[4, 8]" />
+  </Spreadsheet>
 </template>
 
 <script>
-import { Spreadsheet, Worksheet } from "@jspreadsheet/vue";
-import "jsuites/dist/jsuites.css";
-import "jspreadsheet/dist/jspreadsheet.css";
+import { Spreadsheet, Worksheet } from '@jspreadsheet/vue';
+import moment from 'moment';
+import 'jsuites/dist/jsuites.css';
+import 'jspreadsheet/dist/jspreadsheet.css';
 
-const license = '###license###';
+const license =
+  '###license###';
 
 export default {
-    components: {
-        Spreadsheet,
-        Worksheet,
+  components: {
+    Spreadsheet,
+    Worksheet,
+  },
+  methods: {
+    customRender(td, value, x, y, instance, options) {
+      if (td && td.innerText && options.customFormat) {
+        td.innerText = moment(td.innerText).format(options.customFormat);
+      }
     },
-    data() {
-        // Data
-        const data = [['2022-01-01 12:14:12'],['=TODAY()']];
-        // Columns
-        const columns = [{
-            width: 300,
-            customFormat: 'MMMM Do YYYY, h:mm:ss a',
-            render: (td, value, x, y, instance, options) => {
-                if (td && td.innerText && options.customFormat) {
-                    td.innerText = moment(td.innerText).format(options.customFormat);
-                }
-            },
-            align: 'right',
-        }];
+  },
+  data() {
+    // Data
+    const data = [['2022-01-01 12:14:12'], ['=TODAY()']];
+    // Columns
+    const columns = [
+      {
+        width: 300,
+        customFormat: 'MMMM Do YYYY, h:mm:ss a',
+        render: this.customRender,
+        align: 'right',
+      },
+    ];
 
-        return {
-            data,
-            columns,
-            license,
-        };
-    }
-}
+    return {
+      data,
+      columns,
+      license,
+    };
+  },
+};
 </script>
 ```
 ```angularjs
-import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+// @ts-nocheck
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import jspreadsheet from 'jspreadsheet';
+import moment from 'moment';
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -1283,7 +1303,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             tabs: true,

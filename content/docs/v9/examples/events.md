@@ -2,7 +2,7 @@ title: JavaScript Events
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, events
 description: This section provides more demonstrations of the JS spreadsheet events and the global event dispatcher. An integration example with data synchronization using events.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # Spreadsheet events
 

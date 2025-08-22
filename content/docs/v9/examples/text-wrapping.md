@@ -2,7 +2,7 @@ title: Worksheet Cells: Text Wrapping
 keywords: Jspreadsheet, javascript, plugins, spreadsheet, full screen
 description: A real example of data grid text wrapping.
 
-[Back to Examples](/docs/v9/examples "Back to the examples section")
+
 
 # Text wrapping
 

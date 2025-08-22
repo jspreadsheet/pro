@@ -99,9 +99,10 @@ document.getElementById('btn1').addEventListener('click', () => {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet, jspreadsheet} from "@jspreadsheet/react";
 import formula from "@jspreadsheet/formula-pro";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
@@ -109,7 +110,7 @@ import "jspreadsheet/dist/jspreadsheet.css";
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 // Set the extensions
-jspreadsheet.setExtensions({ formula });
+jspreadsheet.setExtensions({formula});
 
 export default function App() {
     // Spreadsheet array of worksheets
@@ -127,22 +128,22 @@ export default function App() {
         Summary: 'Sheet1!A1:A6',
     }
 
-    const handleCreate = function() {
-            // Create the defined name. All defined names are going to be created on the spreadsheet level.
-            spreadsheet.current[0].setDefinedNames([
-                { index: 'TOTAL', value: 'Sheet1!B1:B6' }
-            ]);
-            // Update the value of C1 to process the total
-            spreadsheet.current[0].setValue('C1', '=SUM(TOTAL)');
+    const handleCreate = function () {
+        // Create the defined name. All defined names are going to be created on the spreadsheet level.
+        spreadsheet.current[0].setDefinedNames([
+            {index: 'TOTAL', value: 'Sheet1!B1:B6'}
+        ]);
+        // Update the value of C1 to process the total
+        spreadsheet.current[0].setValue('C1', '=SUM(TOTAL)');
     }
 
     // Render component
     return (
         <>
             <Spreadsheet ref={spreadsheet} definedNames={definedNames}>
-                <Worksheet data={data} minDimensions={[6,6]} />
+                <Worksheet data={data} minDimensions={[6, 6]}/>
             </Spreadsheet>
-            <p><input type={"button"} value="Create and Execute" onClick={handleCreate} /></p>
+            <p><input type={"button"} value="Create and Execute" onClick={handleCreate}/></p>
         </>
     );
 }
@@ -205,7 +206,7 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 import formula from "@jspreadsheet/formula-pro";
 
 // Set your JSS license key (The following key only works for one day)
@@ -215,18 +216,19 @@ jspreadsheet.setExtensions({ formula });
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
         <button (click)="handleCreate()">Create and Execute</button>
-    `;
+    `,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             toolbar: true,
@@ -246,7 +248,7 @@ export class AppComponent {
         });
     }
 
-    onButtonClick() {
+    handleCreate() {
             // Create the defined name. All defined names are going to be created on the spreadsheet level.
             this.worksheets[0].setDefinedNames([
                 { index: 'TOTAL', value: 'Sheet1!B1:B6' }
@@ -429,8 +431,6 @@ export default {
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import jspreadsheet from 'jspreadsheet';
 import formula from '@jspreadsheet/formula-pro';
-import 'jsuites/dist/jsuites.css';
-import 'jspreadsheet/dist/jspreadsheet.css';
 
 jspreadsheet.setLicense('###license###');
 

@@ -2,7 +2,7 @@ title: Spreadsheet Collapsable Rows
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, row group
 description: How to group create a collapsable row group in your JSS data grid.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Collapsable Rows
 

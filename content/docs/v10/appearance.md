@@ -45,13 +45,14 @@ document.getElementById("togglebtn").onclick = toggle
 <button type="button" id="togglebtn">Toggle skin </button>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
-const toggle = function() {
+const toggle = function () {
     if (document.getElementById('spreadsheet').classList.contains('jss_modern')) {
         document.getElementById('spreadsheet').classList.remove('jss_modern');
     } else {
@@ -66,7 +67,7 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet />
+                <Worksheet/>
             </Spreadsheet>
             <button type="button" onClick={() => toggle()}>Toggle</button>
         </>
@@ -110,23 +111,27 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `<div #spreadsheet></div>
-        <button type="button" (click)="toogle">Toggle</button>`;
+        <button type="button" (click)="toggle()">Toggle</button>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{ minDimensions: [10,10] }],

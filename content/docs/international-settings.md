@@ -1,17 +1,17 @@
 title: International Settings and Configurations
-keywords: Jspreadsheet, data grid, javascript, excel-like, spreadsheet, documentation, international settings, translations, currency, locale, localization, language support, regional settings, date format, number format, currency format, internationalization, multi-language support
+keywords: Jspreadsheet, data grid, JavaScript, excel-like, spreadsheet, documentation, international settings, translations, currency, locale, localization, language support, regional settings, date format, number format, currency format, internationalization, multi-language support
 description: Learn how to configure international settings in Jspreadsheet for enhanced language support, translations, currency settings, and more.
 
 # International Settings
 
-This sections covers a few important points related to the International Usage of Jspreadsheet. 
+This section outlines the key settings and customization options for configuring Jspreadsheet in international and multi-language environments.
 
 ## Documentation
 
-### General number format
+### General Number Format
 
-You can use format numbers automatically even without defining specific mask for each cell or column. intl.formatNumber automatically 
-
+You can format numbers automatically, even without specifying a custom mask for each cell or column. The `intl.formatNumber` function automatically applies locale-specific number formatting.
+ 
 {.ignore}
 ```javascript
 jspreadsheet(HTMLElement, {
@@ -20,29 +20,37 @@ jspreadsheet(HTMLElement, {
         minDimensions: [100,100],
         tableOverflow: true,
         tableWidth: 600
-    },
+    }],
     international: {
         locale: 'pt-BR'
     }
 })
 ```
 
-### Input editor
+### Customizing Formula Argument Separator
 
-The input editor significantly improves user experience by offering full compatibility with Input Method Editors (IME). This feature ensures efficient management of languages that necessitate compound character inputs, particularly when initiating the editor via keyboard interactions.
+If your formulas use a different argument separator you can easily change it. For example, `=SUM(A1; A2)` is common in some locales. To support this, set the `divisor` property via the Formula Pro plugin:
+
+{.ignore}
+```javascript
+formula.divisor = ';'
+````
+
+> Note: This feature is only available with the Formula Pro extension.
+
+### Input Editor
+
+The input editor supports Input Method Editors (IME), which is important for languages that use compound characters, like Chinese, Japanese, or Korean.
 
 ### Translations
 
-Keywords inside Jspreadsheet and its components and screens can be translated using 'jspreadsheet.setDictionary(object)', where the object is composed of keys as English text and values as the correspondent translations.
-
+You can translate the Jspreadsheet interface using `jspreadsheet.setDictionary()`. This function takes an object where the keys are the default English text and the values are your translated strings.
 
 #### Example
 
 ##### Translate the Data Grid Interface
 
 Translate all text in the spreadsheet to Portuguese. 
-
-
 
 ```html
 <html>
@@ -71,7 +79,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 jspreadsheet.setDictionary({
     'Show': 'Mostrar',
     'Search': 'Buscar',
-    'entries': ' entradas',
+    'Showing page {0} of {1} entries': 'Mostrando página {0} de {1} entradas',
     'Column name': 'Nome da coluna',
     'Change column type': 'Mudar tipo de coluna',
     'Insert a new column before': 'Inserir uma coluna antes',
@@ -108,18 +116,6 @@ jspreadsheet.setDictionary({
     'Add current selection to filter': 'Adicionar seleção atual ao filtro',
     'Rename this cell': 'Renomear celula',
     // Calendar text
-    'Jan': 'Jan',
-    'Feb': 'Fev',
-    'Mar': 'Mar',
-    'Apr': 'Abr',
-    'May': 'Mai',
-    'Jun': 'Jun',
-    'Jul': 'Jul',
-    'Aug': 'Ago',
-    'Sep': 'Set',
-    'Oct': 'Out',
-    'Nov': 'Nov',
-    'Dec': 'Dez',
     'January': 'Janeiro',
     'February': 'Fevereiro',
     'March': 'Março',
@@ -151,7 +147,7 @@ import React, { useRef, useEffect } from "react";
 import { Spreadsheet, Worksheet, jspreadsheet } from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
-    
+
 const license = '###license###';
 
 export default function App() {
@@ -200,18 +196,6 @@ export default function App() {
             'Add current selection to filter': 'Adicionar seleção atual ao filtro',
             'Rename this cell': 'Renomear celula',
             // Calendar text
-            'Jan': 'Jan',
-            'Feb': 'Fev',
-            'Mar': 'Mar',
-            'Apr': 'Abr',
-            'May': 'Mai',
-            'Jun': 'Jun',
-            'Jul': 'Jul',
-            'Aug': 'Ago',
-            'Sep': 'Set',
-            'Oct': 'Out',
-            'Nov': 'Nov',
-            'Dec': 'Dez',
             'January': 'Janeiro',
             'February': 'Fevereiro',
             'March': 'Março',
@@ -238,11 +222,11 @@ export default function App() {
     }, [spreadsheet])
 
     return (
-            <Spreadsheet ref={spreadsheet} license={license}>
-                <Worksheet minDimensions={[10,10]} />
-                <Worksheet minDimensions={[10,10]} />
-            </Spreadsheet>
-        );
+        <Spreadsheet ref={spreadsheet} license={license}>
+            <Worksheet minDimensions={[10, 10]}/>
+            <Worksheet minDimensions={[10, 10]}/>
+        </Spreadsheet>
+    );
 };
 ```
 ```vue
@@ -307,18 +291,6 @@ export default {
             'Add current selection to filter': 'Adicionar seleção atual ao filtro',
             'Rename this cell': 'Renomear celula',
             // Calendar text
-            'Jan': 'Jan',
-            'Feb': 'Fev',
-            'Mar': 'Mar',
-            'Apr': 'Abr',
-            'May': 'Mai',
-            'Jun': 'Jun',
-            'Jul': 'Jul',
-            'Aug': 'Ago',
-            'Sep': 'Set',
-            'Oct': 'Out',
-            'Nov': 'Nov',
-            'Dec': 'Dez',
             'January': 'Janeiro',
             'February': 'Fevereiro',
             'March': 'Março',
@@ -360,15 +332,16 @@ jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -418,23 +391,10 @@ export class AppComponent {
             'Add current selection to filter': 'Adicionar seleção atual ao filtro',
             'Rename this cell': 'Renomear celula',
             // Calendar text
-            'Jan': 'Jan',
-            'Feb': 'Fev',
-            'Mar': 'Mar',
-            'Apr': 'Abr',
-            'May': 'Mai',
-            'Jun': 'Jun',
-            'Jul': 'Jul',
-            'Aug': 'Ago',
-            'Sep': 'Set',
-            'Oct': 'Out',
-            'Nov': 'Nov',
-            'Dec': 'Dez',
             'January': 'Janeiro',
             'February': 'Fevereiro',
             'March': 'Março',
             'April': 'Abril',
-            'May': 'Maio',
             'June': 'Junho',
             'July': 'Julho',
             'August': 'Agosto',
@@ -459,7 +419,7 @@ export class AppComponent {
 
 ### Translating Formula Names
 
-Formula names within Jspreadsheet can be localized by defining their translations and specifying the method argument separator as illustrated below:
+You can localize formula names in Jspreadsheet by defining their translations. You can also specify the argument separator used in your locale. Here’s how to do both:
 
 {.ignore}
 ```html
@@ -755,9 +715,9 @@ let keys = Object.keys(translate)
 keys.forEach(function(v){
     formula[translate[v]] = formula[v];
 });
-// Activate the precision adjust
+// Activate the precision adjusted
 formula.adjustPrecision = true;
-// By default method arguments are separated by comma. But you can change that using:
+// By default, comma separates method arguments. But you can change that using:
 formula.divisor = ';';
 // Run the formula
 formula("SOMA(1;2;3)"); // result = 6
@@ -768,8 +728,7 @@ formula("SOMA(1;2;3)"); // result = 6
 
 ## Calendar Configuration
 
-The calendar component includes international settings like the starting day of the week, names of days and months, and date format, as shown in the following example:
-
+The calendar component supports international settings such as the first day of the week, day and month names, and date format. You can configure these options like this:
 
 ```html
 <html>
@@ -798,13 +757,16 @@ jspreadsheet.setLicense('###license###');
 // Create the spreadsheet
 jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [
-        { minDimensions: [6,6] }, // Worksheet 1
-        { minDimensions: [6,6] }, // Worksheet 2
+        {
+            minDimensions: [6,6],
+            columns: [
+                {
+                    type: 'calendar',
+                    options: calendarOptions,
+                }
+            ]
+        },
     ],
-    columns: [{
-        type: 'calendar',
-        options: calendarOptions,
-    }]
 });
 </script>
 </html>
@@ -837,18 +799,16 @@ export default function App() {
 
     // Render data grid component
     return (
-        <Spreadsheet ref={spreadsheet} license={license} columns={columns}>
-            <Worksheet minDimension={[6, 6]}/>
-            <Worksheet minDimension={[6, 6]}/>
+        <Spreadsheet ref={spreadsheet} license={license}>
+            <Worksheet minDimension={[6, 6]} columns={columns} />
         </Spreadsheet>
     );
 }
 ```
 ```vue
 <template>
-    <Spreadsheet ref="spreadsheet" :license="license" :columns="columns">
-        <Worksheet :minDimensions="[6, 6]" />
-        <Worksheet :minDimensions="[6, 6]" />
+    <Spreadsheet ref="spreadsheet" :license="license">
+        <Worksheet :minDimensions="[6, 6]" :columns="columns" />
     </Spreadsheet>
 </template>
 
@@ -860,7 +820,7 @@ import "jspreadsheet/dist/jspreadsheet.css";
 const license = '###license###';
 
 const calendarOptions = {
-    // Define the letter that represent the weekdays
+    // Define the letter that represents the weekdays
     weekdays_short: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
     // The week starts in which day?
     startingDay: '1', // Starts on Monday
@@ -895,20 +855,22 @@ export default {
 import { Component, ViewChild, ElementRef } from "@angular/core";
 import jspreadsheet from "jspreadsheet";
 
+
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Create component
 @Component({
+    standalone: true,
     selector: "app-root",
-    template: `<div #spreadsheet></div>`;
+    template: `<div #spreadsheet></div>`,
 })
 export class AppComponent {
     @ViewChild("spreadsheet") spreadsheet: ElementRef;
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         const calendarOptions = {
             // Define the letter that represent the weekdays
             weekdays_short: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
@@ -926,10 +888,8 @@ export class AppComponent {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
-                { minDimensions: [6, 6] }, // Worksheet 1
-                { minDimensions: [6, 6] }, // Worksheet 2
+                { minDimensions: [6, 6], columns: columns }, // Worksheet 1
             ],
-            columns: columns
         });
     }
 }

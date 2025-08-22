@@ -12,13 +12,13 @@ Jspreadsheet allows the creation of collapsible groups of rows, which can help m
 
 You can programmatically use one of the following methods to manage and interact with the group of rows feature.
 
-| Method                      | Description                                                                                             |
-| ----------------------------|---------------------------------------------------------------------------------------------------------|
-| getRowGroup()               | Get all row groups.<br/>`getRowGroup() : object`                                                        |
-| setRowGroup(number, number) | Create a new collapsable group of rows.<br/>`setRowGroup(rowNumber: Number, numOfItems: Number) : void` |
-| resetRowGroup(number)       | Reset the row group.<br/>`resetRowGroup(rowNumber: Number) : void`                                      |
-| openRowGroup(number)        | Open a group of rows.<br/>`openRowGroup(rowNumber: Number) : void`                                      |
-| closeRowGroup(number)       | Close a group of rows.<br/>`closeRowGroup(rowNumber: Number) : void`                                    |
+| Method                          | Description                                                                                             |
+|---------------------------------|---------------------------------------------------------------------------------------------------------|
+| getRowGroup()                   | Get all row groups.<br/>`getRowGroup() : object`                                                        |
+| setRowGroup(number, number)     | Create a new collapsable group of rows.<br/>`setRowGroup(rowNumber: Number, numOfItems: Number) : void` |
+| resetRowGroup(number)           | Reset the row group.<br/>`resetRowGroup(rowNumber: Number) : void`                                      |
+| openRowGroup(number\|Number[])  | Open a group of rows.<br/>`openRowGroup(rowNumber?: Number\|Number[]) : void`                           |
+| closeRowGroup(number\|Number[]) | Close a group of rows.<br/>`closeRowGroup(rowNumber?: Number\|Number[]) : void`                         |
 
  
 
@@ -96,10 +96,10 @@ document.getElementById("btn2").onclick = () => spreadsheet[0].resetRowGroup(0);
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
-import jspreadsheet from "jspreadsheet";
+import React, {useRef} from "react";
+import {Spreadsheet, Worksheet, jspreadsheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -117,7 +117,7 @@ export default function App() {
         }
     }
     // Rows settings
-    const rows = { 6: { group: 3 }}
+    const rows = {6: {group: 3}}
 
     // Render component
     return (
@@ -128,9 +128,10 @@ export default function App() {
                     tableOverflow
                     tableWidth="800px"
                     tableHeight="400px"
-                    rows={rows} />
+                    rows={rows}
+                />
             </Spreadsheet>
-            <input type="button" value="setRowGroup(0,3)" onClick={() => spreadsheet.current[0].setRowGroup(0,3)} />
+            <input type="button" value="setRowGroup(0,3)" onClick={() => spreadsheet.current[0].setRowGroup(0, 3)} />
             <input type="button" value="resetRowGroup(0)" onClick={() => spreadsheet.current[0].resetRowGroup(0)} />
         </>
     );
@@ -189,13 +190,13 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 // Data
-let data = [];
+let data: any = [];
 for (let j = 0; j < 50; j++) {
     data[j] = [];
     for (let i = 0; i < 50; i++) {
@@ -204,6 +205,7 @@ for (let j = 0; j < 50; j++) {
 }
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
@@ -215,7 +217,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [

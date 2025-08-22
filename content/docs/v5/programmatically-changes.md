@@ -2,7 +2,7 @@ title: Data Grid Updates
 keywords: Jspreadsheet, jquery, javascript, excel-like, spreadsheet, table, grid, programmatically changes on your table
 description: How to interact with your Jspreadsheet spreadsheet and tables through javascript.
 
-[Back to Documentation](/docs/v5)
+
 
 # Programmatically changes
 
@@ -64,7 +64,7 @@ Jspreadsheet has a comprehensive number of native methods to programmatically in
 | **fullscreen:** Toogle table fullscreen mode<br/>@Param boolan fullscreen - define fullscreen status as true or false                                                                                                                                                    | myTable.fullscreen([bool]);                                                    |
 | **getSelectedRows:** Get the selected rows<br/>@Param boolan asIds - Get the rowNumbers or row DOM elements                                                                                                                                                              | myTable.getSelectedRows([bool]);                                               |
 | **getSelectedColumns:** Get the selected columns<br/>@Param boolan asIds - Get the colNumbers or row DOM elements                                                                                                                                                        | myTable.getSelectedColumns([bool]);                                            |
-| **showColumn:** show column by number                                                                                                                                                                                                                                    | myTable.showIndex([int]);                                                      |
+| **showColumn:** show column by number                                                                                                                                                                                                                                    | myTable.showColumn([int]);                                                     |
 | **hideColumn:** hide column by number                                                                                                                                                                                                                                    | myTable.hideColumn([int]);                                                     |
 | **showIndex:** show column of index numbers                                                                                                                                                                                                                              | myTable.showIndex();                                                           |
 | **hideIndex:** hide column of index numbers                                                                                                                                                                                                                              | myTable.hideIndex();                                                           |

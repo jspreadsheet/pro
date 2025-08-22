@@ -2,7 +2,7 @@ title: Spreadsheet Helpers
 keywords: Jspreadsheet, Jexcel, data grid, javascript, excel-like, spreadsheet, table, documentation, spreadsheet helpers, useful methods
 description: From version 8 some useful methods are grouped and available using the Jspreadsheet.helpers object. In this section will bring more information about the usage of each method.
 
-[Back to the Documentation](/docs/v9 "Back to the documentation section")
+
 
 # Spreadsheet helpers
 

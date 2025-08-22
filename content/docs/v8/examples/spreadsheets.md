@@ -1,6 +1,6 @@
 Examples
 
-[Back to Examples](/docs/v8/examples "Back to the examples section")
+
 
 # Spreadsheet
 

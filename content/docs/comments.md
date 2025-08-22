@@ -1,8 +1,8 @@
-title: Data Grid Cell Comments: Adding, Editing, and Deleting Cell
+title: Cell Comments
 keywords: Jspreadsheet, Jexcel, data grid, JavaScript, Excel-like features, spreadsheet, data table, cell comments, cell comments methods, cell comments events, cell comments settings
 description: Learn how to add and manage comments in JSS data grid cells and customize them using methods and events.
 
-# Data Grid Cells Comments
+# Data Grid Cell Comments
 
 ## Overview
 
@@ -107,9 +107,10 @@ document.getElementById('bt3').onclick = function() {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 import "jsuites/dist/jsuites.css";
 import "jspreadsheet/dist/jspreadsheet.css";
 
@@ -128,9 +129,9 @@ export default function App() {
     ];
     // Column definitions
     const columns = [
-        { width: '300px' },
-        { width: '200px' },
-        { width: '200px' },
+        {width: '300px'},
+        {width: '200px'},
+        {width: '200px'},
     ];
     // Inicial data grid cell comments
     const comments = {
@@ -146,14 +147,14 @@ export default function App() {
     return (
         <>
             <Spreadsheet ref={spreadsheet} license={license} oncomments={oncomments}>
-                <Worksheet data={data} columns={columns} comments={comments} allowComments />
+                <Worksheet data={data} columns={columns} comments={comments} allowComments/>
             </Spreadsheet>
             <input type="button" value="Set A1 comments"
-                onClick={() => spreadsheet.current[0].setComments('A1', 'Test')} />
+                   onClick={() => spreadsheet.current[0].setComments('A1', 'Test')}/>
             <input type="button" value="Get A1 comments"
-                onClick={() => alert(spreadsheet.current[0].getComments('A1'))} />
+                   onClick={() => alert(spreadsheet.current[0].getComments('A1'))}/>
             <input type="button" value="Reset A1 comments"
-                onClick={() => spreadsheet.current[0].setComments('A1', '')} />
+                   onClick={() => spreadsheet.current[0].setComments('A1', '')}/>
         </>
     );
 }
@@ -220,19 +221,23 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
 
 @Component({
+    standalone: true,
     selector: "app-root",
     template: `
         <div #spreadsheet></div>
         <input type="button" id="bt1" value="Set A1 comments" 
             (click)="this.worksheets[0].setComments('A1', 'Test');" />
         <input type="button" id="bt2" value="Get A1 comments" 
-            (click)="alert(this.worksheets[0].getComments('A1'));" />
+            (click)="alertComments()" />
         <input type="button" id="bt3" value="Reset A1 comments" 
             (click)="this.worksheets[0].setComments('A1', '');" />`
 })
@@ -241,7 +246,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [
@@ -253,9 +258,9 @@ export class AppComponent {
                         ['BR', 'Oranges', '2019-01-12'],
                     ],
                     columns: [
-                        { width: '300px' },
-                        { width: '200px' },
-                        { width: '200px' },
+                        { width: 300 },
+                        { width: 200 },
+                        { width: 200 },
                     ],
                     allowComments: true,
                     comments: {
@@ -268,6 +273,10 @@ export class AppComponent {
                 console.log(arguments);
             }
         });
+    }
+
+    alertComments() {
+        alert(this.worksheets[0].getComments('A1'));
     }
 }
 ```

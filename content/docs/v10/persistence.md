@@ -148,9 +148,10 @@ jspreadsheet(document.getElementById('spreadsheet'), {
 </script>
 </html>
 ```
+
 ```jsx
-import React, { useRef } from "react";
-import { Spreadsheet, Worksheet } from "@jspreadsheet/react";
+import React, {useRef} from "content/docs/v10/react";
+import {Spreadsheet, Worksheet} from "@jspreadsheet/react";
 
 const license = '###license###';
 
@@ -158,31 +159,33 @@ export default function App() {
 
     // Columns
     const columns = [{
-            type: 'autonumber',
-            width: '50px',
-            title: 'Code',
-            name: 'id',
-            readOnly: true,
-            primaryKey: true
-        },
+        type: 'autonumber',
+        width: '50px',
+        title: 'Code',
+        name: 'id',
+        readOnly: true,
+        primaryKey: true
+    },
         {
             type: 'image',
             width: '80px',
             title: 'Image',
             name: 'thumbnailUrl',
-            render: function(cell, val, col, row) {
-                if (! val) {
+            render: function (cell, val, col, row) {
+                if (!val) {
                     cell.innerHTML = '<img src="https://images-na.ssl-images-amazon.com/images/I/21%2Bwfxx2lyL._SX319_BO1,204,203,200_.jpg" style="width:60px;" />';
                 }
             }
         },
-        { type: 'text', width: '200px', title: 'Title', name: 'title' },
-        { type: 'text', width: '55px', title: 'Pages', name: 'pageCount' },
-        { type: 'calendar', width: '90px', title: 'Published', name: 'publishedDate' },
-        { type: 'text', width: '200px', title: 'Author', name: 'authors' },
-        { type: 'dropdown', width: '180px', title: 'Categories', name: 'categories',
-            source: [ 'Internet','Web Development', 'Java', 'Mobile', 'Open Source' ],
-            multiple: true, render: 'tag' }
+        {type: 'text', width: '200px', title: 'Title', name: 'title'},
+        {type: 'text', width: '55px', title: 'Pages', name: 'pageCount'},
+        {type: 'calendar', width: '90px', title: 'Published', name: 'publishedDate'},
+        {type: 'text', width: '200px', title: 'Author', name: 'authors'},
+        {
+            type: 'dropdown', width: '180px', title: 'Categories', name: 'categories',
+            source: ['Internet', 'Web Development', 'Java', 'Mobile', 'Open Source'],
+            multiple: true, render: 'tag'
+        }
     ];
 
     // Render react component
@@ -192,7 +195,7 @@ export default function App() {
                 url="/jspreadsheet/books.json"
                 columns={columns}
                 search
-                persistence="/jspreadsheet/save" />
+                persistence="/jspreadsheet/save"/>
         </Spreadsheet>
     );
 }
@@ -259,7 +262,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -273,7 +279,7 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             url: '/jspreadsheet/books.json',
@@ -398,7 +404,7 @@ jspreadsheet(document.getElementById('spreadsheet'), {
     worksheets: [{
         data: [
             { id:1, data:['Google', '5', ''] },
-            { id:2, data:['Bind', '4', ''] },
+            { id:2, data:['Bing', '4', ''] },
             { id:3, data:['Yahoo', '1', ''] },
             { id:4, data:['Duckduckgo', '5', ''] },
         ],
@@ -464,7 +470,7 @@ export default function App() {
     // Data
     const data = [
         { id:1, data:['Google', '5', ''] },
-        { id:2, data:['Bind', '4', ''] },
+        { id:2, data:['Bing', '4', ''] },
         { id:3, data:['Yahoo', '1', ''] },
         { id:4, data:['Duckduckgo', '5', ''] },
     ];
@@ -565,7 +571,7 @@ export default {
         // Data
         const data = [
             { id:1, data:['Google', '5', ''] },
-            { id:2, data:['Bind', '4', ''] },
+            { id:2, data:['Bing', '4', ''] },
             { id:3, data:['Yahoo', '1', ''] },
             { id:4, data:['Duckduckgo', '5', ''] },
         ];
@@ -587,7 +593,10 @@ export default {
 ```
 ```angularjs
 import { Component, ViewChild, ElementRef } from "@angular/core";
-import * as jspreadsheet from "jspreadsheet";
+import jspreadsheet from "jspreadsheet";
+
+import "jspreadsheet/dist/jspreadsheet.css"
+import "jsuites/dist/jsuites.css"
 
 // Set your JSS license key (The following key only works for one day)
 jspreadsheet.setLicense('###license###');
@@ -625,13 +634,13 @@ export class AppComponent {
     // Worksheets
     worksheets: jspreadsheet.worksheetInstance[];
     // Create a new data grid
-    ngOnInit() {
+    ngAfterViewInit() {
         // Create spreadsheet
         this.worksheets = jspreadsheet(this.spreadsheet.nativeElement, {
             worksheets: [{
                 data: [
                     { id:1, data:['Google', '5', ''] },
-                    { id:2, data:['Bind', '4', ''] },
+                    { id:2, data:['Bing', '4', ''] },
                     { id:3, data:['Yahoo', '1', ''] },
                     { id:4, data:['Duckduckgo', '5', ''] },
                 ],
